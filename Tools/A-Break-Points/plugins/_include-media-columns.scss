@@ -26,7 +26,7 @@ $im-columns-class: '.col' !default;
     }
   }
   
-  @each $breakpoint in $breakpoints {
+  @each $breakpoint in $media-sizes {
     $breakpoint-name: nth($breakpoint, 1);
     
     @include brkpoint(#{'>=' + $breakpoint-name}) {

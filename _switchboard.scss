@@ -63,16 +63,16 @@ $red: red;
           $cssvalue: $propertyvalue;
 
           //// ✩ //////////// Important Variables
-          $classexist: chk-existence($cssproperty, _);
+          $subclassexist: chk-existence($cssproperty, _);
           $extendexist: chk-existence($cssproperty, extend);
           $cssvalueslist: to-list($cssvalue, "values");
           $propvalstring: map-tostring($cssvalue, ' ');
           $breakpointexist: chk-existence($propvalstring, $breakpoint);
-          $breakpointpresent: if(map-check($breakpoints, map-tostring(to-list($cssvalue, "keys"), '')) or map-check($media-expressions, map-tostring(to-list($cssvalue, "keys"), '')), true, false);
+          $breakpointpresent: if(map-check($media-sizes, map-tostring(to-list($cssvalue, "keys"), '')) or map-check($media-expressions, map-tostring(to-list($cssvalue, "keys"), '')), true, false);
           $importantpresent: chk-existence($propvalstring, important);
 
           //// > //////////// Will not allow Pseudos, Sub-Casses, or Extensions
-          @if map-check($psuedos, $cssproperty) == false and $classexist == false and $extendexist == false {
+          @if map-check($psuedos, $cssproperty) == false and $subclassexist == false and $extendexist == false {
 
             //// 1 //////////// If an important property
             @if $EpicAct == important and $breakpointpresent == false and $importantpresent == true {
@@ -155,7 +155,7 @@ $red: red;
               $propvalstring: map-tostring($propertyvalue, ' ');
               $breakpointexist: chk-existence($propvalstring, unquote($breakpoint));
               $baseexist: chk-existence($propvalstring, base);
-              $breakpointpresent: if(map-check($breakpoints, map-tostring(to-list($propertyvalue, "keys"), '')) or map-check($media-expressions, map-tostring(to-list($propertyvalue, "keys"), '')), true, false);
+              $breakpointpresent: if(map-check($media-sizes, map-tostring(to-list($propertyvalue, "keys"), '')) or map-check($media-expressions, map-tostring(to-list($propertyvalue, "keys"), '')), true, false);
 
 
               //// > //////////// Only if this is an Extend
@@ -216,7 +216,7 @@ $red: red;
                   $propvalstring: map-tostring($keyname, ' ');
                   $existencevalues: list-checkmake($valuename, $alphalist);
                   $existencetest: if($existencevalues, true, false);
-                  $breakpointpresent: if(map-check($breakpoints, map-tostring(to-list($valuename, "keys"), '')) or map-check($media-expressions, map-tostring(to-list($valuename, "keys"), '')), true, false);
+                  $breakpointpresent: if(map-check($media-sizes, map-tostring(to-list($valuename, "keys"), '')) or map-check($media-expressions, map-tostring(to-list($valuename, "keys"), '')), true, false);
 
                   //// a //////////// Processes Map Extends
                   @if $maporstring == map {

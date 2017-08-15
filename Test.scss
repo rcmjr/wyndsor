@@ -123,7 +123,7 @@ $childpull: $Grid-Deets;
   $yr-columnwidth: null;
   $yr-prefix: null;
   $yr-columns2: null;
-  $breakpoint-tostrip: _($breakpoints, $breakpoint-name);
+  $breakpoint-tostrip: _($media-sizes, $breakpoint-name);
 
   // This pulls the values from the paragraph style settings
   @each $key, $value in $parentpull {
@@ -144,11 +144,11 @@ $childpull: $Grid-Deets;
           width: _($childpull, $key, width);
           height: _($childpull, $key, height);
 
-          @if _($childpull, $key, columns) == autofixedwith and map-check($breakpoints, $breakpoint-name) {
+          @if _($childpull, $key, columns) == autofixedwith and map-check($media-sizes, $breakpoint-name) {
               $yr-columnwidth: 0.8 * ($breakpoint-tostrip / ($breakpoint-tostrip * 0 + 1));
               @include columns($width: $yr-columnwidth);
           }
-          @else if _($childpull, $key, columns) == autowide and map-check($breakpoints, $breakpoint-name) {
+          @else if _($childpull, $key, columns) == autowide and map-check($media-sizes, $breakpoint-name) {
               $yr-columnwidth: 1;
               $yr-prefix: fr;
               @include columns($width: $yr-columnwidth, $prefix: $yr-prefix);

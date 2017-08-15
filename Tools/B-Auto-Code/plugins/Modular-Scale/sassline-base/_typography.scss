@@ -284,7 +284,7 @@ a {
       margin-bottom: #{$baseline-push}rem;
       padding-bottom: #{$baseline-shift}rem;
 
-      @for $i from 2 through $breakpoints-limit {
+      @for $i from 2 through $media-sizes-limit {
         $get-scale: map-get($modular-scale, scale-#{$i - 1});
         $get-size: map-get($get-scale, zeta);
         $rootsize: nth($sizes, $i);

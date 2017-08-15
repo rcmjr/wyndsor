@@ -1,6 +1,6 @@
 // SCSS mixins
 // ---------------------------------------
-$breakpoints1: (
+$media-sizes1: (
   'ground-zero': 0,
   'tinyphone': 400,
   'phone': 600,
@@ -11,11 +11,11 @@ $breakpoints1: (
 // Global variables used in mixins.
 
 // Number of breakpoints.
-$breakpoints-limit: length($breakpoints1);
+$media-sizes-limit: length($media-sizes1);
 
 // List of rootsizes, breakpoints, and max-widths.
 $sizes: map-values($rootsizes);
-$points: map-values($breakpoints1);
+$points: map-values($media-sizes1);
 $line-widths: map-values($measures);
 $max-widths: map-values($maxwidths);
 
@@ -30,8 +30,8 @@ $max-widths: map-values($maxwidths);
   // If it is a string (i.e. a breakpoint variable).
   @if $value == string {
     // If using 'break-1', 'break-2' etc output the correct breakpoints from map.
-    @if map-has-key($breakpoints, $break) {
-      @media screen and (min-width: #{map-get($breakpoints, $break) / 16 * 1em} ) { @content; }
+    @if map-has-key($media-sizes, $break) {
+      @media screen and (min-width: #{map-get($media-sizes, $break) / 16 * 1em} ) { @content; }
     } @else {
       @warn "#{$break} is not a set breakpoint variable";
     }
@@ -55,7 +55,7 @@ $max-widths: map-values($maxwidths);
   font-size: nth($sizes, 1) / 16 * 100%;
 
   // Loop through breakpoints.
-  @for $i from 2 through $breakpoints-limit {
+  @for $i from 2 through $media-sizes-limit {
     @media screen and (min-width: nth($points, $i) / 16 * 1em ) {
       font-size: nth($sizes, $i) / 16 * 100%;
     }
@@ -68,7 +68,7 @@ $max-widths: map-values($maxwidths);
   $break-value: type-of($breakpoint);
 
   // If specifying a breakpoint to use (and breakpoint exists).
-  @if $break-value == number and $breakpoint <= ($breakpoints-limit - 1) and $breakpoint >= 0 {
+  @if $break-value == number and $breakpoint <= ($media-sizes-limit - 1) and $breakpoint >= 0 {
 
     max-width: #{nth($max-widths, ($breakpoint + 1)) / nth($sizes, ($breakpoint + 1))}rem;
 
@@ -76,7 +76,7 @@ $max-widths: map-values($maxwidths);
     max-width: #{nth($max-widths, 1) / nth($sizes, 1)}rem;
 
     // Loop through breakpoints.
-    @for $i from 2 through $breakpoints-limit {
+    @for $i from 2 through $media-sizes-limit {
       @media screen and (min-width: nth($points, $i) / 16 * 1em ) {
         max-width: #{nth($max-widths, $i) / nth($sizes, $i)}rem;
       }
@@ -90,7 +90,7 @@ $max-widths: map-values($maxwidths);
   $break-value: type-of($breakpoint);
 
   // If specifying a breakpoint to use (and breakpoint exists).
-  @if $break-value == number and $breakpoint <= ($breakpoints-limit - 1) and $breakpoint >= 0 {
+  @if $break-value == number and $breakpoint <= ($media-sizes-limit - 1) and $breakpoint >= 0 {
 
     max-width: #{nth($line-widths, ($breakpoint + 1)) / nth($sizes, ($breakpoint + 1))}rem;
 
@@ -98,7 +98,7 @@ $max-widths: map-values($maxwidths);
     max-width: #{nth($line-widths, 1) / nth($sizes, 1)}rem;
 
     // Loop through breakpoints.
-    @for $i from 2 through $breakpoints-limit {
+    @for $i from 2 through $media-sizes-limit {
       @media screen and (min-width: nth($points, $i) / 16 * 1em ) {
         max-width: #{nth($line-widths, $i) / nth($sizes, $i)}rem;
       }
@@ -114,7 +114,7 @@ $max-widths: map-values($maxwidths);
   $break-value: type-of($breakpoint);
 
   // If specifying a breakpoint to use (and breakpoint exists and is larger than 0).
-  @if $break-value == number and $breakpoint <= ($breakpoints-limit - 1) and $breakpoint > 0 {
+  @if $break-value == number and $breakpoint <= ($media-sizes-limit - 1) and $breakpoint > 0 {
 
     @if $gutter == small {
       $gutter: map-get($gutterwidths, small) * 2 / 1rem;
@@ -166,7 +166,7 @@ $max-widths: map-values($maxwidths);
   $in-scale: in-modular-scale(scale-0, $fontsize);
 
   // If specifying a breakpoint to use (and breakpoint exists).
-  @if $break-value == number and $breakpoint <= ($breakpoints-limit - 1) and $breakpoint >= 0 {
+  @if $break-value == number and $breakpoint <= ($media-sizes-limit - 1) and $breakpoint >= 0 {
 
     // If using a number for fontsize.
     @if $font-value == number {
@@ -191,7 +191,7 @@ $max-widths: map-values($maxwidths);
       font-size: #{$fontsize / nth($sizes, 1)}rem;
 
       // Loop through breakpoints.
-      @for $i from 2 through $breakpoints-limit {
+      @for $i from 2 through $media-sizes-limit {
         @media screen and (min-width: nth($points, $i) / 16 * 1em ) {
           font-size: #{$fontsize / nth($sizes, $i)}rem;
         }
@@ -204,7 +204,7 @@ $max-widths: map-values($maxwidths);
       font-size: #{$get-size / nth($sizes, 1)}rem;
 
       // Loop through breakpoints.
-      @for $i from 2 through $breakpoints-limit {
+      @for $i from 2 through $media-sizes-limit {
         $get-scale: map-get($modular-scale, scale-#{$i - 1});
         $get-size: map-get($get-scale, $fontsize);
 
@@ -241,7 +241,7 @@ $max-widths: map-values($maxwidths);
   }
 
   // If specifying a breakpoint to use (and breakpoint exists).
-  @if $break-value == number and $breakpoint <= ($breakpoints-limit - 1) and $breakpoint >= 0 {
+  @if $break-value == number and $breakpoint <= ($media-sizes-limit - 1) and $breakpoint >= 0 {
 
     // If using a number for fontsize.
     @if $font-value == number {
@@ -281,7 +281,7 @@ $max-widths: map-values($maxwidths);
       padding-top: #{$baseline-shift}rem;
 
       // Loop through breakpoints.
-      @for $i from 2 through $breakpoints-limit {
+      @for $i from 2 through $media-sizes-limit {
         $rootsize: nth($sizes, $i);
         $baseline-shift: #{($fontsize / 2 * (($lineheight * $rootsize / $fontsize) - $cap-height)) / $rootsize + 0.00001};
         $baseline-push: #{$below - (($fontsize / 2 * (($lineheight * $rootsize / $fontsize) - $cap-height)) / $rootsize + 0.00001)};
@@ -305,7 +305,7 @@ $max-widths: map-values($maxwidths);
       padding-top: #{$baseline-shift}rem;
 
       // Loop through breakpoints.
-      @for $i from 2 through $breakpoints-limit {
+      @for $i from 2 through $media-sizes-limit {
         $get-scale: map-get($modular-scale, scale-#{$i - 1});
         $get-size: map-get($get-scale, $fontsize);
         $rootsize: nth($sizes, $i);
@@ -337,7 +337,7 @@ $max-widths: map-values($maxwidths);
 
   line-height: #{$lineheight}rem;
 
-  @if $break-value == number and $breakpoint <= ($breakpoints-limit - 1) and $breakpoint >= 0 {
+  @if $break-value == number and $breakpoint <= ($media-sizes-limit - 1) and $breakpoint >= 0 {
 
     @if $font-value == number {
       $rootsize: nth($sizes, ($breakpoint + 1));
@@ -371,7 +371,7 @@ $max-widths: map-values($maxwidths);
       margin-bottom: #{$baseline-push}rem;
       padding-top: #{$baseline-shift}rem;
 
-      @for $i from 2 through $breakpoints-limit {
+      @for $i from 2 through $media-sizes-limit {
         $rootsize: nth($sizes, $i);
         $baseline-shift: #{($fontsize / 2 * (($lineheight * $rootsize / $fontsize) - $cap-height)) / $rootsize + 0.00001};
         $baseline-push: #{$below - (($fontsize / 2 * (($lineheight * $rootsize / $fontsize) - $cap-height)) / $rootsize + 0.00001)};
@@ -392,7 +392,7 @@ $max-widths: map-values($maxwidths);
       margin-bottom: #{$baseline-push}rem;
       padding-top: #{$baseline-shift}rem;
 
-      @for $i from 2 through $breakpoints-limit {
+      @for $i from 2 through $media-sizes-limit {
         $get-scale: map-get($modular-scale, scale-#{$i - 1});
         $get-size: map-get($get-scale, $fontsize);
         $rootsize: nth($sizes, $i);

@@ -18,7 +18,7 @@ This plugin calculates the difference between property values and distributes th
 @import 'include-media';
 @import 'include-media-spread';
 
-$breakpoints: (small: 480px, medium: 768px, large: 1024px);
+$media-sizes: (small: 480px, medium: 768px, large: 1024px);
 
 .heading-1 {
   @include spread(font-size, 1rem, 3rem);
@@ -119,7 +119,7 @@ $ims-breakpoints: $my-breakpoints;
 $custom-breakpoints: (small: 15em, large: 40em);
 
 .module-block {
-  @include spread(padding, 10px, 30px, $breakpoints: $custom-breakpoints);
+  @include spread(padding, 10px, 30px, $media-sizes: $custom-breakpoints);
 }
 ```
 

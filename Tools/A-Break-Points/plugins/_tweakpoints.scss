@@ -6,7 +6,7 @@
 ///
 /// @author Hugo Giraudel
 ///
-/// @param {Map} $tweakpoints [()] - Map of tweakpoints to be merged with `$breakpoints`
+/// @param {Map} $tweakpoints [()] - Map of tweakpoints to be merged with `$media-sizes`
 /// @param {Map} $tweak-media-expressions [()] - Map of tweaked media expressions to be merged with `$media-expression`
 ///
 /// @example scss - Extend the global breakpoints with a tweakpoint
@@ -38,16 +38,16 @@
 ///
 @mixin media-context($tweakpoints: (), $tweak-media-expressions: ()) {
   // Save global configuration
-  $global-breakpoints: $breakpoints;
+  $global-breakpoints: $media-sizes;
   $global-media-expressions: $media-expressions;
 
   // Update global configuration
-  $breakpoints: map-merge($breakpoints, $tweakpoints) !global;
+  $media-sizes: map-merge($media-sizes, $tweakpoints) !global;
   $media-expressions: map-merge($media-expressions, $tweak-media-expressions) !global;
 
   @content;
 
   // Restore global configuration
-  $breakpoints: $global-breakpoints !global;
+  $media-sizes: $global-breakpoints !global;
   $media-expressions: $global-media-expressions !global;
 }

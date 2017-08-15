@@ -14,7 +14,7 @@ This plugin generates classes for a grid system using [Harry Roberts' BEMIT nami
 @import 'include-media';
 @import 'include-media-columns';
 
-$breakpoints: (
+$media-sizes: (
     'medium': 768px,
     'large': 1024px
 );
