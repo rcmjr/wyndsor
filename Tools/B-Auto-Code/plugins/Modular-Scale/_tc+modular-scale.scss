@@ -1,0 +1,54 @@
+//////////// FUNDAMENTAL IMPORTS --------------------->
+@import 'tc+sassline-base.scss';
+
+
+// BASE CSS ESTABLISHER FUNCTION //
+@mixin parastyle-base-cr8($parentpull, $childpull) {
+  @each $key, $value in $parentpull {
+    .#{$value} {
+      font-family: _($childpull, $key, font-family);
+      color: _($childpull, $key, type-color);
+      @include fontsize(_($childpull, $key, type-size), 0);
+      /// These set the base transition
+      @include transition-property(transform);
+      @include transition-duration(_($childpull, $key, animation-dur));
+      @include transition-timing-function(_($childpull, $key, animation-type));
+      @include transition-delay(_($childpull, $key, animation-delay));
+    }
+  }
+}
+
+// PARAGRAPH STYLES MIXIN GENERATOR //
+@mixin parastyle-cr8($breakpoint-number, $breakpoint-name, $parentpull, $childpull) {
+
+  // This pulls the values from the paragraph style settings
+  @each $key, $value in $parentpull {
+    @if override-check($childpull, $key, override) == 'true' {
+      // This runs the default configuration for the paragraph style
+         .#{$value} {
+           font-family: _($childpull, $key, font-family);
+         }
+      }
+      @else if override-check($childpull, $key, override) == 'false' {
+        .#{$value}-whoohooo {
+          font-family: _($childpull, $key, font-family);
+        }
+      }
+      @else {
+        @warn "The key isnt available in the map.";
+      }
+    }
+  }
+
+
+
+//&  @each $key, $value in $parentpull {
+//&   @if override-check($childpull, $key, override) == 'true' {
+//&    .thisworks {
+//&        font-family: _($childpull, $key, font-family);
+//&      }
+//&    }
+//&    @else {
+//&      @warn 'Hello!';
+//&    }
+//&  }

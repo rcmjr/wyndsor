@@ -1,0 +1,227 @@
+//// ▸▸▸ UPPERMOST FUNDAMENTAL IMPORTS ▸▸▸ ////
+@import 'plugins/Bourbon/bourbon.scss';
+
+
+//// --- FUNCTIONS --- ////////////////////////////
+
+  //// 1 //////////// Deep Get Variable Key from Map
+    @function _($map, $keys...) {
+        @each $key in $keys {
+            $map: map-get($map, $key);
+        }
+        @return $map;
+    }
+
+  //// 2 //////////// Override Check in Map
+    @function override-check($map, $keys...) {
+      @each $key in $keys {
+          $map: map-get($map, $key);
+      }
+      @if $map == 'yes' {
+        @return 'true';
+      }
+      @else if $map == 'no' {
+        @return 'false';
+      }
+      @else {
+        @return 'false';
+      }
+    }
+
+  //// 3 //////////// Check Deep Keys
+    @function map-check($map, $keys...) {
+      @each $key in $keys {
+        @if not map-has-key($map, $key) {
+          @return false;
+        }
+        $map: map-get($map, $key);
+      }
+
+      @return true;
+    }
+
+  //// 5 //////////// Advanced Map Merge
+    @function map-combine($map, $maps.../*, $deep */) {
+    $last: nth($maps, -1);
+    $deep: $last == true;
+    $max: if($deep, length($maps) - 1, length($maps));
+
+    // Loop through all maps in $maps...
+    @for $i from 1 through $max {
+      // Store current map
+      $current: nth($maps, $i);
+
+      // If not in deep mode, simply merge current map with map
+      @if not $deep {
+        $map: map-merge($map, $current);
+      } @else {
+        // If in deep mode, loop through all tuples in current map
+        @each $key, $value in $current {
+
+          // If value is a nested map and same key from map is a nested map as well
+          @if type-of($value) == "map" and type-of(map-get($map, $key)) == "map" {
+            // Recursive extend
+            $value: map-combine(map-get($map, $key), $value, true);
+          }
+
+          // Merge current tuple with map
+          $map: map-merge($map, ($key: $value));
+        }
+      }
+    }
+
+    @return $map;
+  }
+
+  //// 6 //////////// Turn Map into List
+    @function to-list($value, $keep: 'both') {
+      $keep: if(index('keys' 'values', $keep), $keep, 'both');
+
+      @if type-of($value) == 'map' {
+        $keys: ();
+        $values: ();
+
+          @each $key, $val in $value {
+            $keys: append($keys, $key);
+            $values: append($values, $val);
+          }
+
+          @if $keep == 'keys' {
+            @return $keys;
+          } @else if $keep == 'values' {
+            @return $values;
+          } @else {
+            @return zip($keys, $values);
+          }
+        }
+
+        @return if(type-of($value) != 'list', ($value,), $value);
+
+      }
+
+  //// 7 //////////// Finds a Map's Depth
+      @function map-depth($map) {
+        $level: 1;
+
+        @each $key, $value in $map {
+          @if type-of($value) == "map" {
+            $level: max(map-depth($value) + 1, $level);
+          }
+        }
+
+        @return $level;
+      }
+
+
+  //// 8 //////////// Replace String Part
+    @function str-replace($string, $search, $replace: '') {
+      @if map-depth($string) > 1 {
+        $testkey: to-list($string, 'both');
+      }
+      @else{
+        $testkey: $string;
+      }
+      $index: str-index($string, $search);
+      @if $index {
+        @return str-slice($string, 1, $index - 1) + $replace + str-replace(str-slice($string, $index + str-length($search)), $search, $replace);
+      }
+      @return $string;
+    }
+
+  //// 9 //////////// Convert to string
+    @function map-tostring($list, $glue: '', $is-nested: false) {
+      $result: null;
+
+      @if length($list) == 0 {
+        @return null;
+      }
+
+      @else {
+        @for $i from 1 through length($list) {
+          $e: nth($list, $i);
+
+          @if type-of($e) == list {
+            $result: $result#{map-tostring($e, $glue, true)};
+          }
+
+          @else {
+            $result: if($i != length($list) or $is-nested, $result#{$e}#{$glue}, $result#{$e});
+          }
+        }
+        @return $result;
+      }
+    }
+
+  //// 10 //////////// Preappend a List with new values
+    @function prepend($list, $value) {
+	    @return join($value, $list);
+    }
+
+  //// 11 //////////// Check to see if a term exists in a map
+    @function chk-existence($key, $term, $true: true, $false: false) {
+      $result: null;
+      $term: if($term == "_", unquote($term), $term);
+      $term: if($term == null, nope, $term);
+
+      @if type-of($key) == "map" {
+        @if str-index(map-tostring($key), quote($term)) {
+          $result: $true;
+        }
+        @else {
+          $result: $false;
+        }
+      }
+      @else if type-of($key) == "string" {
+        @if str-index($key, quote($term)) {
+          $result: $true;
+        }
+        @else {
+          $result: $false;
+        }
+      }
+      @return $result;
+    }
+
+  //// 12 //////////// Reverse a String
+    @function str-reverse($string) {
+      $reverse-string: "";
+      @for $i from 1 through str-length($string) {
+          $c: str-slice($string, $i, $i);
+          $reverse-string: "#{$c}#{$reverse-string}";
+      }
+      @return $reverse-string;
+    }
+
+  //// 13 //////////// Find Last Part of List
+    @function last($list) {
+      @return nth($list, length($list));
+    }
+
+    //// 14 //////////// Find Last Part of List
+      @function list-checkmake($list, $map) {
+        $keys: ();
+        $truth: null;
+
+        @for $i from 1 through length($list) {
+
+          @each $key, $value in $map {
+            $truth: chk-existence($value, map-tostring(nth($list, $i)));
+
+            @if $truth == true {
+              $keys: append($keys, nth($list, $i));
+            }
+          }
+        }
+
+        @if length($keys) > 0 {
+          @return $keys;
+        }
+        @else if length($keys) == 0 {
+          @return null;
+        }
+      }
+
+//// --- END FUNCTIONS --- ////////////////////////
+
+//// ▾▾▾ NETHERMOST FUNDAMENTAL IMPORTS ▾▾▾ ////
+@import 'plugins/Modular-Scale/tc+modular-scale.scss';

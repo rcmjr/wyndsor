@@ -1,0 +1,21 @@
+/*! //////////////////////////// This is Bowtie's Actual Stylesheet, ignore the style.css file //////////////////////////// */
+//// --- CORE --- ////////////////////////////
+@import 'base.scss';
+
+//// --- TOOLS --- ////////////////////////////
+@import 'Tools/A-Break-Points/brkpoints.scss';
+@import 'Tools/B-Auto-Code/automations.scss';
+@import 'Tools/C-Fonts/fonts.scss';
+@import 'Tools/D-Colors/color.scss';
+//@import 'Tools/E-Animations/anime.scss';
+@import 'Tools/F-Layout/layout.scss';
+@import 'switchboard.scss';
+
+//// --- STYLE --- ////////////////////////////
+@import 'Style/A-Typography/type.scss';
+@import 'Style/D-Palette/colors.scss';
+@import 'The-Epic.scss';
+
+
+//// --- COMPONENTS --- ////////////////////////////
+//@import 'Test.scss';

@@ -1,0 +1,67 @@
+$type-list:
+(H1, 36, 'Kith-Regular', 20),
+(H2, 40, 'Sans-Serif', 10),
+(H3, 20, 'Times New Roman', 5);
+
+
+
+$testingtype: (
+  truetesttype: (
+    class-name: H1-Test,
+    font-family: 'Kith-Regular',
+    cap-height: 0.66,
+    type-size: 35,
+    type-line: 50,
+    type-color: #FFF
+    )
+) !default;
+
+
+
+@function testingtype($testfunc, $class-pull) {
+  // map inception
+  @return map-get($testingtype, $typeclass, $class-pull);
+}
+
+// Defaults and variables
+@import '../Tools/C-Fonts/plugins/sassline-base.scss';
+@import '../Tools/A-Break-Points/brkpoints.scss';
+
+//////////// This is the Modular Scale Breakpoint Function
+
+// @mixin tc-font {
+
+  @include brkpoint('>phone', '<phone') {
+    @each $type-style, $type-size, $type-family, $type-line in $type-list {
+      .#{$type-style} {
+        @include fontsize($type-size, 0);
+        line-height: $type-line;
+      }
+    }
+    @each $testingtypename in $testingtype {
+      .#{testingtype(truetesttype, class-name)} {
+        @include sassline(testingtype(truetesttype, type-size), $testingtype, testingtype(truetesttype, type-line), 2, 0);
+      }
+    }
+  }
+
+/* @include brkpoint('>=phone', '<phablet') {
+    @each $testingtypename in $testingtype {
+      .#{testingtype(truetesttype, class-name)} {
+        @include sassline(testingtype(truetesttype, type-size), $testingtype, testingtype(truetesttype, type-line), 2, 0);
+      }
+    }
+  }
+
+  @include brkpoint('>=phablet', '<tablet') {
+
+  }
+
+  @include brkpoint('>=tablet', '<desktop') {
+
+  }
+
+  @include brkpoint('>desktop') {
+
+  }*/
+//}

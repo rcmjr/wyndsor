@@ -1,0 +1,22 @@
+/// Creates a list of global breakpoints
+$breakpoints: (
+  'tinyphone': 400px,
+  'phone': 600px,
+  'phablet': 900px,
+  'tablet': 1200px,
+  'desktop': 1800px
+) !default;
+
+/// Creates a list of static expressions or media types
+$media-expressions: (
+  'screen': 'screen',
+  'print': 'print',
+  'handheld': 'handheld',
+  'landscape': '(orientation: landscape)',
+  'portrait': '(orientation: portrait)',
+  'retina2x': '(-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi), (min-resolution: 2dppx)',
+  'retina3x': '(-webkit-min-device-pixel-ratio: 3), (min-resolution: 350dpi), (min-resolution: 3dppx)'
+) !default;
+
+@import "plugins/ta+include-media.scss";
+@import "plugins/ta+spread.scss";

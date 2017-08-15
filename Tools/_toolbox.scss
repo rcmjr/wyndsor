@@ -1,0 +1,42 @@
+$extensions: (
+  animation: true,
+  extend: true,
+);
+
+$psuedos: (
+  hover: ':hover',
+  active: ':active',
+  after: '::after',
+  before: '::before',
+  selection: '::selection',
+  focus: ':focus',
+  visited: ':visited',
+  checked: ':checked',
+  invalid: ':invalid',
+  optional: ':optional',
+  required: ':required',
+);
+
+
+//// --- TOOLBOX MIXIN --- ////////////////////////////
+@mixin toolbox ($childpull, $truekey, $childproperty, $flipswitch) {
+
+  //// 1 //////////// Auto Color
+  @if $flipswitch == flip-color {
+    @include color-up($childpull, $truekey);
+  }
+
+  //// 2 //////////// Auto Grid
+  @else if $flipswitch == flip-grid {
+    @include grid-up($childproperty, $truekey);
+  }
+
+  //// ! //////////// Lights Out!
+  @else {
+    @warn "Woah, a breaker must be out.";
+  }
+}
+
+@mixin tada($extensions, $childproperty, $psuedos, $subclass, $truekey) {
+
+}

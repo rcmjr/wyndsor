@@ -1,0 +1,285 @@
+@include brkpoint('>tablet') {
+  .testimg {
+    width: 200px;
+    @include transition(width .25s);
+  }
+}
+
+@include brkpoint('<tablet') {
+  .testimg {
+    width: 500px;
+    @include transition(width .25s);
+  }
+}
+
+.testfont {
+  font-family: 'kith', 'sans-serif';
+  font-weight: bold;
+  text-transform: uppercase;
+  @include spread(font-size, 2rem, 5rem);
+  @include transition(font-size .25s);
+}
+
+.testdiv {
+  display: block;
+  width: 100%;
+  height: 100%;
+  background-color: #2b2b2b;
+  @include spread(font-size, 1rem, 8rem);
+}
+
+.testdivblue, .testdivred, .testdivyellow, .testdivgreen {
+  width: 100%;
+  height: 100%;
+}
+
+.testdivblue {
+  background-color: blue;
+}
+
+.testdivred {
+  background-color: red;
+}
+
+.testdivyellow {
+  background-color: yellow;
+}
+
+.testdivgreen {
+  background-color: green;
+}
+
+.container {
+  display: grid;
+  width: auto;
+  height: 300px;
+  grid-auto-rows: 1fr;
+  margin: 0 auto;
+  grid-template-columns: $Hx-Column-12-fixedw;
+  grid-template-areas:
+    "header header header header"
+    "main main . sidebar"
+    "footer footer footer footer";
+  grid-column-gap: 10px;
+  grid-row-gap: 15px;
+  //(Replace: grid-gap: 10px 15px;)
+  align-items: stretch;
+  justify-items: stretch;
+  border: 1px black;
+}
+
+.headertest {
+  grid-column: 2 / span 10;
+  grid-row: 1 / 2;
+  background: #2b2b2b;
+  justify-self: stretch;
+  align-self: stretch;
+}
+
+.bodytest {
+  grid-column: 4 / span 6;
+  grid-row: 2 / 4;
+  background: red;
+  justify-self: stretch;
+  align-self: stretch;
+}
+
+
+
+//FROM LAYOUT, DONT DELETE!!!!
+@mixin columns($columnnumber: $Hx-Column-count, $sides: fr, $times: 10, $width: $Hx-fixedwith, $prefix: $Hx-Column-fixedprefix) {
+  $calc-sides: (($columnnumber - $times) / 2) + $sides;
+  $calc-fixedwith: ($width / $times) + $prefix;
+  grid-template-columns: $calc-sides repeat($times, $calc-fixedwith) $calc-sides;
+}
+@mixin rows($columnnumber: $Hx-Column-count, $sides: fr, $times: 10, $width: $Hx-fixedwith, $prefix: $Hx-Column-fixedprefix) {
+  $calc-sides: (($columnnumber - $times) / 2) + $sides;
+  $calc-fixedwith: ($width / $times) + $prefix;
+  grid-template-columns: $calc-sides repeat($times, $calc-fixedwith) $calc-sides;
+}
+
+.mixin-test{
+@include columns(18, em, 10, 960, em);
+}
+
+@each $key in $Grid-Deets {
+.testdeets {
+  grid-template-columns: hello;
+}}
+
+// BASE CSS ESTABLISHER FUNCTION //
+@each $key, $value in $Grids-List {
+  .#{$value} {
+    display: grid;
+  }
+}
+
+$parentpull: $Grids-List;
+$childpull: $Grid-Deets;
+
+// PARAGRAPH STYLES MIXIN GENERATOR //
+@mixin cr8-grid($breakpoint-number, $breakpoint-name, $parentpull, $childpull) {
+
+  $yr-columnwidth: null;
+  $yr-prefix: null;
+  $yr-columns2: null;
+  $breakpoint-tostrip: _($breakpoints, $breakpoint-name);
+
+  // This pulls the values from the paragraph style settings
+  @each $key, $value in $parentpull {
+
+    $check-key: _($childpull, $key, overrides, columns);
+    $check-key-2: _($childpull, $key, overrides, custo);
+    $true-nmbr: nth($check-key, 1);
+
+      // This runs the default configuration for the paragraph style //
+         .#{$value} {
+        // grid-template-columns: _($childpull, $key, columns);
+          // grid-template-areas: "#{nth($true-key, 2)}";
+          // grid-template-areas: "#{$true-nmbr}";
+          // grid-template-areas: "#{slice($true-key, 2, length($true-key))}";
+        //   grid-template-areas: "hello";
+
+          display: _($childpull, $key, type);
+          width: _($childpull, $key, width);
+          height: _($childpull, $key, height);
+
+          @if _($childpull, $key, columns) == autofixedwith and map-check($breakpoints, $breakpoint-name) {
+              $yr-columnwidth: 0.8 * ($breakpoint-tostrip / ($breakpoint-tostrip * 0 + 1));
+              @include columns($width: $yr-columnwidth);
+          }
+          @else if _($childpull, $key, columns) == autowide and map-check($breakpoints, $breakpoint-name) {
+              $yr-columnwidth: 1;
+              $yr-prefix: fr;
+              @include columns($width: $yr-columnwidth, $prefix: $yr-prefix);
+          }
+          @else if map-check($childpull, $key, overrides) {
+              grid-template-columns: if(map-check($childpull, $key, overrides, columns), _($childpull, $key, overrides, columns), null);
+              grid-template-rows: if(map-check($childpull, $key, overrides, rows), _($childpull, $key, overrides, rows), null);
+              grid-column-gap: if(map-check($childpull, $key, overrides, c-gap), _($childpull, $key, overrides, c-gap), $Hx-Column-gutter);
+              grid-row-gap: if(map-check($childpull, $key, overrides, r-gap), _($childpull, $key, overrides, r-gap), $Hx-Row-gutter);
+          }
+          @else {
+            @warn "Sorry! Your grid won't work like that!";
+          }
+
+          grid-template-columns: $yr-columns2;
+          grid-template-rows: $yr-columns2;
+          grid-template-areas:
+            "header header header header"
+            "main main . sidebar"
+            "footer footer footer footer";
+
+          //(Replace: grid-gap: 10px 15px;)
+          align-items: stretch;
+          justify-items: stretch;
+          border: 1px black;
+        }
+      }
+    }
+
+
+  @include brkpoint('<tinyphone') {
+    @include cr8-grid(0, 'tinyphone', $Grids-List, $Grid-Deets);
+  }
+
+
+
+
+  $switches: (
+    color: (
+      property: (),
+      tinyphone: (),
+      phone: (),
+      phablet: (),
+      tablet: (),
+      desktop: ()
+    ),
+    background: (
+      property: (),
+      tinyphone: (),
+      phone: (),
+      phablet: (),
+      tablet: (),
+      desktop: ()
+    ),
+    grid: (
+      width: (
+        property: (width),
+        tinyphone: (),
+        phone: (),
+        phablet: (),
+        tablet: (),
+        desktop: ()
+      ),
+      height: (
+        property: (height),
+        tinyphone: (),
+        phone: (),
+        phablet: (),
+        tablet: (),
+        desktop: ()
+      ),
+      columns: (
+        property: (grid-template-columns),
+        auto: (parastyle-base-cr8),
+        tinyphone: (),
+        phone: (),
+        phablet: (),
+        tablet: (),
+        desktop: ()
+      )
+    )
+  );
+
+  //@each $childproperty, $propertyvalue in _($childpull, $key) {
+
+    // 3. Enter in manual values as a universal unchanging value.
+  //  @if map-check($switches, $typekey, $childproperty, property) and $typekey != type and length($childproperty) == 1 and length($propertyvalue) == 1 {
+
+  //  }
+//  }
+
+
+@include brkpoint('>desktop') {
+
+}
+
+@include brkpoint('>tablet', '<=desktop') {
+
+}
+
+@include brkpoint('>phablet', '<=tablet') {
+
+}
+
+@include brkpoint('>phone', '<=phablet') {
+
+}
+
+@include brkpoint('>tinyphone', '<=phone') {
+
+}
+
+@include brkpoint('<=tinyphone') {
+
+}
+
+$Grid-Deets: (
+  1: (
+    type: (grid),
+    width: ($autofit),
+    height: ($autofit),
+
+    //// 🛠 //////////// Beware Ye Who Enters Here.
+    columns: (hello, auto),
+    rows: (hi),
+    custo: ("
+    font-size: 20px;
+    line-height: 30px;
+    font-family: sans-serif;
+    ")
+    )
+    //// 🚀 //////////// Animation/Transition between differences.
+  //// END //////////// Don't Define styles past this point.
+  ) !default;
