@@ -31,266 +31,238 @@ $red: red;
     //// a //////////// Snippet Sub
 //// --- END SECTION --- ////////////////////////
 
-@mixin switchboard($EpicList, $EpicMap, $EpicAct, $EpicList2, $EpicMap2, $breakpoint, $extendswitch) {
+@mixin switchboard($AlphaMap, $EpicAct, $BetaMap, $breakpoint, $extendswitch) {
 
   //// ✩ //////////// Root Variables
-  $alphalist: $EpicList;
-  $alphamap: $EpicMap;
-  $betalist: $EpicList2;
-  $betamap: $EpicMap2;
+  $breakpointslist: to-list($breakpoints, 'keys'); // List of current breakpoints
 
     //// --- CLASS and SUB-CLASS GENERATOR --- ////////////////////////////
-    @each $key, $value in $alphalist {
+    @each $key, $value in $AlphaMap {
 
       //// 1 //////////// Determines legit or placeholder class, or id.
-      $selectortype: null;
+      $type: null;
+      $altnames: ();
+      $altname: null;
+      $exist-alt: null;
 
-        @if $extendswitch != extender {
-          $selectortype: if(if(str-index($value, '#'), true, false), "#", ".");
+        @if if(str-index($key, '#'), true, false) {
+          $type: "#";
         }
-        @else if $extendswitch == extender {
-          $selectortype: if(if(str-index($value, '#'), true, false), "%", "%");
+        @else if if(str-index($key, '+'), true, false) {
+          $type: "%";
+        }
+        @else {
+          $type: ".";
         }
 
-      //// 2 //////////// Creates the classes, ids, subclasses and pseudos
-      #{unquote($selectortype)}#{str-replace($value, '#', '')}#{if($extendswitch == extender and $EpicAct == breakpoint, unquote('-' + $breakpoint), '')} {
+        $altnames-str: null;
+        $altnames-list2: null;
 
-        //// --- CLASS GENERATOR --- ////////////////////////////
-        @each $childproperty, $propertyvalue in _($alphamap, $key) {
+        @each $property, $propertyvalue in $value {
+          $exist-alt: chk-existence($property, alt);
 
-          //// ✩ //////////// Variable Redirects
-          $cssproperty: $childproperty;
-          $cssvalue: $propertyvalue;
+          @if $exist-alt == true {
+            @for $i from 1 through length($propertyvalue) {
+              $propval: nth($propertyvalue, $i);
 
-          //// ✩ //////////// Important Variables
-          $subclassexist: chk-existence($cssproperty, _);
-          $extendexist: chk-existence($cssproperty, extend);
-          $cssvalueslist: to-list($cssvalue, "values");
-          $propvalstring: map-tostring($cssvalue, ' ');
-          $breakpointexist: chk-existence($propvalstring, $breakpoint);
-          $breakpointpresent: if(map-check($media-sizes, map-tostring(to-list($cssvalue, "keys"), '')) or map-check($media-expressions, map-tostring(to-list($cssvalue, "keys"), '')), true, false);
-          $importantpresent: chk-existence($propvalstring, important);
-
-          //// > //////////// Will not allow Pseudos, Sub-Casses, or Extensions
-          @if map-check($psuedos, $cssproperty) == false and $subclassexist == false and $extendexist == false {
-
-            //// 1 //////////// If an important property
-            @if $EpicAct == important and $breakpointpresent == false and $importantpresent == true {
-              #{$cssproperty}: #{if(chk-existence($propvalstring, !important), str-replace($propvalstring, ' !important', ' !important'), if(chk-existence($propvalstring, important), str-replace($propvalstring, ' important', ''), ''))};
-            }
-
-            //// 2 //////////// If a property with breakpoints
-            @else if $EpicAct == breakpoint and $breakpointpresent == true {
-              #{$cssproperty}:#{$cssvalueslist};
-            }
-
-            //// 3 //////////// If a normal property
-            @else if $EpicAct == normal {
-              @if $importantpresent == true {
-                // Fires Blank Property
+              @if if(str-index($propval, '#'), true, false) {
+                $altnames: append($altnames, $propval, comma);
               }
-              @else if $breakpointpresent == true {
-                // Fires Blank Property
+              @else if if(str-index($propval, '+'), true, false) {
+                $altnames: append($altnames, if(str-index($propval, '+'), str-replace($propval, '+', '%'), null), comma);
               }
               @else {
-                #{$cssproperty}: #{$cssvalue};
+                $altnames: append($altnames, #{unquote(".")}#{$propval}, comma);
               }
             }
-
-          }
-          //// > //////////// End of IF
-        }
-
-        //// --- SUB-CLASS and PSEUDO GENERATOR --- ////////////////////////////
-        @each $childproperty, $propertyvalue in _($alphamap, $key) {
-
-          //// ✩ //////////// Important Variables
-          $subclassexist: chk-existence($childproperty, _);
-          $extendexist: chk-existence($childproperty, extend);
-
-          //// > //////////// Will not allow Pseudos, Sub-Casses, or Extensions
-          @if $extendexist == false and map-check($psuedos, $childproperty) == true or $subclassexist == true {
-
-            //// ✩ //////////// Determines if Sub-Class or Pseudo
-            $connector: null;
-
-              //// 1 //////////// Allows or Disallows the Pseudo Generator to Run
-              @if map-check($psuedos, $childproperty) {
-                $connector: ":";
-              }
-              //// 2 //////////// Allows or Disallows the Sub-Class Generator to Run
-              @else if $subclassexist == true {
-                $connector: "-";
-              }
-
-            //// a //////////// Creates Sub-Class or Pseudo
-            &#{unquote($connector)}#{str-replace($childproperty, '_', '')} {
-
-              @each $subproperty, $subpropertyvalue in $propertyvalue {
-
-
-              }
-            }
-
           }
         }
-      }
-    }
 
+        $mainname: $type + if(str-index($key, '#'), str-replace($key, '#', ''), if(str-index($key, '+'), str-replace($key, '+', ''), $key));
+        $brkname: if($EpicAct == breakpoint, unquote('-' + $breakpoint), '');
+        $altname: if($altnames != (), $altnames, unquote(''));
 
-      //// 3 //////////// Creates the classes, ids, subclasses and pseudos
-      @if $extendswitch == extender {
-
-        @each $key, $value in $betalist {
-
-          $selectortype: if(if(str-index($value, '#'), true, false), "#", ".");
-
-          #{unquote($selectortype)}#{str-replace($value, '#', '')} {
-
-            //// > //////////// Entering the Alpha Map
-            @each $childproperty, $propertyvalue in _($betamap, $key) {
-
-              //// ✩ //////////// Important Variables
-              $extendexist: chk-existence($childproperty, extend);
-              $propvalstring: map-tostring($propertyvalue, ' ');
-              $breakpointexist: chk-existence($propvalstring, unquote($breakpoint));
-              $baseexist: chk-existence($propvalstring, base);
-              $breakpointpresent: if(map-check($media-sizes, map-tostring(to-list($propertyvalue, "keys"), '')) or map-check($media-expressions, map-tostring(to-list($propertyvalue, "keys"), '')), true, false);
-
-
-              //// > //////////// Only if this is an Extend
-              @if $extendexist == true {
-
-                //// ✩ //////////// Important Variables
-                $maporstring: if($breakpointpresent == true or $baseexist == true, map, string);
-
-                //// 1 //////////// Processes for Breakpoints only
-                @if $EpicAct == breakpoint and $breakpointpresent == true {
-
-                  @each $subproperty, $subpropertyvalue in $propertyvalue {
-
-
-                    //// ✩ //////////// Variable Redirects
-                    $keyname: $subproperty;
-                    $valuename: $subpropertyvalue;
-
-                    @if $keyname != base {
-                      //// ✩ //////////// Important Variables
-                      $propvalstring: map-tostring($keyname, ' ');
-                      $breakpointexist: chk-existence($keyname, $breakpoint);
-                      $existencevalues: list-checkmake($valuename, $alphalist);
-                      $existencetest: if($existencevalues, true, false);
+        //// 2 //////////// Creates the classes, ids, subclasses and pseudos
+        #{$mainname}#{$brkname}#{if($altname != null, unquote(', '), '')}#{if($altname != null, $altname, '')} {
+          $tracker: null;
 
 
 
-                      //// a //////////// Processes Map Extends
-                      @if $maporstring == map {
+          @each $property, $propertyvalue in $value {
 
-                        @for $i from 1 through length($existencevalues) {
-                            // font-family: chk-existence($alphalist, nth($existencetest, $i));
+            $extval: map-tostring(to-list(_($value, if($property == "-t", "-t", "nope")), "keys"), ', ');
+            font-family: $extval;
+            $cruncher: if(chk-existence($extval, important), 1, 0);
+            $tracker: max($cruncher);
+            font-stretch: $tracker;
 
-                          @if $existencetest == true {
+            //// ✩ //////////// Important Variables
+            $depthkey: map-depth(_($value, $property));
+            $ext: map-tostring(to-list($property, "keys"), ' ');
+            $brks: map-tostring(nth(to-list($propertyvalue, "keys"), 1), ', ');
+            $extpresent: if(map-check($extensions, $ext) or map-check($pseudos, $ext) or str-index($ext, '_'), true, false);
+            $brkpresent: if(map-check($breakpoints, $brks) or map-check($media-expressions, $brks) or map-check($media-sizes, $brks), true, false);
 
-                            @extend %#{nth($existencevalues, $i)}#{if($extendswitch == extender, unquote('-' + $breakpoint), '')};
 
-                          }
-                        }
-                      }
 
-                      //// b //////////// Processes String Extends
-                      @else if $maporstring == string {
+              @if $EpicAct == important and $tracker == 0 {
+                @if $extpresent != true {
+                  font-family: $property;
+                  font-variant: $brkpresent;
+                  font-style: $extpresent;
 
-                      }
-                    }
-                  }
-                }
+              $propvalstring: null;
 
-                //// 2 //////////// Processes for Breakpoints only
-                @else if $EpicAct == normal and $breakpointpresent == false {
+              // Single Properties, States, Modifiers and Breakpoints
+              @if $depthkey == 0 {
+                $exist-subclass: chk-existence($property, _);
+                $exist-dash: chk-existence($property, "-");
+                $exist-plus: chk-existence($property, "+");
+                $exist-extend: chk-existence($property, extend);
+                $propvalstring: map-tostring($propertyvalue, ' ');
+                $exist-important: chk-existence($propvalstring, important);
 
-                  //// ✩ //////////// Variable Redirects
-                  $keyname: $childproperty;
-                  $valuename: $propertyvalue;
+                font-weight: $exist-subclass;
+                font-stretch: $exist-dash;
+                font-kerning: $exist-plus;
 
-                  //// ✩ //////////// Important Variables
-                  $propvalstring: map-tostring($keyname, ' ');
-                  $existencevalues: list-checkmake($valuename, $alphalist);
-                  $existencetest: if($existencevalues, true, false);
-                  $breakpointpresent: if(map-check($media-sizes, map-tostring(to-list($valuename, "keys"), '')) or map-check($media-expressions, map-tostring(to-list($valuename, "keys"), '')), true, false);
-
-                  //// a //////////// Processes Map Extends
-                  @if $maporstring == map {
-
-                    @each $subproperty, $subpropertyvalue in $valuename {
-
-                      //// ✩ //////////// Important Variables
-                      $existencevalues: list-checkmake($subpropertyvalue, $alphalist);
-                      $existencetest: if($existencevalues, true, false);
-
-                      @for $i from 1 through length($existencevalues) {
-                          // font-family: chk-existence($alphalist, nth($existencetest, $i));
-
-                        @if $subproperty == base {
-
-                          @extend %#{nth($existencevalues, $i)};
-
-                        }
-                        @else {
-                          // Empty Catch-All
-                        }
-                      }
-                    }
-                  }
-                  //// b //////////// Processes String Extends
-                  @else if $maporstring == string and $existencetest == true {
-                    //// 3 //////////// If a normal property
-                  //  @extend %#{$valuename};
-                  }
+                @if $exist-important == true and $brkpresent == false {
+                  font-family: $property;
+                  font-variant: $brkpresent;
+                    #{$property}: #{if(chk-existence($propvalstring, !important), str-replace($propvalstring, ' !important', ' !important'), if(chk-existence($propvalstring, important), str-replace($propvalstring, ' important', ''), ''))};
 
                 }
 
+              }
+              // Sub-Classes and Pseudos
+              @else if $depthkey > 1 {
+                // Single Properties, States, Modifiers and Breakpoints
+                @if $depthkey == 2 {
+
+                }
+                // Sub-Class Pseudo
+                @else if $depthkey == 3 {
+
+                }
                 @else {
-                  // Empty Catch-All
+                  @warn "Dude, didnt you get the memo? This is way beyond the scope.";
                 }
               }
             }
+
+              @else if $EpicAct == breakpoint  {
+
+              }
+
+              @else if $EpicAct == normal {
+                //font-family: $depthkey;
+              }
+            }
+
+            //// > //////////// End of IF
           }
         }
       }
     }
+
+
+
+
 
 
   //// --- END CLASS GENERATOR --- ////////////////////////
+@mixin breakpointboard($AlphaMap, $BetaMap, $EpicAct) {
 
+  //// ✩ //////////// Root Variables
+  $masterlist: to-list($breakpoints, 'keys'); // List of current breakpoints
 
+  @for $i from 1 through length($masterlist) {
 
-$TestCombo-List: (
-  1: Phase2-Class,
-  2: #Phase2-Class2
-);
+    $list-brkpoints: to-list(_($breakpoints, nth($masterlist, $i)));
+    $list-brknames: nth($masterlist, $i);
+    $long-brkpoints: length($list-brkpoints);
+
+    $brk1: null;
+    $brk2: null;
+    $brk3: null;
+    $brk4: null;
+    $brk5: null;
+
+    @if $long-brkpoints >= 1 {
+      $brk1: if(nth($list-brkpoints, 1) != null, nth($list-brkpoints, 1), null);
+      @if $long-brkpoints > 1 {
+        $brk2: if(nth($list-brkpoints, 2) != null, nth($list-brkpoints, 2), null);
+        @if $long-brkpoints > 2 {
+          $brk2: if(nth($list-brkpoints, 3) != null, nth($list-brkpoints, 3), null);
+          @if $long-brkpoints > 3 {
+            $brk2: if(nth($list-brkpoints, 4) != null, nth($list-brkpoints, 4), null);
+            @if $long-brkpoints > 4 {
+              $brk2: if(nth($list-brkpoints, 5) != null, nth($list-brkpoints, 5), null);
+            }
+          }
+        }
+      }
+    }
+    @if $long-brkpoints == 1 {
+      @include brkpoint($brk1) {
+        @include switchboard($AlphaMap, $EpicAct, $BetaMap, $list-brknames, $extendswitch: null);
+      }
+    }
+    @else if $long-brkpoints == 2 {
+      @include brkpoint($brk1, $brk2) {
+        @include switchboard($AlphaMap, $EpicAct, $BetaMap, $list-brknames, $extendswitch: null);
+      }
+    }
+    @else if $long-brkpoints == 3 {
+      @include brkpoint($brk1, $brk2, $brk3) {
+        @include switchboard($AlphaMap, $EpicAct, $BetaMap, $list-brknames, $extendswitch: null);
+      }
+    }
+    @else if $long-brkpoints == 4 {
+      @include brkpoint($brk1, $brk2, $brk3, $brk4) {
+        @include switchboard($AlphaMap, $EpicAct, $BetaMap, $list-brknames, $extendswitch: null);
+      }
+    }
+    @else if $long-brkpoints == 5 {
+      @include brkpoint($brk1, $brk2, $brk3, $brk4, $brk5) {
+        @include switchboard($AlphaMap, $EpicAct, $BetaMap, $list-brknames, $extendswitch: null);
+      }
+    }
+    @else {
+      @warn "Dude, why would you need more than five? Simplify.";
+    }
+  }
+}
 
 $TestCombo-Deets: (
-  1: (
-    grid: (grid),
+  Phase2-class: (
+    alt: (+testing, woahhhh, #hello, Yolo-awesomeness),
+    -k: (".Justkidding .Phase3-class-tablet #testing2.dohhhhhh, %testing"),
+    -t: (tablet, placeholder, important),
+    _bluish: 30px,
+    grid: (grid !important),
     width: 555px,
     height: (50px, important),
-    extend: (
-      tablet: (Style1, Style2)
-    ),
+    extend:
+      (tablet: (Style1, Style2)),
     color: (
       tablet: $red !important),
     background: (
-      tablet: grey
+      tablet: grey,
+      desktop: black),
+    -webkit-min-device-pixel-ratio: 20px,
+    transition-delay: 5s,
+    hover: (
+      font-style: (
+        tablet: 20px
+      )
     ),
     _blue: (
-      width: (20px))
-  ),
-  2: (
-    grid: (sub-grid !important),
-    height:
-    (10000px
-      20px
-      40px),
+      width: (
+        tablet: 20px))),
+  #Phase2-class2: (
+    -k: (".Justkidding .Phase3-class-tablet #testing2.dohhhhhh, %testing"),
+    grid: sub-grid !important,
     extend: (
       base: (Style1, Style2, Style3)
       ),
@@ -299,13 +271,16 @@ $TestCombo-Deets: (
     background: (
       tablet: black 20px 5px solid),
     _red: (
-      width: (4000000px))
+      width: (
+        tablet: (4000000px !important),
+        desktop: (20px)),
+      pseudo: (
+        width: (
+          tablet: 20
+        )
+      )
+    )
   ));
-
-  $TestStyle-List: (
-    1: Style1,
-    2: Style2
-  );
 
   $TestStyle-Map: (
     1: (
@@ -326,10 +301,10 @@ $TestCombo-Deets: (
       )
     )
   );
-
-  @include switchboard($EpicList: $TestCombo-List, $EpicMap: $TestCombo-Deets, $EpicAct: normal, $EpicList2: null, $EpicMap2: null, $breakpoint: null, $extendswitch: null);
-  @include switchboard($EpicList: $TestStyle-List, $EpicMap: $TestStyle-Map, $EpicAct: normal, $EpicList2: $TestCombo-List, $EpicMap2: $TestCombo-Deets, $breakpoint: null, $extendswitch: extender);
-  @include brkpoint('>=tablet') {
-  @include switchboard($EpicList: $TestCombo-List, $EpicMap: $TestCombo-Deets, $EpicAct: breakpoint, $EpicList2: null, $EpicMap2: null, $breakpoint: 'tablet', $extendswitch: null);
-  @include switchboard($EpicList: $TestStyle-List, $EpicMap: $TestStyle-Map, $EpicAct: breakpoint, $EpicList2: $TestCombo-List, $EpicMap2: $TestCombo-Deets, $breakpoint: 'tablet', $extendswitch: extender);}
-  @include switchboard($EpicList: $TestCombo-List, $EpicMap: $TestCombo-Deets, $EpicAct: important, $EpicList2: null, $EpicMap2: null, $breakpoint: null, $extendswitch: null);
+  //@include breakpointboard($TestCombo-Deets, null, breakpoint);
+//  @include switchboard($AlphaMap: $TestCombo-Deets, $EpicAct: normal, $BetaMap: null, $breakpoint: null, $extendswitch: null);
+  @include switchboard($AlphaMap: $TestCombo-Deets, $EpicAct: important, $BetaMap: null, $breakpoint: null, $extendswitch: null);
+  //@include switchboard($EpicList: $TestStyle-List, $AlphaMap: $TestStyle-Map, $EpicAct: normal, $EpicList2: $TestCombo-List, $BetaMap: $TestCombo-Deets, $breakpoint: null, $extendswitch: extender);
+//  @include switchboard($EpicList: $TestCombo-List, $AlphaMap: $TestCombo-Deets, $EpicAct: breakpoint, $EpicList2: null, $BetaMap: null, $breakpoint: 'tablet', $extendswitch: null);
+//  @include switchboard($EpicList: $TestStyle-List, $AlphaMap: $TestStyle-Map, $EpicAct: breakpoint, $EpicList2: $TestCombo-List, $BetaMap: $TestCombo-Deets, $breakpoint: 'tablet', $extendswitch: extender);
+//  @include switchboard($EpicList: $TestCombo-List, $AlphaMap: $TestCombo-Deets, $EpicAct: important, $EpicList2: null, $BetaMap: null, $breakpoint: null, $extendswitch: null);

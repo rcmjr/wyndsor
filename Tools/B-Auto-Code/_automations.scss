@@ -6,10 +6,20 @@
 
   //// 1 //////////// Deep Get Variable Key from Map
     @function _($map, $keys...) {
+      @if $map != null {
         @each $key in $keys {
+          @if $key != null {
             $map: map-get($map, $key);
+          }
+          @else {
+            $map: "Sorry, nope";
+          }
         }
         @return $map;
+      }
+      @else {
+        @warn "Sorry, nope";
+      }
     }
 
   //// 2 //////////// Override Check in Map
@@ -112,7 +122,6 @@
         @return $level;
       }
 
-
   //// 8 //////////// Replace String Part
     @function str-replace($string, $search, $replace: '') {
       @if map-depth($string) > 1 {
@@ -158,21 +167,21 @@
     }
 
   //// 11 //////////// Check to see if a term exists in a map
-    @function chk-existence($key, $term, $true: true, $false: false) {
+    @function chk-existence($map, $term, $true: true, $false: false) {
       $result: null;
       $term: if($term == "_", unquote($term), $term);
       $term: if($term == null, nope, $term);
 
-      @if type-of($key) == "map" {
-        @if str-index(map-tostring($key), quote($term)) {
+      @if type-of($map) == "map" {
+        @if str-index(map-tostring($map), quote($term)) {
           $result: $true;
         }
         @else {
           $result: $false;
         }
       }
-      @else if type-of($key) == "string" {
-        @if str-index($key, quote($term)) {
+      @else if type-of($map) == "string" {
+        @if str-index($map, quote($term)) {
           $result: $true;
         }
         @else {
@@ -197,22 +206,28 @@
       @return nth($list, length($list));
     }
 
-    //// 14 //////////// Find Last Part of List
-      @function list-checkmake($list, $map) {
-        $keys: ();
-        $truth: null;
+  //// 14 //////////// Filters out a list of terms by checking it against a map
+    @function list-checkmake($list, $map, $type: keys) {
+      $keys: ();
+      $values: ();
+      $truth: null;
 
-        @for $i from 1 through length($list) {
+      @for $i from 1 through length($list) {
 
-          @each $key, $value in $map {
-            $truth: chk-existence($value, map-tostring(nth($list, $i)));
+        @each $key, $value in $map {
+          $truth: chk-existence($value, map-tostring(nth($list, $i)));
 
-            @if $truth == true {
-              $keys: append($keys, nth($list, $i));
+          @if $truth == true {
+            @if $type == keys {
+            $keys: append($keys, nth($list, $i));
+            }
+            @else if $type == values {
+            $values: append($values, nth($list, $i));
             }
           }
         }
-
+      }
+      @if $type == keys {
         @if length($keys) > 0 {
           @return $keys;
         }
@@ -220,8 +235,111 @@
           @return null;
         }
       }
+      @else if $type == values {
+        @if length($values) > 0 {
+          @return $values;
+        }
+        @else if length($values) == 0 {
+          @return null;
+        }
+      }
+    }
+
+  //// 15 //////////// Removes keys from maps
+    @function map-removeKeys($map, $keys) {
+    	$length: length($keys);
+    	@if ($length > 1) {
+    		$restMap: $map;
+    		@each $key in $keys {
+    			$restMap: map-remove($restMap, $key);
+    		}
+    		@return $restMap;
+    	} @else {
+    		@return map-remove($map, $keys);
+    	}
+    }
+
+  //// 16 //////////// Removes keys from maps
+    @function remove-duplicates($list, $recursive: false) {
+      $result: ();
+
+      @each $item in $list {
+        @if not index($result, $item) {
+          @if length($item) > 1 and $recursive {
+            $result: append($result, remove-duplicates($item, $recursive));
+          }
+          @else {
+            $result: append($result, $item);
+          }
+        }
+      }
+
+      @return $result;
+    }
+
+    //// 17 //////////// Convert string to list (must be used in @each)
+      @function str-to-list($string, $separator: ' ', $startAt: 1) {
+          $workStr: str-slice($string,$startAt);
+          $list: ();
+          $indexOfFirstSpace: str-index($workStr,$separator);
+          @if $indexOfFirstSpace == null {
+              $list: ($workStr);
+          } @else {
+              $list: (str-slice($workStr, 1, $indexOfFirstSpace - 1));
+              $list: join($list,str-to-list($workStr, $startAt: $indexOfFirstSpace + 1));
+          }
+          @return $list;
+      }
+
+
+      @function replace-nth($list, $index, $value) {
+        $result: null;
+        $index: if($index == null, 'uh this', $index);
+        @if type-of($index) != number {
+          @warn "$index: #{quote($index)} is not a number for `replace-nth`.";
+        }
+
+        @else if $index == 0 {
+          @warn "List index 0 must be a non-zero integer for `replace-nth`.";
+        }
+
+        @else if abs($index) > length($list) {
+          @warn "List index is #{$index} but list is only #{length($list)} item long for `replace-nth`.";
+        }
+
+        @else {
+          $result: ();
+          $index: if($index < 0, length($list) + $index + 1, $index);
+
+          @for $i from 1 through length($list) {
+            @if $i == $index {
+              $result: append($result, $value);
+            }
+
+            @else {
+              $result: append($result, nth($list, $i));
+            }
+          }
+        }
+
+        @return $result;
+      }
 
 //// --- END FUNCTIONS --- ////////////////////////
+
+//// --- MIXINS --- ////////////////////////////
+
+  //// 1 //////////// Check to run a 2 Level Property
+  @mixin brk-jack($list, $validator) {
+    @for $i from 1 through length($list) {
+      @if nth($list, $i) == $validator {
+        @content;
+      }
+      @else {
+        // Fires Blank
+      }
+    }
+  }
 
 //// ▾▾▾ NETHERMOST FUNDAMENTAL IMPORTS ▾▾▾ ////
 @import 'plugins/Modular-Scale/tc+modular-scale.scss';

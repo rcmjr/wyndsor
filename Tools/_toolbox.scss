@@ -1,9 +1,13 @@
 $extensions: (
-  animation: true,
-  extend: true,
+  "extend": "&-",
+  "alt": alterego,
+  "-t": states,
+  "-k": kin,
+  "_": subclass,
+  "+": placeholder
 );
 
-$psuedos: (
+$pseudos: (
   hover: ':hover',
   active: ':active',
   after: '::after',
@@ -37,6 +41,6 @@ $psuedos: (
   }
 }
 
-@mixin tada($extensions, $childproperty, $psuedos, $subclass, $truekey) {
+@mixin tada($extensions, $childproperty, $pseudos, $subclass, $truekey) {
 
 }

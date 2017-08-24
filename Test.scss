@@ -283,3 +283,259 @@ $Grid-Deets: (
     //// 🚀 //////////// Animation/Transition between differences.
   //// END //////////// Don't Define styles past this point.
   ) !default;
+
+
+  //// --- SUB-CLASS and PSEUDO GENERATOR --- ////////////////////////////
+//  @each $childproperty, $propertyvalue in _($alphamap, $key) {
+
+    //// ✩ //////////// Important Variables
+    $subclassexist: chk-existence($childproperty, _);
+    $extendexist: chk-existence($childproperty, extend);
+
+    //// > //////////// Will not allow Pseudos, Sub-Casses, or Extensions
+    @if $extendexist == false and map-check($pseudos, $childproperty) == true or $subclassexist == true {
+
+      //// ✩ //////////// Determines if Sub-Class or Pseudo
+      $connector: null;
+
+        //// 1 //////////// Allows or Disallows the Pseudo Generator to Run
+        @if map-check($pseudos, $childproperty) {
+          $connector: ":";
+        }
+        //// 2 //////////// Allows or Disallows the Sub-Class Generator to Run
+        @else if $subclassexist == true {
+          $connector: "-";
+        }
+
+      //// a //////////// Creates Sub-Class or Pseudo
+      &#{unquote($connector)}#{str-replace($childproperty, '_', '')} {
+
+        @each $subproperty, $subpropertyvalue in $propertyvalue {
+
+
+        }
+      }
+
+    }
+  }
+//    }
+
+
+//// 3 //////////// Creates the classes, ids, subclasses and pseudos
+@if $extendswitch == extender {
+
+@each $key, $value in $betalist {
+
+  $selectortype: if(if(str-index($value, '#'), true, false), "#", ".");
+
+  #{unquote($selectortype)}#{str-replace($value, '#', '')} {
+
+    //// > //////////// Entering the Alpha Map
+    @each $childproperty, $propertyvalue in _($betamap, $key) {
+
+      //// ✩ //////////// Important Variables
+      $extendexist: chk-existence($childproperty, extend);
+      $propvalstring: map-tostring($propertyvalue, ' ');
+      $baseexist: chk-existence($propvalstring, base);
+      $breakpointpresent: if(map-check($media-sizes, map-tostring(to-list($propertyvalue, "keys"), '')) or map-check($media-expressions, map-tostring(to-list($propertyvalue, "keys"), '')), true, false);
+
+
+      //// > //////////// Only if this is an Extend
+      @if $extendexist == true {
+
+        //// ✩ //////////// Important Variables
+        $maporstring: if($breakpointpresent == true or $baseexist == true, map, string);
+
+        //// 1 //////////// Processes for Breakpoints only
+        @if $EpicAct == breakpoint and $breakpointpresent == true {
+
+          @each $subproperty, $subpropertyvalue in $propertyvalue {
+
+
+            //// ✩ //////////// Variable Redirects
+            $keyname: $subproperty;
+            $valuename: $subpropertyvalue;
+
+            @if $keyname != base {
+              //// ✩ //////////// Important Variables
+              $propvalstring: map-tostring($keyname, ' ');
+              $existencevalues: list-checkmake($valuename, $alphalist);
+              $existencetest: if($existencevalues, true, false);
+
+
+
+              //// a //////////// Processes Map Extends
+              @if $maporstring == map {
+
+                @for $i from 1 through length($existencevalues) {
+                    // font-family: chk-existence($alphalist, nth($existencetest, $i));
+
+                  @if $existencetest == true {
+
+                    @extend %#{nth($existencevalues, $i)}#{if($extendswitch == extender, unquote('-' + $breakpoint), '')};
+
+                  }
+                }
+              }
+
+              //// b //////////// Processes String Extends
+              @else if $maporstring == string {
+
+              }
+            }
+          }
+        }
+
+        //// 2 //////////// Processes for Breakpoints only
+        @else if $EpicAct == normal and $breakpointpresent == false {
+
+          //// ✩ //////////// Variable Redirects
+          $keyname: $childproperty;
+          $valuename: $propertyvalue;
+
+          //// ✩ //////////// Important Variables
+          $propvalstring: map-tostring($keyname, ' ');
+          $existencevalues: list-checkmake($valuename, $alphalist);
+          $existencetest: if($existencevalues, true, false);
+          $breakpointpresent: if(map-check($media-sizes, map-tostring(to-list($valuename, "keys"), '')) or map-check($media-expressions, map-tostring(to-list($valuename, "keys"), '')), true, false);
+
+          //// a //////////// Processes Map Extends
+          @if $maporstring == map {
+
+            @each $subproperty, $subpropertyvalue in $valuename {
+
+              //// ✩ //////////// Important Variables
+              $existencevalues: list-checkmake($subpropertyvalue, $alphalist);
+              $existencetest: if($existencevalues, true, false);
+
+              @for $i from 1 through length($existencevalues) {
+                  // font-family: chk-existence($alphalist, nth($existencetest, $i));
+
+                @if $subproperty == base {
+
+                  @extend %#{nth($existencevalues, $i)};
+
+                }
+                @else {
+                  // Empty Catch-All
+                }
+              }
+            }
+          }
+          //// b //////////// Processes String Extends
+          @else if $maporstring == string and $existencetest == true {
+            //// 3 //////////// If a normal property
+          //  @extend %#{$valuename};
+          }
+
+        }
+
+        @else {
+          // Empty Catch-All
+        }
+      }
+    }
+  }
+}
+}
+
+$depthkey: map-depth(_($value, $property));
+$testdepthkey: map-depth($propertyvalue) + 1;
+$list-levelone: to-list($value, 'keys');
+$str-levelone: $property;
+$list-leveltwo: to-list($propertyvalue, 'keys');
+$str-leveltwo: null;
+$list-levelthree: null;
+$str-levelthree: null;
+$list-levelfour: null;
+$str-levelfour: null;
+$list-testlevel: null;
+
+
+$exist-subclass: null;
+$exist-extend: null;
+$exist-important: null;
+$define-brkpoints: null;
+$filtercheck-brkpoints: null;
+
+//// ✩ //////////// Important Variables
+@if $depthkey == 1 {
+  $str-leveltwo: map-tostring($list-leveltwo, ' ');
+  $exist-subclass: chk-existence($property, _);
+  $exist-extend: chk-existence($property, extend);
+  $exist-important: chk-existence($propertyvalue, important);
+  $define-brkpoints: map-tostring($list-leveltwo, ', ');
+  $filtercheck-brkpoints: if(map-check($breakpoints, $define-brkpoints) or map-check($media-expressions, $define-brkpoints), true, false);
+}
+  @each $subprop, $subval in $propertyvalue {
+    $str-leveltwo: map-tostring($list-leveltwo, ' ');
+    $list-testlevel: to-list($subprop, 'values');
+    $list-levelthree: to-list($subval, 'keys');
+    $list-levelfour: to-list($subval, 'values');
+    $str-levelthree: map-tostring($list-levelthree, ' ');
+    $str-levelfour: map-tostring($list-levelfour, ' ');
+}
+
+
+@for $i from 1 through length($propertyvalue) {
+  $propval: nth($propertyvalue, $i);
+
+  @if if(str-index($propval, '#'), true, false) {
+    $altnames: append($altnames, $propval, comma);
+  }
+  @else if if(str-index($propval, '+'), true, false) {
+    $altnames: append($altnames, if(str-index($propval, '+'), str-replace($propval, '+', '%'), null), comma);
+  }
+  @else {
+    $altnames: append($altnames, #{unquote(".")}#{$propval}, comma);
+  }
+}
+}
+}
+
+@each $property, $propertyvalue in $value {
+  $exist-alt: chk-existence($property, alt);
+
+  @if $exist-alt == true {
+  //  $altnames-list: str-to-list($altnames-str, ', ');
+    $altnames-list2: to-list($propertyvalue, "values");
+
+    @for $i from 1 through length($altnames-list2) {
+      $altkeyindex: index($altnames-list2, $i);
+      $altkey: to-list(nth($altnames-list2, $i), ', ');
+
+      @each $juxtalt in $altkey {
+        $juxtaltkeyindex: index($altkey, $juxtalt);
+        $juxtaltkey: nth($altkey, $juxtaltkeyindex);
+
+        @for $i from 1 through length($juxtaltkey) {
+          $subaltkeyindex: index($juxtaltkey, $i);
+          $subaltkey: nth($juxtaltkey, $i);
+
+          @if if(str-index($subaltkey, '#'), false, true) and if(str-index($subaltkey, '+'), false, true) {
+            $newvalue: #{unquote(".")}#{$subaltkey};
+            $juxtaltkey: replace-nth($juxtaltkey, $subaltkeyindex, $newvalue);
+          }
+        }
+        $altkey: replace-nth($altkey, $juxtaltkeyindex, $juxtaltkey);
+      }
+      $altnames-list2: replace-nth($altnames-list2, $altkeyindex, $altkey);
+    }
+    //.test {font-family: map-tostring($altkey, ' ');}
+  }
+}
+
+
+
+@for $i from 1 through length($altkey) {
+  $subaltkeyindex: index($altkey, $i);
+  $subaltkey: nth($altkey, $i);
+  $newvalue: null;
+  @if if(str-index($subaltkey, '#'), false, true) and if(str-index($subaltkey, '+'), false, true) {
+    $newvalue: #{unquote(".")}#{$subaltkey};
+    //.test {font-family: $newvalue;}
+  }
+  //.test2 {font-family: $subaltkey;}
+  $altkey: replace-nth($altkey, $subaltkeyindex, $newvalue);
+
+}
