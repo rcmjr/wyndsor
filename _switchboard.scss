@@ -57,6 +57,7 @@ $red: red;
 
         $altnames-str: null;
         $altnames-list2: null;
+        $altbrk: if($EpicAct == breakpoint and $Include-AltBreakName == on, unquote('-' + $breakpoint), '');
 
         @each $property, $propertyvalue in $value {
           $exist-alt: chk-existence($property, alt);
@@ -66,13 +67,13 @@ $red: red;
               $propval: nth($propertyvalue, $i);
 
               @if if(str-index($propval, '#'), true, false) {
-                $altnames: append($altnames, $propval, comma);
+                $altnames: append($altnames, #{$propval}#{$altbrk}, comma);
               }
               @else if if(str-index($propval, '+'), true, false) {
-                $altnames: append($altnames, if(str-index($propval, '+'), str-replace($propval, '+', '%'), null), comma);
+                $altnames: append($altnames, #{if(str-index($propval, '+'), str-replace($propval, '+', '%'), null)}#{$altbrk}, comma);
               }
               @else {
-                $altnames: append($altnames, #{unquote(".")}#{$propval}, comma);
+                $altnames: append($altnames, #{unquote(".")}#{$propval}#{$altbrk}, comma);
               }
             }
           }
@@ -86,80 +87,66 @@ $red: red;
         #{$mainname}#{$brkname}#{if($altname != null, unquote(', '), '')}#{if($altname != null, $altname, '')} {
           $tracker: null;
 
+          //$starter: if(chk-existence($value, -t), _($value, -t), "nope");
+          //font-family: $starter;
+          $important-override: if($EpicAct == important, router($lock: $value, $depth: null, $key: -t, $metal: important, $level: Two-Levels), null);
+          $breakpoint-override: if($EpicAct == breakpoint, router($lock: $value, $depth: null, $key: -t, $metal: $breakpoint, $level: Two-Levels), null);
+
+          @if $important-override == "true" and $EpicAct == important {
+            font-family: $important-override;
+            font-size: 20px;
+          }
+
+          @else if $breakpoint-override == "true" and $EpicAct == breakpoint {
+            font-family: $breakpoint-override;
+            font-size: 40px;
+          }
+
+          @else if $breakpoint-override != "true" and $important-override != "true" {
+
+            @each $property, $propertyvalue in $value {
+
+              //// ✩ //////////// Critical Variables
+              $hands: map-tostring(to-list($property, "keys"), ' ');
+              $lefty: if(map-check($extensions, $hands) or map-check($pseudos, $hands) or str-index($hands, '_'), true, false);
+              $righty: if(map-check($pseudos, $hands) or str-index($hands, '_'), true, false);
+
+              //// ✩ //////////// Important Variables
+              $depthkey: map-depth(_($value, $property));
+              //$brks: map-tostring(nth(to-list($propertyvalue, "keys"), 1), ', ');
+              //$brkpresent: if(map-check($breakpoints, $brks) or map-check($media-expressions, $brks) or map-check($media-sizes, $brks), true, false);
 
 
-          @each $property, $propertyvalue in $value {
+                @if $EpicAct == important {
+                  font-weight: 300px;
+                  // Every normal (but important) property
+                  @if $lefty != true {
 
-            $extval: map-tostring(to-list(_($value, if($property == "-t", "-t", "nope")), "keys"), ', ');
-            font-family: $extval;
-            $cruncher: if(chk-existence($extval, important), 1, 0);
-            $tracker: max($cruncher);
-            font-stretch: $tracker;
+                  }
+                  // Pseudos and Subclasses
+                  @else if $righty == true {
 
-            //// ✩ //////////// Important Variables
-            $depthkey: map-depth(_($value, $property));
-            $ext: map-tostring(to-list($property, "keys"), ' ');
-            $brks: map-tostring(nth(to-list($propertyvalue, "keys"), 1), ', ');
-            $extpresent: if(map-check($extensions, $ext) or map-check($pseudos, $ext) or str-index($ext, '_'), true, false);
-            $brkpresent: if(map-check($breakpoints, $brks) or map-check($media-expressions, $brks) or map-check($media-sizes, $brks), true, false);
-
-
-
-              @if $EpicAct == important and $tracker == 0 {
-                @if $extpresent != true {
-                  font-family: $property;
-                  font-variant: $brkpresent;
-                  font-style: $extpresent;
-
-              $propvalstring: null;
-
-              // Single Properties, States, Modifiers and Breakpoints
-              @if $depthkey == 0 {
-                $exist-subclass: chk-existence($property, _);
-                $exist-dash: chk-existence($property, "-");
-                $exist-plus: chk-existence($property, "+");
-                $exist-extend: chk-existence($property, extend);
-                $propvalstring: map-tostring($propertyvalue, ' ');
-                $exist-important: chk-existence($propvalstring, important);
-
-                font-weight: $exist-subclass;
-                font-stretch: $exist-dash;
-                font-kerning: $exist-plus;
-
-                @if $exist-important == true and $brkpresent == false {
-                  font-family: $property;
-                  font-variant: $brkpresent;
-                    #{$property}: #{if(chk-existence($propvalstring, !important), str-replace($propvalstring, ' !important', ' !important'), if(chk-existence($propvalstring, important), str-replace($propvalstring, ' important', ''), ''))};
-
+                  }
                 }
 
-              }
-              // Sub-Classes and Pseudos
-              @else if $depthkey > 1 {
-                // Single Properties, States, Modifiers and Breakpoints
-                @if $depthkey == 2 {
+                @else if $EpicAct == breakpoint  {
+                  @if $breakpoint-override == true {
 
-                }
-                // Sub-Class Pseudo
-                @else if $depthkey == 3 {
+                  }
+                  @if $lefty != true {
 
+                  }
+                  @else if $righty == true {
+
+                  }
                 }
-                @else {
-                  @warn "Dude, didnt you get the memo? This is way beyond the scope.";
+
+                @else if $EpicAct == normal {
+                  //font-family: $depthkey;
                 }
-              }
+
+              //// > //////////// End of IF
             }
-
-              @else if $EpicAct == breakpoint  {
-
-              }
-
-              @else if $EpicAct == normal {
-                //font-family: $depthkey;
-              }
-            }
-
-            //// > //////////// End of IF
           }
         }
       }
@@ -238,7 +225,7 @@ $TestCombo-Deets: (
   Phase2-class: (
     alt: (+testing, woahhhh, #hello, Yolo-awesomeness),
     -k: (".Justkidding .Phase3-class-tablet #testing2.dohhhhhh, %testing"),
-    -t: (tablet, placeholder, important),
+    -t: (important),
     _bluish: 30px,
     grid: (grid !important),
     width: 555px,
@@ -261,7 +248,9 @@ $TestCombo-Deets: (
       width: (
         tablet: 20px))),
   #Phase2-class2: (
+    alt: (yolo),
     -k: (".Justkidding .Phase3-class-tablet #testing2.dohhhhhh, %testing"),
+    -t: (important),
     grid: sub-grid !important,
     extend: (
       base: (Style1, Style2, Style3)
@@ -301,7 +290,7 @@ $TestCombo-Deets: (
       )
     )
   );
-  //@include breakpointboard($TestCombo-Deets, null, breakpoint);
+  @include breakpointboard($TestCombo-Deets, null, breakpoint);
 //  @include switchboard($AlphaMap: $TestCombo-Deets, $EpicAct: normal, $BetaMap: null, $breakpoint: null, $extendswitch: null);
   @include switchboard($AlphaMap: $TestCombo-Deets, $EpicAct: important, $BetaMap: null, $breakpoint: null, $extendswitch: null);
   //@include switchboard($EpicList: $TestStyle-List, $AlphaMap: $TestStyle-Map, $EpicAct: normal, $EpicList2: $TestCombo-List, $BetaMap: $TestCombo-Deets, $breakpoint: null, $extendswitch: extender);

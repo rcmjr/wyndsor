@@ -539,3 +539,42 @@ $filtercheck-brkpoints: null;
   $altkey: replace-nth($altkey, $subaltkeyindex, $newvalue);
 
 }
+
+
+                  $propvalstring: null;
+
+                // Single Properties, States, Modifiers and Breakpoints
+                @if $depthkey == 0 {
+                  $exist-subclass: chk-existence($property, _);
+                  $exist-dash: chk-existence($property, "-");
+                  $exist-plus: chk-existence($property, "+");
+                  $exist-extend: chk-existence($property, extend);
+                  $propvalstring: map-tostring($propertyvalue, ' ');
+                  $exist-important: chk-existence($propvalstring, important);
+
+                  font-weight: $exist-subclass;
+                  font-stretch: $exist-dash;
+                  font-kerning: $exist-plus;
+
+                  @if $exist-important == true and $brkpresent == false {
+                    font-family: $property;
+                    font-variant: $brkpresent;
+                      #{$property}: #{if(chk-existence($propvalstring, !important), str-replace($propvalstring, ' !important', ' !important'), if(chk-existence($propvalstring, important), str-replace($propvalstring, ' important', ''), ''))};
+
+                  }
+
+                }
+                // Sub-Classes and Pseudos
+                @else if $depthkey > 1 {
+                  // Single Properties, States, Modifiers and Breakpoints
+                  @if $depthkey == 2 {
+
+                  }
+                  // Sub-Class Pseudo
+                  @else if $depthkey == 3 {
+
+                  }
+                  @else {
+                    @warn "Dude, didnt you get the memo? This is way beyond the scope.";
+                  }
+                }

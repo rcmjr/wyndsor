@@ -291,7 +291,7 @@
           @return $list;
       }
 
-
+      //// 18 //////////// Replace a specific value in a list
       @function replace-nth($list, $index, $value) {
         $result: null;
         $index: if($index == null, 'uh this', $index);
@@ -323,6 +323,57 @@
         }
 
         @return $result;
+      }
+
+      //// 19 //////////// Purges false from a list.
+      @function purge($list) {
+        $result: ();
+
+        @each $item in $list {
+          @if $item != null
+          and $item != false
+          and $item != "" {
+            $result: append($result, $item);
+          }
+        }
+
+        @return $result;
+      }
+
+      //// 20 //////////// Routes passible criteria to their intended executables
+      @function router($lock, $depth, $key: null, $metal: null, $level: One-Level) {
+        $result: ();
+        @if $level == One-Level {
+          $replacement: null;
+          $leftydeft: if(str-index($lock, unquote($key)), true, false);
+          @if $leftydeft == true {
+            $mold: map-tostring(to-list($pin, "keys"), ' ');
+            $mold-verify: if($mold != null, $mold, "nope");
+            $replacement: if(str-index($mold-verify, $metal), true, false);
+            $result: append($result, $replacement);
+          }
+          $result: purge($result);
+        }
+        @else if $level == Two-Levels {
+          @each $groove, $pin in $lock {
+            $replacement: null;
+            $leftydeft: if(str-index($groove, unquote($key)), true, false);
+            @if $leftydeft == true {
+              $mold: map-tostring(to-list($pin, "keys"), ' ');
+              $mold-verify: if($mold != null, $mold, "nope");
+              $replacement: if(str-index($mold-verify, $metal), true, false);
+              $result: append($result, $replacement);
+
+            }
+          }
+          $result: purge($result);
+        }
+        @if $result == () {
+          @return null;
+        }
+        @else if $result != () {
+          @return map-tostring($result);
+        }
       }
 
 //// --- END FUNCTIONS --- ////////////////////////
