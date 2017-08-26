@@ -304,7 +304,7 @@ $TestCombo-Deets: (
 
 
 
-
+//// THIS IS KIN, DONT FORGET ABOUT IT
 @for $i from 1 through length($propertyvalue) {
   $propval: map-tostring(nth($propertyvalue, $i), ' ');
   $alttest1: null;
@@ -328,3 +328,60 @@ $TestCombo-Deets: (
 }
 $altname: if($altnames != (), $altnames, unquote(''));
 #{if($altname != null, unquote(' ') + $altname, '')}
+
+
+@each $property, $propertyvalue in $value {
+
+  //font-variant: router($lock: $propertyvalue, $key: base, $level: One-Level);
+  //  font-variant: router($lock: $propertyvalue, $key: important, $level: One-Level, $type: "values");
+  //// ✩ //////////// Critical Variables
+  $hands: map-tostring(to-list($property, "keys"), ' ');
+  $lefty: if(map-check($extensions, $hands) or map-check($pseudos, $hands) or str-index($hands, '_'), true, false);
+  $righty: if(map-check($pseudos, $hands) or str-index($hands, '_'), true, false);
+
+  $leftfoot: router($lock: $propertyvalue, $key: $breakpoint, $level: One-Level);
+
+  //// ✩ //////////// Important Variables
+  $depthkey: map-depth(_($value, $property));
+  //$brks: map-tostring(nth(to-list($propertyvalue, "keys"), 1), ', ');
+  //$brkpresent: if(map-check($breakpoints, $brks) or map-check($media-expressions, $brks) or map-check($media-sizes, $brks), true, false);
+
+
+    @if $EpicAct == important {
+
+      // Every normal (but important) property
+      @if $lefty != true {
+
+        @if $leftfoot == true {
+          @warn "Yeah, sorry. Breakpoints kinda already override regular css.";
+        }
+        @else if $leftfoot != true {
+          font-family: $property;
+          font-family: $propertyvalue;
+          font-weight: 300px;
+        }
+      }
+      // Pseudos and Subclasses
+      @else if $righty == true {
+
+      }
+    }
+
+    @else if $EpicAct == breakpoint  {
+      @if $breakpoint-override == true {
+
+      }
+      @if $lefty != true {
+
+      }
+      @else if $righty == true {
+
+      }
+    }
+
+    @else if $EpicAct == normal {
+      //font-family: $depthkey;
+    }
+
+  //// > //////////// End of IF
+}

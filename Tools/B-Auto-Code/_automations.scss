@@ -341,25 +341,21 @@
       }
 
       //// 20 //////////// Routes passible criteria to their intended executables
-      @function router($lock, $depth, $key: null, $metal: null, $level: One-Level) {
+      @function router($lock, $key: null, $metal: null, $level: One-Level, $depth: null, $type: "keys") {
         $result: ();
+        $replacement: null;
         @if $level == One-Level {
-          $replacement: null;
-          $leftydeft: if(str-index($lock, unquote($key)), true, false);
-          @if $leftydeft == true {
-            $mold: map-tostring(to-list($pin, "keys"), ' ');
-            $mold-verify: if($mold != null, $mold, "nope");
-            $replacement: if(str-index($mold-verify, $metal), true, false);
-            $result: append($result, $replacement);
+          $mold: map-tostring(to-list($lock, $type), ' ');
+          $mold-verify: if($mold != null, $mold, "nope");
+          $replacement: if(str-index($mold-verify, if($key != null, $key, "nope")), true, false);
+          $result: purge(append($result, $replacement));
           }
-          $result: purge($result);
-        }
         @else if $level == Two-Levels {
           @each $groove, $pin in $lock {
             $replacement: null;
             $leftydeft: if(str-index($groove, unquote($key)), true, false);
             @if $leftydeft == true {
-              $mold: map-tostring(to-list($pin, "keys"), ' ');
+              $mold: map-tostring(to-list($pin, $type), ' ');
               $mold-verify: if($mold != null, $mold, "nope");
               $replacement: if(str-index($mold-verify, $metal), true, false);
               $result: append($result, $replacement);
@@ -373,6 +369,53 @@
         }
         @else if $result != () {
           @return map-tostring($result);
+        }
+      }
+
+      //// 20 //////////// Routes passible criteria to their intended executables
+      @mixin router2($property, $propertyvalue, $value, $breakpoint, $type, $filter) {
+
+        // Removing or allowing extensions, pseudos and subclasses
+        $hands: map-tostring(to-list($property, "keys"), ' ');
+        $lefty: if(map-check($extensions, $hands) or map-check($pseudos, $hands) or str-index($hands, '_'), true, false);
+        $righty: if(map-check($pseudos, $hands) or str-index($hands, '_'), true, false);
+        // Removing or allowing breakpoints
+        $feet: map-tostring(to-list($propertyvalue, "keys"), ' ');
+        $leftfoot: if(map-check($breakpoints, $feet), true, false);
+
+        // Checks and Balances Breakpoints and Base Keys
+        $mold: map-tostring(to-list($propertyvalue, "keys"), ' ');
+        $mold-verify: if($mold != null, $mold, "nope");
+        $result: ();
+          @each $breakpoint, $breakpointvalue in $breakpoints {
+            $replacement: if(str-index($mold-verify, $breakpoint), true, false);
+            $result: append($result, $replacement);
+          }
+          $result: remove-duplicates(purge($result)); // Breakpoints
+        $result-base: (); // Base
+
+        // For Regular CSS
+        @if $lefty != true and $type == Regular-Properties {
+
+          // Regular properties
+          @if $filter == No-Breakpoints and $leftfoot == false and $result == () {
+            #{to-list($property, "keys")}: #{to-list($propertyvalue, "keys")};
+          }
+
+          // Regular properties declared in "base" key
+          @else if $filter == No-Breakpoints and $leftfoot == false {
+            @each $subprop, $subpropval in $propertyvalue {
+              $mold: map-tostring($subprop);
+              $mold-verify: if($mold != null, $mold, "nope");
+              $replacement2: if(str-index($mold-verify, base), true, false);
+              $result-base: remove-duplicates(purge($replacement2));
+              @if $result-base != () {#{to-list($property, "keys")}: #{to-list($subpropval, "values")};}
+            }
+          }
+        }
+        // For Pseudos and SubClasses
+        @else if $righty == true and $type == (Pseudos or Subclasses) {
+          @content;
         }
       }
 

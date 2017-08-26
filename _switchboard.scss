@@ -89,8 +89,8 @@ $red: red;
 
           //$starter: if(chk-existence($value, -t), _($value, -t), "nope");
           //font-family: $starter;
-          $important-override: if($EpicAct == important, router($lock: $value, $depth: null, $key: -t, $metal: important, $level: Two-Levels), null);
-          $breakpoint-override: if($EpicAct == breakpoint, router($lock: $value, $depth: null, $key: -t, $metal: $breakpoint, $level: Two-Levels), null);
+          $important-override: if($EpicAct == important, router($lock: $value, $key: -t, $metal: important, $level: Two-Levels, $depth: null), null);
+          $breakpoint-override: if($EpicAct == breakpoint, router($lock: $value, $key: -t, $metal: $breakpoint, $level: Two-Levels, $depth: null), null);
 
           @if $important-override == "true" and $EpicAct == important {
             font-family: $important-override;
@@ -104,53 +104,45 @@ $red: red;
 
           @else if $breakpoint-override != "true" and $important-override != "true" {
 
-            @each $property, $propertyvalue in $value {
 
+              //font-variant: router($lock: $propertyvalue, $key: base, $level: One-Level);
+              //  font-variant: router($lock: $propertyvalue, $key: important, $level: One-Level, $type: "values");
               //// ✩ //////////// Critical Variables
-              $hands: map-tostring(to-list($property, "keys"), ' ');
-              $lefty: if(map-check($extensions, $hands) or map-check($pseudos, $hands) or str-index($hands, '_'), true, false);
-              $righty: if(map-check($pseudos, $hands) or str-index($hands, '_'), true, false);
+
+              //$leftfoot: router($lock: $propertyvalue, $key: $breakpoint, $level: One-Level);
 
               //// ✩ //////////// Important Variables
-              $depthkey: map-depth(_($value, $property));
+              //$depthkey: map-depth(_($value, $property));
               //$brks: map-tostring(nth(to-list($propertyvalue, "keys"), 1), ', ');
               //$brkpresent: if(map-check($breakpoints, $brks) or map-check($media-expressions, $brks) or map-check($media-sizes, $brks), true, false);
-
-
+              @each $property, $propertyvalue in $value {
                 @if $EpicAct == important {
-                  font-weight: 300px;
-                  // Every normal (but important) property
-                  @if $lefty != true {
 
+                  @include router2($property, $propertyvalue, $value, $breakpoint, Regular-Properties, No-Breakpoints) {
+                    font-family: $property;
                   }
-                  // Pseudos and Subclasses
-                  @else if $righty == true {
 
-                  }
                 }
 
                 @else if $EpicAct == breakpoint  {
                   @if $breakpoint-override == true {
 
                   }
-                  @if $lefty != true {
-
-                  }
-                  @else if $righty == true {
-
-                  }
                 }
 
                 @else if $EpicAct == normal {
-                  //font-family: $depthkey;
+                  @if $breakpoint-override == true {
+
+                  }
                 }
 
               //// > //////////// End of IF
+              }
             }
           }
         }
       }
-    }
+
 
 
 
@@ -225,7 +217,7 @@ $TestCombo-Deets: (
   Phase2-class: (
     alt: (+testing, woahhhh, #hello, Yolo-awesomeness),
     -k: (".Justkidding .Phase3-class-tablet #testing2.dohhhhhh, %testing"),
-    -t: (important),
+    -t: (),
     _bluish: 30px,
     grid: (grid !important),
     width: 555px,
@@ -233,8 +225,10 @@ $TestCombo-Deets: (
     extend:
       (tablet: (Style1, Style2)),
     color: (
-      tablet: $red !important),
+      tablet: $red !important,
+      base: pink),
     background: (
+      base: purple,
       tablet: grey,
       desktop: black),
     -webkit-min-device-pixel-ratio: 20px,
@@ -250,8 +244,9 @@ $TestCombo-Deets: (
   #Phase2-class2: (
     alt: (yolo),
     -k: (".Justkidding .Phase3-class-tablet #testing2.dohhhhhh, %testing"),
-    -t: (important),
+    -t: (),
     grid: sub-grid !important,
+    margin: 40em,
     extend: (
       base: (Style1, Style2, Style3)
       ),
