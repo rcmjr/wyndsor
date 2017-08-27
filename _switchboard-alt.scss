@@ -385,3 +385,28 @@ $altname: if($altnames != (), $altnames, unquote(''));
 
   //// > //////////// End of IF
 }
+
+
+
+@each $subprop, $subpropval in $propertyvalue {
+  $hands: map-tostring(to-list($subprop, "keys"), ' ');
+  $lefty: if(map-check($extensions, $hands), true, false);
+  @if $lefty == false {
+    @each $subsubprop, $subsubpropval in $subpropval {
+      $mold: map-tostring($subsubprop);
+      $mold-verify: if($mold != null, $mold, "nope");
+      $basecheck: if(str-index($mold-verify, base), true, false);
+      $importantcheck: if(str-index($mold-verify, ' important'), true, false);
+      $breakpointcheck: if($breakpoint != null, if(str-index($mold-verify, $breakpoint), true, false), "()");
+      $rslt-base: if(remove-duplicates(purge($basecheck)) == (), false, true);
+      $rslt-imprtnt: if(remove-duplicates(purge($importantcheck)) == (), false, true);
+      $rslt-brkpnt: if(remove-duplicates(purge($breakpointcheck)) == (), false, true);
+      font-family: $rslt-imprtnt;
+      font-family: $subsubprop;
+      #{to-list($subprop, "keys")}: #{to-list($subsubpropval, "values")};
+      @if $rslt-base == $rslt-base-solve and $rslt-imprtnt == $rslt-imprtnt-solve and $rslt-brkpnt == $rslt-brkpnt-solve {
+        #{to-list($subprop, "keys")}: #{to-list($subsubpropval, "values")};
+      }
+    }
+  }
+}

@@ -119,7 +119,7 @@ $red: red;
                 @if $EpicAct == important {
                   /// $property, $propertyvalue, $value, $key, $breakpoint, $EpicAct
                   //@include router2($property, $propertyvalue, $value, $mainname, $breakpoint, important);
-                  @include router2($property, $propertyvalue, $value, $mainname, $breakpoint, normal);
+                  @include router2($property, $propertyvalue, $value, $mainname, $breakpoint, important);
 
                 }
 
@@ -128,9 +128,7 @@ $red: red;
                 }
 
                 @else if $EpicAct == normal {
-                  @if $breakpoint-override == true {
-
-                  }
+                  @include router2($property, $propertyvalue, $value, $mainname, $breakpoint, normal);
                 }
 
               //// > //////////// End of IF
@@ -258,11 +256,11 @@ $TestCombo-Deets: (
     _red: (
       width: (
         tablet: (4000000px !important),
-        desktop: (20px)),
-      pseudo: (
-        width: (
-          tablet: 20
-        )
+        desktop: (20px))),
+    after: (
+      width: (
+        base: 40px,
+        desktop: 20px
       )
     )
   ));
@@ -287,7 +285,7 @@ $TestCombo-Deets: (
     )
   );
   @include breakpointboard($TestCombo-Deets, null, breakpoint);
-//  @include switchboard($AlphaMap: $TestCombo-Deets, $EpicAct: normal, $BetaMap: null, $breakpoint: null, $extendswitch: null);
+@include switchboard($AlphaMap: $TestCombo-Deets, $EpicAct: normal, $BetaMap: null, $breakpoint: null, $extendswitch: null);
   @include switchboard($AlphaMap: $TestCombo-Deets, $EpicAct: important, $BetaMap: null, $breakpoint: null, $extendswitch: null);
   //@include switchboard($EpicList: $TestStyle-List, $AlphaMap: $TestStyle-Map, $EpicAct: normal, $EpicList2: $TestCombo-List, $BetaMap: $TestCombo-Deets, $breakpoint: null, $extendswitch: extender);
 //  @include switchboard($EpicList: $TestCombo-List, $AlphaMap: $TestCombo-Deets, $EpicAct: breakpoint, $EpicList2: null, $BetaMap: null, $breakpoint: 'tablet', $extendswitch: null);

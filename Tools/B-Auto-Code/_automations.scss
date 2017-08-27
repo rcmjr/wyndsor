@@ -375,6 +375,21 @@
       @mixin switch($EpicAct, $rslt, $rslt-brkpnt-solve, $rslt-imprtnt, $rslt-imprtnt-solve, $rslt-base, $rslt-base-solve, $startkey, $startvalue, $breakpoint) {
         $subhands: map-tostring(to-list($startkey, "keys"), ' ');
         $sublefty: if(map-check($extensions, $subhands), true, false);
+
+        // Checks and Balances Breakpoints and Base Keys
+        $mold: map-tostring(to-list($startvalue, "keys"), ' ');
+        $mold-verify: if($mold != null, $mold, "nope");
+
+          @each $breakpoint, $breakpointvalue in $breakpoints {
+            $replacement: if(str-index($mold-verify, $breakpoint), true, false);
+            $importantcheck1: if(str-index($mold-verify, ' important'), true, false);
+            $rslt: append($rslt, $replacement);
+            $rslt-imprtnt: append($rslt-imprtnt, $importantcheck1);
+          }
+          $rslt: if(remove-duplicates(purge($rslt)) == (), false, true); // Breakpoints
+          $rslt-imprtnt: if(remove-duplicates(purge($rslt-imprtnt)) == (), false, true); // Important
+
+
         @if $sublefty != true {
 
           // First Level properties (no breakpoints, base or anything else but solid first level css)
@@ -394,9 +409,11 @@
             $breakpointcheck: if($breakpoint != null, if(str-index($mold-verify, $breakpoint), true, false), "()");
             $rslt-base: if(remove-duplicates(purge($basecheck)) == (), false, true);
             $rslt-imprtnt: if(remove-duplicates(purge($importantcheck)) == (), false, true);
-            $rslt-brkpnt: if(remove-duplicates(purge($breakpointcheck)) == (), false, true);
+            $rslt-brkpnt: if($rslt-brkpnt-solve != false, if(remove-duplicates(purge($breakpointcheck)) == (), false, true), false);
+
             @if $rslt-base == $rslt-base-solve and $rslt-imprtnt == $rslt-imprtnt-solve and $rslt-brkpnt == $rslt-brkpnt-solve {
-              #{to-list($startkey, "keys")}: #{to-list($value, "values")};
+              $propval: map-tostring(to-list($value, "values"), ' ');
+              #{to-list($startkey, "keys")}: #{if(str-index($propval, ' important'), str-replace($propval, ' important'), $propval)};
             }
           }
         }
@@ -426,34 +443,22 @@
 
         // Removing or allowing extensions, pseudos and subclasses
           $hands: map-tostring(to-list($property, "keys"), ' ');
-            $lefty: if(map-check($extensions, $hands) or map-check($pseudos, $hands) or str-index($hands, '_'), true, false);
-            $righty1: if(map-check($pseudos, $hands), true, false);
-            $righty2: if(str-index($hands, "_"), true, false);
+            $lefty: if(map-check($pseudos, $hands), true, false);
+            $righty: if(str-index($hands, "_"), true, false);
             // Removing or allowing breakpoints
             $feet: map-tostring(to-list($propertyvalue, "keys"), ' ');
             $leftfoot: if(map-check($breakpoints, $feet), true, false);
 
-            // Checks and Balances Breakpoints and Base Keys
-            $mold: map-tostring(to-list($propertyvalue, "keys"), ' ');
-            $mold-verify: if($mold != null, $mold, "nope");
             $rslt: ();
             $rslt-imprtnt: ();
-              @each $breakpoint, $breakpointvalue in $breakpoints {
-                $replacement: if(str-index($mold-verify, $breakpoint), true, false);
-                $importantcheck1: if(str-index($mold-verify, ' important'), true, false);
-                $rslt: append($rslt, $replacement);
-                $rslt-imprtnt: append($rslt-imprtnt, $importantcheck1);
-              }
-              $rslt: if(remove-duplicates(purge($rslt)) == (), false, true); // Breakpoints
-              $rslt-imprtnt: if(remove-duplicates(purge($rslt-imprtnt)) == (), false, true); // Important
             $rslt-base: (); // Base
 
         // For CSS Properties
-        @if $lefty != true {
+        @if $lefty != true and $righty != true {
           @include switch($EpicAct, $rslt, $rslt-brkpnt-solve, $rslt-imprtnt, $rslt-imprtnt-solve, $rslt-base, $rslt-base-solve, $property, $propertyvalue, $breakpoint);
         }
         // For Pseudos
-        @else if $righty1 == true {
+        @else if $lefty == true {
           &#{unquote(":")}#{$property} {
             @each $subprop, $subpropval in $propertyvalue {
               @include switch($EpicAct, $rslt, $rslt-brkpnt-solve, $rslt-imprtnt, $rslt-imprtnt-solve, $rslt-base, $rslt-base-solve, $subprop, $subpropval, $breakpoint);
@@ -461,10 +466,10 @@
           }
         }
         // For Sub-classes and Kin
-        @else if $righty2 == true {
+        @else if $righty == true {
           &#{if($property != null, unquote("-"), '') + if(str-index($property, '_'), str-replace($property, _, ''), '')} {
             @each $subprop, $subpropval in $propertyvalue {
-              //font-variant: $subprop;
+              @include switch($EpicAct, $rslt, $rslt-brkpnt-solve, $rslt-imprtnt, $rslt-imprtnt-solve, $rslt-base, $rslt-base-solve, $subprop, $subpropval, $breakpoint);
             }
           }
         }
