@@ -187,9 +187,9 @@
 ///
 ///
 
-$ims-breakpoints: $media-sizes !default;
+$ims-brkpnts: $media-sizes !default;
 
-@mixin spread($property, $start-values, $end-values, $ease: linear, $media-sizes: $ims-breakpoints) {
+@mixin spread($property, $start-values, $end-values, $ease: linear, $media-sizes: $ims-brkpnts) {
   @if $start-values == $end-values {
     @warn 'You are passing the same values';
   }

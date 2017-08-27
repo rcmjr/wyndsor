@@ -76,7 +76,7 @@ $im-media-support: true !default;
 ///
 /// @example scss - This media query will show because it intercepts the static breakpoint
 ///  $im-media-support: false;
-///  $im-no-media-breakpoint: 'desktop';
+///  $im-no-media-brkpnt: 'desktop';
 ///  @include brkpoint('>=tablet') {
 ///    .foo {
 ///      color: tomato;
@@ -90,7 +90,7 @@ $im-media-support: true !default;
 ///
 /// @example scss - This media query will NOT show because it does not intercept the desktop breakpoint
 ///  $im-media-support: false;
-///  $im-no-media-breakpoint: 'tablet';
+///  $im-no-media-brkpnt: 'tablet';
 ///  @include brkpoint('>=desktop') {
 ///    .foo {
 ///      color: tomato;
@@ -99,7 +99,7 @@ $im-media-support: true !default;
 ///
 ///  /* No output */
 ///
-$im-no-media-breakpoint: 'desktop' !default;
+$im-no-media-brkpnt: 'desktop' !default;
 
 ///
 /// Selects which media expressions are allowed in an expression for it to be used when media queries
@@ -107,7 +107,7 @@ $im-no-media-breakpoint: 'desktop' !default;
 ///
 /// @example scss - This media query will show because it intercepts the static breakpoint and contains only accepted media expressions
 ///  $im-media-support: false;
-///  $im-no-media-breakpoint: 'desktop';
+///  $im-no-media-brkpnt: 'desktop';
 ///  $im-no-media-expressions: ('screen');
 ///  @include brkpoint('>=tablet', 'screen') {
 ///    .foo {
@@ -122,7 +122,7 @@ $im-no-media-breakpoint: 'desktop' !default;
 ///
 /// @example scss - This media query will NOT show because it intercepts the static breakpoint but contains a media expression that is not accepted
 ///  $im-media-support: false;
-///  $im-no-media-breakpoint: 'desktop';
+///  $im-no-media-brkpnt: 'desktop';
 ///  $im-no-media-expressions: ('screen');
 ///  @include brkpoint('>=tablet', 'retina2x') {
 ///    .foo {
@@ -186,11 +186,11 @@ $im-no-media-expressions: ('screen', 'portrait', 'landscape') !default;
 ///
 /// @return {Boolean} - Returns true if the conditions are intercepted by the static breakpoint
 ///
-@function im-intercepts-static-breakpoint($conditions...) {
-  $no-media-breakpoint-value: map-get($media-sizes, $im-no-media-breakpoint);
+@function im-intercepts-static-brkpnt($conditions...) {
+  $no-media-brkpnt-value: map-get($media-sizes, $im-no-media-brkpnt);
 
-  @if not $no-media-breakpoint-value {
-    @if im-log('`#{$im-no-media-breakpoint}` is not a valid breakpoint.') {}
+  @if not $no-media-brkpnt-value {
+    @if im-log('`#{$im-no-media-brkpnt}` is not a valid breakpoint.') {}
   }
 
   @each $condition in $conditions {
@@ -200,8 +200,8 @@ $im-no-media-expressions: ('screen', 'portrait', 'landscape') !default;
       $value: get-expression-value($condition, $operator);
 
       // scss-lint:disable SpaceAroundOperator
-      @if ($prefix == 'max' and $value <= $no-media-breakpoint-value) or
-          ($prefix == 'min' and $value > $no-media-breakpoint-value) {
+      @if ($prefix == 'max' and $value <= $no-media-brkpnt-value) or
+          ($prefix == 'min' and $value > $no-media-brkpnt-value) {
         @return false;
       }
     } @else if not index($im-no-media-expressions, $condition) {
@@ -352,13 +352,13 @@ $im-no-media-expressions: ('screen', 'portrait', 'landscape') !default;
     @return ();
   }
 
-  $result: ();
+  $rslt: ();
 
   @for $i from $start through $end {
-    $result: append($result, nth($list, $i));
+    $rslt: append($rslt, nth($list, $i));
   }
 
-  @return $result;
+  @return $rslt;
 }
 
 ////
@@ -383,7 +383,7 @@ $im-no-media-expressions: ('screen', 'portrait', 'landscape') !default;
   }
 
   $first-character: str-slice($value, 1, 1);
-  $result: 0;
+  $rslt: 0;
   $digits: 0;
   $minus: ($first-character == '-');
   $numbers: ('0': 0, '1': 1, '2': 2, '3': 3, '4': 4, '5': 5, '6': 6, '7': 7, '8': 8, '9': 9);
@@ -397,20 +397,20 @@ $im-no-media-expressions: ('screen', 'portrait', 'landscape') !default;
     $character: str-slice($value, $i, $i);
 
     @if not (index(map-keys($numbers), $character) or $character == '.') {
-      @return to-length(if($minus, -$result, $result), str-slice($value, $i))
+      @return to-length(if($minus, -$rslt, $rslt), str-slice($value, $i))
     }
 
     @if $character == '.' {
       $digits: 1;
     } @else if $digits == 0 {
-      $result: $result * 10 + map-get($numbers, $character);
+      $rslt: $rslt * 10 + map-get($numbers, $character);
     } @else {
       $digits: $digits * 10;
-      $result: $result + map-get($numbers, $character) / $digits;
+      $rslt: $rslt + map-get($numbers, $character) / $digits;
     }
   }
 
-  @return if($minus, -$result, $result);
+  @return if($minus, -$rslt, $rslt);
 }
 
 
@@ -472,7 +472,7 @@ $im-no-media-expressions: ('screen', 'portrait', 'landscape') !default;
 ///
 @mixin media-context($tweakpoints: (), $tweak-media-expressions: ()) {
   // Save global configuration
-  $global-breakpoints: $media-sizes;
+  $global-brkpnts: $media-sizes;
   $global-media-expressions: $media-expressions;
 
   // Update global configuration
@@ -482,7 +482,7 @@ $im-no-media-expressions: ('screen', 'portrait', 'landscape') !default;
   @content;
 
   // Restore global configuration
-  $media-sizes: $global-breakpoints !global;
+  $media-sizes: $global-brkpnts !global;
   $media-expressions: $global-media-expressions !global;
 }
 
@@ -519,7 +519,7 @@ $im-no-media-expressions: ('screen', 'portrait', 'landscape') !default;
 @mixin brkpoint($conditions...) {
   // scss-lint:disable SpaceAroundOperator
   @if ($im-media-support and length($conditions) == 0) or
-      (not $im-media-support and im-intercepts-static-breakpoint($conditions...)) {
+      (not $im-media-support and im-intercepts-static-brkpnt($conditions...)) {
     @content;
   } @else if ($im-media-support and length($conditions) > 0) {
     @media #{unquote(parse-expression(nth($conditions, 1)))} {

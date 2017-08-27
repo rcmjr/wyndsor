@@ -38,7 +38,7 @@
 ///
 @mixin media-context($tweakpoints: (), $tweak-media-expressions: ()) {
   // Save global configuration
-  $global-breakpoints: $media-sizes;
+  $global-brkpnts: $media-sizes;
   $global-media-expressions: $media-expressions;
 
   // Update global configuration
@@ -48,6 +48,6 @@
   @content;
 
   // Restore global configuration
-  $media-sizes: $global-breakpoints !global;
+  $media-sizes: $global-brkpnts !global;
   $media-expressions: $global-media-expressions !global;
 }

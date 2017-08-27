@@ -454,7 +454,7 @@ $list-testlevel: null;
 
 $exist-subclass: null;
 $exist-extend: null;
-$exist-important: null;
+$exist-imprtnt: null;
 $define-brkpoints: null;
 $filtercheck-brkpoints: null;
 
@@ -463,7 +463,7 @@ $filtercheck-brkpoints: null;
   $str-leveltwo: map-tostring($list-leveltwo, ' ');
   $exist-subclass: chk-existence($property, _);
   $exist-extend: chk-existence($property, extend);
-  $exist-important: chk-existence($propertyvalue, important);
+  $exist-imprtnt: chk-existence($propertyvalue, important);
   $define-brkpoints: map-tostring($list-leveltwo, ', ');
   $filtercheck-brkpoints: if(map-check($breakpoints, $define-brkpoints) or map-check($media-expressions, $define-brkpoints), true, false);
 }
@@ -550,13 +550,13 @@ $filtercheck-brkpoints: null;
                   $exist-plus: chk-existence($property, "+");
                   $exist-extend: chk-existence($property, extend);
                   $propvalstring: map-tostring($propertyvalue, ' ');
-                  $exist-important: chk-existence($propvalstring, important);
+                  $exist-imprtnt: chk-existence($propvalstring, important);
 
                   font-weight: $exist-subclass;
                   font-stretch: $exist-dash;
                   font-kerning: $exist-plus;
 
-                  @if $exist-important == true and $brkpresent == false {
+                  @if $exist-imprtnt == true and $brkpresent == false {
                     font-family: $property;
                     font-variant: $brkpresent;
                       #{$property}: #{if(chk-existence($propvalstring, !important), str-replace($propvalstring, ' !important', ' !important'), if(chk-existence($propvalstring, important), str-replace($propvalstring, ' important', ''), ''))};

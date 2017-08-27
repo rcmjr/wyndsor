@@ -139,7 +139,7 @@
 
   //// 9 //////////// Convert to string
     @function map-tostring($list, $glue: '', $is-nested: false) {
-      $result: null;
+      $rslt: null;
 
       @if length($list) == 0 {
         @return null;
@@ -150,14 +150,14 @@
           $e: nth($list, $i);
 
           @if type-of($e) == list {
-            $result: $result#{map-tostring($e, $glue, true)};
+            $rslt: $rslt#{map-tostring($e, $glue, true)};
           }
 
           @else {
-            $result: if($i != length($list) or $is-nested, $result#{$e}#{$glue}, $result#{$e});
+            $rslt: if($i != length($list) or $is-nested, $rslt#{$e}#{$glue}, $rslt#{$e});
           }
         }
-        @return $result;
+        @return $rslt;
       }
     }
 
@@ -168,27 +168,27 @@
 
   //// 11 //////////// Check to see if a term exists in a map
     @function chk-existence($map, $term, $true: true, $false: false) {
-      $result: null;
+      $rslt: null;
       $term: if($term == "_", unquote($term), $term);
       $term: if($term == null, nope, $term);
 
       @if type-of($map) == "map" {
         @if str-index(map-tostring($map), quote($term)) {
-          $result: $true;
+          $rslt: $true;
         }
         @else {
-          $result: $false;
+          $rslt: $false;
         }
       }
       @else if type-of($map) == "string" {
         @if str-index($map, quote($term)) {
-          $result: $true;
+          $rslt: $true;
         }
         @else {
-          $result: $false;
+          $rslt: $false;
         }
       }
-      @return $result;
+      @return $rslt;
     }
 
   //// 12 //////////// Reverse a String
@@ -261,20 +261,20 @@
 
   //// 16 //////////// Removes keys from maps
     @function remove-duplicates($list, $recursive: false) {
-      $result: ();
+      $rslt: ();
 
       @each $item in $list {
-        @if not index($result, $item) {
+        @if not index($rslt, $item) {
           @if length($item) > 1 and $recursive {
-            $result: append($result, remove-duplicates($item, $recursive));
+            $rslt: append($rslt, remove-duplicates($item, $recursive));
           }
           @else {
-            $result: append($result, $item);
+            $rslt: append($rslt, $item);
           }
         }
       }
 
-      @return $result;
+      @return $rslt;
     }
 
     //// 17 //////////// Convert string to list (must be used in @each)
@@ -293,7 +293,7 @@
 
       //// 18 //////////// Replace a specific value in a list
       @function replace-nth($list, $index, $value) {
-        $result: null;
+        $rslt: null;
         $index: if($index == null, 'uh this', $index);
         @if type-of($index) != number {
           @warn "$index: #{quote($index)} is not a number for `replace-nth`.";
@@ -308,47 +308,47 @@
         }
 
         @else {
-          $result: ();
+          $rslt: ();
           $index: if($index < 0, length($list) + $index + 1, $index);
 
           @for $i from 1 through length($list) {
             @if $i == $index {
-              $result: append($result, $value);
+              $rslt: append($rslt, $value);
             }
 
             @else {
-              $result: append($result, nth($list, $i));
+              $rslt: append($rslt, nth($list, $i));
             }
           }
         }
 
-        @return $result;
+        @return $rslt;
       }
 
       //// 19 //////////// Purges false from a list.
       @function purge($list) {
-        $result: ();
+        $rslt: ();
 
         @each $item in $list {
           @if $item != null
           and $item != false
           and $item != "" {
-            $result: append($result, $item);
+            $rslt: append($rslt, $item);
           }
         }
 
-        @return $result;
+        @return $rslt;
       }
 
       //// 20 //////////// Routes passible criteria to their intended executables
       @function router($lock, $key: null, $metal: null, $level: One-Level, $depth: null, $type: "keys") {
-        $result: ();
+        $rslt: ();
         $replacement: null;
         @if $level == One-Level {
           $mold: map-tostring(to-list($lock, $type), ' ');
           $mold-verify: if($mold != null, $mold, "nope");
           $replacement: if(str-index($mold-verify, if($key != null, $key, "nope")), true, false);
-          $result: purge(append($result, $replacement));
+          $rslt: purge(append($rslt, $replacement));
           }
         @else if $level == Two-Levels {
           @each $groove, $pin in $lock {
@@ -358,66 +358,119 @@
               $mold: map-tostring(to-list($pin, $type), ' ');
               $mold-verify: if($mold != null, $mold, "nope");
               $replacement: if(str-index($mold-verify, $metal), true, false);
-              $result: append($result, $replacement);
+              $rslt: append($rslt, $replacement);
 
             }
           }
-          $result: purge($result);
+          $rslt: purge($rslt);
         }
-        @if $result == () {
+        @if $rslt == () {
           @return null;
         }
-        @else if $result != () {
-          @return map-tostring($result);
+        @else if $rslt != () {
+          @return map-tostring($rslt);
+        }
+      }
+
+      @mixin switch($EpicAct, $rslt, $rslt-brkpnt-solve, $rslt-imprtnt, $rslt-imprtnt-solve, $rslt-base, $rslt-base-solve, $startkey, $startvalue, $breakpoint) {
+        $subhands: map-tostring(to-list($startkey, "keys"), ' ');
+        $sublefty: if(map-check($extensions, $subhands), true, false);
+        @if $sublefty != true {
+
+          // First Level properties (no breakpoints, base or anything else but solid first level css)
+          @if $EpicAct == (normal or important) and $rslt == false and $rslt-imprtnt == $rslt-imprtnt-solve {
+            $propval: map-tostring(to-list($startvalue, "keys"), ' ');
+            #{to-list($startkey, "keys")}: #{if(str-index($propval, ' important'), str-replace($propval, ' important'), $propval)};
+          }
+
+          // Second Level properties (can be breakpoints, base, etc.)
+          @each $key, $value in $startvalue {
+            $mold: map-tostring($key);
+            $mold-verify: if($mold != null, $mold, "nope");
+            $basecheck: if(str-index($mold-verify, base), true, false);
+            $submold: map-tostring($value, ' ');
+            $submold-verify: if($submold != null, $submold, "nope");
+            $importantcheck: if(str-index($submold-verify, ' important'), true, false);
+            $breakpointcheck: if($breakpoint != null, if(str-index($mold-verify, $breakpoint), true, false), "()");
+            $rslt-base: if(remove-duplicates(purge($basecheck)) == (), false, true);
+            $rslt-imprtnt: if(remove-duplicates(purge($importantcheck)) == (), false, true);
+            $rslt-brkpnt: if(remove-duplicates(purge($breakpointcheck)) == (), false, true);
+            @if $rslt-base == $rslt-base-solve and $rslt-imprtnt == $rslt-imprtnt-solve and $rslt-brkpnt == $rslt-brkpnt-solve {
+              #{to-list($startkey, "keys")}: #{to-list($value, "values")};
+            }
+          }
         }
       }
 
       //// 20 //////////// Routes passible criteria to their intended executables
-      @mixin router2($property, $propertyvalue, $value, $breakpoint, $type, $filter) {
+      @mixin router2($property, $propertyvalue, $value, $key, $breakpoint, $EpicAct) {
+        $rslt-imprtnt-solve: null;
+        $rslt-base-solve: null;
+        $rslt-brkpnt-solve: null;
+
+        @if $EpicAct == normal {
+          $rslt-imprtnt-solve: false;
+          $rslt-base-solve: true;
+          $rslt-brkpnt-solve: false;
+        }
+        @else if $EpicAct == important {
+          $rslt-imprtnt-solve: true;
+          $rslt-base-solve: true;
+          $rslt-brkpnt-solve: false;
+        }
+        @else if $EpicAct == breakpoint {
+          $rslt-imprtnt-solve: false;
+          $rslt-base-solve: false;
+          $rslt-brkpnt-solve: true;
+        }
 
         // Removing or allowing extensions, pseudos and subclasses
-        $hands: map-tostring(to-list($property, "keys"), ' ');
-        $lefty: if(map-check($extensions, $hands) or map-check($pseudos, $hands) or str-index($hands, '_'), true, false);
-        $righty: if(map-check($pseudos, $hands) or str-index($hands, '_'), true, false);
-        // Removing or allowing breakpoints
-        $feet: map-tostring(to-list($propertyvalue, "keys"), ' ');
-        $leftfoot: if(map-check($breakpoints, $feet), true, false);
+          $hands: map-tostring(to-list($property, "keys"), ' ');
+            $lefty: if(map-check($extensions, $hands) or map-check($pseudos, $hands) or str-index($hands, '_'), true, false);
+            $righty1: if(map-check($pseudos, $hands), true, false);
+            $righty2: if(str-index($hands, "_"), true, false);
+            // Removing or allowing breakpoints
+            $feet: map-tostring(to-list($propertyvalue, "keys"), ' ');
+            $leftfoot: if(map-check($breakpoints, $feet), true, false);
 
-        // Checks and Balances Breakpoints and Base Keys
-        $mold: map-tostring(to-list($propertyvalue, "keys"), ' ');
-        $mold-verify: if($mold != null, $mold, "nope");
-        $result: ();
-          @each $breakpoint, $breakpointvalue in $breakpoints {
-            $replacement: if(str-index($mold-verify, $breakpoint), true, false);
-            $result: append($result, $replacement);
-          }
-          $result: remove-duplicates(purge($result)); // Breakpoints
-        $result-base: (); // Base
+            // Checks and Balances Breakpoints and Base Keys
+            $mold: map-tostring(to-list($propertyvalue, "keys"), ' ');
+            $mold-verify: if($mold != null, $mold, "nope");
+            $rslt: ();
+            $rslt-imprtnt: ();
+              @each $breakpoint, $breakpointvalue in $breakpoints {
+                $replacement: if(str-index($mold-verify, $breakpoint), true, false);
+                $importantcheck1: if(str-index($mold-verify, ' important'), true, false);
+                $rslt: append($rslt, $replacement);
+                $rslt-imprtnt: append($rslt-imprtnt, $importantcheck1);
+              }
+              $rslt: if(remove-duplicates(purge($rslt)) == (), false, true); // Breakpoints
+              $rslt-imprtnt: if(remove-duplicates(purge($rslt-imprtnt)) == (), false, true); // Important
+            $rslt-base: (); // Base
 
-        // For Regular CSS
-        @if $lefty != true and $type == Regular-Properties {
-
-          // Regular properties
-          @if $filter == No-Breakpoints and $leftfoot == false and $result == () {
-            #{to-list($property, "keys")}: #{to-list($propertyvalue, "keys")};
-          }
-
-          // Regular properties declared in "base" key
-          @else if $filter == No-Breakpoints and $leftfoot == false {
+        // For CSS Properties
+        @if $lefty != true {
+          @include switch($EpicAct, $rslt, $rslt-brkpnt-solve, $rslt-imprtnt, $rslt-imprtnt-solve, $rslt-base, $rslt-base-solve, $property, $propertyvalue, $breakpoint);
+        }
+        // For Pseudos
+        @else if $righty1 == true {
+          &#{unquote(":")}#{$property} {
             @each $subprop, $subpropval in $propertyvalue {
-              $mold: map-tostring($subprop);
-              $mold-verify: if($mold != null, $mold, "nope");
-              $replacement2: if(str-index($mold-verify, base), true, false);
-              $result-base: remove-duplicates(purge($replacement2));
-              @if $result-base != () {#{to-list($property, "keys")}: #{to-list($subpropval, "values")};}
+              @include switch($EpicAct, $rslt, $rslt-brkpnt-solve, $rslt-imprtnt, $rslt-imprtnt-solve, $rslt-base, $rslt-base-solve, $subprop, $subpropval, $breakpoint);
             }
           }
         }
-        // For Pseudos and SubClasses
-        @else if $righty == true and $type == (Pseudos or Subclasses) {
-          @content;
+        // For Sub-classes and Kin
+        @else if $righty2 == true {
+          &#{if($property != null, unquote("-"), '') + if(str-index($property, '_'), str-replace($property, _, ''), '')} {
+            @each $subprop, $subpropval in $propertyvalue {
+              //font-variant: $subprop;
+            }
+          }
         }
+        @content;
       }
+
 
 //// --- END FUNCTIONS --- ////////////////////////
 

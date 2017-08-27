@@ -117,17 +117,14 @@ $red: red;
               //$brkpresent: if(map-check($breakpoints, $brks) or map-check($media-expressions, $brks) or map-check($media-sizes, $brks), true, false);
               @each $property, $propertyvalue in $value {
                 @if $EpicAct == important {
-
-                  @include router2($property, $propertyvalue, $value, $breakpoint, Regular-Properties, No-Breakpoints) {
-                    font-family: $property;
-                  }
+                  /// $property, $propertyvalue, $value, $key, $breakpoint, $EpicAct
+                  //@include router2($property, $propertyvalue, $value, $mainname, $breakpoint, important);
+                  @include router2($property, $propertyvalue, $value, $mainname, $breakpoint, normal);
 
                 }
 
                 @else if $EpicAct == breakpoint  {
-                  @if $breakpoint-override == true {
-
-                  }
+                  @include router2($property, $propertyvalue, $value, $mainname, $breakpoint, breakpoint);
                 }
 
                 @else if $EpicAct == normal {
@@ -221,7 +218,7 @@ $TestCombo-Deets: (
     _bluish: 30px,
     grid: (grid !important),
     width: 555px,
-    height: (50px, important),
+    height: (50px important),
     extend:
       (tablet: (Style1, Style2)),
     color: (
@@ -232,9 +229,13 @@ $TestCombo-Deets: (
       tablet: grey,
       desktop: black),
     -webkit-min-device-pixel-ratio: 20px,
-    transition-delay: 5s,
+    transition-delay: (
+      tablet: 5s),
     hover: (
+      width: 20px,
+      -t: before,
       font-style: (
+        base: 20px important,
         tablet: 20px
       )
     ),

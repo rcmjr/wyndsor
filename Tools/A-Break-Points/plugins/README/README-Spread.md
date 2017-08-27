@@ -100,26 +100,26 @@ Allows you to pass top/right/bottom/left values and spread will calculate the di
 
 ### Custom breakpoints
 
-You can either override globally the breakpoints Include Media Spread will use by default by setting `$ims-breakpoints`. By default it uses the default include-media breakpoints.
+You can either override globally the breakpoints Include Media Spread will use by default by setting `$ims-brkpnts`. By default it uses the default include-media breakpoints.
 
 *Example*
 
 ```scss
-$my-breakpoints: (small: 340px, large: 1000px);
-$ims-breakpoints: $my-breakpoints;
+$my-brkpnts: (small: 340px, large: 1000px);
+$ims-brkpnts: $my-brkpnts;
 
 @import 'include-media-spread';
 ```
 
-**Or** you to pass custom-breakpoint per mixin.
+**Or** you to pass custom-brkpnt per mixin.
 
 *Example*
 
 ```scss
-$custom-breakpoints: (small: 15em, large: 40em);
+$custom-brkpnts: (small: 15em, large: 40em);
 
 .module-block {
-  @include spread(padding, 10px, 30px, $media-sizes: $custom-breakpoints);
+  @include spread(padding, 10px, 30px, $media-sizes: $custom-brkpnts);
 }
 ```
 
