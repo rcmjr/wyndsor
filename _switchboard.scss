@@ -93,6 +93,9 @@ $red: red;
           $breakpoint-override: if($EpicAct == breakpoint, router($lock: $value, $key: -t, $metal: $breakpoint, $level: Two-Levels, $depth: null), null);
 
           @if $important-override == "true" and $EpicAct == important {
+            @each $property, $propertyvalue in $value {
+              @include router2($property, $propertyvalue, $value, $mainname, $breakpoint, $EpicAct, $breakpoint-override, $important-override);
+            }
             font-family: $important-override;
             font-size: 20px;
           }
@@ -211,7 +214,9 @@ $red: red;
 $TestCombo-Deets: (
   Phase2-class: (
     alt: (+testing, woahhhh, #hello, Yolo-awesomeness),
-    -k: (".Justkidding .Phase3-class-tablet #testing2.dohhhhhh, %testing"),
+    -k: (
+      kname: ".Justkidding .Phase3-class-tablet #testing2.dohhhhhh, %testing",
+      height: 40000px),
     -t: (),
     _bluish: 30px,
     grid: (grid !important),
@@ -242,8 +247,12 @@ $TestCombo-Deets: (
         tablet: 20px))),
   #Phase2-class2: (
     alt: (yolo),
-    -k: (".Justkidding .Phase3-class-tablet #testing2.dohhhhhh, %testing"),
-    -t: (),
+    -k: (
+      kname: (_Justkidding _Phase3-class-tablet #testing2_dohhhhhh, +testing),
+      width: 20px,
+      hover: (
+        width: 666px)),
+    -t: (important),
     grid: sub-grid !important,
     margin: 40em,
     extend: (
@@ -255,6 +264,7 @@ $TestCombo-Deets: (
       tablet: black 20px 5px solid),
     _red: (
       width: (
+        base: 30rem,
         tablet: (4000000px !important),
         desktop: (20px))),
     after: (

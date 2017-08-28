@@ -372,7 +372,7 @@
         }
       }
 
-      @mixin switch($EpicAct, $rslt, $rslt-brkpnt-solve, $rslt-imprtnt, $rslt-imprtnt-solve, $rslt-base, $rslt-base-solve, $startkey, $startvalue, $breakpoint) {
+      @mixin switch($EpicAct, $rslt, $rslt-brkpnt-solve, $rslt-imprtnt, $rslt-imprtnt-solve, $rslt-base, $rslt-base-solve, $startkey, $startvalue, $breakpoint, $redswitch-imprtnt, $redswitch-brkpnt) {
         $subhands: map-tostring(to-list($startkey, "keys"), ' ');
         $sublefty: if(map-check($extensions, $subhands), true, false);
 
@@ -389,11 +389,22 @@
           $rslt: if(remove-duplicates(purge($rslt)) == (), false, true); // Breakpoints
           $rslt-imprtnt: if(remove-duplicates(purge($rslt-imprtnt)) == (), false, true); // Important
 
+          @if $redswitch-imprtnt == true {
+            $rslt-base-solve: true;
+            $rslt-imprtnt-solve: true;
+            $rslt-brkpnt-solve: false;
+          }
+          @else if $redswitch-brkpnt == true {
+            $rslt-base-solve: false;
+            $rslt-imprtnt-solve: true;
+            $rslt-brkpnt-solve: true;
+          }
+          // or ($redswitch-brkpnt == true or $redswitch-imprnt == true)
 
         @if $sublefty != true {
 
           // First Level properties (no breakpoints, base or anything else but solid first level css)
-          @if $EpicAct == (normal or important) and $rslt == false and $rslt-imprtnt == $rslt-imprtnt-solve {
+          @if $EpicAct == (normal or important) and ($rslt == false and $rslt-imprtnt == $rslt-imprtnt-solve) {
             $propval: map-tostring(to-list($startvalue, "keys"), ' ');
             #{to-list($startkey, "keys")}: #{if(str-index($propval, ' important'), str-replace($propval, ' important'), $propval)};
           }
@@ -420,31 +431,40 @@
       }
 
       //// 20 //////////// Routes passible criteria to their intended executables
-      @mixin router2($property, $propertyvalue, $value, $key, $breakpoint, $EpicAct) {
+      @mixin router2($property, $propertyvalue, $value, $key, $breakpoint, $EpicAct, $breakpoint-override: false, $important-override: false) {
         $rslt-imprtnt-solve: null;
         $rslt-base-solve: null;
         $rslt-brkpnt-solve: null;
+        $redswitch-imprtnt: false !default;
+        $redswitch-brkpnt: false !default;
 
         @if $EpicAct == normal {
-          $rslt-imprtnt-solve: false;
-          $rslt-base-solve: true;
-          $rslt-brkpnt-solve: false;
+          $rslt-imprtnt-solve: false !default;
+          $rslt-base-solve: true !default;
+          $rslt-brkpnt-solve: false !default;
         }
         @else if $EpicAct == important {
-          $rslt-imprtnt-solve: true;
-          $rslt-base-solve: true;
-          $rslt-brkpnt-solve: false;
+          $rslt-imprtnt-solve: true !default;
+          $rslt-base-solve: true !default;
+          $rslt-brkpnt-solve: false !default;
+          @if $important-override == true {
+            $redswitch-imprtnt: true;
+          }
         }
         @else if $EpicAct == breakpoint {
-          $rslt-imprtnt-solve: false;
-          $rslt-base-solve: false;
-          $rslt-brkpnt-solve: true;
+          $rslt-imprtnt-solve: false !default;
+          $rslt-base-solve: false !default;
+          $rslt-brkpnt-solve: true !default;
+          @if $breakpoint-override == true {
+            $redswitch-brkpnt: true;
+          }
         }
 
         // Removing or allowing extensions, pseudos and subclasses
           $hands: map-tostring(to-list($property, "keys"), ' ');
             $lefty: if(map-check($pseudos, $hands), true, false);
             $righty: if(str-index($hands, "_"), true, false);
+            $thirdy: if(str-index($hands, "-k"), true, false);
             // Removing or allowing breakpoints
             $feet: map-tostring(to-list($propertyvalue, "keys"), ' ');
             $leftfoot: if(map-check($breakpoints, $feet), true, false);
@@ -454,26 +474,86 @@
             $rslt-base: (); // Base
 
         // For CSS Properties
-        @if $lefty != true and $righty != true {
-          @include switch($EpicAct, $rslt, $rslt-brkpnt-solve, $rslt-imprtnt, $rslt-imprtnt-solve, $rslt-base, $rslt-base-solve, $property, $propertyvalue, $breakpoint);
+        @if $lefty != true and $righty != true and $thirdy != true {
+          @include switch($EpicAct, $rslt, $rslt-brkpnt-solve, $rslt-imprtnt, $rslt-imprtnt-solve, $rslt-base, $rslt-base-solve, $property, $propertyvalue, $breakpoint, $redswitch-imprtnt, $redswitch-brkpnt);
         }
         // For Pseudos
         @else if $lefty == true {
           &#{unquote(":")}#{$property} {
             @each $subprop, $subpropval in $propertyvalue {
-              @include switch($EpicAct, $rslt, $rslt-brkpnt-solve, $rslt-imprtnt, $rslt-imprtnt-solve, $rslt-base, $rslt-base-solve, $subprop, $subpropval, $breakpoint);
+              @include switch($EpicAct, $rslt, $rslt-brkpnt-solve, $rslt-imprtnt, $rslt-imprtnt-solve, $rslt-base, $rslt-base-solve, $subprop, $subpropval, $breakpoint, $redswitch-imprtnt, $redswitch-brkpnt);
             }
           }
         }
-        // For Sub-classes and Kin
+        // For Sub-classes
         @else if $righty == true {
           &#{if($property != null, unquote("-"), '') + if(str-index($property, '_'), str-replace($property, _, ''), '')} {
             @each $subprop, $subpropval in $propertyvalue {
-              @include switch($EpicAct, $rslt, $rslt-brkpnt-solve, $rslt-imprtnt, $rslt-imprtnt-solve, $rslt-base, $rslt-base-solve, $subprop, $subpropval, $breakpoint);
+              @include switch($EpicAct, $rslt, $rslt-brkpnt-solve, $rslt-imprtnt, $rslt-imprtnt-solve, $rslt-base, $rslt-base-solve, $subprop, $subpropval, $breakpoint, $redswitch-imprtnt, $redswitch-brkpnt);
             }
           }
         }
-        @content;
+        // For Kin
+        @else if $thirdy == true {
+          $altnames: ();
+          $mold-verify: null;
+          $rslt-link: null;
+          $mold: null;
+
+          @each $subprop, $subpropval in $propertyvalue {
+            $mold: map-tostring($subprop, '', true);
+            $mold-verify: if($mold != null, $mold, "nope");
+            $linkcheck: if(str-index($mold-verify, 'kname'), true, false);
+            $rslt-link: if(remove-duplicates(purge($linkcheck)) == (), false, true);
+
+            @if $rslt-link == true {
+              @for $i from 1 through length($subpropval) {
+                $propval: map-tostring(nth($subpropval, $i), ' ');
+                $alttest1: null;
+                $alttest2: null;
+
+                @if if(str-index($propval, '+'), true, true) {
+                  $alttest1: if(str-index($propval, '+'), str-replace($propval, '+', '%'), $propval);
+                  @if if(str-index($alttest1, '_'), true, true) {
+                    $alttest2: if(str-index($alttest1, '_'), str-replace($alttest1, '_', '.'), $alttest1);
+                      @if if(str-index($alttest2, '#'), true, true) {
+                        $altnames: append($altnames, $alttest2, comma);
+                      }
+                    }
+                  @else {
+                    $altnames: append($altnames, $alttest1, comma);
+                  }
+                }
+                @else {
+                  $altnames: append($altnames, $propval, comma);
+                }
+              }
+            }
+          }
+          $altname: if($altnames != (), $altnames, unquote(''));
+
+          #{if($altname != null, unquote(' ') + $altname, '')} {
+            @each $subprop, $subpropval in $propertyvalue {
+              $subhands: map-tostring($subprop, ' ');
+              $subrighty: if(map-check($pseudos, $subhands), true, false);
+              $sublefty: if(str-index($hands, "_"), true, false);
+
+              @if $sublefty == false and $subrighty == false {
+                @include switch($EpicAct, $rslt, $rslt-brkpnt-solve, $rslt-imprtnt, $rslt-imprtnt-solve, $rslt-base, $rslt-base-solve, $subprop, $subpropval, $breakpoint, $redswitch-imprtnt, $redswitch-brkpnt);
+              }
+              @else if $subrighty == true {
+                &#{unquote(":")}#{$subprop} {
+                  @each $subsubprop, $subsubpropval in $subpropval {
+                    @include switch($EpicAct, $rslt, $rslt-brkpnt-solve, $rslt-imprtnt, $rslt-imprtnt-solve, $rslt-base, $rslt-base-solve, $subsubprop, $subsubpropval, $breakpoint, $redswitch-imprtnt, $redswitch-brkpnt);
+                  }
+                }
+              }
+              @else if $sublefty == true {
+                @warn "This isnt allowed.";
+              }
+            }
+          }
+        }
       }
 
 
