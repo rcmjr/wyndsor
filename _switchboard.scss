@@ -3,7 +3,7 @@
 $red: red;
 // 1. Base Scenario = width: (20px) = manual values associated with that specific property that apply always, and do not change via breakpoint
 // 2. Autocode Scenario
-//    a. Pure Auto = width: (auto, 20px) = you enter a value and it runs through a mixin that ouputs values for all the breakpoints based on global values
+//    a. extend Auto = width: (auto, 20px) = you enter a value and it runs through a mixin that ouputs values for all the breakpoints based on global values
 //    b. Custom Auto = width: (custo, 20px) = you enter a value and it runs through a mixin that outputs values for all the breakpoints based on your own custom values
 // 3. Technical Scenario
 //    a. Manual Tech = width: (tablet: (30px), phablet: (40px), phone: (60px)) = you enter manual values for every breakpoint you want to effect
@@ -85,56 +85,39 @@ $red: red;
 
         //// 2 //////////// Creates the classes, ids, subclasses and pseudos
         #{$mainname}#{$brkname}#{if($altname != null, unquote(', '), '')}#{if($altname != null, $altname, '')} {
-          $tracker: null;
 
-          //$starter: if(chk-existence($value, -t), _($value, -t), "nope");
-          //font-family: $starter;
-          $important-override: if($EpicAct == important, router($lock: $value, $key: -t, $metal: important, $level: Two-Levels, $depth: null), null);
-          $breakpoint-override: if($EpicAct == breakpoint, router($lock: $value, $key: -t, $metal: $breakpoint, $level: Two-Levels, $depth: null), null);
+          $impride: router($lock: $value, $key: -t, $metal: important);
+          $important-override: if(remove-duplicates(purge($impride)) == (), false, true);
+          $brkride: router($lock: $value, $key: -t, $metal: breakpoint);
+          $breakpoint-override: if(remove-duplicates(purge($brkride)) == (), false, true);
+          $override-brkname: if($breakpoint-override == true, _($AlphaMap, $key, -t), null);
 
-          @if $important-override == "true" and $EpicAct == important {
+          @if $important-override == true and $EpicAct == important {
             @each $property, $propertyvalue in $value {
-              @include router2($property, $propertyvalue, $value, $mainname, $breakpoint, $EpicAct, $breakpoint-override, $important-override);
+              @include router2($property, $propertyvalue, $value, $mainname, $breakpoint, important, new, $breakpoint-override, $important-override);
+              @include router2($property, $propertyvalue, $value, $mainname, $breakpoint, important, extend, $breakpoint-override, $important-override);
             }
-            font-family: $important-override;
-            font-size: 20px;
           }
-
-          @else if $breakpoint-override == "true" and $EpicAct == breakpoint {
-            font-family: $breakpoint-override;
-            font-size: 40px;
+          @else if $breakpoint-override == true and $EpicAct == breakpoint {
+            @each $property, $propertyvalue in $value {
+              @include router2($property, $propertyvalue, $value, $mainname, $breakpoint, breakpoint, new, $breakpoint-override, $important-override, $override-brkname);
+              @include router2($property, $propertyvalue, $value, $mainname, $breakpoint, breakpoint, extend, $breakpoint-override, $important-override, $override-brkname);
+            }
           }
-
-          @else if $breakpoint-override != "true" and $important-override != "true" {
-
-
-              //font-variant: router($lock: $propertyvalue, $key: base, $level: One-Level);
-              //  font-variant: router($lock: $propertyvalue, $key: important, $level: One-Level, $type: "values");
-              //// ✩ //////////// Critical Variables
-
-              //$leftfoot: router($lock: $propertyvalue, $key: $breakpoint, $level: One-Level);
-
-              //// ✩ //////////// Important Variables
-              //$depthkey: map-depth(_($value, $property));
-              //$brks: map-tostring(nth(to-list($propertyvalue, "keys"), 1), ', ');
-              //$brkpresent: if(map-check($breakpoints, $brks) or map-check($media-expressions, $brks) or map-check($media-sizes, $brks), true, false);
+          @if $breakpoint-override == false and $important-override == false {
               @each $property, $propertyvalue in $value {
                 @if $EpicAct == important {
-                  /// $property, $propertyvalue, $value, $key, $breakpoint, $EpicAct
-                  //@include router2($property, $propertyvalue, $value, $mainname, $breakpoint, important);
-                  @include router2($property, $propertyvalue, $value, $mainname, $breakpoint, important);
-
+                  @include router2($property, $propertyvalue, $value, $mainname, $breakpoint, important, new, $breakpoint-override, $important-override);
+                  @include router2($property, $propertyvalue, $value, $mainname, $breakpoint, important, extend, $breakpoint-override, $important-override);
                 }
-
-                @else if $EpicAct == breakpoint  {
-                  @include router2($property, $propertyvalue, $value, $mainname, $breakpoint, breakpoint);
+                @else if $EpicAct == breakpoint {
+                  @include router2($property, $propertyvalue, $value, $mainname, $breakpoint, breakpoint, new, $breakpoint-override, $important-override);
+                  @include router2($property, $propertyvalue, $value, $mainname, $breakpoint, breakpoint, extend, $breakpoint-override, $important-override);
                 }
-
                 @else if $EpicAct == normal {
-                  @include router2($property, $propertyvalue, $value, $mainname, $breakpoint, normal);
+                  @include router2($property, $propertyvalue, $value, $mainname, $breakpoint, normal, new, $breakpoint-override, $important-override);
+                  @include router2($property, $propertyvalue, $value, $mainname, $breakpoint, normal, extend, $breakpoint-override, $important-override);
                 }
-
-              //// > //////////// End of IF
               }
             }
           }
@@ -213,20 +196,19 @@ $red: red;
 
 $TestCombo-Deets: (
   Phase2-class: (
-    alt: (+testing, woahhhh, #hello, Yolo-awesomeness),
+    alt: (+testing),
     -k: (
-      kname: ".Justkidding .Phase3-class-tablet #testing2.dohhhhhh, %testing",
+      kname: ".thisisgood, #forwhatitsworth .thatsmells",
       height: 40000px),
     -t: (),
-    _bluish: 30px,
-    grid: (grid !important),
+    _bluish: (
+      margin-left: 30px),
+    grid: (grid),
     width: 555px,
-    height: (50px important),
-    extend:
-      (tablet: (Style1, Style2)),
+    height: (50px !important),
     color: (
-      tablet: $red !important,
-      base: pink),
+      tablet: $red important,
+      base: pink important),
     background: (
       base: purple,
       tablet: grey,
@@ -236,7 +218,6 @@ $TestCombo-Deets: (
       tablet: 5s),
     hover: (
       width: 20px,
-      -t: before,
       font-style: (
         base: 20px important,
         tablet: 20px
@@ -248,25 +229,26 @@ $TestCombo-Deets: (
   #Phase2-class2: (
     alt: (yolo),
     -k: (
-      kname: (_Justkidding _Phase3-class-tablet #testing2_dohhhhhh, +testing),
+      kname: (_Justkidding_testing2),
       width: 20px,
       hover: (
         width: 666px)),
     -t: (important),
-    grid: sub-grid !important,
+    grid: sub-grid important,
     margin: 40em,
-    extend: (
-      base: (Style1, Style2, Style3)
-      ),
+    extend: (testing),
     color: (
-      tablet: blue !important),
+      desktop: blue important,
+      tablet: pink important,
+      phablet: purple important),
     background: (
       tablet: black 20px 5px solid),
     _red: (
       width: (
-        base: 30rem,
+        base: 30rem important,
         tablet: (4000000px !important),
-        desktop: (20px))),
+        desktop: (20px),
+        phablet: 30px)),
     after: (
       width: (
         base: 40px,
@@ -294,9 +276,9 @@ $TestCombo-Deets: (
       )
     )
   );
-  @include breakpointboard($TestCombo-Deets, null, breakpoint);
 @include switchboard($AlphaMap: $TestCombo-Deets, $EpicAct: normal, $BetaMap: null, $breakpoint: null, $extendswitch: null);
-  @include switchboard($AlphaMap: $TestCombo-Deets, $EpicAct: important, $BetaMap: null, $breakpoint: null, $extendswitch: null);
+@include breakpointboard($TestCombo-Deets, null, breakpoint);
+@include switchboard($AlphaMap: $TestCombo-Deets, $EpicAct: important, $BetaMap: null, $breakpoint: null, $extendswitch: null);
   //@include switchboard($EpicList: $TestStyle-List, $AlphaMap: $TestStyle-Map, $EpicAct: normal, $EpicList2: $TestCombo-List, $BetaMap: $TestCombo-Deets, $breakpoint: null, $extendswitch: extender);
 //  @include switchboard($EpicList: $TestCombo-List, $AlphaMap: $TestCombo-Deets, $EpicAct: breakpoint, $EpicList2: null, $BetaMap: null, $breakpoint: 'tablet', $extendswitch: null);
 //  @include switchboard($EpicList: $TestStyle-List, $AlphaMap: $TestStyle-Map, $EpicAct: breakpoint, $EpicList2: $TestCombo-List, $BetaMap: $TestCombo-Deets, $breakpoint: 'tablet', $extendswitch: extender);

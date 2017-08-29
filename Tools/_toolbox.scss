@@ -4,7 +4,8 @@ $extensions: (
   "-t": states,
   "-k": kin,
   "_": subclass,
-  "+": placeholder
+  "+": placeholder,
+  "override": specials
 );
 
 $pseudos: (

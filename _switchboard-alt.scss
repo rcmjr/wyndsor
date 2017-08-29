@@ -3,7 +3,7 @@
 $red: red;
 // 1. Base Scenario = width: (20px) = manual values associated with that specific property that apply always, and do not change via breakpoint
 // 2. Autocode Scenario
-//    a. Pure Auto = width: (auto, 20px) = you enter a value and it runs through a mixin that ouputs values for all the breakpoints based on global values
+//    a. extend Auto = width: (auto, 20px) = you enter a value and it runs through a mixin that ouputs values for all the breakpoints based on global values
 //    b. Custom Auto = width: (custo, 20px) = you enter a value and it runs through a mixin that outputs values for all the breakpoints based on your own custom values
 // 3. Technical Scenario
 //    a. Manual Tech = width: (tablet: (30px), phablet: (40px), phone: (60px)) = you enter manual values for every breakpoint you want to effect

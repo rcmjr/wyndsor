@@ -54,7 +54,7 @@
   @return $change-value-list;
 }
 
-// adapted from http://www.kirupa.com/forum/showthread.php?378287-Robert-Penner-s-Easing-Equations-in-Pure-JS-%28no-jQuery%29
+// adapted from http://www.kirupa.com/forum/showthread.php?378287-Robert-Penner-s-Easing-Equations-in-extend-JS-%28no-jQuery%29
 @function ease($progress, $start-value, $change, $ease) {
 
   // value increases evenly
