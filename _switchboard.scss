@@ -54,7 +54,8 @@ $red: red;
         @else {
           $type: ".";
         }
-
+        $mainname: $type + if(str-index($key, '#'), str-replace($key, '#', ''), if(str-index($key, '+'), str-replace($key, '+', ''), $key));
+        $brkname: if($EpicAct == breakpoint, unquote('-' + $breakpoint), '');
         $altnames-str: null;
         $altnames-list2: null;
         $altbrk: if($EpicAct == breakpoint and $Include-AltBreakName == on, unquote('-' + $breakpoint), '');
@@ -64,27 +65,32 @@ $red: red;
 
           @if $exist-alt == true {
             @for $i from 1 through length($propertyvalue) {
-              $propval: nth($propertyvalue, $i);
-
-              @if if(str-index($propval, '#'), true, false) {
-                $altnames: append($altnames, #{$propval}#{$altbrk}, comma);
+              $propval: if($propertyvalue != (), nth($propertyvalue, $i), "nope");
+              @if $propval != "nope" {
+                @if if(str-index($propval, '#'), true, false) {
+                  $altnames: append($altnames, #{$propval}#{$altbrk}, comma);
+                }
+                @else if if(str-index($propval, '+'), true, false) {
+                  $altnames: append($altnames, #{if(str-index($propval, '+'), str-replace($propval, '+', '%'), null)}#{$altbrk}, comma);
+                }
+                @else {
+                  $altnames: append($altnames, #{unquote(".")}#{$propval}#{$altbrk}, comma);
+                }
               }
-              @else if if(str-index($propval, '+'), true, false) {
-                $altnames: append($altnames, #{if(str-index($propval, '+'), str-replace($propval, '+', '%'), null)}#{$altbrk}, comma);
-              }
-              @else {
-                $altnames: append($altnames, #{unquote(".")}#{$propval}#{$altbrk}, comma);
+              @else if $propval == "nope" {
+                $altnames: ();
+                @warn "You should go ahead and remove the alias field from #{$mainname}s map.";
               }
             }
           }
         }
 
-        $mainname: $type + if(str-index($key, '#'), str-replace($key, '#', ''), if(str-index($key, '+'), str-replace($key, '+', ''), $key));
-        $brkname: if($EpicAct == breakpoint, unquote('-' + $breakpoint), '');
+
         $altname: if($altnames != (), $altnames, unquote(''));
 
+
         //// 2 //////////// Creates the classes, ids, subclasses and pseudos
-        #{$mainname}#{$brkname}#{if($altname != null, unquote(', '), '')}#{if($altname != null, $altname, '')} {
+        #{$mainname + $brkname}#{if($altname != null, unquote(', '), '')}#{if($altname != '', $altname + if($brkname != null, $brkname, ''), '')} {
 
           $impride: router($lock: $value, $key: -t, $metal: important);
           $important-override: if(remove-duplicates(purge($impride)) == (), false, true);
@@ -95,29 +101,44 @@ $red: red;
           @if $important-override == true and $EpicAct == important {
             @each $property, $propertyvalue in $value {
               @include router2($property, $propertyvalue, $value, $mainname, $breakpoint, important, new, $breakpoint-override, $important-override);
-              @include router2($property, $propertyvalue, $value, $mainname, $breakpoint, important, extend, $breakpoint-override, $important-override);
+              //@include router2($property, $propertyvalue, $value, $mainname, $breakpoint, important, extend, $breakpoint-override, $important-override);
             }
           }
           @else if $breakpoint-override == true and $EpicAct == breakpoint {
             @each $property, $propertyvalue in $value {
               @include router2($property, $propertyvalue, $value, $mainname, $breakpoint, breakpoint, new, $breakpoint-override, $important-override, $override-brkname);
-              @include router2($property, $propertyvalue, $value, $mainname, $breakpoint, breakpoint, extend, $breakpoint-override, $important-override, $override-brkname);
+              //@include router2($property, $propertyvalue, $value, $mainname, $breakpoint, breakpoint, extend, $breakpoint-override, $important-override, $override-brkname);
             }
           }
           @if $breakpoint-override == false and $important-override == false {
               @each $property, $propertyvalue in $value {
                 @if $EpicAct == important {
                   @include router2($property, $propertyvalue, $value, $mainname, $breakpoint, important, new, $breakpoint-override, $important-override);
-                  @include router2($property, $propertyvalue, $value, $mainname, $breakpoint, important, extend, $breakpoint-override, $important-override);
+                  //@include router2($property, $propertyvalue, $value, $mainname, $breakpoint, important, extend, $breakpoint-override, $important-override);
                 }
                 @else if $EpicAct == breakpoint {
                   @include router2($property, $propertyvalue, $value, $mainname, $breakpoint, breakpoint, new, $breakpoint-override, $important-override);
-                  @include router2($property, $propertyvalue, $value, $mainname, $breakpoint, breakpoint, extend, $breakpoint-override, $important-override);
+                  //@include router2($property, $propertyvalue, $value, $mainname, $breakpoint, breakpoint, extend, $breakpoint-override, $important-override);
                 }
                 @else if $EpicAct == normal {
                   @include router2($property, $propertyvalue, $value, $mainname, $breakpoint, normal, new, $breakpoint-override, $important-override);
-                  @include router2($property, $propertyvalue, $value, $mainname, $breakpoint, normal, extend, $breakpoint-override, $important-override);
+                  //@include router2($property, $propertyvalue, $value, $mainname, $breakpoint, normal, extend, $breakpoint-override, $important-override);
                 }
+              }
+            }
+          }
+          
+          //// 3 //////////// Creates the extends
+          #{$mainname + $brkname} {
+            @each $property, $propertyvalue in $value {
+              @if $EpicAct == important {
+                @include router2($property, $propertyvalue, $value, $mainname, $breakpoint, important, extend);
+              }
+              @if $EpicAct == breakpoint {
+                @include router2($property, $propertyvalue, $value, $mainname, $breakpoint, breakpoint, extend);
+              }
+              @if $EpicAct == normal {
+               @include router2($property, $propertyvalue, $value, $mainname, $breakpoint, normal, extend);
               }
             }
           }
@@ -127,7 +148,7 @@ $red: red;
 
 
 
-
+//#{if($altname != null, unquote(', '), '')}#{if($altname != null, $altname, '')}
 
 
   //// --- END CLASS GENERATOR --- ////////////////////////
@@ -196,18 +217,16 @@ $red: red;
 
 $TestCombo-Deets: (
   Phase2-class: (
-    alt: (+testing),
-    -k: (
-      kname: ".thisisgood, #forwhatitsworth .thatsmells",
-      height: 40000px),
+    alt: (testing),
     -t: (),
     _bluish: (
       margin-left: 30px),
     grid: (grid),
     width: 555px,
     height: (50px !important),
+    extend: (),
     color: (
-      tablet: $red important,
+      tablet: $red,
       base: pink important),
     background: (
       base: purple,
@@ -225,28 +244,31 @@ $TestCombo-Deets: (
     ),
     _blue: (
       width: (
-        tablet: 20px))),
+        tablet: 20px)),
+    -k: (
+      kname: ".thisisgood, #forwhatitsworth .thatsmells",
+      height: 40000px)),
   #Phase2-class2: (
-    alt: (yolo),
+    alt: (),
     -k: (
       kname: (_Justkidding_testing2),
       width: 20px,
       hover: (
         width: 666px)),
-    -t: (important),
+    -t: (),
     grid: sub-grid important,
     margin: 40em,
-    extend: (testing),
+    extend: (),
     color: (
-      desktop: blue important,
-      tablet: pink important,
-      phablet: purple important),
+      desktop: green,
+      tablet: pink,
+      phablet: purple),
     background: (
-      tablet: black 20px 5px solid),
+      tablet: pink 20px 5px solid),
     _red: (
       width: (
         base: 30rem important,
-        tablet: (4000000px !important),
+        tablet: (pink !important),
         desktop: (20px),
         phablet: 30px)),
     after: (
@@ -255,7 +277,23 @@ $TestCombo-Deets: (
         desktop: 20px
       )
     )
-  ));
+  ),
+  #Phase3-class1: (
+    margin-left: 11px important,
+    margin-right: 22px,
+    margin-top: 33px,
+    margin-bottom: 44px,
+    padding-left: (
+      tablet: 5555555px
+    ),
+    color: (
+      tablet: purple,
+      desktop: pink,
+      phablet: violet,
+      base: blue
+    )
+  )
+  );
 
   $TestStyle-Map: (
     1: (

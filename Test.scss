@@ -559,7 +559,7 @@ $filtercheck-brkpoints: null;
                   @if $exist-imprtnt == true and $brkpresent == false {
                     font-family: $property;
                     font-variant: $brkpresent;
-                      #{$property}: #{if(chk-existence($propvalstring, !important), str-replace($propvalstring, ' !important', ' !important'), if(chk-existence($propvalstring, important), str-replace($propvalstring, ' important', ''), ''))};
+                      #{$property}:
 
                   }
 
@@ -578,3 +578,27 @@ $filtercheck-brkpoints: null;
                     @warn "Dude, didnt you get the memo? This is way beyond the scope.";
                   }
                 }
+
+
+                $mold: map-tostring($key);
+                $mold-verify: if($mold != null, $mold, "nope");
+                $rslt-brkpnt: ();
+                $rslt-normal: ();
+                $rslt-imprtnt: ();
+                $newbreak: null;
+
+                @each $breakpoint, $breakpointvalue in $breakpoints {
+                  $brkpntcheck: if($EpicAct == breakpoint, if(str-index($key, $breakpoint), true, false), false);
+                  $normalcheck: if($EpicAct == normal, if(str-index($key, $breakpoint), false, true), false);
+                  $imprtntcheck: if($EpicAct == important, if(str-index($key, $breakpoint), false, true), false);
+
+                  $newbreak: if($brkpntcheck == true, $breakpoint, "nope");
+
+                  $rslt-brkpnt: append($rslt-brkpnt, $brkpntcheck);
+                  $rslt-normal: append($rslt-normal, $normalcheck);
+                  $rslt-imprtnt: append($rslt-imprtnt, $imprtntcheck);
+                }
+
+                $rslt-brkpnt: if(remove-duplicates(purge($rslt-brkpnt)) == (), false, true); // Breakpoints;
+                $rslt-normal: if(remove-duplicates(purge($rslt-normal)) == (), false, true);
+                $rslt-imprtnt: if(remove-duplicates(purge($rslt-imprtnt)) == (), false, true);

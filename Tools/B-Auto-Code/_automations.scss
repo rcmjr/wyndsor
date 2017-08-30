@@ -150,11 +150,11 @@
           $e: nth($list, $i);
 
           @if type-of($e) == list {
-            $rslt: $rslt#{map-tostring($e, $glue, true)};
+            $rslt: unquote("#{$rslt}#{map-tostring($e, $glue, true)}");
           }
 
           @else {
-            $rslt: if($i != length($list) or $is-nested, $rslt#{$e}#{$glue}, $rslt#{$e});
+            $rslt: if($i != length($list) or $is-nested, unquote("#{$rslt}#{$e}#{$glue}"), unquote("#{$rslt}#{$e}"));
           }
         }
         @return $rslt;
@@ -380,8 +380,6 @@
         $sublefty: if(map-check($extensions, $subhands-verify), true, false);
         $subrighty: if(str-index($subhands-verify, 'extend'), true, false);
         $override-brkname: if($override-brkname != null, $override-brkname, "nope");
-        $inbetween: ();
-
 
         // Checks and Balances Breakpoints and Base Keys
         $mold: map-tostring(to-list($startvalue, "keys"), ' ');
@@ -413,10 +411,17 @@
 
           // First Level properties (no breakpoints, base or anything else but solid first level css)
           @if $redswitch == false and $blueswitch == false {
-            @if $EpicAct == (normal or important) and $rslt == false and $rslt-imprtnt == $rslt-imprtnt-solve {
+            @if $EpicAct == normal {
+              @if $rslt == false and $rslt-imprtnt == $rslt-imprtnt-solve {
               $propval: map-tostring(to-list($startvalue, "keys"), ' ');
               #{to-list($startkey, "keys")}: #{if(str-index($propval, ' important'), str-replace($propval, ' important'), $propval)};
-
+              }
+            }
+            @else if $EpicAct == important {
+              @if $rslt == false and $rslt-imprtnt == $rslt-imprtnt-solve {
+              $propval: map-tostring(to-list($startvalue, "keys"), ' ');
+              #{to-list($startkey, "keys")}: #{if(str-index($propval, ' important'), str-replace($propval, ' important'), $propval)};
+              }
             }
           }
           @else if $redswitch == true and $blueswitch == false {
@@ -450,7 +455,11 @@
 
             @if $redswitch == false and $blueswitch == false {
               @if $rslt-base == $rslt-base-solve and $rslt-imprtnt == $rslt-imprtnt-solve and $rslt-brkpnt == $rslt-brkpnt-solve {
-                  #{to-list($startkey, "keys")}: #{if(str-index($propval, ' important'), str-replace($propval, ' important'), $propval)};
+                #{to-list($startkey, "keys")}: #{if(str-index($propval, ' important'), str-replace($propval, ' important'), $propval)};
+              }
+              @else if $rslt-imprtnt == true and $rslt-brkpnt == true {
+                //@if im-log('`#{to-list($startkey, "keys")}` cant both in a breakpoint and important at the same time.') {}
+                @warn "Sorry, you can't have it both ways. If you'd like to make this important within a breakpoint just add an '!'";
               }
             }
             @else if $redswitch == true and $blueswitch == false {
@@ -468,11 +477,45 @@
             }
           }
         }
-      }
+        }
         @else if $subrighty == true and $boardroute == extend {
-          @if $EpicAct == (normal or important) and ($rslt == false and $rslt-imprtnt == $rslt-imprtnt-solve) {
-            $propval: map-tostring(to-list($startvalue, "keys"), ' ');
-            //@if $propval != null {@extend %#{$propval};}
+          $length: length(to-list($startvalue, "keys"));
+
+          @each $key, $value in $startvalue {
+            $mold: map-tostring(to-list($key, "keys"), ' ');
+            $mold-verify: if($mold != null, $mold, "nope");
+            $breakpointslist: to-list($breakpoints, 'keys'); // List of current breakpoints
+
+            $brkpntcheck: null;
+            $rslttotal: null;
+            $brkpntgo: null;
+
+
+            @each $breakpointtie, $breakpointvaluetie in $breakpoints {
+                $brkpntcheck: if(str-index($key, $breakpointtie), true, false);
+                @if $brkpntcheck == true {
+                  $rslttotal: $breakpointtie;
+                }
+                $brkpntgo: append($brkpntgo, $brkpntcheck);
+            }
+              $rslt-brkpnt: if(remove-duplicates(purge($brkpntgo)) == (), false, true);
+
+
+            @if $EpicAct == breakpoint {
+              @if $rslt-brkpnt == true and $rslttotal == $breakpoint {
+                @extend %#{$key};
+              }
+            }
+            @elseif $EpicAct == normal {
+              @if $rslt-brkpnt == false {
+                @extend %#{$key};
+              }
+            }
+            @else if $EpicAct == important {
+              @if $rslt-brkpnt == false {
+                @extend %#{$key};
+              }
+            }
           }
         }
       }
