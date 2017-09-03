@@ -1,17 +1,6 @@
 //// •••••• FUNDAMENTAL IMPORTS •••••• ////
 @import 'plugins/CSSOwl/tf+cssowl.scss';
 
-$Grids-List: (
-  1: True-Test-Grid
-);
-
-// 1. Enter in value which is calculated automatically in every breakpoint.
-// 2. Enter in breakpoint values which are calculated individually.
-
-// 3. Enter in manual values as a universal unchanging value. < NO BREAKPOINTS
-
-// 4. Enter in manual properties values (@content) which can be attributed to breakpoints or not.
-
 $Grid-Deets: (
   1: (
     grid: (base, grid),
@@ -23,40 +12,8 @@ $Grid-Deets: (
   )) !default;
 
 
-@mixin grid-up2($parentpull, $childpull) {
-  // This pulls the names and keys from the parent map and establishes all of the base class properties
-  @each $key, $value in $parentpull {
-    .#{$value} {
-    @each $childproperty, $propertyvalue in _($childpull, $key) {
-      $truekey: _($childpull, $key, $childproperty);
-        #{$childproperty}: nth($truekey, 2);
-      }
-    }
+@mixin grid-tool($property-key, $property-key-string, $property-list, $property-string, $property-length, $splitter, $custo-name, $breakpoint, $EpicAct) {
+  @if $property-key-string == grid {
+    #{$property-key}: #{$property-list};
   }
 }
-
-@mixin grid-up($childproperty, $truekey) {
-  $toolkey: $truekey;
-  #{$childproperty}: nth($toolkey, 2);
-}
-
-@mixin -through($breakpoint-number, $breakpoint-name, $parentpull, $childpull) {
-
-  // This pulls the names and keys from the parent map and establishes all of the base class properties
-  @each $key, $value in $parentpull {
-    $typekey: _($childpull, $key, type);
-
-    .#{$value} {
-    @each $childproperty, $propertyvalue in _($childpull, $key) {
-
-      // 1. Enter in value which is calculated automatically in every breakpoint.
-        @if map-check($switches, $typekey, $childproperty, property) and $typekey != type and length($childproperty) == 1 and length($propertyvalue) == 2 and nth($propertyvalue, 2) == auto {
-          #{_($switches, $typekey, $childproperty, property)}: #{_($switches, $typekey, $childproperty, auto)};
-        }
-      }
-    }
-  }
-}
-
-//@include -up($Grids-List, $Grid-Deets);
-//& @include -through(0, 'teensyphone', $Grids-List, $Grid-Deets);

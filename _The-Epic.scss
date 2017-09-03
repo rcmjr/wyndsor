@@ -1,4 +1,6 @@
-$Epic-List: map-combine($Grids-List, $Colors-List, true);
 $Epic-Deets: map-combine($Grid-Deets, $Colors-Deets, true);
 
-//@include switchboard($Epic-List, $Epic-Deets);
+
+@include switchboard($TestCombo-Deets, normal);
+@include breakpointboard($TestCombo-Deets, breakpoint);
+@include switchboard($TestCombo-Deets, important);

@@ -631,3 +631,27 @@ $filtercheck-brkpoints: null;
                     }
                   }
                 }
+
+                // 1. Base Scenario = width: (20px) = manual values associated with that specific property that apply always, and do not change via breakpoint
+                // 2. Autocode Scenario
+                //    a. extend Auto = width: (auto, 20px) = you enter a value and it runs through a mixin that ouputs values for all the breakpoints based on global values
+                //    b. Custom Auto = width: (custo, 20px) = you enter a value and it runs through a mixin that outputs values for all the breakpoints based on your own custom values
+                // 3. Technical Scenario
+                //    a. Manual Tech = width: (tablet: (30px), phablet: (40px), phone: (60px)) = you enter manual values for every breakpoint you want to effect
+                //    b. Comprehensive Tech = width: (base:(20px), tablet: (30px), etc.) = you enter in a base value which is overridden by the breakpoints that follow.
+                //    c. Infinite Tech = width: (base: (20px), tablet: (auto, 44px), phablet: (custo, 55px), etc.) = you enter auto, custo or manual values in any breakpoint
+                // 4. Sub-Classes/States/Animations/Transitions
+                //    a. Class variations = header1: (..., vars: (blue: (width: 20px)) > .header1-blue class = you create class variation using an underscore before it's name.
+                //    b. Sub-Classes = header2: (..., _red: (width: 20px)) > .header2, .red class = you create
+                //    c. States = header3: (..., hover, active, etc.) = create pseudo elemental states.
+                // 5. Extensions = extend: (layout, grid, homepage) = you call an existing map class so that it's values get attributed to this specific class.
+
+                // Three CSS Groups:
+                //    a. Regular (which can be overridden by breakpoints or classes that come after it)
+                //    b. Breakpoint Based (All breakpoints and their classes go here)
+                //    c. Important (which come after all other CSS and stays at the bottom of the stylesheet)
+
+                // Custom Actions:
+                //    a. Have Wyndsor create an id, rather than a class
+                //    b. Add an !important to the end of a property
+                //    c. Add class or id to a group based on an existing style

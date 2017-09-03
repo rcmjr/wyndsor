@@ -24,72 +24,59 @@
 
   $Colors-Deets: (
     1: (
-      background: (auto, background, #282828, .5, white),
-      color: (auto, color, #ef3e3e, .75, black)
+      background: (auto, #282828, .5, lighten),
+      color: (auto, #ef3e3e, .75, darken)
     )
   ) !default;
 
   @mixin color-up2($parentpull, $childpull) {
 
-    // This pulls the names and keys from the parent map and establishes all of the base class properties
-    @each $key, $value in $parentpull {
-
-      .#{$value} {
-
-      @each $childproperty, $propertyvalue in _($childpull, $key) {
-
-        $truekey: _($childpull, $key, $childproperty);
-
-        $property: nth($truekey, 2);
-        $background: nth($truekey, 3);
-        $opacity: nth($truekey, 4);
-        $mix: nth($truekey, 5);
+    $property: nth($truekey, 2);
+    $background: nth($truekey, 3);
+    $opacity: nth($truekey, 4);
+    $mix: nth($truekey, 5);
 
 
-        @if $mix == lighten {
-          #{$property}: mix($background, white, $opacity * 100%);
-          #{$property}: rgba($background, $opacity);
-        }
+    @if $mix == lighten {
+      #{$property}: mix($background, white, $opacity * 100%);
+      #{$property}: rgba($background, $opacity);
+    }
 
-        @else if $mix == darken {
-          #{$property}: mix($background, black, $opacity * 100%);
-          #{$property}: rgba($background, $opacity);
-        }
-        @else if $mix == nope {
-          @warn 'Sorry you didnt include a mix color';
-        }
-        @else {
-          #{$property}: mix($background, $mix, $opacity * 100%);
-          #{$property}: rgba($background, $opacity);
-        }
-        }
-      }
+    @else if $mix == darken {
+      #{$property}: mix($background, black, $opacity * 100%);
+      #{$property}: rgba($background, $opacity);
+    }
+    @else if $mix == nope {
+      @warn 'Sorry you didnt include a mix color';
+    }
+    @else {
+      #{$property}: mix($background, $mix, $opacity * 100%);
+      #{$property}: rgba($background, $opacity);
     }
   }
 
-  @mixin color-up($childpull, $truekey) {
+  @mixin color-tool($property-key, $property-key-string, $property-list, $property-string, $property-length, $splitter, $custo-name, $breakpoint, $EpicAct) {
+    @if $property-key-string == color or $property-key-string == background {
+      $property: $property-key;
+      $background: nth($property-list, 1);
+      $opacity: nth($property-list, 2);
+      $mix: if($property-length >= 3, nth($property-list, 3), nope);
 
-        $toolkey: $truekey;
-
-        $property: nth($toolkey, 2);
-        $background: nth($toolkey, 3);
-        $opacity: nth($toolkey, 4);
-        $mix: nth($toolkey, 5);
-
-        @if $mix == lighten {
-          #{$property}: mix($background, white, $opacity * 100%);
-          #{$property}: rgba($background, $opacity);
-        }
-
-        @else if $mix == darken {
-          #{$property}: mix($background, black, $opacity * 100%);
-          #{$property}: rgba($background, $opacity);
-        }
-        @else if $mix == nope {
-          @warn 'Sorry you didnt include a mix color';
-        }
-        @else {
-          #{$property}: mix($background, $mix, $opacity * 100%);
-          #{$property}: rgba($background, $opacity);
-        }
+      @if $mix == lighten {
+        #{$property}: mix($background, white, $opacity * 100%);
+        #{$property}: rgba($background, $opacity);
       }
+
+      @else if $mix == darken {
+        #{$property}: mix($background, black, $opacity * 100%);
+        #{$property}: rgba($background, $opacity);
+      }
+      @else if $mix == nope {
+        @warn 'Sorry you didnt include a mix color';
+      }
+      @else {
+        #{$property}: mix($background, $mix, $opacity * 100%);
+        #{$property}: rgba($background, $opacity);
+      }
+    }
+  }

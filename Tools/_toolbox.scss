@@ -25,24 +25,20 @@ $pseudos: (
 $Include-AliasBreakName: on;
 
 //// --- TOOLBOX MIXIN --- ////////////////////////////
-@mixin toolbox ($root-cnctr, $cnctr-list, $cnctr-str, $cnctr-length, $splitter, $breakpoint, $EpicAct) {
+@mixin toolbox($property-key, $property-key-string, $property-list, $property-string, $property-length, $splitter, $custo-name, $breakpoint, $EpicAct) {
 
-  //// 1 //////////// Built-in Automations
+  //// 1 //////////// Built-in Tools
   @if $splitter == built-in {
-    @include color-up($childpull, $truekey);
+    @include color-tool($property-key, $property-key-string, $property-list, $property-string, $property-length, $splitter, $custo-name, $breakpoint, $EpicAct);
+    @include grid-tool($property-key, $property-key-string, $property-list, $property-string, $property-length, $splitter, $custo-name, $breakpoint, $EpicAct);
   }
 
-  //// 2 //////////// Custom Automations
+  //// 2 //////////// Custom Tools
   @else if $splitter == add-on {
-    @include grid-up($childproperty, $truekey);
-  }
 
+  }
   //// ! //////////// Lights Out!
   @else {
-    @warn "Woah, a breaker must be out.";
+    @warn "Wooaaahh, this is a two-way split bro, try using 'auto' or 'custo-#'.";
   }
-}
-
-@mixin tada($extensions, $childproperty, $pseudos, $subclass, $truekey) {
-
 }
