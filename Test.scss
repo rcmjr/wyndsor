@@ -602,3 +602,32 @@ $filtercheck-brkpoints: null;
                 $rslt-brkpnt: if(remove-duplicates(purge($rslt-brkpnt)) == (), false, true); // Breakpoints;
                 $rslt-normal: if(remove-duplicates(purge($rslt-normal)) == (), false, true);
                 $rslt-imprtnt: if(remove-duplicates(purge($rslt-imprtnt)) == (), false, true);
+
+
+
+
+                @else if $boardroute == kin {
+                  @if $uppy2 == true {
+
+                        $subhands: map-tostring($subprop, ' ');
+                        $subrighty: if(map-check($pseudos, $subhands), true, false);
+                        $sublefty: if(str-index($hands, "_"), true, false);
+                        $linkcheck: if(str-index($subprop, 'kname'), true, false);
+
+                        @if $sublefty == false and $subrighty == false and $linkcheck == false {
+                          @include switch($EpicAct, $rslt, $rslt-brkpnt-solve, $rslt-imprtnt, $rslt-imprtnt-solve, $rslt-base, $rslt-base-solve, $subprop, $subpropval, $breakpoint, $redswitch, $blueswitch, $boardroute, $override-brkname);
+                        }
+                        @else if $subrighty == true {
+                          &#{unquote(":")}#{$subprop} {
+                              @each $subsubprop, $subsubpropval in $subpropval {
+                                @include switch($EpicAct, $rslt, $rslt-brkpnt-solve, $rslt-imprtnt, $rslt-imprtnt-solve, $rslt-base, $rslt-base-solve, $subsubprop, $subsubpropval, $breakpoint, $redswitch, $blueswitch, $boardroute, $override-brkname);
+                              }
+                          }
+                        }
+                        @else if $sublefty == true {
+                          @warn "This isnt allowed.";
+                        }
+                      }
+                    }
+                  }
+                }

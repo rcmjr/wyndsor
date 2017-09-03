@@ -1,6 +1,6 @@
 $extensions: (
   "extend": "&-",
-  "alt": alterego,
+  "alias": alterego,
   "-t": states,
   "-k": kin,
   "_": subclass,
@@ -22,18 +22,18 @@ $pseudos: (
   required: ':required',
 );
 
-$Include-AltBreakName: off;
+$Include-AliasBreakName: on;
 
 //// --- TOOLBOX MIXIN --- ////////////////////////////
-@mixin toolbox ($childpull, $truekey, $childproperty, $flipswitch) {
+@mixin toolbox ($root-cnctr, $cnctr-list, $cnctr-str, $cnctr-length, $splitter, $breakpoint, $EpicAct) {
 
-  //// 1 //////////// Auto Color
-  @if $flipswitch == flip-color {
+  //// 1 //////////// Built-in Automations
+  @if $splitter == built-in {
     @include color-up($childpull, $truekey);
   }
 
-  //// 2 //////////// Auto Grid
-  @else if $flipswitch == flip-grid {
+  //// 2 //////////// Custom Automations
+  @else if $splitter == add-on {
     @include grid-up($childproperty, $truekey);
   }
 
