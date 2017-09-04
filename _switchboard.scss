@@ -234,7 +234,7 @@
       $hands: map-tostring(to-list($property, "keys"), ' ');
         $lefty: if(map-check($pseudos, $hands), true, false);
         $righty: if(str-index($hands, "_"), true, false);
-        $uppy: if(str-index($hands, "-k"), true, false);
+        $uppy: if(str-index($hands, "descent"), true, false);
         $downy: if(str-index($hands, "extend"), true, false);
         $sidey: if(str-index($hands, "override"), true, false);
 
@@ -277,7 +277,7 @@
         @each $subprop, $subpropval in $propertyvalue {
           $mold: map-tostring($subprop, '', true);
           $mold-verify: if($mold != null, $mold, "nope");
-          $linkcheck: if(str-index($mold-verify, 'kname'), true, false);
+          $linkcheck: if(str-index($mold-verify, 'name'), true, false);
           $rslt-link: if(remove-duplicates(purge($linkcheck)) == (), false, true);
 
           @if $rslt-link == true {
@@ -312,7 +312,7 @@
             $subhands: map-tostring($subprop, ' ');
             $subrighty: if(map-check($pseudos, $subhands), true, false);
             $sublefty: if(str-index($hands, "_"), true, false);
-            $linkcheck: if(str-index($subprop, 'kname'), true, false);
+            $linkcheck: if(str-index($subprop, 'name'), true, false);
 
             @if $sublefty == false and $subrighty == false and $linkcheck == false {
               @include switch($EpicAct, $rslt, $rslt-brkpnt-solve, $rslt-imprtnt, $rslt-imprtnt-solve, $rslt-base, $rslt-base-solve, $subprop, $subpropval, $breakpoint, $redswitch, $blueswitch, $boardroute, $override-brkname);
@@ -344,98 +344,95 @@
   //// 4 //////////// Generates the classes, ids, and pseudo classes
   @mixin switchboard($AlphaMap, $EpicAct, $breakpoint: null) {
 
-  //// ✩ //////////// Root Variables
-  $breakpointslist: to-list($breakpoints, 'keys'); // List of current breakpoints
+    //// ✩ //////////// Root Variables
+    $breakpointslist: to-list($breakpoints, 'keys'); // List of current breakpoints
 
-    //// --- CLASS and SUB-CLASS GENERATOR --- ////////////////////////////
-    @each $key, $value in $AlphaMap {
+      //// --- CLASS and SUB-CLASS GENERATOR --- ////////////////////////////
+      @each $key, $value in $AlphaMap {
 
-      //// 1 //////////// Determines legit or placeholder class, or id.
-      $type: null;
-      $aliasnames: ();
-      $aliasname: null;
-      $exist-alias: null;
+        //// 1 //////////// Determines legit or placeholder class, or id.
+        $type: null;
+        $aliasnames: ();
+        $aliasname: null;
+        $exist-alias: null;
 
-        @if if(str-index($key, '#'), true, false) {
-          $type: "#";
-        }
-        @else if if(str-index($key, '+'), true, false) {
-          $type: "%";
-        }
-        @else {
-          $type: ".";
-        }
+          @if if(str-index($key, '#'), true, false) {
+            $type: "#";
+          }
+          @else if if(str-index($key, '+'), true, false) {
+            $type: "%";
+          }
+          @else {
+            $type: ".";
+          }
 
-        $mainname: $type + if(str-index($key, '#'), str-replace($key, '#', ''), if(str-index($key, '+'), str-replace($key, '+', ''), $key));
-        $brkname: if($EpicAct == breakpoint, unquote('-' + $breakpoint), '');
-        $aliasnames-str: null;
-        $aliasnames-list2: null;
-        $aliasbrk: if($EpicAct == breakpoint and $Include-AliasBreakName == on, unquote('-' + $breakpoint), '');
+          $mainname: $type + if(str-index($key, '#'), str-replace($key, '#', ''), if(str-index($key, '+'), str-replace($key, '+', ''), $key));
+          $brkname: if($EpicAct == breakpoint, unquote('-' + $breakpoint), '');
+          $aliasnames-str: null;
+          $aliasnames-list2: null;
+          $aliasbrk: if($EpicAct == breakpoint and $Include-AliasBreakName == on, unquote('-' + $breakpoint), '');
 
-        @each $property, $propertyvalue in $value {
-          $exist-alias: chk-existence($property, alias);
+          @each $property, $propertyvalue in $value {
+            $exist-alias: chk-existence($property, alias);
 
-          @if $exist-alias == true {
-            @for $i from 1 through length($propertyvalue) {
-              $propval: if($propertyvalue != (), nth($propertyvalue, $i), "nope");
-              @if $propval != "nope" {
-                @if if(str-index($propval, '#'), true, false) {
-                  $aliasnames: append($aliasnames, #{$propval}#{$aliasbrk}, comma);
+            @if $exist-alias == true {
+              @for $i from 1 through length($propertyvalue) {
+                $propval: if($propertyvalue != (), nth($propertyvalue, $i), "nope");
+                @if $propval != "nope" {
+                  @if if(str-index($propval, '#'), true, false) {
+                    $aliasnames: append($aliasnames, #{$propval}#{$aliasbrk}, comma);
+                  }
+                  @else if if(str-index($propval, '+'), true, false) {
+                    $aliasnames: append($aliasnames, #{if(str-index($propval, '+'), str-replace($propval, '+', '%'), null)}#{$aliasbrk}, comma);
+                  }
+                  @else {
+                    $aliasnames: append($aliasnames, #{unquote(".")}#{$propval}#{$aliasbrk}, comma);
+                  }
                 }
-                @else if if(str-index($propval, '+'), true, false) {
-                  $aliasnames: append($aliasnames, #{if(str-index($propval, '+'), str-replace($propval, '+', '%'), null)}#{$aliasbrk}, comma);
-                }
-                @else {
-                  $aliasnames: append($aliasnames, #{unquote(".")}#{$propval}#{$aliasbrk}, comma);
+                @else if $propval == "nope" {
+                  $aliasnames: ();
+                  @warn "You should go ahead and remove the alias field from #{$mainname}s map.";
                 }
               }
-              @else if $propval == "nope" {
-                $aliasnames: ();
-                @warn "You should go ahead and remove the alias field from #{$mainname}s map.";
-              }
             }
           }
-        }
-        $aliasname: if($aliasnames != (), $aliasnames, unquote(''));
+          $aliasname: if($aliasnames != (), $aliasnames, unquote(''));
 
 
-        //// 2 //////////// Creates the classes, ids, subclasses and pseudos
-        #{$mainname + $brkname}#{if($aliasname != null, unquote(', '), '')}#{if($aliasname != '', $aliasname, '')} {
+          //// 2 //////////// Creates the classes, ids, subclasses and pseudos
+          #{$mainname + $brkname}#{if($aliasname != null, unquote(', '), '')}#{if($aliasname != '', $aliasname, '')} {
 
-          $impride: chk-override($lock: $value, $key: -t, $metal: important);
-          $important-override: if(remove-duplicates(purge($impride)) == (), false, true);
-          $brkride: chk-override($lock: $value, $key: -t, $metal: breakpoint);
-          $breakpoint-override: if(remove-duplicates(purge($brkride)) == (), false, true);
-          $override-brkname: if($breakpoint-override == true, _($AlphaMap, $key, -t), null);
+            $impride: chk-override($lock: $value, $key: override, $metal: important);
+            $important-override: if(remove-duplicates(purge($impride)) == (), false, true);
+            $brkride: chk-override($lock: $value, $key: override, $metal: breakpoint);
+            $breakpoint-override: if(remove-duplicates(purge($brkride)) == (), false, true);
+            $override-brkname: if($breakpoint-override == true, _($AlphaMap, $key, -t), null);
 
-          @if $important-override == true and $EpicAct == important {
-            @each $property, $propertyvalue in $value {
-              @include router($property, $propertyvalue, $value, $mainname, $breakpoint, $EpicAct, new, $breakpoint-override, $important-override);
-            }
-          }
-          @else if $breakpoint-override == true and $EpicAct == breakpoint {
-            @each $property, $propertyvalue in $value {
-              @include router($property, $propertyvalue, $value, $mainname, $breakpoint, $EpicAct, new, $breakpoint-override, $important-override, $override-brkname);
-            }
-          }
-          @if $breakpoint-override == false and $important-override == false {
+            @if $important-override == true and $EpicAct == important {
               @each $property, $propertyvalue in $value {
                 @include router($property, $propertyvalue, $value, $mainname, $breakpoint, $EpicAct, new, $breakpoint-override, $important-override);
               }
             }
-          }
+            @else if $breakpoint-override == true and $EpicAct == breakpoint {
+              @each $property, $propertyvalue in $value {
+                @include router($property, $propertyvalue, $value, $mainname, $breakpoint, $EpicAct, new, $breakpoint-override, $important-override, $override-brkname);
+              }
+            }
+            @if $breakpoint-override == false and $important-override == false {
+                @each $property, $propertyvalue in $value {
+                  @include router($property, $propertyvalue, $value, $mainname, $breakpoint, $EpicAct, new, $breakpoint-override, $important-override);
+                }
+              }
+            }
 
-          //// 3 //////////// Creates the extends
-          #{$mainname + $brkname} {
-            @each $property, $propertyvalue in $value {
-              @include router($property, $propertyvalue, $value, $mainname, $breakpoint, $EpicAct, extend);
+            //// 3 //////////// Creates the extends
+            #{$mainname + $brkname} {
+              @each $property, $propertyvalue in $value {
+                @include router($property, $propertyvalue, $value, $mainname, $breakpoint, $EpicAct, extend);
+              }
             }
           }
         }
-      }
-
-
-  //// --- END CLASS GENERATOR --- ////////////////////////
 
   //// 5 //////////// Generates breakpoints and runs the switchboard within.
   @mixin breakpointboard($AlphaMap, $EpicAct) {
@@ -504,7 +501,7 @@
 $TestCombo-Deets: (
   Phase2-class: (
     alias: (#forcefield, +testing),
-    -t: (),
+    override: (),
     _bluish: (
       margin-left: 30px),
     grid: (auto, grid important),
@@ -529,25 +526,30 @@ $TestCombo-Deets: (
     _blue: (
       width: (
         tablet: 20px)),
-    -k: (
-      kname: ".thisisgood #forwhatitsworth .thatsmells",
+    descent: (
+      name: ".thisisgood #forwhatitsworth .thatsmells",
       height: 40000px,
       padding-left: (
         tablet: 300px
-      ))
+      )),
+      descent-2: (
+        name: ".isthisworking",
+        color: blue,
+        padding-left: 40em)
       ),
   #Phase2-class2: (
     alias: (),
-    -k: (
-      kname: (_Justkidding_testing2),
+    descent: (
+      name: (_Justkidding_testing2),
       width: 20px,
       hover: (
         width: 666px)),
-    -t: (),
+    override: (),
     grid: "sub-grid 20px 40px important",
     margin: (auto, 40em),
     extend: (),
     color: (
+      base: yellow,
       desktop: green,
       tablet: pink,
       phablet: purple),

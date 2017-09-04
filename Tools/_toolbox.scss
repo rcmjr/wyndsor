@@ -1,11 +1,10 @@
 $extensions: (
-  "extend": "&-",
-  "alias": alterego,
-  "-t": states,
-  "-k": kin,
-  "_": subclass,
-  "+": placeholder,
-  "override": specials
+  "extend": sass-extend,
+  "alias": class-alter-ego,
+  "override": css-override,
+  "descent": css-descendents,
+  "_": sub-class,
+  "+": sass-placeholder,
 );
 
 $pseudos: (
