@@ -236,12 +236,7 @@
         $righty: if(str-index($hands, "_"), true, false);
         $uppy: if(str-index($hands, "-k"), true, false);
         $downy: if(str-index($hands, "extend"), true, false);
-
-      // Removing or allowing breakpoints
-      $feet: map-tostring(to-list($propertyvalue, "keys"), ' ');
-        $feet-verify: if($feet != null, $feet, "nope");
-        $leftfoot: if(str-index($feet-verify, "override"), true, false);
-        $rightfoot: if(str-index($feet-verify, "extend"), true, false);
+        $sidey: if(str-index($hands, "override"), true, false);
 
       $rslt: (); // Breakpoint
       $rslt-imprtnt: (); // Important
@@ -576,14 +571,22 @@ $TestCombo-Deets: (
     margin-right: 22px,
     margin-top: 33px,
     margin-bottom: 44px,
-    padding-left: (
-      tablet: 5555555px
-    ),
     color: (
       tablet: purple,
       desktop: pink,
       phablet: violet,
       base: blue
+    ),
+    padding-left: 20px,
+    padding-right: 40px,
+    padding-bottom: 22px,
+    padding-top: 50px,
+    z-index: -9999999999,
+    width: (
+      tablet: 960em,
+      desktop: 1440px,
+      phablet: 738px,
+      base: auto
     )
   )
   );
