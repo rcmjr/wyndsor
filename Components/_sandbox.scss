@@ -1,0 +1,11 @@
+//// --- SANDBOX MAP MERGE --- ////////////////////////////
+
+  $sandbox: map-combine(
+
+    $comp-a,
+    $comp-b,
+    $comp-c, 
+
+    true);
+
+//// --- END SANDBOX MAP MERGE --- ////////////////////////

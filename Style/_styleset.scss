@@ -1,0 +1,11 @@
+//// --- STYLESET MAP MERGE --- ////////////////////////////
+
+  $styleset: map-combine(
+
+    $comp-1,
+    $comp-2,
+    $comp-3,
+
+    true);
+
+//// --- END STYLESET MAP MERGE --- ////////////////////////

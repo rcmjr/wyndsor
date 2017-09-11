@@ -1,0 +1,12 @@
+//// •••••• FUNDAMENTAL IMPORTS •••••• ////
+@import "displays.scss";
+
+//// --- MAP IMPORTS --- ////////////////////////////
+
+  //// ℹ︎ //////////// If you only have one map, use this:
+    $comp-c: $cc-Base-ImageContainers;
+
+  //// ℹ︎ //////////// If you have more than one map add it here:
+    //$comp-c: map-combine(,true);
+
+//// --- END MAP IMPORTS --- ////////////////////////

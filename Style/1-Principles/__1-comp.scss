@@ -1,0 +1,22 @@
+//// •••••• FUNDAMENTAL IMPORTS •••••• ////
+@import "global.scss";
+@import "grid.scss";
+
+//// --- MAP IMPORTS --- ////////////////////////////
+
+  //// ℹ︎ //////////// If you only have one map, use this:
+    //$comp-1: ;
+
+  //// ℹ︎ //////////// If you have more than one map add it here:
+    $comp-1: map-combine(
+
+      /* Global Principles */
+      $s1-GlobalSpecs,
+
+      /* Grid Principles */
+      $s1-Base-ColumnSets,
+      $s1-Base-RowSets,
+
+    true);
+
+//// --- END MAP IMPORTS --- ////////////////////////

@@ -1,0 +1,31 @@
+/// INFO: Artboards are class tailored to each section of the website
+
+//// --- Folio Artboards --- ////////////////////////////
+$cb-Folio-Baseboard: (
+  folio-grid: (
+    display: grid,
+    padding-bottom: 140px
+  )
+);
+
+$cb-Folio-Section-1: (
+  folio-sctn-1: (
+    grid-column: "1 / 4",
+    display: grid,
+    grid-template-columns: repeat(6, 1fr)
+  ),
+  folio-spread: (
+    display: grid,
+    grid-column: "2 / 6",
+    grid-template-rows: repeat(3, 300px)
+  ),
+  frme-left: (
+    grid-column: "1 / 2",
+    justify-self: start
+  ),
+  frme-right: (
+    grid-column: "6 / 7",
+    justify-self: end
+  )
+);
+//// --- END Folio Artboards --- ////////////////////////

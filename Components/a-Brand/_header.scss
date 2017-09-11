@@ -1,0 +1,95 @@
+$ca-Base-Header: (
+
+site-header: (
+  height: (320px),
+  width: auto,
+  display: grid,
+  grid-template-rows: 40px 1fr,
+  _toplines: (
+    grid-row-start: 1,
+    grid-row-end: 2,
+    height: (40px),
+    position: relative,
+    top: 0,
+    width: auto,
+    descent: (
+      name: (_svg-bg-rect),
+      height: 40px
+    ),
+    descent-2: (
+      name: (_svg-bg),
+      overflow: hidden
+    )
+  )
+),
+
+nav: (
+  height: 100%,
+  grid-row-start: 2,
+  grid-row-end: 3
+),
+
+nav-hover: (
+  z-index: -9999,
+  width: 100%,
+  height: 300px,
+  position: absolute,
+  top: 0,
+  display: grid,
+  grid-template-columns: 1fr 1fr),
+
+nav-hover-about: (
+  background: url("../images/nav-abouthover.jpg"),
+  background-size: cover,
+  opacity: 0.5,
+  filter: alpha(opacity=50),
+  grid-column: "1 / 2",
+  align-self: start,
+  height: 100%,
+  extend: (hvr-fade)
+),
+nav-hover-aboutend: (
+  background: #fff,
+  grid-column: "1 / 2",
+  align-self: start,
+  extend: (hvr-fade)
+),
+testinghoverclass: (
+  background: #2b2b2b,
+  extend: (hvr-fade)
+),
+testinghoverclassend: (
+  background: white,
+  extend: (hvr-fade)
+),
+masthead-grid: (
+  display: grid,
+  grid-column-gap: 2em,
+  grid-template-columns: (
+    base: 1fr 2fr 1fr),
+  grid-template-rows: (
+    base: 1fr 48px 1fr),
+  width: (
+    base: 406px),
+  height: (
+    base: 100%),
+  margin: 0 auto,
+  _item-left: (
+    grid-column: "1 / 2",
+    grid-row: "2 / 3",
+    justify-self: center,
+    align-self: center
+  ),
+  _item-logo: (
+    grid-column: "2 / 3",
+    grid-row: "1 / 4",
+    justify-self: center,
+    align-self: center
+  ),
+  _item-right: (
+    grid-column: "3 / 4",
+    grid-row: "2 / 3",
+    justify-self: center,
+    align-self: center
+  )
+));

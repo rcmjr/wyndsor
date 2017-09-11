@@ -1,6 +1,3 @@
-//// •••••• FUNDAMENTAL IMPORTS •••••• ////
-@import 'Tools/toolbox.scss';
-
 //// --- SECTION --- ////////////////////////////
   //// 1 //////////// Code/Sass Snippet Name
     //// a //////////// Snippet Sub
@@ -11,7 +8,7 @@
     $root-cnctr: to-list($root-cnctr, $root-type);
     $root-cnctr-str: map-tostring($root-cnctr, ' ');
     $cnctr: if(type-of($cnctr) == string, str-to-list(unquote($cnctr), ' '), if(type-of($cnctr) == list, if($cnctr != (), to-list($cnctr, $type), ""), $cnctr));
-    $cnctr-list: ();
+    $cnctr-list: null;
 
     @if $importantremoval == normal {
       $cnctr-list: remove($cnctr, "important", true);
@@ -22,7 +19,7 @@
     }
 
     $cnctr-length: length($cnctr-list);
-    $splitter: if(nth($cnctr-list, 1) == auto, built-in, if(str-index(map-tostring(nth($cnctr-list, 1), ''), custo), add-on, neither));
+    $splitter: if(nth($cnctr-list, 1) == auto, built-in, if(nth($cnctr-list, 1) == custo, add-on, neither));
     $custo-call: map-tostring(nth($cnctr-list, 1), '');
     $cnctr-str: map-tostring($cnctr-list, ' ');
 
@@ -52,19 +49,24 @@
       $subhands-verify: if($subhands != null, $subhands, "nope");
       $sublefty: if(map-check($extensions, $subhands-verify), true, false);
       $subrighty: if(str-index($subhands-verify, 'extend'), true, false);
+      $subuppy: if(str-index($subhands-verify, "descent"), true, false);
+      $subdowny: if(map-check($pseudos, $subhands-verify), true, false);
 
     // Checks and Balances Breakpoints and Base Keys
-    $mold: map-tostring(to-list($startvalue, "keys"), ' ');
-    $mold-verify: if($mold != null, $mold, "nope");
+    $mold: to-list($startvalue, "keys");
+    $mold-verify: to-string(if($mold != null, $mold, "nope"));
 
       @each $breakpoint, $breakpointvalue in $breakpoints {
-        $replacement: if(str-index($mold-verify, $breakpoint), true, false);
+        $replacement: if(str-index(map-tostring($mold-verify, ' '), $breakpoint), true, false);
         $rslt: append($rslt, $replacement);
       }
       $rslt: if(remove-duplicates(purge($rslt)) == (), false, true); // Breakpoints
 
       $importantcheck: if(str-index($mold-verify, ' important'), true, false);
       $rslt-imprtnt: if(remove-duplicates(purge($importantcheck)) == (), false, true); // Important
+      $basemold: if(type-of($startvalue) == map, if($startvalue != (), to-list($startvalue, "keys"), ""), "");
+      $basecheck: if(nth($basemold, 1) == base, true, false);
+      $rslt-base: if(remove-duplicates(purge($basecheck)) == (), false, true);
 
     $override-brkname: if($override-brkname != null, $override-brkname, "nope");
       $breakpointcheck2: if(str-index($mold-verify, $override-brkname), true, false);
@@ -81,14 +83,13 @@
         $rslt-brkpnt-solve: true;
       }
 
-
-    @if $sublefty != true and $boardroute == new {
+    @if $sublefty != true and $boardroute == new and $subuppy == false and $subdowny == false{
       $propval: map-tostring(to-list($startvalue, "keys"), ' ');
 
       // First Level properties (no breakpoints, base or anything else but solid first level css)
       @if $redswitch == false and $blueswitch == false {
         @if $EpicAct == normal or $EpicAct == important {
-          @if $rslt == false and $rslt-imprtnt == $rslt-imprtnt-solve {
+          @if $rslt == false and $rslt-imprtnt == $rslt-imprtnt-solve and $rslt-base == false {
             @include lines($startkey, "keys", $startvalue, "keys", $breakpoint, $EpicAct);
           }
         }
@@ -106,12 +107,12 @@
 
       // Second Level properties (can be breakpoints, base, etc.)
       @each $key, $value in $startvalue {
-        $mold: map-tostring($key);
+        $mold: to-string($key);
           $mold-verify: if($mold != null, $mold, "nope");
-          $basecheck: if(str-index($mold-verify, base), true, false);
+          $basecheck: if(str-index($mold, base), true, false);
           $breakpointcheck: if($breakpoint != null, if(str-index($mold-verify, $breakpoint), true, false), "()");
           $breakpointcheck3: if(str-index($mold-verify, $override-brkname), true, false);
-        $submold: map-tostring($value, ' ');
+        $submold: to-string($value);
           $submold-verify: if($submold != null, $submold, "nope");
           $importantcheck: if(str-index($submold-verify, ' important'), true, false);
 
@@ -177,7 +178,83 @@
         }
       }
     }
-  }
+
+    // Creats Descendants within subclasses or pseudos
+    @else if $subuppy == true and $boardroute == new {
+
+        $aliasnames: ();
+        $mold-verify: null;
+        $rslt-link: null;
+        $mold: null;
+
+        @each $key, $value in $startvalue {
+          $mold: map-tostring($key, '', true);
+          $mold-verify: if($mold != null, $mold, "nope");
+          $linkcheck: if(str-index($mold-verify, 'name'), true, false);
+          $rslt-link: if(remove-duplicates(purge($linkcheck)) == (), false, true);
+
+          @if $rslt-link == true {
+            @for $i from 1 through length($value) {
+              $propval: map-tostring(nth($value, $i), ' ');
+              $aliastest1: null;
+              $aliastest2: null;
+
+              @if if(str-index($propval, '+'), true, true) {
+                $aliastest1: if(str-index($propval, '+'), str-replace($propval, '+', '%'), $propval);
+                @if if(str-index($aliastest1, '_'), true, true) {
+                  $aliastest2: if(str-index($aliastest1, '_'), str-replace($aliastest1, '_', '.'), $aliastest1);
+                    @if if(str-index($aliastest2, '#'), true, true) {
+                      $aliasnames: append($aliasnames, $aliastest2, comma);
+                    }
+                  }
+                @else {
+                  $aliasnames: append($aliasnames, $aliastest1, comma);
+                }
+              }
+              @else {
+                $aliasnames: append($aliasnames, $propval, comma);
+              }
+            }
+          }
+        }
+        $aliasname: if($aliasnames != (), $aliasnames, unquote(''));
+
+        #{$aliasname} {
+          @each $key, $value in $startvalue {
+            $subhands: map-tostring($key, ' ');
+            $subrighty: if(map-check($pseudos, $subhands), true, false);
+            $sublefty: if(str-index($subhands, "_"), true, false);
+            $linkcheck: if(str-index($key, 'name'), true, false);
+            $subextend: if(str-index($subhands, 'extend'), true, false);
+
+            @if $sublefty == false and $subrighty == false and $linkcheck == false and $subextend == false {
+              @include switch($EpicAct, $rslt, $rslt-brkpnt-solve, $rslt-imprtnt, $rslt-imprtnt-solve, $rslt-base, $rslt-base-solve, $key, $value, $breakpoint, $redswitch, $blueswitch, $boardroute, $override-brkname);
+            }
+            @else if $subrighty == true {
+              &#{unquote(":")}#{$key} {
+                @each $subprop, $subpropval in $value {
+                  @include switch($EpicAct, $rslt, $rslt-brkpnt-solve, $rslt-imprtnt, $rslt-imprtnt-solve, $rslt-base, $rslt-base-solve, $subprop, $subpropval, $breakpoint, $redswitch, $blueswitch, $boardroute, $override-brkname);
+                }
+              }
+            }
+            @else if $subextend == true {
+              @include router($key, $value, $startvalue, null, $breakpoint, $EpicAct, extend);
+            }
+            @else if $sublefty == true {
+              @warn "Creating subclasses within descendants isnt allowed.";
+            }
+          }
+        }
+      }
+
+      @else if $subdowny == true and $boardroute == new {
+        &#{unquote(":")}#{$startkey} {
+          @each $subprop, $subpropval in $startvalue {
+            @include switch($EpicAct, $rslt, $rslt-brkpnt-solve, $rslt-imprtnt, $rslt-imprtnt-solve, $rslt-base, $rslt-base-solve, $subprop, $subpropval, $breakpoint, $redswitch, $blueswitch, $boardroute, $override-brkname);
+          }
+        }
+      }
+    }
 
   //// 3 //////////// Routes acceptable connections through to the switches/lines
   @mixin router($property, $propertyvalue, $value, $key, $breakpoint, $EpicAct, $boardroute, $breakpoint-override: false, $important-override: false, $override-brkname: null) {
@@ -267,7 +344,7 @@
         }
       }
 
-      // For Kin
+      // For Descendants
       @else if $uppy == true {
         $aliasnames: ();
         $mold-verify: null;
@@ -325,7 +402,7 @@
               }
             }
             @else if $sublefty == true {
-              @warn "Creating subclasses within kin isnt allowed.";
+              @warn "Creating subclasses within a descendant isnt allowed.";
             }
           }
         }
@@ -351,22 +428,28 @@
       @each $key, $value in $AlphaMap {
 
         //// 1 //////////// Determines legit or placeholder class, or id.
+        $key-string: to-string($key);
         $type: null;
         $aliasnames: ();
         $aliasname: null;
         $exist-alias: null;
+        $exist-html: null;
 
-          @if if(str-index($key, '#'), true, false) {
+          @if if(str-index($key-string, '#'), true, false) {
             $type: "#";
           }
-          @else if if(str-index($key, '+'), true, false) {
+          @else if if(str-index($key-string, '+'), true, false) {
             $type: "%";
+          }
+          @else if chk-existence($html-elements, $key) {
+            $type: "";
+            $exist-html: true;
           }
           @else {
             $type: ".";
           }
 
-          $mainname: $type + if(str-index($key, '#'), str-replace($key, '#', ''), if(str-index($key, '+'), str-replace($key, '+', ''), $key));
+          $mainname: $type + if(str-index($key-string, '#'), str-replace($key, '#', ''), if(str-index($key-string, '+'), str-replace($key, '+', ''), $key-string));
           $brkname: if($EpicAct == breakpoint, unquote('-' + $breakpoint), '');
           $aliasnames-str: null;
           $aliasnames-list2: null;
@@ -385,13 +468,16 @@
                   @else if if(str-index($propval, '+'), true, false) {
                     $aliasnames: append($aliasnames, #{if(str-index($propval, '+'), str-replace($propval, '+', '%'), null)}#{$aliasbrk}, comma);
                   }
+                  @else if chk-existence($html-elements, $propval) {
+                    @error "Sorry, you can`t use '#{$propval}' as an alias.";
+                  }
                   @else {
                     $aliasnames: append($aliasnames, #{unquote(".")}#{$propval}#{$aliasbrk}, comma);
                   }
                 }
                 @else if $propval == "nope" {
                   $aliasnames: ();
-                  @warn "You should go ahead and remove the alias field from #{$mainname}s map.";
+                  @error "You should go ahead and remove the alias field from #{$mainname}`s map.";
                 }
               }
             }
@@ -400,7 +486,7 @@
 
 
           //// 2 //////////// Creates the classes, ids, subclasses and pseudos
-          #{$mainname + $brkname}#{if($aliasname != null, unquote(', '), '')}#{if($aliasname != '', $aliasname, '')} {
+          #{if($exist-html == true, $mainname, $mainname + $brkname)}#{if($aliasname != null, unquote(', '), '')}#{if($aliasname != '', $aliasname, '')} {
 
             $impride: chk-override($lock: $value, $key: override, $metal: important);
             $important-override: if(remove-duplicates(purge($impride)) == (), false, true);
@@ -498,21 +584,24 @@
     }
   }
 
-$TestCombo-Deets: (
-  Phase2-class: (
+$Testing-Space: (
+  Phase5-class1: (
     alias: (#forcefield, +testing),
     override: (),
     _bluish: (
       margin-left: 30px),
     grid: (auto, grid important),
     width: 555px,
-    height: (50px !important),
     extend: (),
     color: (auto, #282828, .5, lighten),
-    background: (
-      base: (auto, purple, .5, lighten),
-      tablet: grey,
-      desktop: black),
+    background: (repeating-linear-gradient(
+                  -55deg,
+                  #222,
+                  #222 10px,
+                  #333 10px,
+                  #333 20px
+                            )
+    ),
     -webkit-min-device-pixel-ratio: 20px,
     transition-delay: (
       tablet: 5s),
@@ -538,7 +627,6 @@ $TestCombo-Deets: (
         padding-left: 40em)
       ),
   #Phase2-class2: (
-    alias: (),
     descent: (
       name: (_Justkidding_testing2),
       width: 20px,

@@ -1,0 +1,68 @@
+$ca-Base-Footer: (
+  footer-wrapper: (
+    width: 100%,
+    height: (
+      base: 320px
+    ),
+    position: relative,
+    display: grid,
+    grid-column-gap: 2em,
+    grid-template-columns: (
+      base: repeat(12, 1fr)),
+    background: $night,
+    border-style: solid,
+    border-top-color: $ocean,
+    border-top-width: 3px
+  ),
+
+  footer-bg: (
+    descent: (
+      name: (_svg-bg-rect),
+      width: 100%,
+      height: 320px)
+    ),
+
+  footer-main: (
+    display: grid,
+    grid-column: "1 / 13",
+    grid-column-gap: 2em,
+    padding-left: 2em,
+    padding-right: 2em,
+    grid-template-columns: (
+      base: repeat(12, 1fr)),
+    descent: (
+      name: (h1),
+      color: blue
+    ),
+
+    _sitemap: (
+      grid-column: "1 / 5",
+      align-self: center,
+      descent: (
+        name: (p),
+        extend: (footer-typography),
+        text-align: right,
+        width: 100%
+      )
+    ),
+
+    _logo: (
+      grid-column: "5 / 9",
+      align-self: center,
+      justify-self: center
+    ),
+
+    _copyright: (
+      grid-column: "9 / 13",
+      align-self: center,
+      width: 100%,
+      descent: (
+        name: (p),
+        extend: (footer-typography),
+        width: 100%,
+        text-align: left
+      )
+    )
+  )
+
+);

@@ -1,6 +1,6 @@
 //// ▸▸▸ UPPERMOST FUNDAMENTAL IMPORTS ▸▸▸ ////
 @import 'plugins/Bourbon/bourbon.scss';
-
+@import 'plugins/CSSOwl/cssowl.scss';
 
 //// --- FUNCTIONS --- ////////////////////////////
 
@@ -50,40 +50,45 @@
       @return true;
     }
 
-  //// 5 //////////// Advanced Map Merge
+  //// 4 //////////// Advanced Map Merge
     @function map-combine($map, $maps.../*, $deep */) {
-    $last: nth($maps, -1);
-    $deep: $last == true;
-    $max: if($deep, length($maps) - 1, length($maps));
+      $last: nth($maps, -1);
+      $deep: $last == true;
+      $max: if($deep, length($maps) - 1, length($maps));
 
-    // Loop through all maps in $maps...
-    @for $i from 1 through $max {
-      // Store current map
-      $current: nth($maps, $i);
+      @if $map == null or $maps == null {
+        @return $map;
+      }
 
-      // If not in deep mode, simply merge current map with map
-      @if not $deep {
-        $map: map-merge($map, $current);
-      } @else {
-        // If in deep mode, loop through all tuples in current map
-        @each $key, $value in $current {
+      @else {
+        // Loop through all maps in $maps...
+        @for $i from 1 through $max {
+          // Store current map
+          $current: nth($maps, $i);
 
-          // If value is a nested map and same key from map is a nested map as well
-          @if type-of($value) == "map" and type-of(map-get($map, $key)) == "map" {
-            // Recursive extend
-            $value: map-combine(map-get($map, $key), $value, true);
+          // If not in deep mode, simply merge current map with map
+          @if not $deep {
+            $map: map-merge($map, $current);
+          } @else {
+            // If in deep mode, loop through all tuples in current map
+            @each $key, $value in $current {
+
+              // If value is a nested map and same key from map is a nested map as well
+              @if type-of($value) == "map" and type-of(map-get($map, $key)) == "map" {
+                // Recursive extend
+                $value: map-combine(map-get($map, $key), $value, true);
+              }
+
+              // Merge current tuple with map
+              $map: map-merge($map, ($key: $value));
+            }
           }
-
-          // Merge current tuple with map
-          $map: map-merge($map, ($key: $value));
         }
+        @return $map;
       }
     }
 
-    @return $map;
-  }
-
-  //// 6 //////////// Turn Map into List
+  //// 5 //////////// Turn Map into List
     @function to-list($value, $keep: 'both') {
       $keep: if(index('keys' 'values', $keep), $keep, 'both');
 
@@ -109,20 +114,20 @@
 
       }
 
-  //// 7 //////////// Finds a Map's Depth
-      @function map-depth($map) {
-        $level: 1;
+  //// 6 //////////// Finds a Map's Depth
+    @function map-depth($map) {
+      $level: 1;
 
-        @each $key, $value in $map {
-          @if type-of($value) == "map" {
-            $level: max(map-depth($value) + 1, $level);
-          }
+      @each $key, $value in $map {
+        @if type-of($value) == "map" {
+          $level: max(map-depth($value) + 1, $level);
         }
-
-        @return $level;
       }
 
-  //// 8 //////////// Replace String Part
+      @return $level;
+    }
+
+  //// 7 //////////// Replace String Part
     @function str-replace($string, $search, $replace: '') {
       @if map-depth($string) > 1 {
         $testkey: to-list($string, 'both');
@@ -137,7 +142,7 @@
       @return $string;
     }
 
-  //// 9 //////////// Convert to string
+  //// 8 //////////// Convert to string
     @function map-tostring($list, $glue: '', $is-nested: false) {
       $rslt: null;
 
@@ -161,14 +166,15 @@
       }
     }
 
-  //// 10 //////////// Preappend a List with new values
+  //// 9 //////////// Preappend a List with new values
     @function prepend($list, $value) {
 	    @return join($value, $list);
     }
 
-  //// 11 //////////// Check to see if a term exists in a map
+  //// 10 //////////// Check to see if a term exists in a map
     @function chk-existence($map, $term, $true: true, $false: false) {
       $rslt: null;
+      $list-rslt: ();
       $term: if($term == "_", unquote($term), $term);
       $term: if($term == null, nope, $term);
 
@@ -188,10 +194,21 @@
           $rslt: $false;
         }
       }
-      @return $rslt;
+      @else if type-of($map) == "list" {
+        @for $i from 1 through length($map) {
+          @if nth($map, $i) == quote(map-tostring($term)) {
+            $list-rslt: $true;
+          }
+          @else {
+            $list-rslt: $false;
+          }
+          $rslt: append($rslt, $list-rslt);
+        }
+      }
+      @return if(remove-duplicates(purge($rslt)) == (), false, true);
     }
 
-  //// 12 //////////// Reverse a String
+  //// 11 //////////// Reverse a String
     @function str-reverse($string) {
       $reverse-string: "";
       @for $i from 1 through str-length($string) {
@@ -201,12 +218,12 @@
       @return $reverse-string;
     }
 
-  //// 13 //////////// Find Last Part of List
+  //// 12 //////////// Find Last Part of List
     @function last($list) {
       @return nth($list, length($list));
     }
 
-  //// 14 //////////// Filters out a list of terms by checking it against a map
+  //// 13 //////////// Filters out a list of terms by checking it against a map
     @function list-checkmake($list, $map, $type: keys) {
       $keys: ();
       $values: ();
@@ -245,7 +262,7 @@
       }
     }
 
-  //// 15 //////////// Removes keys from maps
+  //// 14 //////////// Removes keys from maps
     @function map-removeKeys($map, $keys) {
     	$length: length($keys);
     	@if ($length > 1) {
@@ -259,7 +276,7 @@
     	}
     }
 
-  //// 16 //////////// Removes keys from maps
+  //// 15 //////////// Removes keys from maps
     @function remove-duplicates($list, $recursive: false) {
       $rslt: ();
 
@@ -277,124 +294,146 @@
       @return $rslt;
     }
 
-    //// 17 //////////// Convert string to list (must be used in @each)
-      @function str-to-list($string, $separator: ' ', $startAt: 1) {
-          $workStr: str-slice($string,$startAt);
-          $list: ();
-          $indexOfFirstSpace: str-index($workStr,$separator);
-          @if $indexOfFirstSpace == null {
-              $list: ($workStr);
-          } @else {
-              $list: (str-slice($workStr, 1, $indexOfFirstSpace - 1));
-              $list: join($list,str-to-list($workStr, $startAt: $indexOfFirstSpace + 1));
-          }
-          @return $list;
+  //// 16 //////////// Convert string to list (must be used in @each)
+    @function str-to-list($string, $separator: ' ', $startAt: 1) {
+        $workStr: str-slice($string,$startAt);
+        $list: ();
+        $indexOfFirstSpace: str-index($workStr,$separator);
+        @if $indexOfFirstSpace == null {
+            $list: ($workStr);
+        } @else {
+            $list: (str-slice($workStr, 1, $indexOfFirstSpace - 1));
+            $list: join($list,str-to-list($workStr, $startAt: $indexOfFirstSpace + 1));
+        }
+        @return $list;
+    }
+
+  //// 17 //////////// Replace a specific value in a list
+    @function replace-nth($list, $index, $value) {
+      $rslt: null;
+      $index: if($index == null, 'uh this', $index);
+      @if type-of($index) != number {
+        @warn "$index: #{quote($index)} is not a number for `replace-nth`.";
       }
 
-      //// 18 //////////// Replace a specific value in a list
-      @function replace-nth($list, $index, $value) {
-        $rslt: null;
-        $index: if($index == null, 'uh this', $index);
-        @if type-of($index) != number {
-          @warn "$index: #{quote($index)} is not a number for `replace-nth`.";
-        }
-
-        @else if $index == 0 {
-          @warn "List index 0 must be a non-zero integer for `replace-nth`.";
-        }
-
-        @else if abs($index) > length($list) {
-          @warn "List index is #{$index} but list is only #{length($list)} item long for `replace-nth`.";
-        }
-
-        @else {
-          $rslt: ();
-          $index: if($index < 0, length($list) + $index + 1, $index);
-
-          @for $i from 1 through length($list) {
-            @if $i == $index {
-              $rslt: append($rslt, $value);
-            }
-
-            @else {
-              $rslt: append($rslt, nth($list, $i));
-            }
-          }
-        }
-
-        @return $rslt;
+      @else if $index == 0 {
+        @warn "List index 0 must be a non-zero integer for `replace-nth`.";
       }
 
-      //// 19 //////////// Purges false from a list.
-      @function purge($list) {
+      @else if abs($index) > length($list) {
+        @warn "List index is #{$index} but list is only #{length($list)} item long for `replace-nth`.";
+      }
+
+      @else {
         $rslt: ();
-
-        @each $item in $list {
-          @if $item != null
-          and $item != false
-          and $item != "" {
-            $rslt: append($rslt, $item);
-          }
-        }
-
-        @return $rslt;
-      }
-
-      //// 20 //////////// Checks for custom overrides
-      @function chk-override($lock, $key: null, $metal: null, $type: "keys") {
-        $rslt: ();
-        $replacement: null;
-        $metal: if($metal != null, $metal, "nope");
-        $mold-verify: null;
-
-          @each $groove, $pin in $lock {
-            $lefthand: if(str-index($groove, unquote($key)), true, false);
-            @if $lefthand == true {
-              $mold: map-tostring(to-list($pin, $type), ' ');
-              $mold-verify: if($mold != null, $mold, "nope");
-              @if $metal == important {
-                $replacement: if(str-index($mold-verify, $metal), true, false);
-                $rslt: append($rslt, $replacement);
-              }
-              @else if $metal == breakpoint {
-                @each $breakpoint, $breakpointvalue in $breakpoints {
-                  $replacement: if(str-index($mold-verify, $breakpoint), true, false);
-                  $rslt: append($rslt, $replacement);
-                }
-              }
-            }
-          $rslt: purge($rslt);
-        }
-        @if $rslt == () {
-          @return $rslt;
-        }
-        @else if $rslt != () {
-          @return map-tostring($rslt);
-        }
-      }
-
-      //// 21 //////////// Removes all stated values from a list
-      @function remove($list, $value, $recursive: false) {
-        $result: ();
+        $index: if($index < 0, length($list) + $index + 1, $index);
 
         @for $i from 1 through length($list) {
-          @if type-of(nth($list, $i)) == list and $recursive {
-            $result: append($result, remove(nth($list, $i), $value, $recursive));
+          @if $i == $index {
+            $rslt: append($rslt, $value);
           }
 
-          @else if nth($list, $i) != $value {
-            $result: append($result, nth($list, $i));
+          @else {
+            $rslt: append($rslt, nth($list, $i));
           }
         }
-
-        @return $result;
       }
 
+      @return $rslt;
+    }
+
+  //// 18 //////////// Purges false from a list.
+    @function purge($list) {
+      $rslt: ();
+
+      @each $item in $list {
+        @if $item != null
+        and $item != false
+        and $item != "" {
+          $rslt: append($rslt, $item);
+        }
+      }
+
+      @return $rslt;
+    }
+
+  //// 19 //////////// Checks for custom overrides
+    @function chk-override($lock, $key: null, $metal: null, $type: "keys") {
+      $rslt: ();
+      $replacement: null;
+      $metal: if($metal != null, $metal, "nope");
+      $mold-verify: null;
+
+        @each $groove, $pin in $lock {
+          $lefthand: if(str-index(to-string($groove), unquote($key)), true, false);
+          @if $lefthand == true {
+            $mold: to-string(to-list($pin, $type));
+            $mold-verify: if($mold != null, $mold, "nope");
+            @if $metal == important {
+              $replacement: if(str-index($mold-verify, $metal), true, false);
+              $rslt: append($rslt, $replacement);
+            }
+            @else if $metal == breakpoint {
+              @each $breakpoint, $breakpointvalue in $breakpoints {
+                $replacement: if(str-index($mold-verify, $breakpoint), true, false);
+                $rslt: append($rslt, $replacement);
+              }
+            }
+          }
+        $rslt: purge($rslt);
+      }
+      @if $rslt == () {
+        @return $rslt;
+      }
+      @else if $rslt != () {
+        @return map-tostring($rslt);
+      }
+    }
+
+  //// 20 //////////// Removes all stated values from a list
+    @function remove($list, $value, $recursive: false) {
+      $result: ();
+
+      @for $i from 1 through length($list) {
+        @if type-of(nth($list, $i)) == list and $recursive {
+          $result: append($result, remove(nth($list, $i), $value, $recursive));
+        }
+
+        @else if nth($list, $i) != $value {
+          $result: append($result, nth($list, $i));
+        }
+      }
+
+      @return $result;
+    }
+
+  //// 21 //////////// Converts list to string
+    @function to-string($value) {
+      @return inspect($value);
+    }
+
 //// --- END FUNCTIONS --- ////////////////////////
+$Column-fixedprefix: px;
+$Fixedwith: 1230;
 
-//// --- MIXINS --- ////////////////////////////
-
-
-
+@mixin grid-tool($property-key, $property-key-string, $property-list, $property-string, $property-length, $splitter, $custo-name, $breakpoint, $EpicAct) {
+  @if $property-key-string == grid {
+    #{$property-key}: #{$property-list};
+  }
+}
+@mixin columns($columnnumber: $Column-count, $sides: fr, $times: 10, $width: $Fixedwith, $prefix: $Column-fixedprefix) {
+  $calc-sides: (($columnnumber - $times) / 2) + $sides;
+  $calc-fixedwith: ($width / $times) + $prefix;
+  grid-template-columns: $calc-sides repeat($times, $calc-fixedwith) $calc-sides;
+}
+@mixin rows($columnnumber: $Column-count, $sides: fr, $times: 10, $width: $Fixedwith, $prefix: $Column-fixedprefix) {
+  $calc-sides: (($columnnumber - $times) / 2) + $sides;
+  $calc-fixedwith: ($width / $times) + $prefix;
+  grid-template-columns: $calc-sides repeat($times, $calc-fixedwith) $calc-sides;
+}
 //// ▾▾▾ NETHERMOST FUNDAMENTAL IMPORTS ▾▾▾ ////
-@import 'plugins/Modular-Scale/tc+modular-scale.scss';
+@import 'plugins/Modular-Scale/modular-scale.scss';
+@import 'plugins/Pattern-Generators/pattern-generators.scss';
+//@import 'plugins/Animations-css/animate.scss';
+@import 'plugins/Hover-css/hover.scss';
+@import 'plugins/Color-Generators/color-generators.scss';

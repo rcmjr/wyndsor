@@ -1,0 +1,15 @@
+$s2-Base-Patterns: (
+  striped-waves: (
+    background: (auto, pattern, "to bottom", 2, $sky, $ocean, .25em, 1em),
+    height: 100%,
+    width: .85em,
+  )
+);
+
+$Brand-SVG: (
+  svg-bg: (
+    grid-column: "1 / 13",
+    width: 100%,
+    overflow: visible
+  )
+);

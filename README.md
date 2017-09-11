@@ -19,30 +19,84 @@ II. SASS Structure
 
 ------- SASS Structure -------
 
-1. Tool-Chest (these are where the magic happens)
-  a. Automations (vendor prefixes, auto generate, etc.)
-  b. Breakpoints
-  c. Fonts (import fonts and establish ms)
-  d. Colors
-  e. Animations
-	f. Layout (Alignment, positioning, etc.)
-2. Your Style
-	a. Base Settings
-	b. Artboard (Header/Footer, Rows, columns, etc.)
-  c. Typography (Type Styles)
-  d. Palette (Style Colors, textures, patterns, bg, etc.)
-  e. Design Principles (Padding, Margin, alignemnt, layout, etc. settings)
-  f. Creative Library (Theme-wide object styles, animations, and classes)
-3. Your Components (all should be extending % and creating .classes)
-  a. Blocks (Components, like specific divs or sections)
-  c. Buttons
-  d. Modals
-  e. Nav
-  f. Footer
-  e. Forms
-  f. Logos
-  g. Hover
-  h. Breakpoint/IE Messages
+I. Tools (these are where the magic happens)
+  A. Breakpoints
+  B. Automations (vendor prefixes, generators, etc.)
+  C. Fonts (import fonts and @font-faces)
+
+II. Your Style (IDs are not allowed unless they are for uber-specific website elements)
+	1. Principles
+  2. Palette (Style Colors, textures, patterns, bg, etc.)
+  3. Typography (Type Styles and other type related variables)
+
+  $s3-Base-Typography
+  $s3-Custom-Typography
+
+  $s1-Base-ColumnSets
+  $s1-Base-RowSets
+
+  $s1-Base-GlobalSpecs
+  $s1-Base-RowSets
+
+  $s3-Base-ParagraphAlignments
+
+
+  .patt_stripev
+
+  .grid_col-fxd-5
+
+  .type_bowtie
+
+  .glob_bg
+
+  .glob_fg
+
+  .glob_grid-cntr
+
+  .glob_padd-dflt
+
+  .glob_WxH-fill
+
+  .para_txt-left
+
+  .glob_grid
+
+  .grid_justify-start
+
+  .grid_justify-end
+
+  .clr_chara-white
+
+  .clr_bg-night
+
+III. Your Components
+  a. Brand
+      -Logos/Marks
+      -Header
+      -Footer
+      -About-SubFooter
+  a. Artboards
+      -Home
+      -Folio
+      -Folio-Pieces
+      -About
+      -Resume
+      -Blog
+  c. Elements
+     -Modals
+     -Buttons
+     -Nav
+     -Forms
+     -Displays
+     -Compatibility Dialogs (Breakpoint/IE Messages)
+
+     .artb_home-sect-1
+
+     .artb_home-base
+     .artb_folio-base
+     .artb_foliopiece-base
+
+     brnd_logo-header clr_svg-white
 
 	State rules. In this section, the various statuses of the modules and the basis of the site are prescribed. This is the only section in which the use of the keyword "! Important" is acceptable.
 

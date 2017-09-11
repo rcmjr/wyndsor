@@ -1,0 +1,23 @@
+@mixin pattern-tool-1($property-key, $property-key-string, $property-list, $property-string, $property-length, $splitter, $custo-name, $breakpoint, $EpicAct) {
+  @if $property-key-string == background and if(str-index($property-string, "pattern"), true, false) {
+    $property: $property-key;
+    $patterntype: nth($property-list, 1);
+    $direction: nth($property-list, 2);
+    $coloramount: nth($property-list, 3);
+    $color1: nth($property-list, 4);
+    $color2: nth($property-list, 5);
+    $size: nth($property-list, 6);
+    $gapsize: nth($property-list, 7);
+    //$mix: if($property-length >= 3, nth($property-list, 3), nope);
+
+    @if $coloramount == 2 {
+      $gap-tally: $size + $gapsize;
+      $size-tally: $gap-tally / 2;
+      $size-tally2: $size-tally + $size;
+      $gap-tally2: $size-tally2 + $gapsize;
+
+
+      #{$property}: repeating-linear-gradient(unquote($direction), $color1, $color1 $size, transparent $size, transparent $gap-tally), repeating-linear-gradient(unquote($direction), $color2 $size-tally, $color2 $size-tally2, transparent $size-tally2, transparent $gap-tally2);
+    }
+  }
+}

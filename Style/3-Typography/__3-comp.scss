@@ -1,0 +1,23 @@
+//// --- IMPORTS --- ////////////////////////////
+@import "type.scss";
+@import "parastyle.scss";
+//// --- END IMPORTS --- ////////////////////////
+
+//// --- MAP IMPORTS --- ////////////////////////////
+
+  //// ℹ︎ //////////// If you only have one map, use this:
+    //$comp-3: ;
+
+  //// ℹ︎ //////////// If you have more than one map add it here:
+    $comp-3: map-combine(
+
+      /* Font Styles */
+      $s3-Base-Typography,
+      $s3-Custom-Typography,
+
+      /* Parastyles */
+      $s3-Base-ParagraphAlignments,
+
+    true);
+
+//// --- END MAP IMPORTS --- ////////////////////////

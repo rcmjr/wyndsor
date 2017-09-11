@@ -1,0 +1,65 @@
+//// --- COLORS --- ////////////////////////////
+
+  //// 1 //////////// Personal Brand Colors
+      $night: #323333;
+      $pitch: #232323;
+      $sky: #12C3F4;
+      $ocean: #00FFE0;
+      $testinggrey: #F5F5F5;
+
+  //// 2 //////////// Creatable Brand Colors
+      $black: #282828;
+      $red: #ef3e3e;
+      $orange: #f47d41;
+      $yellow: #fed435;
+      $green: #3eb660;
+      $blue: #1e8ecd;
+      $purple: #724199;
+      $violet: #9d3895;
+
+  //// 3 //////////// Character Color Sets
+    $s2-Base-CharacterColorSets: (
+        white: (
+          color: white
+        ),
+        black: (
+          color: $night
+        ),
+        black-neo: (
+          color: $pitch
+        )
+      );
+
+  //// 4 //////////// Background Color Sets
+    $s2-Base-ColorBackgroundSets: (
+      bg-night: (
+        background: $night,
+        _dark: (
+          background: (auto, rgba, $night, .5, darken)),
+        _light: (
+          background: (auto, rgba, $night, .5, lighten))
+      ),
+      bg-sky: (
+        background: $sky,
+        _dark: (
+          background: (auto, rgba, $sky, .5, darken)),
+        _light: (
+          background: (auto, rgba, $sky, .5, lighten))
+      ),
+      bg-ocean: (
+        background: $ocean,
+        _dark: (
+          background: (auto, rgba, $ocean, .5, darken)),
+        _light: (
+          background: (auto, rgba, $ocean, .5, lighten))
+      ),
+      bg-testinggrey: (
+        background: $testinggrey,
+        _dark: (
+          background: (auto, rgba, $testinggrey, .5, darken)),
+        _light: (
+          background: (auto, rgba, $testinggrey, .5, lighten))
+      )
+    );
+
+//// --- END COLORS --- ////////////////////////

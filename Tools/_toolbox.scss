@@ -1,43 +1,78 @@
-$extensions: (
-  "extend": sass-extend,
-  "alias": class-alter-ego,
-  "override": css-override,
-  "descent": css-descendents,
-  "_": sub-class,
-  "+": sass-placeholder,
-);
+//// --- WYNDSOR EXTENSIONS --- ////////////////////////////
 
-$pseudos: (
-  hover: ':hover',
-  active: ':active',
-  after: '::after',
-  before: '::before',
-  selection: '::selection',
-  focus: ':focus',
-  visited: ':visited',
-  checked: ':checked',
-  invalid: ':invalid',
-  optional: ':optional',
-  required: ':required',
-);
+  $extensions: (
+    "extend": sass-extend,
+    "alias": class-alter-ego,
+    "override": css-override,
+    "descent": css-descendents,
+    "_": sub-class,
+    "+": sass-placeholder
+  );
 
-$Include-AliasBreakName: on;
+
+//// --- HTML ELEMENTS MAP --- ////////////////////////////
+
+  $html-elements:
+    "section",
+    "div",
+    "nav",
+    "ul",
+    "il",
+    "img",
+    "article",
+    "h1",
+    "h2",
+    "h3",
+    "h4",
+    "h5",
+    "p",
+    "a",
+    "head",
+    "body",
+    "header",
+    "main",
+    "footer";
+
+
+//// --- ACTIVE PSEUDOS --- ////////////////////////////
+
+  $pseudos: (
+    hover: ':hover',
+    active: ':active',
+    after: '::after',
+    before: '::before',
+    selection: '::selection',
+    focus: ':focus',
+    visited: ':visited',
+    checked: ':checked',
+    invalid: ':invalid',
+    optional: ':optional',
+    required: ':required'
+  );
+
 
 //// --- TOOLBOX MIXIN --- ////////////////////////////
-@mixin toolbox($property-key, $property-key-string, $property-list, $property-string, $property-length, $splitter, $custo-name, $breakpoint, $EpicAct) {
 
-  //// 1 //////////// Built-in Tools
-  @if $splitter == built-in {
-    @include color-tool($property-key, $property-key-string, $property-list, $property-string, $property-length, $splitter, $custo-name, $breakpoint, $EpicAct);
-    @include grid-tool($property-key, $property-key-string, $property-list, $property-string, $property-length, $splitter, $custo-name, $breakpoint, $EpicAct);
+  @mixin toolbox($property-key, $property-key-string, $property-list, $property-string, $property-length, $splitter, $custo-name, $breakpoint, $EpicAct) {
+
+    //// 1 //////////// Built-in Tools
+    @if $splitter == built-in {
+      @include color-tool($property-key, $property-key-string, $property-list, $property-string, $property-length, $splitter, $custo-name, $breakpoint, $EpicAct);
+      @include grid-tool($property-key, $property-key-string, $property-list, $property-string, $property-length, $splitter, $custo-name, $breakpoint, $EpicAct);
+      @include pattern-tool-1($property-key, $property-key-string, $property-list, $property-string, $property-length, $splitter, $custo-name, $breakpoint, $EpicAct);
+    }
+
+    //// 2 //////////// Custom Tools
+    @else if $splitter == add-on {
+
+    }
+    //// ! //////////// Lights Out!
+    @else {
+      @warn "Wooaaahh, this is a two-way split bro, try using 'auto' or 'custo-#'.";
+    }
   }
 
-  //// 2 //////////// Custom Tools
-  @else if $splitter == add-on {
 
-  }
-  //// ! //////////// Lights Out!
-  @else {
-    @warn "Wooaaahh, this is a two-way split bro, try using 'auto' or 'custo-#'.";
-  }
-}
+//// --- Switches and Variables --- ////////////////////////////
+
+  $Include-AliasBreakName: on;

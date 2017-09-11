@@ -655,3 +655,19 @@ $filtercheck-brkpoints: null;
                 //    a. Have Wyndsor create an id, rather than a class
                 //    b. Add an !important to the end of a property
                 //    c. Add class or id to a group based on an existing style
+
+
+                
+
+
+                  $3-typography: map-combine(
+
+                    $Initial-Fontstyles,
+
+                    true);
+
+                    $e-comp: map-combine(
+
+                      $Header-Global,
+
+                      true);

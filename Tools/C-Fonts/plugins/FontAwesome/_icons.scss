@@ -1,0 +1,4 @@
+//Font Awesome uses the Unicode Private Use Area (PUA) to ensure screen readers do not read off random characters that represent icons
+.#{$fa-css-prefix}-lightbulb-o:before { content: $fa-var-lightbulb-o; }
+.#{$fa-css-prefix}-behance-square:before { content: $fa-var-behance-square; }
+.#{$fa-css-prefix}-linkedin-square:before { content: $fa-var-linkedin-square; }
