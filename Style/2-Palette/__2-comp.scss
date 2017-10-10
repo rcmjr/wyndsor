@@ -1,7 +1,7 @@
 //// --- IMPORTS --- ////////////////////////////
 @import "colors.scss";
 @import "patterns.scss";
-//// --- END IMPORTS --- ////////////////////////
+@import "strokes.scss";
 
 //// --- MAP IMPORTS --- ////////////////////////////
 
@@ -19,6 +19,7 @@
       $s2-Base-Patterns,
       $Brand-SVG,
 
-    true);
+      /* Strokes */
+      $s2-Base-Strokes,
 
-//// --- END MAP IMPORTS --- ////////////////////////
+    true);

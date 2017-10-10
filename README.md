@@ -43,31 +43,31 @@ II. Your Style (IDs are not allowed unless they are for uber-specific website el
 
   .patt_stripev
 
-  .grid_col-fxd-5
+  .r_col-fxd-5
 
   .type_bowtie
 
-  .glob_bg
+  .r_bg
 
-  .glob_fg
+  .r_fg
 
-  .glob_grid-cntr
+  .glob_r_grid-cntr
 
-  .glob_padd-dflt
+  .r_pddn-dflt
 
-  .glob_WxH-fill
+  .r_WxH-fill
 
-  .para_txt-left
+  .t_txt left
 
-  .glob_grid
+  .r_grid
 
   .grid_justify-start
 
   .grid_justify-end
 
-  .clr_chara-white
+  .p_chara-white
 
-  .clr_bg-night
+  .p_bg-night
 
 III. Your Components
   a. Brand
@@ -94,7 +94,7 @@ III. Your Components
 
      .artb_home-base
      .artb_folio-base
-     .artb_foliopiece-base
+     .artb_fp-base
 
      brnd_logo-header clr_svg-white
 
@@ -129,3 +129,10 @@ III. Your Components
   //// 1 //////////// Code/Sass Snippet Name
     //// a //////////// Snippet Sub
 //// --- END SECTION --- ////////////////////////
+
+------- Wish List -------
+Sibling classes (sort of using the alias feature), that way I can apply the same hover to different classes that are similar elements.
+
+Ability to create an alternate value in case a browser doesn't support a specific css feature - perhaps using "alt".
+
+Add the conditional logic that if the simple bar graph is going to the right it inverts the number, and so on and so forth.

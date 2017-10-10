@@ -1,48 +1,96 @@
-    $Primary-Typeface: "'myriad-pro', 'helvetica', 'arial', sans-serif";
-    $Secondary-Typeface: "'kith-regular', 'helvetica', 'arial', sans-serif";
-    $Secondary-Typeface-2: "'kith-light', 'helvetica', 'arial', sans-serif";
 
-    $s3-Base-Typography: (
-      a: (
-        text-decoration: none,
-        hover: (
-          color: $sky)
-      ),
-      h1: (
-        font-family: $Secondary-Typeface-2,
-        font-size: 32px,
-        text-transform: uppercase,
-        font-weight: normal
+  $Primary-Typeface: "'myriad-pro', 'helvetica', 'arial', sans-serif";
+  $Secondary-Typeface: "'kith-regular', 'helvetica', 'arial', sans-serif";
+  $Secondary-Typeface-2: "'kith-light', 'helvetica', 'arial', sans-serif";
+  $Tertiary-Typeface: "'kin-bold', 'helvetica', 'arial', sans-serif";
+
+  $s3-Base-Typography: (
+
+    a: (
+      text-decoration: none,
+      transition: .5s ease,
+      color: $night,
+      hover: (
+        color: $sky,
+        transition: .25s ease)
+    ),
+
+    h1: (
+      alias: c_bttn-homefresh,
+      font-family: $Secondary-Typeface-2,
+      font-size: 32px,
+      text-transform: uppercase,
+      font-weight: normal,
+      text-align: center,
+      |h1-foliopiece: (
+        font-size: 40px
       )
-    );
+    ),
 
-    $s3-Custom-Typography: (
-      nav-links: (
-        font-family: ($Primary-Typeface),
-        color: $night,
-        text-decoration: none,
-        font-weight: 600,
-        font-size: 1.1rem
-      ),
-      #inline-bowtie: (
-        font-size: 20px,
-        font-family: $Primary-Typeface,
-        vertical-align: bottom,
-        font-weight: 300,
-        line-height: 22px
-      ),
-      +footer-typography: (
-        line-height: 2em,
+    h2: (
+      font-family: $Primary-Typeface,
+      font-size: 32px,
+      font-weight: 400,
+
+      |_alt: (
+        font-weight: 200,
+        text-align: center,
+        line-height: 35px
+      )
+    ),
+
+    p: (
+      font-family: $Primary-Typeface,
+      font-weight: 200,
+      line-height: 1.4em
+    ),
+
+    wf-loading: (
+      opacity: 0
+    ),
+    wf-inactive: (
+      opacity: 0
+    ),
+
+    wf-active: (
+      opacity: 1,
+      transition-delay: 5s,
+      transition: 1.5s ease
+    )
+
+  );
+
+  $s3-Links-Typography: (
+
+    t_links-hddr: (
+      font-family: ($Primary-Typeface),
+      color: $night,
+      font-weight: 600,
+      font-size: 1.1rem
+    )
+
+  );
+
+  $s3-Body-Typography: (
+
+    t_body-fttr: (
+      line-height: 2em,
+      color: white,
+      font-family: $Primary-Typeface,
+      font-weight: 300,
+      font-size: 14px,
+      |a: (
         color: white,
-        font-family: $Primary-Typeface,
-        font-weight: 300,
-        font-size: 14px,
-        descent: (
-          name: (a),
-          color: white,
-          hover: (
-            color: $ocean
-          )
-        )
-      )
-    );
+        transition: .5s ease,
+        hover: (
+          color: $ocean,
+          transition: .25s ease))
+    ),
+
+    t_body-shortblurb: (
+      font-family: $Primary-Typeface,
+      font-weight: 300,
+      font-size: 16px
+    )
+
+  );

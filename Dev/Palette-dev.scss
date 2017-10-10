@@ -1,0 +1,17 @@
+// compileOnSave: true
+
+$prime-dev-override: null;
+
+@import 'Dev-Tool.scss';
+@import '../Style/1-Rules/_1-comp.scss';
+@import '../Style/2-Palette/_2-comp.scss';
+
+//// --- DEV COMPILE --- ////////////////////////////
+@if $Wyndsor-mode == dev {
+
+  //// 1 //////////// Principles Comp
+  @include switchboard($comp-2, normal);
+  @if $Enable-StyleBrks == yes {@include breakpointboard($comp-2, breakpoint);}
+  @if $Enable-ImportantEpic == yes {@include switchboard($comp-2, important);}
+
+}

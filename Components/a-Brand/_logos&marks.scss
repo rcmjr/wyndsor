@@ -23,9 +23,24 @@ $ca-Base-LogoStyles: (
       fill: $sky
     ),
     _footer: (
+      fill: #FFFFFF,
+      transition: .25s ease,
       hover: (
-        fill: $ocean
+        fill: $ocean,
+        transition: .25s ease
       )
     )
   )
+);
+
+$ca-Type-Logos: (
+
+  #type_bowtie: (
+    font-size: 20px,
+    font-family: $Primary-Typeface,
+    vertical-align: bottom,
+    font-weight: 300,
+    line-height: 22px
+  )
+
 );

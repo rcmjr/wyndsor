@@ -29,34 +29,13 @@
     )
   ) !default;
 
-  @mixin color-up2($parentpull, $childpull) {
-
-    $property: nth($truekey, 2);
-    $background: nth($truekey, 3);
-    $opacity: nth($truekey, 4);
-    $mix: nth($truekey, 5);
-
-
-    @if $mix == lighten {
-      #{$property}: mix($background, white, $opacity * 100%);
-      #{$property}: rgba($background, $opacity);
-    }
-
-    @else if $mix == darken {
-      #{$property}: mix($background, black, $opacity * 100%);
-      #{$property}: rgba($background, $opacity);
-    }
-    @else if $mix == nope {
-      @warn 'Sorry you didnt include a mix color';
-    }
-    @else {
-      #{$property}: mix($background, $mix, $opacity * 100%);
-      #{$property}: rgba($background, $opacity);
-    }
-  }
-
   @mixin color-tool($property-key, $property-key-string, $property-list, $property-string, $property-length, $splitter, $custo-name, $breakpoint, $EpicAct) {
-    @if $property-key-string == color or $property-key-string == background and if(str-index($property-string, "rgba"), true, false) {
+    $allowed-properties:
+      "color",
+      "background",
+      "--box-shadow-color";
+
+    @if chk-list($allowed-properties, $property-key-string) and if(str-index($property-string, "rgba"), true, false) {
       $property: $property-key;
       $background: nth($property-list, 2);
       $opacity: nth($property-list, 3);

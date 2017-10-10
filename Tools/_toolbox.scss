@@ -1,16 +1,34 @@
 //// --- WYNDSOR EXTENSIONS --- ////////////////////////////
 
-  $extensions: (
-    "extend": sass-extend,
-    "alias": class-alter-ego,
-    "override": css-override,
-    "descent": css-descendents,
-    "_": sub-class,
-    "+": sass-placeholder
+  $watchlist: (
+    "#{$sass-extend}", // Use this to extend a placeholder class
+    "#{$sass-alterego}", // Use this to create a class or id alter ego
+    "#{$sass-overrides}", // Use to enable flobal application of important or a breakpoint
+    "#{$sass-child}", // Use this to create child classes or to target a specific family of selectors
+    "#{$sass-subclass}", // Use this to create a direct sub-class/id
+    "#{$sass-placeholder}" // Use this to create a placeholder class
   );
 
+//// --- AUTO VENDOR PREFIXES --- ////////////////////////////
 
-//// --- HTML ELEMENTS MAP --- ////////////////////////////
+  $AVP:
+    "column-count",
+    "column-gap",
+    "box-sizing",
+    "filter",
+    "box-shadow",
+    "animation",
+    "animation-delay";
+
+//// --- VENDOR PREFIXES --- ////////////////////////////
+
+  $vprefixes:
+    webkit,
+    moz,
+    ms,
+    o;
+
+//// --- HTML ELEMENTS LIST --- ////////////////////////////
 
   $html-elements:
     "section",
@@ -31,16 +49,19 @@
     "body",
     "header",
     "main",
-    "footer";
+    "footer",
+    "svg",
+    "span",
+    "i";
 
 
-//// --- ACTIVE PSEUDOS --- ////////////////////////////
+//// --- ACTIVE PSEUDOS MAP --- ////////////////////////////
 
   $pseudos: (
     hover: ':hover',
     active: ':active',
     after: '::after',
-    before: '::before',
+    before: ':before',
     selection: '::selection',
     focus: ':focus',
     visited: ':visited',
@@ -58,7 +79,6 @@
     //// 1 //////////// Built-in Tools
     @if $splitter == built-in {
       @include color-tool($property-key, $property-key-string, $property-list, $property-string, $property-length, $splitter, $custo-name, $breakpoint, $EpicAct);
-      @include grid-tool($property-key, $property-key-string, $property-list, $property-string, $property-length, $splitter, $custo-name, $breakpoint, $EpicAct);
       @include pattern-tool-1($property-key, $property-key-string, $property-list, $property-string, $property-length, $splitter, $custo-name, $breakpoint, $EpicAct);
     }
 
@@ -66,13 +86,13 @@
     @else if $splitter == add-on {
 
     }
+
+    //// 3 //////////// Custom Tools
+    @else if $splitter == auto-property {
+      @include graph-simple($property-key, $property-key-string, $property-list, $property-string, $property-length, $splitter, $custo-name, $breakpoint, $EpicAct);
+    }
     //// ! //////////// Lights Out!
     @else {
       @warn "Wooaaahh, this is a two-way split bro, try using 'auto' or 'custo-#'.";
     }
   }
-
-
-//// --- Switches and Variables --- ////////////////////////////
-
-  $Include-AliasBreakName: on;

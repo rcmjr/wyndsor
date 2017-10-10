@@ -1,0 +1,8 @@
+@mixin grid-area-tool($property-key, $property-key-string, $property-list, $property-string, $property-length, $splitter, $custo-name, $breakpoint, $EpicAct) {
+
+  @if $property-key-string == grid-template-areas {
+    $property: $property-key;
+
+    #{$property}: #{if(nth($property-list, 1) != null, quote(nth($property-list, 1)), null)} #{if(nth($property-list, 2) != null, quote(nth($property-list, 2)), null)} #{if(nth($property-list, 3) != null, quote(nth($property-list, 3)), null)} #{if(nth($property-list, 4) != null, quote(nth($property-list, 4)), null)} #{if(nth($property-list, 5) != null, quote(nth($property-list, 5)), null)} #{if(nth($property-list, 6) != null, quote(nth($property-list, 6)), null)} #{if(nth($property-list, 7) != null, quote(nth($property-list, 7)), null)} #{if(nth($property-list, 8) != null, quote(nth($property-list, 8)), null)} #{if(nth($property-list, 9) != null, quote(nth($property-list, 9)), null)} #{if(nth($property-list, 10) != null, quote(nth($property-list, 10)), null)};
+  }
+}

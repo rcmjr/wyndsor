@@ -227,6 +227,7 @@ $im-no-media-expressions: ('screen', 'portrait', 'landscape') !default;
 /// @return {String} - Any of `>=`, `>`, `<=`, `<`, `≥`, `≤`
 ///
 @function get-expression-operator($expression) {
+  //$expression: to-string($expression);
   @each $operator in ('>=', '>', '<=', '<', '≥', '≤') {
     @if str-index($expression, $operator) {
       @return $operator;
@@ -516,15 +517,19 @@ $im-no-media-expressions: ('screen', 'portrait', 'landscape') !default;
 /// @example scss - Mixing everything
 ///  @include brkpoint('>=350px', '<tablet', 'retina3x') { }
 ///
-@mixin brkpoint($conditions...) {
+@mixin brkpoint($conditions) {
+
+  $conditions2: $conditions;
+  $length: length($conditions2);
+
   // scss-lint:disable SpaceAroundOperator
-  @if ($im-media-support and length($conditions) == 0) or
-      (not $im-media-support and im-intercepts-static-brkpnt($conditions...)) {
+  @if ($im-media-support and $length == 0) or
+      (not $im-media-support and im-intercepts-static-brkpnt($conditions2)) {
     @content;
-  } @else if ($im-media-support and length($conditions) > 0) {
-    @media #{unquote(parse-expression(nth($conditions, 1)))} {
+  } @else if ($im-media-support and $length > 0) {
+    @media #{unquote(parse-expression(nth($conditions2, 1)))} {
       // Recursive call
-      @include brkpoint(slice($conditions, 2)...) {
+      @include brkpoint(slice($conditions2, 2)) {
         @content;
       }
     }

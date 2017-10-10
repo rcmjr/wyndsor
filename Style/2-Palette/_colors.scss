@@ -5,6 +5,7 @@
       $pitch: #232323;
       $sky: #12C3F4;
       $ocean: #00FFE0;
+      $ocean-dark: mix($ocean, $pitch, 75%);
       $testinggrey: #F5F5F5;
 
   //// 2 //////////// Creatable Brand Colors
@@ -19,41 +20,43 @@
 
   //// 3 //////////// Character Color Sets
     $s2-Base-CharacterColorSets: (
-        white: (
-          color: white
-        ),
-        black: (
-          color: $night
-        ),
-        black-neo: (
-          color: $pitch
-        )
-      );
+      p_chara-white: (
+        color: white),
+
+      p_chara-black: (
+        color: $night),
+
+      p_chara-black-neo: (
+        color: $pitch),
+
+      p_chara-ocean: (
+        color: $ocean),
+    );
 
   //// 4 //////////// Background Color Sets
     $s2-Base-ColorBackgroundSets: (
-      bg-night: (
+      p_bg-night: (
         background: $night,
         _dark: (
           background: (auto, rgba, $night, .5, darken)),
         _light: (
           background: (auto, rgba, $night, .5, lighten))
       ),
-      bg-sky: (
+      p_bg-sky: (
         background: $sky,
         _dark: (
           background: (auto, rgba, $sky, .5, darken)),
         _light: (
           background: (auto, rgba, $sky, .5, lighten))
       ),
-      bg-ocean: (
+      p_bg-ocean: (
         background: $ocean,
         _dark: (
           background: (auto, rgba, $ocean, .5, darken)),
         _light: (
           background: (auto, rgba, $ocean, .5, lighten))
       ),
-      bg-testinggrey: (
+      p_bg-testinggrey: (
         background: $testinggrey,
         _dark: (
           background: (auto, rgba, $testinggrey, .5, darken)),

@@ -1,11 +1,13 @@
 //// --- SANDBOX MAP MERGE --- ////////////////////////////
+$sandbox: ();
 
+@if $Wyndsor-mode == prod {
   $sandbox: map-combine(
 
     $comp-a,
     $comp-b,
-    $comp-c, 
+    $comp-c,
 
     true);
-
+}
 //// --- END SANDBOX MAP MERGE --- ////////////////////////

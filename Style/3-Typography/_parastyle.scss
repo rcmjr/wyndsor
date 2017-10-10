@@ -1,12 +1,13 @@
 
-    $s3-Base-ParagraphAlignments: (
-      txt-cntr: (
-        text-align: center
-      ),
-      txt-left: (
-        text-align: left
-      ),
-      txt-rght: (
-        text-align: right
-      )
-    );
+  $s3-Base-ParagraphAlignments: (
+    t_txt: (
+      |_cntr: (
+        text-align: center),
+
+      |_left: (
+        text-align: left),
+
+      |_rght: (
+        text-align: right)
+    )
+  );

@@ -1,20 +1,19 @@
-@include keyframes(slideInRight) {
-  0% {
-    opacity: 0;
-    @include transform(translateX(2000px));
-  }
-  100% {
-    opacity: 1;
-    @include transform(translateX(0));
-  }
-}
-
 @mixin slideInRight($count: $countDefault, $duration: $durationDefault, $delay: $delayDefault, $function: $functionDefault, $fill: $fillDefault, $visibility: $visibilityDefault) {
+  @include keyframes(slideInRight) {
+    0% {
+      opacity: 0;
+      @include transform(translateX(2000px));
+    }
+    100% {
+      opacity: 1;
+      @include transform(translateX(0));
+    }
+  }
   @include animation-name(slideInRight);
   @include count($count);
-  @include duration($duration);
-  @include delay($delay);
-  @include function($function);
+  @include duration(1.5s);
+  @include delay(.5s);
+  @include function(cubic-bezier(1,0,0,1));
   @include fill-mode($fill);
   @include visibility($visibility);
 }

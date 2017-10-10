@@ -1,0 +1,86 @@
+/// INFO: Artboards are class tailored to each section of the website
+
+//// --- Folio Artboards --- ////////////////////////////
+$cb-Folio-Baseboard: (
+  b_folio-base: (
+    display: grid
+  )
+
+);
+
+$cb-Folio-Section-1: (
+  b_folio-sctn-1: (
+    grid-column: "1 / 13",
+    display: grid,
+    grid-template-rows: 1fr 140px
+  ),
+
+  b_folio-sprd: (
+    display: grid,
+    grid-column: "2 / 3",
+    grid-row: "1 / 2",
+    grid-template-columns: repeat(3, 1fr)
+  ),
+
+  b_folio-photo: (
+    grid-row: auto,
+    grid-column: auto,
+    width: 100%,
+    height: 400px
+  ),
+
+  b_folio-frme-left: (
+    grid-column: "1 / 2",
+    justify-self: start
+  ),
+
+  b_folio-frme-right: (
+    grid-column: "3 / 4",
+    justify-self: end
+  )
+);
+
+$cb-Folio-Amenities: (
+  b_folio-nav: (
+    height: 140px,
+    width: 100%,
+    grid-row: "2 / 3",
+    grid-column: "2 / 3",
+    |child: (
+      name: (".custom-pagination a:nth-child(2)"),
+      display: none
+    )
+  ),
+  custom-pagination: (
+    height: 60px,
+    font-family: "myriad-pro",
+    font-size: 1.1rem,
+    display: flex,
+    flex-direction: row,
+    line-height: 1.6,
+
+    |span: (
+      padding: 15px,
+      padding-right: 25px,
+      padding-left: 25px,
+      margin-right: 5px,
+      height: 100%,
+      width: 100%,
+      color: $night
+    ),
+    |a: (
+      padding: 15px,
+      padding-right: 25px,
+      padding-left: 25px,
+      background: $night,
+      color: white,
+      height: 100%,
+      width: 100%,
+      hover: (
+        background: $sky,
+        cursor: pointer
+      )
+    )
+  )
+);
+//// --- END Folio Artboards --- ////////////////////////

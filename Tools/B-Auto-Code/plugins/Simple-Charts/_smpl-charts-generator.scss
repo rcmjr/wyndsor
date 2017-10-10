@@ -1,0 +1,222 @@
+@mixin graph-simple($property-key, $property-key-string, $property-list, $property-string, $property-length, $splitter, $custo-name, $breakpoint, $EpicAct) {
+  $determiner: nth($property-list, 1);
+  $decider:
+    if($determiner == hz-bar, $determiner,
+    if($determiner == donut, $determiner,
+    false));
+  $bar-direction: right !default;
+  $bar-steps: 5 !default;
+
+  @if $decider == hz-bar {
+    $bar-height: nth($property-list, 2);
+    $bar-way: nth($property-list, 3);
+    $bar-direction:
+      if(str-index($bar-way, left), right,
+      if(str-index($bar-way, right), left,
+      $bar-direction));
+
+    $bar-direction-remove:
+      if(str-index($bar-way, left), left,
+      if(str-index($bar-way, right), right,
+      $bar-direction));
+
+    $bar-number: str-replace($bar-way, "#{$bar-direction-remove}-");
+    $bar-steps: if($bar-number != (), $bar-number, $bar-steps);
+    $bar-color: nth($property-list, 4);
+    $bar-shift: nth($property-list, 5);
+    $bar-hover-color: nth($property-list, 6);
+    $bar-hover-shift: nth($property-list, 7);
+
+    width: 100%;
+    position: relative;
+
+    &:after {
+      content: "";
+      display: block;
+      width: 100%;
+      height: 100%;
+      cursor: pointer;
+      background-color: $bar-color;
+      transition: $bar-shift;
+    }
+    &:hover,
+    &:focus {
+      &:after {
+         background-color: $bar-hover-color;
+         transition: $bar-hover-shift;
+      }
+    }
+
+    $step-magic: 100 / $bar-steps;
+    @for $i from 1 through $step-magic {
+      $number: $i * $bar-steps;
+      $namenumber: (100 - ($i * $bar-steps));
+      &#{"." + "bar" + $namenumber} {
+        #{$bar-direction}: #{$number}#{%};
+        height: $bar-height;
+      }
+    }
+  }
+
+  @else if $decider == donut {
+
+    $name: nth($property-list, 2);
+    $perc: nth($property-list, 3);
+    $size: nth($property-list, 4);
+    $width: nth($property-list, 5);
+    $speed: nth($property-list, 6);
+    $base: nth($property-list, 7);
+    $center: nth($property-list, 8);
+    $color: nth($property-list, 9);
+    $textSize: nth($property-list, 10);
+
+  $donut-percent: 5 !default;
+  $donut-magic: 100 / $donut-percent;
+
+    @for $i from 1 through $donut-magic {
+      $number: $i * $donut-percent;
+      $deg: ($number/100*360)+deg;
+
+      @-webkit-keyframes #{$name}#{-$number} {
+        0% {
+          -webkit-transform: rotate(0deg);
+        }
+
+        100% {
+          -webkit-transform: rotate($deg);
+        }
+      }
+
+      &.#{$name}#{-$number} {
+
+        width: $size;
+        height: $size;
+        background: $base;
+
+        .dnt {
+          width: $size/2;
+          height: $size/2;
+          top: 0;
+          left: 0;
+          border-radius: 100% 0 0 0;
+          display: none;
+
+          &.one {
+            -webkit-transform: rotate($deg);
+            -webkit-transform-origin: bottom right;
+            background: $color;
+            -webkit-animation: #{$name}#{-$number} $speed ease;
+
+            @if $number > 0 {
+              display: block;
+            }
+          }
+
+          &.two {
+            -webkit-transform: rotate(90deg);
+            -webkit-transform-origin: bottom right;
+            background: $color;
+            -webkit-animation: chartRotate2 $speed ease;
+
+            @if $number > 25 {
+              display: block;
+            }
+          }
+
+          &.three {
+            -webkit-transform: rotate(180deg);
+            -webkit-transform-origin: bottom right;
+            background: $color;
+            -webkit-animation: chartRotate3 $speed ease;
+
+            @if $number > 50 {
+              display: block;
+            }
+          }
+
+          &.four {
+            -webkit-transform: rotate(270deg);
+            -webkit-transform-origin: bottom right;
+            background: $color;
+            -webkit-animation: chartRotate4 $speed ease;
+
+            @if $number > 75 {
+              display: block;
+            }
+          }
+
+          &.top {
+            display: block;
+            background: $base;
+
+            @if $number > 75 {
+              opacity: 0;
+              -webkit-animation: chartCover .02s ease-in-out;
+            }
+          }
+        }
+
+        .dnt-center {
+          top: $width;
+          left: $width;
+          width: $size - ($width * 2);
+          height: $size - ($width * 2);
+          background: $center;
+
+          &:after {
+            display: inline-block;
+            width: 100%;
+            font-size: $textSize;
+            color: $color;
+            text-align: center;
+            line-height: $size - ($width * 2);
+            content: '#{$number}%';
+          }
+        }
+      }
+    }
+
+    @-webkit-keyframes chartRotate2 {
+      0% {
+        -webkit-transform: rotate(0deg);
+      }
+
+      100% {
+        -webkit-transform: rotate(90deg);
+      }
+    }
+
+    @-webkit-keyframes chartRotate3 {
+      0% {
+        -webkit-transform: rotate(0deg);
+      }
+
+      100% {
+        -webkit-transform: rotate(180deg);
+      }
+    }
+
+    @-webkit-keyframes chartRotate4 {
+      0% {
+        -webkit-transform: rotate(0deg);
+      }
+
+      100% {
+        -webkit-transform: rotate(270deg);
+      }
+    }
+
+    @-webkit-keyframes chartCover {
+      0% {
+        opacity: 1;
+      }
+
+      100% {
+        opacity: 0;
+      }
+    }
+  }
+  @else {
+    @warn "Sorry, that doesnt exist yet.";
+  }
+}

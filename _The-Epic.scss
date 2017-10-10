@@ -1,5 +1,23 @@
-$Epic-Map: map-combine($styleset, $sandbox, true);
 
-@include switchboard($Epic-Map, normal);
-@include breakpointboard($Epic-Map, breakpoint);
-@include switchboard($Epic-Map, important);
+
+//// --- PROD COMPILE --- ////////////////////////////
+$Epic-Map: null;
+$Epic-Style: null;
+
+@if $Wyndsor-mode == prod {
+
+  $Epic-Map: $sandbox;
+  $Epic-Style: $styleset;
+
+  //// i //////////// Normal CSS
+  @include switchboard($Epic-Style, normal);
+  @include switchboard($Epic-Map, normal);
+
+  //// i //////////// Media Query Based CSS
+  @if $Enable-StyleBrks == yes {@include breakpointboard($Epic-Style, breakpoint);}
+  @include breakpointboard($Epic-Map, breakpoint);
+
+  //// i //////////// Super Important CSS
+  @if $Enable-ImportantEpic == yes {@include switchboard($Epic-Map, important);}
+
+}

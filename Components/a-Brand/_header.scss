@@ -1,6 +1,7 @@
 $ca-Base-Header: (
 
-site-header: (
+a_hddr-main: (
+  alias: (#a_touchbase),
   height: (320px),
   width: auto,
   display: grid,
@@ -12,21 +13,26 @@ site-header: (
     position: relative,
     top: 0,
     width: auto,
-    descent: (
-      name: (_svg-bg-rect),
+    |svg-bg-rect: (
       height: 40px
     ),
-    descent-2: (
-      name: (_svg-bg),
-      overflow: hidden
+    |svg-bg: (
+      overflow: hidden,
+      height: 40px
     )
+  ),
+  |_touchbase: (
+    position: relative,
+    box-shadow: "0 0 8px rgba(0, 0, 0, 0.2)"
   )
 ),
 
 nav: (
   height: 100%,
-  grid-row-start: 2,
-  grid-row-end: 3
+  |_nav-header: (
+    grid-row-start: 2,
+    grid-row-end: 3
+  )
 ),
 
 nav-hover: (
@@ -48,21 +54,25 @@ nav-hover-about: (
   height: 100%,
   extend: (hvr-fade)
 ),
+
 nav-hover-aboutend: (
   background: #fff,
   grid-column: "1 / 2",
   align-self: start,
   extend: (hvr-fade)
 ),
+
 testinghoverclass: (
   background: #2b2b2b,
   extend: (hvr-fade)
 ),
+
 testinghoverclassend: (
   background: white,
   extend: (hvr-fade)
 ),
-masthead-grid: (
+
+a_hddr-grid: (
   display: grid,
   grid-column-gap: 2em,
   grid-template-columns: (
@@ -74,22 +84,28 @@ masthead-grid: (
   height: (
     base: 100%),
   margin: 0 auto,
+
   _item-left: (
     grid-column: "1 / 2",
     grid-row: "2 / 3",
     justify-self: center,
-    align-self: center
+    align-self: center,
+    margin-top: 10px
   ),
+
   _item-logo: (
     grid-column: "2 / 3",
     grid-row: "1 / 4",
     justify-self: center,
     align-self: center
   ),
+
   _item-right: (
     grid-column: "3 / 4",
     grid-row: "2 / 3",
     justify-self: center,
-    align-self: center
+    align-self: center,
+    margin-top: 10px
   )
+
 ));

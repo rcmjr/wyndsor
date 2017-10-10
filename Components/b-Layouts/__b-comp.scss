@@ -1,0 +1,39 @@
+//// •••••• FUNDAMENTAL IMPORTS •••••• ////
+  @import "Home";
+  @import "Folio";
+  @import "Folio-Pieces";
+  @import "About";
+
+//// --- MAP IMPORTS --- ////////////////////////////
+
+  //// ℹ︎ //////////// If you only have one map, use this:
+    //$comp-b: ;
+
+  //// ℹ︎ //////////// If you have more than one map add it here:
+    $comp-b: map-combine(
+
+      /* Home Page */
+      $cb-Home-Baseboard,
+      $cb-Home-Section-1,
+      $cb-Home-Section-2,
+
+      /* Folio Page */
+      $cb-Folio-Baseboard,
+      $cb-Folio-Section-1,
+      $cb-Folio-Amenities,
+
+      /* Folio Pieces Template */
+      $cb-FolioPieces-Baseboard,
+      $cb-FolioPieces-Section-1,
+      $cb-FolioPieces-Section-2,
+      $cb-FolioPieces-Amenities,
+
+      /* About Page */
+      $cb-About-Baseboard,
+      $cb-About-Section-1,
+      $cb-About-Section-2,
+      $cb-About-Amenities,
+
+    true);
+
+//// --- END MAP IMPORTS --- ////////////////////////

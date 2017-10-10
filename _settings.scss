@@ -1,0 +1,26 @@
+//// --- Switches and Variables --- ////////////////////////////
+
+  $Enable-Overrides: no; // on or off are your options
+  $Enable-StyleBrks: no; // yes or no are your options
+  $Enable-ImportantEpic: no; // yes or no are your options
+  $Enable-AVP: yes; // Yes or No - Enable Auto Vendor Prefixes
+  $Include-AliasBrkname: yes; // on or off are your options
+
+  $Wyndsor-mode: dev; //dev or prod are your options
+
+  // Methodologies
+  $sass-child: "|";
+  $sass-subclass: "_";
+  $sass-extend: extend;
+  $sass-alterego: alias;
+  $sass-overrides: override;
+  $sass-placeholder: "+";
+
+  // Tools
+  $sass-autoproperty: auto; // Creates property and property values via built-in automations
+  $sass-autovalue-b: auto; // Creates property values via built-in automations
+  $sass-autovalue-c: custo; // Creates property values via custom automations
+
+  // Augmentations
+  $sass-autovendor: -vp; // Adds vendors to property values
+  $sass-autoquote: qt; // Maintains quotes after composing

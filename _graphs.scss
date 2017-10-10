@@ -1,0 +1,113 @@
+
+@else if $decider == nona {
+
+  $name: nth($property-list, 2);
+  $perc: nth($property-list, 2);
+  $size: nth($property-list, 2);
+  $width: nth($property-list, 2);
+  $speed: nth($property-list, 2);
+  $base: nth($property-list, 2);
+  $center: nth($property-list, 2);
+  $color: nth($property-list, 2);
+  $textColor: nth($property-list, 2);
+  $textSize: nth($property-list, 2);
+
+    $deg: ($perc/100*360)+deg;
+
+      @-webkit-keyframes #{$name} {
+        0% {-webkit-transform: rotate(0deg);}
+        100% {-webkit-transform: rotate($deg);}
+      }
+
+      @-webkit-keyframes chartRotate2 {
+        0% {  -webkit-transform: rotate(0deg);}
+        100% {-webkit-transform: rotate(90deg);}
+      }
+
+      @-webkit-keyframes chartRotate3 {
+        0% {-webkit-transform: rotate(0deg);}
+        100% {-webkit-transform: rotate(180deg);}
+      }
+
+      @-webkit-keyframes chartRotate4 {
+        0% {-webkit-transform: rotate(0deg);}
+        100% {-webkit-transform: rotate(270deg);}
+      }
+
+      @-webkit-keyframes chartCover {
+        0%, 90% {opacity: 1;}
+        91%, 100% {opacity: 0;}
+      }
+
+    .donut-chart {
+      &.#{$name} {
+        width: $size;
+        height: $size;
+        background: $base;
+
+        .quad {
+          width: $size/2;
+          height: $size/2;
+          top: 0;
+          left: 0;
+          border-radius: 100% 0 0 0;
+          display: none;
+
+          &.one {
+            -webkit-transform: rotate($deg);
+            -webkit-transform-origin: bottom right;
+            background: $color;
+            -webkit-animation: #{$name} $speed ease;
+
+            @if $perc > 0 {
+              display: block;
+            }
+          }
+
+          &.two {
+            -webkit-transform: rotate(90deg);
+            -webkit-transform-origin: bottom right;
+            background: $color;
+            -webkit-animation: chartRotate2 $speed ease;
+
+            @if $perc > 25 {
+              display: block;
+            }
+          }
+
+          &.three {
+            -webkit-transform: rotate(180deg);
+            -webkit-transform-origin: bottom right;
+            background: $color;
+            -webkit-animation: chartRotate3 $speed ease;
+
+            @if $perc > 50 {
+              display: block;
+            }
+          }
+
+          &.four {
+            -webkit-transform: rotate(270deg);
+            -webkit-transform-origin: bottom right;
+            background: $color;
+            -webkit-animation: chartRotate4 $speed ease;
+
+            @if $perc > 75 {
+              display: block;
+            }
+          }
+
+          &.top {
+            display: block;
+            background: $base;
+
+            @if $perc > 75 {
+              opacity: 0;
+              -webkit-animation: chartCover .01s ease $speed/1.2 both;
+            }
+          }
+        } // quad
+      }
+    }
+  }
+}

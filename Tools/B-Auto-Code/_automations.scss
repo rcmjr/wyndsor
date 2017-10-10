@@ -1,6 +1,6 @@
 //// ▸▸▸ UPPERMOST FUNDAMENTAL IMPORTS ▸▸▸ ////
-@import 'plugins/Bourbon/bourbon.scss';
-@import 'plugins/CSSOwl/cssowl.scss';
+//@import 'plugins/Bourbon/bourbon.scss';
+//@import 'plugins/CSSOwl/cssowl.scss';
 
 //// --- FUNCTIONS --- ////////////////////////////
 
@@ -166,46 +166,33 @@
       }
     }
 
+    //// 8.5 //////////// Convert to string
+      @function map-tostring-qt($list, $glue: '', $is-nested: false) {
+        $rslt: null;
+
+        @if length($list) == 0 {
+          @return null;
+        }
+
+        @else {
+          @for $i from 1 through length($list) {
+            $e: nth($list, $i);
+
+            @if type-of($e) == list {
+              $rslt: "#{$rslt}#{map-tostring($e, $glue, true)}";
+            }
+
+            @else {
+              $rslt: if($i != length($list) or $is-nested, "#{$rslt}#{$e}#{$glue}", "#{$rslt}#{$e}");
+            }
+          }
+          @return $rslt;
+        }
+      }
+
   //// 9 //////////// Preappend a List with new values
     @function prepend($list, $value) {
 	    @return join($value, $list);
-    }
-
-  //// 10 //////////// Check to see if a term exists in a map
-    @function chk-existence($map, $term, $true: true, $false: false) {
-      $rslt: null;
-      $list-rslt: ();
-      $term: if($term == "_", unquote($term), $term);
-      $term: if($term == null, nope, $term);
-
-      @if type-of($map) == "map" {
-        @if str-index(map-tostring($map), quote($term)) {
-          $rslt: $true;
-        }
-        @else {
-          $rslt: $false;
-        }
-      }
-      @else if type-of($map) == "string" {
-        @if str-index($map, quote($term)) {
-          $rslt: $true;
-        }
-        @else {
-          $rslt: $false;
-        }
-      }
-      @else if type-of($map) == "list" {
-        @for $i from 1 through length($map) {
-          @if nth($map, $i) == quote(map-tostring($term)) {
-            $list-rslt: $true;
-          }
-          @else {
-            $list-rslt: $false;
-          }
-          $rslt: append($rslt, $list-rslt);
-        }
-      }
-      @return if(remove-duplicates(purge($rslt)) == (), false, true);
     }
 
   //// 11 //////////// Reverse a String
@@ -232,7 +219,7 @@
       @for $i from 1 through length($list) {
 
         @each $key, $value in $map {
-          $truth: chk-existence($value, map-tostring(nth($list, $i)));
+          $truth: chk-list($value, to-string(nth($list, $i)));
 
           @if $truth == true {
             @if $type == keys {
@@ -386,7 +373,7 @@
         @return $rslt;
       }
       @else if $rslt != () {
-        @return map-tostring($rslt);
+        @return to-string($rslt);
       }
     }
 
@@ -412,28 +399,31 @@
       @return inspect($value);
     }
 
-//// --- END FUNCTIONS --- ////////////////////////
-$Column-fixedprefix: px;
-$Fixedwith: 1230;
+  //// 22 //////////// Check to see if a term exists in a List
+    @function chk-list($list, $term) {
+      $rslt: null;
+      $list-rslt: ();
+      $term: to-string($term);
+      $term: if($term == "_", unquote($term), if($term == null, nope, $term));
 
-@mixin grid-tool($property-key, $property-key-string, $property-list, $property-string, $property-length, $splitter, $custo-name, $breakpoint, $EpicAct) {
-  @if $property-key-string == grid {
-    #{$property-key}: #{$property-list};
-  }
-}
-@mixin columns($columnnumber: $Column-count, $sides: fr, $times: 10, $width: $Fixedwith, $prefix: $Column-fixedprefix) {
-  $calc-sides: (($columnnumber - $times) / 2) + $sides;
-  $calc-fixedwith: ($width / $times) + $prefix;
-  grid-template-columns: $calc-sides repeat($times, $calc-fixedwith) $calc-sides;
-}
-@mixin rows($columnnumber: $Column-count, $sides: fr, $times: 10, $width: $Fixedwith, $prefix: $Column-fixedprefix) {
-  $calc-sides: (($columnnumber - $times) / 2) + $sides;
-  $calc-fixedwith: ($width / $times) + $prefix;
-  grid-template-columns: $calc-sides repeat($times, $calc-fixedwith) $calc-sides;
-}
-//// ▾▾▾ NETHERMOST FUNDAMENTAL IMPORTS ▾▾▾ ////
+        @for $i from 1 through length($list) {
+          @if nth($list, $i) == $term {
+            $list-rslt: true;
+          }
+          @else {
+            $list-rslt: false;
+          }
+          $rslt: append($rslt, $list-rslt);
+        }
+      @return if(purge($rslt) == (), false, true);
+    }
+
+//// --- END FUNCTIONS --- ////////////////////////
+
 @import 'plugins/Modular-Scale/modular-scale.scss';
 @import 'plugins/Pattern-Generators/pattern-generators.scss';
-//@import 'plugins/Animations-css/animate.scss';
+@import 'plugins/Animations-css/animate.scss';
 @import 'plugins/Hover-css/hover.scss';
 @import 'plugins/Color-Generators/color-generators.scss';
+@import 'plugins/Simple-Charts/smpl-charts-generator';
+//@import 'plugins/Grid-Minions/grid-areas.scss';

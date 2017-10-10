@@ -1,11 +1,13 @@
 //// --- STYLESET MAP MERGE --- ////////////////////////////
+$styleset: ();
 
+@if $Wyndsor-mode == prod {
   $styleset: map-combine(
 
     $comp-1,
     $comp-2,
     $comp-3,
 
-    true);
-
+  true);
+}
 //// --- END STYLESET MAP MERGE --- ////////////////////////
