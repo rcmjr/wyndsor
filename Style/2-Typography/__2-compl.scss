@@ -1,0 +1,21 @@
+//// --- IMPORTS --- ////////////////////////////
+@import 'character',
+        'paragraph';
+
+//// --- MAP IMPORTS --- ////////////////////////////
+
+  //// ℹ︎ //////////// If you only have one map, use this:
+    //$comp-3: ;
+
+  //// ℹ︎ //////////// If you have more than one map add it here:
+    $compl-2: map-combine(
+
+      /* Font Styles */
+      $s2-Base-Typography,
+      $s2-Links-Typography,
+      $s2-Body-Typography,
+
+      /* Parastyles */
+      $s2-Base-ParagraphAlignments,
+
+    true); /* Enables importing deeper levels of each map */

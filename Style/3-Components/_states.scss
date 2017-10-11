@@ -1,0 +1,289 @@
+$s3-States-Base: (
+
+  c_disp-img-strktop: (
+    border-style: solid,
+    border-color: $ocean,
+    border-top-width: 3px
+  )
+
+);
+
+$s3-States-FolioPiece-Grid: (
+
+  c_disp-fp-gridbase: (
+    //grid-row: auto,
+    grid-template-rows: auto,
+    height: 410px
+  ),
+
+  c_disp-fp-subgrid: (
+    _2: (
+      grid-template-columns: 1fr 1fr,
+      grid-template-areas: (qt 'photo-1 photo-2')
+    ),
+    _3: (
+      grid-template-columns: 1fr 1fr 1fr,
+      grid-template-areas: (qt 'photo-1 photo-2 photo-3')
+    ),
+    _2x2: (
+      grid-template-columns: 1fr 1fr,
+      grid-template-areas: (qt 'photo-3 photo-4')
+    ),
+    _3x2: (
+      grid-template-columns: 1fr 1fr,
+      grid-template-areas: (qt 'photo-4 photo-5')
+    ),
+    _3x3: (
+      grid-template-columns: 1fr 1fr 1fr,
+      grid-template-areas: (qt 'photo-4 photo-5 photo-6')
+    )
+  ),
+
+  c_disp-fp-gridimg: (
+    _1: (
+      grid-area: photo-1
+    ),
+    _2: (
+      grid-area: photo-2
+    ),
+    _3: (
+      grid-area: photo-3
+    ),
+    _4: (
+      grid-area: photo-4
+    ),
+    _5: (
+      grid-area: photo-5
+    ),
+    _6: (
+      grid-area: photo-6
+    )
+  )
+);
+
+$s3-States-HomePage-Deets: (
+  c_disp-hme-projectbar: (
+    grid-column: '1 / 2',
+    background-color: #232323,
+    width: 200px,
+    height: 22px,
+    display: flex,
+    align-items: center,
+    justify-content: center,
+    max-width: 700px,
+    position: relative,
+    overflow: hidden,
+    border-right: solid #232323 6px,
+    border-left: solid #232323 6px,
+    margin-bottom: 10px,
+    |project: (
+      auto: (hz-bar, 10px, left-5, $sky, (ease-in-out 1.5s), $ocean, (ease-in-out .5s))
+    )
+  ),
+
+  c_disp-hme-inprogressimg: (
+    width: 200px,
+    height: 150px,
+    margin-top: 15px,
+    margin-bottom: 15px
+  ),
+
+  c_disp-hme-skilldonut: (
+    float: left,
+    padding: 20px,
+
+    |chartdiv: (
+      position: relative,
+      border-radius: 50%,
+      overflow: hidden,
+      after: (
+        border: 8px solid #232323
+      ),
+      auto: (donut, hme-chart, 5, 200px, 25px, 1.5s, $pitch, $night, $sky, 45px),
+      |dnt: (
+        border-left: 6px solid $pitch,
+        border-top: 6px solid $pitch
+      )
+    ),
+    |dnt-center: (
+      position: absolute,
+      border-radius: 50%,
+      box-shadow: 0px 0px 0px 6px #232323,
+      font-family: $Secondary-Typeface,
+    )
+  ),
+
+  c_disp-fp: (
+    grid-row: auto,
+    height: 320px,
+    position: relative,
+    overflow: hidden,
+    hover: (
+      background: grey,
+      |c_disp-fp-hvr: (
+        opacity: 0.9,
+        padding-top: 2em
+      ),
+      |img: (
+        filter: blur(5px),
+        transition: .5s ease
+      )
+    )
+  ),
+
+  c_disp-fp-hvr: (
+    grid-row: auto,
+    opacity: 0,
+    background: (auto, rgba, $ocean-dark, .5, darken),
+    --box-shadow-color: (auto, rgba, $night, .25, lighten),
+    box-shadow: (inset 0 0 10px var(--box-shadow-color)),
+    width: 100%,
+    height: 100%,
+    color: white,
+    position: absolute,
+    top: 0,
+    bottom: 0,
+    left: 0,
+    right: 0,
+    transition: .5s ease,
+  )
+);
+
+$s3-Lighbox-Base: (
+  m-lightbox__close: (
+    top: 40px,
+    right: 40px,
+    |svg: (
+      fill: $sky,
+      width: 45px,
+      height: 45px
+    )
+  ),
+  m-lightbox__nextPrev: (
+    font-size: 50px,
+    color: white,
+    transition: .25s ease
+  ),
+  c-lightbox-cntrls: (
+    font-family: 'kith-bold'
+  )
+);
+
+.m-lightbox {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: $pitch;
+  z-index: 1;
+  opacity: 0;
+  -webkit-transition: opacity 0.3s ease-out;
+  transition: opacity 0.3s ease-out;
+  pointer-events: none;
+}
+.m-lightbox.is-active {
+  opacity: 1;
+  z-index: 101;
+  pointer-events: auto;
+}
+.m-lightbox__slider {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  width: 100vw;
+  height: 100vh;
+}
+.m-lightbox__slide {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+.m-lightbox__slide img {
+  display: block;
+  max-width: calc(100vw - 2em);
+  max-height: 90vh;
+  opacity: 0;
+  -webkit-transition: opacity 0.2s ease;
+  transition: opacity 0.2s ease;
+}
+@media (min-width: 768px) {
+  .m-lightbox__slide img {
+    max-width: calc(100vw - 116px);
+    max-height: 90vh;
+  }
+}
+.m-lightbox__slide.is-loaded img {
+  transition-delay: 0s;
+}
+.m-lightbox__slide.is-loaded.is-active img {
+  opacity: 1;
+  -webkit-transition: opacity 0.3s ease;
+  transition: opacity 0.3s ease;
+  transition-delay: .5s;
+}
+.m-lightbox__slide.is-loaded.is-active .spinner {
+  display: none;
+}
+.m-lightbox button {
+  position: absolute;
+  margin: 0;
+  padding: 0;
+  z-index: 102;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+}
+
+.m-lightbox__nextPrev {
+  top: 50%;
+  -webkit-transform: translateY(-50%);
+          transform: translateY(-50%);
+  width: 42px;
+  height: 42px;
+  visibility: hidden;
+  opacity: 0;
+  -webkit-transition: opacity 0.3s ease-out;
+  transition: opacity 0.3s ease-out;
+}
+.m-lightbox__nextPrev.is-active {
+  visibility: hidden;
+  opacity: 1;
+}
+@media (min-width: 1024px) {
+  .m-lightbox__nextPrev.is-active {
+    visibility: visible;
+  }
+}
+.m-lightbox__nextPrev svg {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+.m-lightbox__nextPrev--next {
+  right: 1em;
+}
+.m-lightbox__nextPrev--prev {
+  left: 1em;
+}
+.m-lightbox__nextPrev:hover {
+  cursor: pointer;
+}
+.m-lightbox__counter {
+  display: none;
+}
+
+.spinner {
+  display: none;
+}

@@ -32,18 +32,18 @@ II. Your Style (IDs are not allowed unless they are for uber-specific website el
   $s3-Base-Typography
   $s3-Custom-Typography
 
-  $s1-Base-ColumnSets
-  $s1-Base-RowSets
+  $s0-Base-ColumnSets
+  $s0-Base-RowSets
 
-  $s1-Base-GlobalSpecs
-  $s1-Base-RowSets
+  $s0-Base-GlobalSpecs
+  $s0-Base-RowSets
 
   $s3-Base-ParagraphAlignments
 
 
   .patt_stripev
 
-  .r_col-fxd-5
+  .r_col fxd-5
 
   .type_bowtie
 

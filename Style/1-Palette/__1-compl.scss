@@ -1,0 +1,25 @@
+//// --- IMPORTS --- ////////////////////////////
+@import 'colors',
+        'patterns',
+        'strokes';
+
+//// --- MAP IMPORTS --- ////////////////////////////
+
+  //// ℹ︎ //////////// If you only have one map, use this:
+    //$comp-1: ;
+
+  //// ℹ︎ //////////// If you have more than one map add it here:
+    $compl-1: map-combine(
+
+      /* Colors */
+      $s1-Base-CharacterColorSets,
+      $s1-Base-ColorBackgroundSets,
+
+      /* Patterns */
+      $s1-Base-Patterns,
+      $s1-Brand-SVG,
+
+      /* Strokes */
+      $s1-Base-Strokes,
+
+    true);

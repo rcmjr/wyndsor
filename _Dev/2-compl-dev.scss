@@ -1,0 +1,18 @@
+// compileOnSave: true
+
+$prime-dev-override: null;
+
+@import 'Dev-Tool';
+@import '../Style/0-Framework/_0-compl',
+        '../Style/1-Palette/_1-compl',
+        '../Style/2-Typography/_2-compl';
+
+//// --- TYPOGRAPHY DEV COMPILE --- ////////////////////////////
+@if $Wyndsor-mode == dev {
+
+  //// 1 //////////// Principles Comp
+  @include switchboard($compl-2, normal);
+  @if $Enable-StyleBrks == yes {@include breakpointboard($compl-2, breakpoint);}
+  @if $Enable-ImportantEpic == yes {@include switchboard($compl-2, important);}
+
+}

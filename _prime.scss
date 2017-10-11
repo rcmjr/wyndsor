@@ -1,23 +1,24 @@
+//// --- CORE 1 --- ////////////////////////////
+@import 'settings';
 
-  @import 'settings.scss';
 //// --- TOOLS --- ////////////////////////////
-  @import 'Tools/A-Break-Points/brkpoints.scss';
-  @import 'Tools/B-Auto-Code/automations.scss';
-  @import 'Tools/C-Fonts/fonts.scss';
-  @import 'Tools/toolbox.scss';
-  @import 'switchboard.scss';
+@import 'Tools/A-Break-Points/brkpoints',
+        'Tools/B-Auto-Code/automations',
+        'Tools/C-Fonts/fonts',
+        'Tools/toolbox';
+
+//// --- CORE 2 --- ////////////////////////////
+@import 'switchboard';
 
 //// --- STYLE --- ////////////////////////////
-  @import 'Style/1-Rules/_1-comp.scss';
-  @import 'Style/2-Palette/_2-comp.scss';
-  @import 'Style/3-Typography/_3-comp.scss';
-  @import 'Style/styleset.scss';
+@import 'Style/0-Framework/_0-compl',
+        'Style/1-Palette/_1-compl',
+        'Style/2-Typography/_2-compl',
+        'Style/3-Components/_3-compl',
+        'Style/_styleset';
 
-//// --- COMPONENTS --- ////////////////////////////
-  @import 'Components/a-Brand/_a-comp.scss';
-  @import 'Components/b-Layouts/_b-comp.scss';
-  @import 'Components/c-Elements/_c-comp.scss';
-  @import 'Components/sandbox.scss';
+//// --- COMPOSITION --- ////////////////////////////
+@import 'Composition/_sandbox';
 
-//// --- CORE --- ////////////////////////////
-  @import 'the-epic.scss';
+//// --- CORE 3 --- ////////////////////////////
+@import 'the-epic';

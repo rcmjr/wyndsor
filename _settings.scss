@@ -1,20 +1,20 @@
 //// --- Switches and Variables --- ////////////////////////////
 
-  $Enable-Overrides: no; // on or off are your options
-  $Enable-StyleBrks: no; // yes or no are your options
-  $Enable-ImportantEpic: no; // yes or no are your options
-  $Enable-AVP: yes; // Yes or No - Enable Auto Vendor Prefixes
-  $Include-AliasBrkname: yes; // on or off are your options
+  $Enable-Overrides: no; // Enables Total Importance or Breakpoint.
+  $Enable-StyleBrks: yes; // Enables breakpoints for Styles.
+  $Enable-ImportantEpic: no; // Enables important part of The Epic.
+  $Enable-AVP: yes; // Yes or No - Enable Auto Vendor Prefixes.
+  $Include-AliasBrkname: yes; // Adds breakpoint name to Aliases.
 
-  $Wyndsor-mode: dev; //dev or prod are your options
+  $Wyndsor-mode: dev; // Wyndsor's Dev or Prod mode
 
   // Methodologies
-  $sass-child: "|";
-  $sass-subclass: "_";
-  $sass-extend: extend;
-  $sass-alterego: alias;
-  $sass-overrides: override;
-  $sass-placeholder: "+";
+  $sass-child: '|'; // Symbol for Children
+  $sass-subclass: '_'; // Symbol for Sub-Classes
+  $sass-extend: extend; // Word for Extends
+  $sass-alterego: alias; // Word for Aliases
+  $sass-overrides: override; // Word for Overrides
+  $sass-placeholder: '+'; // Symbol for Placeholder classes
 
   // Tools
   $sass-autoproperty: auto; // Creates property and property values via built-in automations

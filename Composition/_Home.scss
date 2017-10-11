@@ -1,0 +1,89 @@
+/// INFO: Artboards are class tailored to each section of the website
+
+//// --- Homepage Artboards --- ////////////////////////////
+$c-Home-Baseboard: (
+  b_home-base: (
+    display: grid,
+    grid-template-rows: (
+      base: 608px auto
+    )
+  )
+  );
+
+$c-Home-Section-1: (
+  b_home-sctn-1: (
+    grid-column: '1 / 4',
+    height: (
+      base: 600px
+    ),
+    |svg-bg-rect: (
+      width: 100%,
+      height: 600px),
+    |child: (
+      name: #statsbg,
+      max-height: 600px
+    ),
+    _main: (
+      display: grid,
+      grid-template-rows: (
+        base: 150px 1fr)
+    ),
+      _title: (
+        width: 100%
+      ),
+      _deets: (
+        display: grid,
+        grid-template-rows: 1fr,
+        grid-template-columns: 1fr 1fr 400px 1fr 1fr,
+        grid-template-areas: (qt, '. skill years project .'),
+        align-items: stretch,
+        width: 100%,
+        padding-bottom: 105px
+      ),
+    |row-1: (
+      display: grid,
+      grid-row: auto
+    )
+  ),
+
+  #b_home-stat: (
+    _1: (
+      grid-area: skill,
+      flex-direction: column
+    ),
+    _2: (
+      grid-column: years,
+      flex-direction: column,
+      |h2: (
+        font-size: 56px
+      ),
+      |p: (
+        font-size: 28px
+      )
+    ),
+    _3: (
+      grid-column: project,
+      flex-direction: column
+    ))
+
+  );
+
+$c-Home-Section-2: (
+  b_home-sctn-2: (
+    grid-column: '2 / 3',
+    display: grid,
+    margin-bottom: 140px,
+    grid-template-rows: 240px 1fr,
+
+    _title: (
+      grid-row: '1 / 2'
+    ),
+
+    _showcase: (
+      grid-row: '2 / 3',
+      display: grid,
+      grid-template-rows: repeat(3, 1fr),
+      align-items: stretch
+    ))
+);
+//// --- END Homepage Artboards --- ////////////////////////

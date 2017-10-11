@@ -1,0 +1,13 @@
+$s3-Buttons-Base: (
+  c_bttn-homefresh: (
+    color: white,
+    text-transform: none,
+    _arrw: (
+      font-family: $Tertiary-Typeface),
+    hover: (
+      font-size: 40px,
+      transition: .25s ease,
+      color: white
+    )
+  )
+);

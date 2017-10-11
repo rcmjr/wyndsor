@@ -1,6 +1,6 @@
 //// --- Screen/Media Size Variables --- ////////////////////////////
 $media-sizes: (
-  'tinyphone': 400px,
+  'tiny': 400px,
   'phone': 600px,
   'phablet': 900px,
   'tablet': 1200px,
@@ -24,8 +24,8 @@ $breakpoints: (
   desktop: ('>tablet', '<=desktop'),
   tablet: ('>phablet', '<=tablet'),
   phablet: ('>phone', '<=phablet'),
-  phone: ('>tinyphone', '<=phone'),
-  tinyphone: ('<=tinyphone')
+  phone: ('>tiny', '<=phone'),
+  tiny: ('<=tiny')
 ) !default;
 
 //// ▾▾▾ NETHERMOST FUNDAMENTAL IMPORTS ▾▾▾ ////

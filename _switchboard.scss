@@ -276,9 +276,9 @@
           }
 
           $alias-prime-sc: if(str-index(to-string($alias-prime), "_") == 3, true, false);
-          $alias-prime-scs: if($alias-prime-sc == true, str-slice($alias-prime, 3, str-length($alias-prime)), null);
+          $alias-prime-scs: if($alias-prime-sc == true, str-slice($alias-prime, 4, str-length($alias-prime)), null);
           $alias-prime-scf: if($alias-prime-sc == true, if(chk-list($html-elements, $alias-prime-scs),
-            $alias-prime-scs, str-replace($alias-prime-scs, "_", ".")), null);
+            $alias-prime-scs, str-insert($alias-prime-scs, ".", 1)), null);
         &#{
             if($alias-prime-sc == true, #{$alias-prime-scf}#{" " + $aliasname},
             if($alias-prime != null, #{$alias-prime}#{" " + $aliasname},
@@ -468,9 +468,9 @@
         $aliasname: if($aliasnames != (), $aliasnames, unquote(''));
 
         $alias-prime-sc: if(str-index(to-string($alias-prime), "_") == 3, true, false);
-        $alias-prime-scs: if($alias-prime-sc == true, str-slice($alias-prime, 3, str-length($alias-prime)), null);
+        $alias-prime-scs: if($alias-prime-sc == true, str-slice($alias-prime, 4, str-length($alias-prime)), null);
         $alias-prime-scf: if($alias-prime-sc == true, if(chk-list($html-elements, $alias-prime-scs),
-          $alias-prime-scs, str-replace($alias-prime-scs, "_", ".")), null);
+          $alias-prime-scs, str-insert($alias-prime-scs, ".", 1)), null);
 
         &#{
           if($alias-prime-sc == true, #{$alias-prime-scf}#{" " + $aliasname},
