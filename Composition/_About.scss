@@ -14,7 +14,7 @@ $c-About-Section-1: (
     grid-row: '1 / 2',
     display: grid,
     grid-template-rows: 150px 650px 140px,
-    grid-template-areas: (qt, 'header header header', 'coverimg coverimg coverimg', '. . .')
+    grid-template-areas: (-qt, 'header header header', 'coverimg coverimg coverimg', '. . .')
   ),
 
   b_about-hddr-div: (
@@ -36,7 +36,7 @@ $c-About-Section-2: (
     grid-row: '2 / 3',
     display: grid,
     grid-template-rows: auto,
-    grid-template-areas: (qt, '. info .')
+    grid-template-areas: (-qt, '. info .')
   ),
 
   b_about-info: (

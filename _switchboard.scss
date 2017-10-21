@@ -49,34 +49,47 @@
     $cnctr-length: length($cnctr-list);
     $splitter-verb: nth($cnctr-list, 1);
     $splitter:
+      /* Inner Commands */
       if($splitter-verb == $sass-autovalue-b, built-in,
       if($splitter-verb == $sass-autovalue-c, add-on,
       if($splitter-verb == $sass-autoquote, quote-it,
-      if(chk-list($AVP, quote($root-cnctr)), vendor-prefix,
       if($splitter-verb == $sass-autovendor, inner-vendor-prefix,
+
+      /* Auto Check Commands */
+      if(chk-list($AVP, quote($root-cnctr)), vendor-prefix,
+      if(chk-list($ATG, quote($root-cnctr)), auto-typography,
+
+      /* Exterior Commands */
       if(str-index($root-cnctr-str, $sass-autoproperty), auto-property,
-      neither))))));
+      none)))))));
 
     $custo-call: to-string($splitter-verb);
     $cnctr-str: map-tostring($cnctr-list, ' ');
 
-    @if $cnctr-length <= 1 and $splitter == neither {
+    @if $splitter == auto-property {
+      $cnctr-str: map-tostring($cnctr-list, ' ');
+      @include toolbox($root-cnctr, $root-cnctr-str, $cnctr-list, $cnctr-str, $cnctr-length, $splitter, $custo-call, $breakpoint, $EpicAct);
+    }
+    @else if $splitter == vendor-prefix {
+      $cnctr-str: map-tostring($cnctr-list, ' ');
       @include receiver($root-cnctr, $cnctr-str, $cnctr-list, $cnctr-length, $splitter);
     }
-    @else if $cnctr-length > 1 {
-      @if $splitter == built-in {
-        $cnctr-list: remove($cnctr-list, $sass-autovalue-b);
+    @else if $splitter == auto-typography {
+      $cnctr-str: map-tostring($cnctr-list, ' ');
+      @include toolbox($root-cnctr, $root-cnctr-str, $cnctr-list, $cnctr-str, $cnctr-length, $splitter, $custo-call, $breakpoint, $EpicAct);
+    }
+    @else if ($cnctr-length > 1) {
+      @if $splitter == built-in or $splitter == add-on {
+        $cnctr-list:
+          if($splitter == built-in, remove($cnctr-list, $sass-autovalue-b),
+          if($splitter == add-on, remove($cnctr-list, $sass-autovalue-c),
+          $cnctr-list));
         $cnctr-str: map-tostring($cnctr-list, ' ');
         @include toolbox($root-cnctr, $root-cnctr-str, $cnctr-list, $cnctr-str, $cnctr-length, $splitter, $custo-call, $breakpoint, $EpicAct);
       }
-      @else if $splitter == add-on {
-        $cnctr-list: remove($cnctr-list, $sass-autovalue-c);
+      @else if $splitter == quote-it or $splitter == inner-vendor-prefix {
         $cnctr-str: map-tostring($cnctr-list, ' ');
-        @include toolbox($root-cnctr, $root-cnctr-str, $cnctr-list, $cnctr-str, $cnctr-length, $splitter, $custo-call, $breakpoint, $EpicAct);
-      }
-      @else if $splitter == auto-property {
-        $cnctr-str: map-tostring($cnctr-list, ' ');
-        @include toolbox($root-cnctr, $root-cnctr-str, $cnctr-list, $cnctr-str, $cnctr-length, $splitter, $custo-call, $breakpoint, $EpicAct);
+        @include receiver($root-cnctr, $cnctr-str, $cnctr-list, $cnctr-length, $splitter);
       }
       @else {
         @include receiver($root-cnctr, $cnctr-str, $cnctr-list, $cnctr-length, $splitter);

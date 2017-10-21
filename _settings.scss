@@ -1,4 +1,4 @@
-//// --- Switches and Variables --- ////////////////////////////
+//// --- Switches --- ////////////////////////////
 
   $Enable-Overrides: no; // Enables Total Importance or Breakpoint.
   $Enable-StyleBrks: yes; // Enables breakpoints for Styles.
@@ -6,21 +6,31 @@
   $Enable-AVP: yes; // Yes or No - Enable Auto Vendor Prefixes.
   $Include-AliasBrkname: yes; // Adds breakpoint name to Aliases.
 
+//// --- Workflow State --- ////////////////////////////
   $Wyndsor-mode: dev; // Wyndsor's Dev or Prod mode
 
+
+//// --- DANGER ZONE - CHANGE THESE AT YOUR OWN RISK --- ////////////////////////////
+
   // Methodologies
-  $sass-child: '|'; // Symbol for Children
-  $sass-subclass: '_'; // Symbol for Sub-Classes
-  $sass-extend: extend; // Word for Extends
-  $sass-alterego: alias; // Word for Aliases
-  $sass-overrides: override; // Word for Overrides
-  $sass-placeholder: '+'; // Symbol for Placeholder classes
+  $sass-child: '|'; // Key for Children
+  $sass-subclass: '_'; // Key for Sub-Classes
+  $sass-extend: "extend"; // Key for Extends
+  $sass-alterego: "alias"; // Key for Aliases
+  $sass-overrides: "override"; // Key for Overrides
+  $sass-placeholder: '+'; // Key for Placeholder classes
 
   // Tools
-  $sass-autoproperty: auto; // Creates property and property values via built-in automations
-  $sass-autovalue-b: auto; // Creates property values via built-in automations
-  $sass-autovalue-c: custo; // Creates property values via custom automations
+  $sass-autoproperty: "auto"; // Creates property and property values via built-in automations
+  $sass-autovalue-b: "-auto"; // Creates property values via built-in automations
+  $sass-autovalue-c: "-custo"; // Creates property values via custom automations
 
   // Augmentations
-  $sass-autovendor: -vp; // Adds vendors to property values
-  $sass-autoquote: qt; // Maintains quotes after composing
+  $sass-autovendor: "-vp"; // Adds vendors to property values
+  $sass-autoquote: "-qt"; // Maintains quotes after composing
+
+  // Typography
+  $Enable-ATG: yes; // Enable Auto Typography Generator
+  $sass-autotype: "type-style";
+  $base-fontsize: 100%; // 10px = 1 rem
+  $base-lineheight: 1.6 //

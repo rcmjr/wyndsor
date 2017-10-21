@@ -38,30 +38,30 @@
       p_bg-night: (
         background: $night,
         _dark: (
-          background: (auto, rgba, $night, .5, darken)),
+          background: (-auto, rgba, $night, .5, darken)),
         _light: (
-          background: (auto, rgba, $night, .5, lighten))
+          background: (-auto, rgba, $night, .5, lighten))
       ),
       p_bg-sky: (
         background: $sky,
         _dark: (
-          background: (auto, rgba, $sky, .5, darken)),
+          background: (-auto, rgba, $sky, .5, darken)),
         _light: (
-          background: (auto, rgba, $sky, .5, lighten))
+          background: (-auto, rgba, $sky, .5, lighten))
       ),
       p_bg-ocean: (
         background: $ocean,
         _dark: (
-          background: (auto, rgba, $ocean, .5, darken)),
+          background: (-auto, rgba, $ocean, .5, darken)),
         _light: (
-          background: (auto, rgba, $ocean, .5, lighten))
+          background: (-auto, rgba, $ocean, .5, lighten))
       ),
       p_bg-testinggrey: (
         background: $testinggrey,
         _dark: (
-          background: (auto, rgba, $testinggrey, .5, darken)),
+          background: (-auto, rgba, $testinggrey, .5, darken)),
         _light: (
-          background: (auto, rgba, $testinggrey, .5, lighten))
+          background: (-auto, rgba, $testinggrey, .5, lighten))
       )
     );
 

@@ -20,6 +20,19 @@
     "animation",
     "animation-delay";
 
+//// --- AUTO TYPOGRAPHY GENERATOR --- ////////////////////////////
+
+  $ATG:
+    "font-size",
+    "type-style";
+
+  $Units: // I dont recommend changing the order, it could gum up the ATG.
+    px, rem, em,
+    %, ch, pc,
+    in, cm, mm,
+    pt, ex, vw,
+    vh, vmin, vmax;
+
 //// --- VENDOR PREFIXES --- ////////////////////////////
 
   $vprefixes:
@@ -76,23 +89,36 @@
 
   @mixin toolbox($property-key, $property-key-string, $property-list, $property-string, $property-length, $splitter, $custo-name, $breakpoint, $EpicAct) {
 
-    //// 1 //////////// Built-in Tools
+    //// 1 //////////// Built-in Interior Tools
     @if $splitter == built-in {
       @include color-tool($property-key, $property-key-string, $property-list, $property-string, $property-length, $splitter, $custo-name, $breakpoint, $EpicAct);
       @include pattern-tool-1($property-key, $property-key-string, $property-list, $property-string, $property-length, $splitter, $custo-name, $breakpoint, $EpicAct);
     }
 
-    //// 2 //////////// Custom Tools
+    //// 2 //////////// Custom Interior Tools
     @else if $splitter == add-on {
-
     }
 
-    //// 3 //////////// Custom Tools
+    //// 3 //////////// Custom Exterior Tools
     @else if $splitter == auto-property {
       @include graph-simple($property-key, $property-key-string, $property-list, $property-string, $property-length, $splitter, $custo-name, $breakpoint, $EpicAct);
     }
+
+    //// 4 //////////// Built-In Typography
+    @else if $splitter == auto-typography {
+      @if $Enable-ATG == yes {
+        @include sassline($property-key, $property-key-string, $property-list, $property-string, $property-length, $splitter, $custo-name, $breakpoint, $EpicAct);
+      }
+      @else if $Enable-ATG == no and $property-key == "font-size" {
+        #{$property-key}: #{$property-string};
+      }
+      @else if $Enable-ATG == no and $property-key == "type-style" {
+        @include sassline($property-key, $property-key-string, $property-list, $property-string, $property-length, $splitter, $custo-name, $breakpoint, $EpicAct);
+      }
+    }
+
     //// ! //////////// Lights Out!
     @else {
-      @warn "Wooaaahh, this is a two-way split bro, try using 'auto' or 'custo-#'.";
+      @warn "Wooaaahh, this is a four-way split bro, maybe try using 'auto' or 'custo-#'. #{$splitter}";
     }
   }

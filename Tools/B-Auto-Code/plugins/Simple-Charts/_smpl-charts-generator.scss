@@ -21,7 +21,7 @@
       $bar-direction));
 
     $bar-number: str-replace($bar-way, "#{$bar-direction-remove}-");
-    $bar-steps: if($bar-number != (), $bar-number, $bar-steps);
+    $bar-steps-change: to-number(if($bar-number != (), $bar-number, $bar-steps));
     $bar-color: nth($property-list, 4);
     $bar-shift: nth($property-list, 5);
     $bar-hover-color: nth($property-list, 6);
@@ -47,10 +47,10 @@
       }
     }
 
-    $step-magic: 100 / $bar-steps;
+    $step-magic: (100/$bar-steps-change);
     @for $i from 1 through $step-magic {
-      $number: $i * $bar-steps;
-      $namenumber: (100 - ($i * $bar-steps));
+      $number: $i * $bar-steps-change;
+      $namenumber: (100 - ($i * $bar-steps-change));
       &#{"." + "bar" + $namenumber} {
         #{$bar-direction}: #{$number}#{%};
         height: $bar-height;
@@ -71,7 +71,7 @@
     $textSize: nth($property-list, 10);
 
   $donut-percent: 5 !default;
-  $donut-magic: 100 / $donut-percent;
+  $donut-magic: (100/$donut-percent);
 
     @for $i from 1 through $donut-magic {
       $number: $i * $donut-percent;
@@ -94,8 +94,8 @@
         background: $base;
 
         .dnt {
-          width: $size/2;
-          height: $size/2;
+          width: ($size / 2);
+          height: ($size / 2);
           top: 0;
           left: 0;
           border-radius: 100% 0 0 0;
@@ -159,8 +159,8 @@
         .dnt-center {
           top: $width;
           left: $width;
-          width: $size - ($width * 2);
-          height: $size - ($width * 2);
+          width: ($size - ($width * 2));
+          height: ($size - ($width * 2));
           background: $center;
 
           &:after {
@@ -169,7 +169,7 @@
             font-size: $textSize;
             color: $color;
             text-align: center;
-            line-height: $size - ($width * 2);
+            line-height: ($size - ($width * 2));
             content: '#{$number}%';
           }
         }

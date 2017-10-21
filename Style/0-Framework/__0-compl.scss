@@ -12,10 +12,11 @@
   //// ℹ︎ //////////// If you have more than one map add it here:
     $compl-0: map-combine(
 
-      /* Global Principles */
-      $s0-GlobalSpecs,
-
+      /* Global Rules */
+      $s0-Rules,
       /* Grid Principles */
       $s0-Grid,
+      /* Spacing Principles */
+      $s0-Spacing,
 
     true);

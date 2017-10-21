@@ -1,38 +1,17 @@
-/// INFO: Global Principles should be applicable across the entire website
+//// --- CSS Global Rules --- ////////////////////////////
+$s0-Rules: (
 
-//// --- Global Specifications --- ////////////////////////////
-$s0-GlobalSpecs: (
-
+//// 1 //////////// CSS Stuff
   r_bg: (
     position: absolute,
     z-index: 0,
     width: 100%,
-    height: 100%,
-
-    _grid: (
-      position: absolute,
-      z-index: 0,
-      width: 100%,
-      display: (grid),
-      grid-column: auto
-    )
-
-  ),
+    height: 100%),
 
   r_fg: (
     position: relative,
     z-index: 1,
-    width: 100%
-  ),
-
-  r_grid: (
-    display: (grid),
-
-    _cntr: (
-      align-self: center,
-      justify-self: center
-    )
-  ),
+    width: 100%),
 
   r_WxH-fill: (
     width: 100%,
@@ -49,55 +28,41 @@ $s0-GlobalSpecs: (
     object-fit: cover
   ),
 
-  r_pddn-dflt: (
-    padding-left: (
-      base: 105px
-    ),
-    padding-right: (
-      base: 105px
-    )
-  ),
-
+  //// 2 //////////// Flexbox Rules
   r_flexbox: (
     display: flex,
-    |_cntrd: (
+
+    |_cntr: (
       justify-content: center,
-      align-items: center
-    ),
+      align-items: center,
+      _h-stretch: (
+        justify-content: stretch)),
+
     |_top: (
       justify-content: flex-start,
-      align-items: center
-    ),
-    |_cntrd-fill: (
-      height: 100%,
-      width: 100%,
-      justify-content: center,
-      align-items: center)
-  ),
+      align-items: center),
 
+    |_col: (
+      flex-direction: column),
+
+    |_row: (
+      flex-direction: row
+    )),
+
+  //// 3 //////////// Overflow Rules
   r_overflow: (
     _hddn: (
       overflow: hidden),
 
     _vsibl: (
-      overflow: visible)
-  ),
-  r_absolute-0: (
+      overflow: visible)),
+
+  //// 4 //////////// Absolute Rules
+  r_absolute: (
     position: absolute,
-    top: 0,
-    left: 0
-  ),
 
-  r_margin-auto: (
-    margin: auto
-  ),
-
-  r_disp-grid: (
-    display: grid !important
-  )
-);
-
-$s0-Global-States: (
+    |_zero: (
+      top: 0,
+      left: 0))
 
 );
-//// --- END Global Specifications --- ////////////////////////

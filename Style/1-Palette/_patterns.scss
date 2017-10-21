@@ -1,7 +1,7 @@
 $s1-Base-Patterns: (
 
   pa_ptrn-stripedv: (
-    background: (auto, pattern, 'to bottom', 2, $sky, $ocean, .25em, 1em),
+    background: (-auto, pattern, 'to bottom', 2, $sky, $ocean, .25em, 1em),
     height: 100%,
     width: .85em,
   )

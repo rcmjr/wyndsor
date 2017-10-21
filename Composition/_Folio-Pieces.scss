@@ -18,11 +18,11 @@ $c-FolioPieces-Section-1: (
     display: grid,
     |_sngl: (
       grid-template-rows: 150px 480px 40px 1fr 40px auto,
-      grid-template-areas: (qt, '. header .', 'coverimg coverimg coverimg', '. . .', '. display .', '. . .', '. info1 .')
+      grid-template-areas: (-qt, '. header .', 'coverimg coverimg coverimg', '. . .', '. display .', '. . .', '. info1 .')
     ),
     |_dble: (
       grid-template-rows: 150px 480px 40px 1fr 40px,
-      grid-template-areas: (qt, '. header .', 'coverimg coverimg coverimg', '. . .', '. display .', '. . .')
+      grid-template-areas: (-qt, '. header .', 'coverimg coverimg coverimg', '. . .', '. display .', '. . .')
     )
   ),
 
@@ -54,7 +54,7 @@ $c-FolioPieces-Section-2: (
     grid-area: body2,
     display: grid,
     grid-template-rows: 150px 40px 410px 40px auto,
-    grid-template-areas: (qt, 'break break break', '. . .', '. display .', '. . .', '. info2 .'),
+    grid-template-areas: (-qt, 'break break break', '. . .', '. display .', '. . .', '. info2 .'),
     |child: (
       name: (#break),
       grid-row: '3 / 4'
@@ -92,7 +92,9 @@ $c-FolioPieces-Amenities: (
     height: 140px,
     width: 100%,
     grid-row: '2 / 3',
-    grid-column: '2 / 12',
+    grid-column: (
+      base: '2 / 12',
+      desktop: '2 / 10'),
     |child-0: (
       name: ('.button a'),
       padding: 15px,
