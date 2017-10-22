@@ -1,5 +1,8 @@
-$s3-Navigation-Base: (
-  c_folionav: (
+//// --- NAVIGATION --- ////////////////////////////
+$s3-Navigation: (
+
+  //// 1 //////////// Folio Pagination
+  e_folionav: (
     padding: 20px,
     padding-right: 25px,
     padding-left: 25px,
@@ -19,4 +22,5 @@ $s3-Navigation-Base: (
       line-height: 1.1
     )
   )
+
 );

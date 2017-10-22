@@ -2,7 +2,8 @@
 
   @mixin receiver($propertyname, $propertyvalues, $propertyvalues-list, $valueslength, $toggle: null) {
 
-    @if $toggle == vendor-prefix and $Enable-AVP == on {
+    @if $toggle == vendor-prefix and $Enable-AVP == yes {
+
       @each $prefix in $vprefixes {
         #{'-' + $prefix + '-' + $propertyname}: $propertyvalues;
       }
@@ -56,8 +57,8 @@
       if($splitter-verb == $sass-autovendor, inner-vendor-prefix,
 
       /* Auto Check Commands */
-      if(chk-list($AVP, quote($root-cnctr)), vendor-prefix,
-      if(chk-list($ATG, quote($root-cnctr)), auto-typography,
+      if(chk-list($AVP, quote($root-cnctr-str)), vendor-prefix,
+      if(chk-list($ATG, quote($root-cnctr-str)), auto-typography,
 
       /* Exterior Commands */
       if(str-index($root-cnctr-str, $sass-autoproperty), auto-property,
@@ -244,7 +245,7 @@
       }
     }
 
-    // Creats Children within subclasses or pseudos
+    // Creats Children within Children, Subclasses or Pseudos
     @else if $subuppy == true and $boardroute == new {
 
         @each $key, $value in $startvalue {
@@ -275,27 +276,35 @@
           }
         }
 
-        $aliasname: if($aliasnames != (), $aliasnames, unquote(''));
         $alias-prime-prehand: str-replace(to-string($startkey), ' ', '');
         $alias-prime: str-replace($alias-prime-prehand, $sass-child, '');
         $alias-prime-childcheck: if(str-index($alias-prime, child), true, false);
-          @if $alias-prime-childcheck == true {
+        $alias-prime-reserve: null;
+
+          @if $alias-prime-childcheck == true { // If the Child convention checks out, then it renders $alias-prime null
+            $alias-prime-reserve: $alias-prime;
             $alias-prime: null;
           }
-          @else {
+          @else { // Where as if there is a class or html name it does this:
             $alias-prime: if(chk-list($html-elements, $alias-prime),
               " " + $alias-prime,
               " ." + $alias-prime);
           }
 
+          $aliasname: if($aliasnames != (), $aliasnames, unquote(""));
+          $aliasname-s: $aliasname + unquote("");
+          $aliasname-sc: if(str-index(to-string($alias-prime-reserve), "_") == 1, true, false);
+          $aliasname-scs: if($aliasname-sc == true, str-slice($aliasname-s, 2, str-length($aliasname-s)), str-slice($aliasname-s, 1, str-length($aliasname-s)));
+
           $alias-prime-sc: if(str-index(to-string($alias-prime), "_") == 3, true, false);
           $alias-prime-scs: if($alias-prime-sc == true, str-slice($alias-prime, 4, str-length($alias-prime)), null);
           $alias-prime-scf: if($alias-prime-sc == true, if(chk-list($html-elements, $alias-prime-scs),
             $alias-prime-scs, str-insert($alias-prime-scs, ".", 1)), null);
-        &#{
-            if($alias-prime-sc == true, #{$alias-prime-scf}#{" " + $aliasname},
-            if($alias-prime != null, #{$alias-prime}#{" " + $aliasname},
-            $aliasname))} {
+
+          &#{
+            if($alias-prime-sc == true, #{$alias-prime-scf}#{" " + $aliasname-scs},
+            if($alias-prime != null, #{$alias-prime}#{" " + $aliasname-scs},
+            $aliasname-scs)))}  {
 
           @each $key, $value in $startvalue {
             $subhands: to-string($key);
@@ -318,7 +327,7 @@
               @include router($key, $value, $startvalue, null, $breakpoint, $EpicAct, extend);
             }
             @else if $sublefty == true {
-              @warn "Creating subclasses within descendants isnt allowed.";
+              @warn "Creating subclasses within children this far down, isnt allowed.";
             }
           }
         }
@@ -467,28 +476,35 @@
             }
           }
         }
-        $alias-prime-prehand: str-replace(to-string($property), ' ', '');
-        $alias-prime: str-replace($alias-prime-prehand, $sass-child, '');
-        $alias-prime-childcheck: if(str-index($alias-prime, child), true, false);
-          @if $alias-prime-childcheck == true {
+
+        $alias-prime-prehand: str-replace(to-string($property), ' ', ''); // Removes any space anomolies
+        $alias-prime: str-replace($alias-prime-prehand, $sass-child, ''); // Removes Children Key from $alias-prime
+        $alias-prime-childcheck: if(str-index($alias-prime, child), true, false); // Checks to see if $alias-prime has the Children convention "child"
+        $alias-prime-reserve: null;
+
+          @if $alias-prime-childcheck == true { // If the Child convention checks out, then it renders $alias-prime null
+            $alias-prime-reserve: $alias-prime;
             $alias-prime: null;
           }
-          @else {
+          @else { // Where as if there is a class or html name it does this:
             $alias-prime: if(chk-list($html-elements, $alias-prime),
               " " + $alias-prime,
               unquote(" .") + $alias-prime);
           }
-        $aliasname: if($aliasnames != (), $aliasnames, unquote(''));
 
+        $aliasname: if($aliasnames != (), $aliasnames, unquote(""));
+        $aliasname-s: $aliasname + unquote("");
+        $aliasname-sc: if(str-index(to-string($alias-prime-reserve), "_") == 1, true, false);
+        $aliasname-scs: if($aliasname-sc == true, str-slice($aliasname-s, 2, str-length($aliasname-s)), str-slice($aliasname-s, 1, str-length($aliasname-s)));
         $alias-prime-sc: if(str-index(to-string($alias-prime), "_") == 3, true, false);
         $alias-prime-scs: if($alias-prime-sc == true, str-slice($alias-prime, 4, str-length($alias-prime)), null);
         $alias-prime-scf: if($alias-prime-sc == true, if(chk-list($html-elements, $alias-prime-scs),
           $alias-prime-scs, str-insert($alias-prime-scs, ".", 1)), null);
 
         &#{
-          if($alias-prime-sc == true, #{$alias-prime-scf}#{" " + $aliasname},
-          if($alias-prime != null, #{$alias-prime}#{" " + $aliasname},
-          $aliasname))}  {
+          if($alias-prime-sc == true, #{$alias-prime-scf}#{" " + $aliasname-scs},
+          if($alias-prime != null, #{$alias-prime}#{" " + $aliasname-scs},
+          $aliasname-scs)))}  {
 
           @each $subprop, $subpropval in $propertyvalue {
             $subhands: to-string($subprop);
@@ -503,16 +519,20 @@
             }
             @else if $subrighty == true {
               &#{unquote(":")}#{$subprop} {
-                  @each $subsubprop, $subsubpropval in $subpropval {
-                    @include switch($EpicAct, $rslt, $rslt-brkpnt-solve, $rslt-imprtnt, $rslt-imprtnt-solve, $rslt-base, $rslt-base-solve, $subsubprop, $subsubpropval, $breakpoint, $redswitch, $blueswitch, $boardroute, $override-brkname);
-                  }
+                @each $subsubprop, $subsubpropval in $subpropval {
+                  @include switch($EpicAct, $rslt, $rslt-brkpnt-solve, $rslt-imprtnt, $rslt-imprtnt-solve, $rslt-base, $rslt-base-solve, $subsubprop, $subsubpropval, $breakpoint, $redswitch, $blueswitch, $boardroute, $override-brkname);
+                }
               }
             }
             @else if $subuppy == true {
               @include switch($EpicAct, $rslt, $rslt-brkpnt-solve, $rslt-imprtnt, $rslt-imprtnt-solve, $rslt-base, $rslt-base-solve, $subprop, $subpropval, $breakpoint, $redswitch, $blueswitch, $boardroute, $override-brkname);
             }
             @else if $sublefty == true {
-              @warn "Creating subclasses within a child isnt allowed.";
+              &#{if($subprop != null, unquote("-"), '') + if(str-index($subprop, '_'), str-replace($subprop, _, ''), '')} {
+                @each $subsubprop, $subsubpropval in $subpropval {
+                  @include switch($EpicAct, $rslt, $rslt-brkpnt-solve, $rslt-imprtnt, $rslt-imprtnt-solve, $rslt-base, $rslt-base-solve, $subsubprop, $subsubpropval, $breakpoint, $redswitch, $blueswitch, $boardroute, $override-brkname);
+                }
+              }
             }
             @else if $subextend == true {
               @include router($subprop, $subpropval, $propertyvalue, $key, $breakpoint, $EpicAct, extend);

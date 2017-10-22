@@ -14,23 +14,15 @@
     $compl-3: map-combine(
 
       /* Displays */
-      $s3-States-Base,
-      $s3-States-FolioPiece-Grid,
-      $s3-States-HomePage-Deets,
-      $s3-Lighbox-Base,
-
+      $s3-States,
       /* Buttons */
-      $s3-Buttons-Base,
-
+      $s3-Buttons,
       /* Load Screen */
-      $s3-LoadScreen-Base,
-
+      $s3-LoadScreen,
       /* Load Navigation */
-      $s3-Navigation-Base,
-
+      $s3-Navigation,
       /* Logo & Marks Styles */
-      $s3-Base-LogoStyles,
-      $s3-Type-Logos,
+      $s3-Logos,
 
       true);
 

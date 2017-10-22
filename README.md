@@ -47,19 +47,19 @@ II. Your Style (IDs are not allowed unless they are for uber-specific website el
 
   .type_bowtie
 
-  .r_bg
+  .f_bg
 
-  .r_fg
+  .f_fg
 
-  .glob_r_grid-cntr
+  .glob_f_grid-cntr
 
   .r_pddn-dflt
 
-  .r_WxH-fill
+  .f_fill
 
-  .t_txt left
+  .t_align left
 
-  .r_grid
+  .f_grid
 
   .grid_justify-start
 

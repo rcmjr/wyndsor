@@ -1,5 +1,8 @@
-$s3-Buttons-Base: (
-  c_bttn-homefresh: (
+//// --- BUTTONS --- ////////////////////////////
+$s3-Buttons: (
+
+  //// 1 //////////// Page Buttons
+  e_bttn-homefresh: (
     color: white,
     text-transform: none,
     _arrw: (
@@ -10,4 +13,5 @@ $s3-Buttons-Base: (
       color: white
     )
   )
+  
 );

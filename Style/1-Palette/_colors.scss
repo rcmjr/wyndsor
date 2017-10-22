@@ -1,68 +1,72 @@
-//// --- COLORS --- ////////////////////////////
+//// --- COLOR VARIABLES --- ////////////////////////////
 
   //// 1 //////////// Personal Brand Colors
-      $night: #323333;
-      $pitch: #232323;
-      $sky: #12C3F4;
-      $ocean: #00FFE0;
-      $ocean-dark: mix($ocean, $pitch, 75%);
-      $testinggrey: #F5F5F5;
+  $night: #323333;
+  $pitch: #232323;
+  $sky: #12C3F4;
+  $ocean: #00FFE0;
+  $ocean-dark: mix($ocean, $pitch, 75%);
+  $testinggrey: #F5F5F5;
 
   //// 2 //////////// Creatable Brand Colors
-      $black: #282828;
-      $red: #ef3e3e;
-      $orange: #f47d41;
-      $yellow: #fed435;
-      $green: #3eb660;
-      $blue: #1e8ecd;
-      $purple: #724199;
-      $violet: #9d3895;
+  $black: #282828;
+  $red: #ef3e3e;
+  $orange: #f47d41;
+  $yellow: #fed435;
+  $green: #3eb660;
+  $blue: #1e8ecd;
+  $purple: #724199;
+  $violet: #9d3895;
 
-  //// 3 //////////// Character Color Sets
-    $s1-Base-CharacterColorSets: (
-      p_chara-white: (
-        color: white),
+//// --- PALETTE COLORS --- ////////////////////////////
+$s1-Color-Sets: (
 
-      p_chara-black: (
-        color: $night),
+  //// 1 //////////// Character Color Sets
+  p_chara-white: (
+    color: white),
 
-      p_chara-black-neo: (
-        color: $pitch),
+  p_chara-black: (
+    color: $night),
 
-      p_chara-ocean: (
-        color: $ocean),
-    );
+  p_chara-black-neo: (
+    color: $pitch),
 
-  //// 4 //////////// Background Color Sets
-    $s1-Base-ColorBackgroundSets: (
-      p_bg-night: (
-        background: $night,
-        _dark: (
-          background: (-auto, rgba, $night, .5, darken)),
-        _light: (
-          background: (-auto, rgba, $night, .5, lighten))
-      ),
-      p_bg-sky: (
-        background: $sky,
-        _dark: (
-          background: (-auto, rgba, $sky, .5, darken)),
-        _light: (
-          background: (-auto, rgba, $sky, .5, lighten))
-      ),
-      p_bg-ocean: (
-        background: $ocean,
-        _dark: (
-          background: (-auto, rgba, $ocean, .5, darken)),
-        _light: (
-          background: (-auto, rgba, $ocean, .5, lighten))
-      ),
-      p_bg-testinggrey: (
-        background: $testinggrey,
-        _dark: (
-          background: (-auto, rgba, $testinggrey, .5, darken)),
-        _light: (
-          background: (-auto, rgba, $testinggrey, .5, lighten))
-      )
-    );
+  p_chara-ocean: (
+    color: $ocean),
+
+  //// 2 //////////// Background Color Sets
+  p_bg-night: (
+    background: $night,
+    _dark: (
+      background: (-auto, rgba, $night, .5, darken)),
+    _light: (
+      background: (-auto, rgba, $night, .5, lighten))
+  ),
+
+  p_bg-sky: (
+    background: $sky,
+    _dark: (
+      background: (-auto, rgba, $sky, .5, darken)),
+    _light: (
+      background: (-auto, rgba, $sky, .5, lighten))
+  ),
+
+  p_bg-ocean: (
+    background: $ocean,
+    _dark: (
+      background: (-auto, rgba, $ocean, .5, darken)),
+    _light: (
+      background: (-auto, rgba, $ocean, .5, lighten))
+  ),
+
+  p_bg-testinggrey: (
+    background: $testinggrey,
+    _dark: (
+      background: (-auto, rgba, $testinggrey, .5, darken)),
+    _light: (
+      background: (-auto, rgba, $testinggrey, .5, lighten))
+  )
+
+);
 
 //// --- END COLORS --- ////////////////////////

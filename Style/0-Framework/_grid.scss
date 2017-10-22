@@ -1,17 +1,16 @@
+//// --- CSS GRID --- ////////////////////////////
 $s0-Grid: (
-
-  //// --- CSS GRID --- ////////////////////////////
-  r_grid: (
+  f_grid: (
     display: grid,
 
     //// 0 //////////// CSS Grid Amenities
     |_cntr: (
       align-self: center,
-      justify-self: center),
+      justify-self: center
+    ),
 
     _imprtnt: (
-      display: grid !important
-    ),
+      display: grid !important),
 
     //// 1 //////////// CSS Grid Columns
     |_col-fr-12: (
@@ -22,13 +21,17 @@ $s0-Grid: (
         tablet: repeat(8, 1fr),
         phablet: repeat(6, 1fr),
         phone: repeat(3, 1fr),
-        tiny: 1fr)),
+        tiny: 1fr
+      )
+    ),
 
     |_col-fr-3: (
       grid-template-columns: (
         base: repeat(3, 1fr),
         phone: 1fr,
-        tiny: 1fr)),
+        tiny: 1fr
+      )
+    ),
 
     |_col-fxd-3: (
       grid-template-columns: (
@@ -36,7 +39,9 @@ $s0-Grid: (
         tablet: 1fr 800px 1fr,
         phablet: 1fr 500px 1fr,
         phone: 1fr 80vw 1fr,
-        tiny: 1fr)),
+        tiny: 1fr
+      )
+    ),
 
     |_col-fxd-4: (
       grid-template-columns: 1fr repeat(2, ((1230 / 2)px)) 1fr),

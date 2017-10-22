@@ -12,14 +12,10 @@
     $compl-1: map-combine(
 
       /* Colors */
-      $s1-Base-CharacterColorSets,
-      $s1-Base-ColorBackgroundSets,
-
+      $s1-Color-Sets,
       /* Patterns */
-      $s1-Base-Patterns,
-      $s1-Brand-SVG,
-
+      $s1-Patterns,
       /* Strokes */
-      $s1-Base-Strokes,
+      $s1-Strokes,
 
     true);

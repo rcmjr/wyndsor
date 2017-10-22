@@ -1,14 +1,10 @@
-$s3-States-Base: (
+$s3-States: (
 
   c_disp-img-strktop: (
     border-style: solid,
     border-color: $ocean,
     border-top-width: 3px
-  )
-
-);
-
-$s3-States-FolioPiece-Grid: (
+  ),
 
   c_disp-fp-gridbase: (
     //grid-row: auto,
@@ -58,10 +54,8 @@ $s3-States-FolioPiece-Grid: (
     _6: (
       grid-area: photo-6
     )
-  )
-);
+  ),
 
-$s3-States-HomePage-Deets: (
   c_disp-hme-projectbar: (
     grid-column: '1 / 2',
     background-color: #232323,
@@ -150,10 +144,8 @@ $s3-States-HomePage-Deets: (
       name: "a h2",
       font-size: 2.4rem
     )
-  )
-);
+  ),
 
-$s3-Lighbox-Base: (
   m-lightbox__close: (
     top: 40px,
     right: 40px,
@@ -163,131 +155,127 @@ $s3-Lighbox-Base: (
       height: 45px
     )
   ),
-  m-lightbox__nextPrev: (
-    font-size: 50px,
-    color: white,
-    transition: .25s ease
-  ),
   c-lightbox-cntrls: (
     font-family: 'kith-bold'
-  )
+  ),
+
+
+  m-lightbox: (
+    position: fixed,
+    top: 0,
+    left: 0,
+    width: 100vw,
+    height: 100vh,
+    background: $pitch,
+    z-index: 1,
+    opacity: 0,
+    transition: opacity 0.3s ease-out,
+    pointer-events: none,
+    |_is-active: (
+      opacity: 1,
+      z-index: 101,
+      pointer-events: auto
+    ),
+    |button: (
+      position: absolute,
+      margin: 0,
+      padding: 0,
+      z-index: 102,
+      background: transparent,
+      border: none,
+      cursor: pointer
+    )
+  ),
+
+  m-lightbox__slider: (
+    list-style: none,
+    margin: 0,
+    padding: 0,
+    width: 100vw,
+    height: 100vh
+  ),
+
+  m-lightbox__slide: (
+    position: absolute,
+    top: 0,
+    left: 0,
+    width: 100vw,
+    height: 100vh,
+    display: flex,
+    justify-content: center,
+    align-items: center,
+
+    |img: (
+      display: block,
+      max-width: (
+        base: calc(100vw - 2em),
+        phone: calc(100vw - 116px)
+      ),
+      max-height: (
+        base: 90vh,
+        phone: 90vh
+      ),
+      opacity: 0,
+      transition: opacity 0.2s ease
+    ),
+    |_child: (
+      name: ".is-loaded img",
+      transition-delay: 0s
+    ),
+    |_child-2: (
+      name: ".is-loaded.is-active img",
+      opacity: 1,
+      transition: opacity 0.3s ease,
+      transition-delay: .5s
+    ),
+    |_child-3: (
+      name: ".is-loaded.is-active .spinner",
+      display: none
+    )
+  ),
+
+  m-lightbox__nextPrev: (
+    top: 50%,
+    transform: translateY(-50%),
+    width: 42px,
+    height: 42px,
+    visibility: hidden,
+    opacity: 0,
+    transition: all 0.3s ease-out,
+    font-size: 50px,
+    color: white,
+
+    |_is-active: (
+      visibility: (
+        base: visible,
+        tablet: hidden
+      ),
+      opacity: 1
+    ),
+
+    |svg: (
+      display: block,
+      width: 100%,
+      height: auto
+    ),
+
+    _-next: (
+      right: 1em),
+
+    _-prev: (
+      left: 1em),
+
+    hover: (
+      cursor: pointer)
+  ),
+
+  m-lightbox__counter: (
+    display: none),
+
+  spinner: (
+    display: none),
+
+  test-class-col: (
+    font-family: "hello")
+
 );
-
-.m-lightbox {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 100vh;
-  background: $pitch;
-  z-index: 1;
-  opacity: 0;
-  -webkit-transition: opacity 0.3s ease-out;
-  transition: opacity 0.3s ease-out;
-  pointer-events: none;
-}
-.m-lightbox.is-active {
-  opacity: 1;
-  z-index: 101;
-  pointer-events: auto;
-}
-.m-lightbox__slider {
-  list-style: none;
-  margin: 0;
-  padding: 0;
-  width: 100vw;
-  height: 100vh;
-}
-.m-lightbox__slide {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 100vh;
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
-}
-.m-lightbox__slide img {
-  display: block;
-  max-width: calc(100vw - 2em);
-  max-height: 90vh;
-  opacity: 0;
-  -webkit-transition: opacity 0.2s ease;
-  transition: opacity 0.2s ease;
-}
-@media (min-width: 768px) {
-  .m-lightbox__slide img {
-    max-width: calc(100vw - 116px);
-    max-height: 90vh;
-  }
-}
-.m-lightbox__slide.is-loaded img {
-  transition-delay: 0s;
-}
-.m-lightbox__slide.is-loaded.is-active img {
-  opacity: 1;
-  -webkit-transition: opacity 0.3s ease;
-  transition: opacity 0.3s ease;
-  transition-delay: .5s;
-}
-.m-lightbox__slide.is-loaded.is-active .spinner {
-  display: none;
-}
-.m-lightbox button {
-  position: absolute;
-  margin: 0;
-  padding: 0;
-  z-index: 102;
-  background: transparent;
-  border: none;
-  cursor: pointer;
-}
-
-.m-lightbox__nextPrev {
-  top: 50%;
-  -webkit-transform: translateY(-50%);
-          transform: translateY(-50%);
-  width: 42px;
-  height: 42px;
-  visibility: hidden;
-  opacity: 0;
-  -webkit-transition: opacity 0.3s ease-out;
-  transition: opacity 0.3s ease-out;
-}
-.m-lightbox__nextPrev.is-active {
-  visibility: hidden;
-  opacity: 1;
-}
-@media (min-width: 1024px) {
-  .m-lightbox__nextPrev.is-active {
-    visibility: visible;
-  }
-}
-.m-lightbox__nextPrev svg {
-  display: block;
-  width: 100%;
-  height: auto;
-}
-.m-lightbox__nextPrev--next {
-  right: 1em;
-}
-.m-lightbox__nextPrev--prev {
-  left: 1em;
-}
-.m-lightbox__nextPrev:hover {
-  cursor: pointer;
-}
-.m-lightbox__counter {
-  display: none;
-}
-
-.spinner {
-  display: none;
-}

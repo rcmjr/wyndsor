@@ -1,11 +1,13 @@
-$s3-Base-LogoStyles: (
+//// --- LOGOS & MARKS --- ////////////////////////////
+$s3-Logos: (
+
+  //// 1 //////////// Logo Classes
   logo: (
     _header: (
       fill: $night,
       width: 206px,
       height: 101px
     ),
-
     _footer: (
       fill: #fff,
       width: 206px,
@@ -18,10 +20,10 @@ $s3-Base-LogoStyles: (
     text-align: center
   ),
 
+  //// 2 //////////// Logo IDs
   #ROB-MURPHY: (
     hover: (
-      fill: $sky
-    ),
+      fill: $sky),
     _footer: (
       fill: #FFFFFF,
       transition: .25s ease,
@@ -30,10 +32,7 @@ $s3-Base-LogoStyles: (
         transition: .25s ease
       )
     )
-  )
-);
-
-$s3-Type-Logos: (
+  ),
 
   #type_bowtie: (
     font-size: 20px,

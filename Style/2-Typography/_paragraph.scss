@@ -1,13 +1,16 @@
+//// --- PARAGRAPH STYLES --- ////////////////////////////
+$s2-Paragraph: (
 
-  $s2-Base-ParagraphAlignments: (
-    t_txt: (
-      |_cntr: (
-        text-align: center),
+  //// 1 //////////// Paragraphy Alignments
+  t_align: (
+    |_cntr: (
+      text-align: center),
 
-      |_left: (
-        text-align: left),
+    |_left: (
+      text-align: left),
 
-      |_rght: (
-        text-align: right)
-    )
-  );
+    |_rght: (
+      text-align: right)
+  )
+
+);

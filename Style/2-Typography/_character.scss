@@ -1,96 +1,93 @@
+//// --- TYPEFACE VARIABLES --- ////////////////////////////
+$Primary-Typeface: "'myriad-pro', 'helvetica', 'arial', sans-serif";
+$Secondary-Typeface: "'kith-regular', 'helvetica', 'arial', sans-serif";
+$Secondary-Typeface-2: "'kith-light', 'helvetica', 'arial', sans-serif";
+$Tertiary-Typeface: "'kin-bold', 'helvetica', 'arial', sans-serif";
 
-  $Primary-Typeface: "'myriad-pro', 'helvetica', 'arial', sans-serif";
-  $Secondary-Typeface: "'kith-regular', 'helvetica', 'arial', sans-serif";
-  $Secondary-Typeface-2: "'kith-light', 'helvetica', 'arial', sans-serif";
-  $Tertiary-Typeface: "'kin-bold', 'helvetica', 'arial', sans-serif";
+//// --- TYPOGRAPHY STYLES --- ////////////////////////////
+$s2-Typography: (
 
-  $s2-Base-Typography: (
+  //// 1 //////////// HTML Typography
+  a: (
+    text-decoration: none,
+    transition: .5s ease,
+    color: $night,
+    hover: (
+      color: $sky,
+      transition: .25s ease)
+  ),
 
-    a: (
-      text-decoration: none,
-      transition: .5s ease,
-      color: $night,
-      hover: (
-        color: $sky,
-        transition: .25s ease)
-    ),
+  h1: (
+    alias: e_bttn-homefresh,
+    font-family: $Secondary-Typeface-2,
+    font-size: 32px,
+    text-transform: uppercase,
+    font-weight: normal,
+    text-align: center,
+    |h1-foliopiece: (
+      font-size: 40px)
+  ),
 
-    h1: (
-      alias: c_bttn-homefresh,
-      font-family: $Secondary-Typeface-2,
-      font-size: 32px,
-      text-transform: uppercase,
-      font-weight: normal,
-      text-align: center,
-      |h1-foliopiece: (
-        font-size: 40px
-      )
-    ),
-
-    h2: (
-      font-family: $Primary-Typeface,
-      font-size: 32px,
-      font-weight: 400,
-
-      |_alt: (
-        font-weight: 200,
-        text-align: center,
-        line-height: 35px
-      )
-    ),
-
-    p: (
-      font-family: $Primary-Typeface,
+  h2: (
+    font-family: $Primary-Typeface,
+    font-size: 32px,
+    font-weight: 400,
+    |_alt: (
       font-weight: 200,
-      line-height: 1.6rem
-    ),
+      text-align: center,
+      line-height: 35px
+    )
+  ),
 
-    wf-loading: (
-      opacity: 0
-    ),
-    wf-inactive: (
-      opacity: 0
-    ),
+  p: (
+    font-family: $Primary-Typeface,
+    font-weight: 200,
+    line-height: 1.6rem
+  ),
 
-    wf-active: (
+  //// 2 //////////// Typography Amenities
+  wf:(
+    _loading: (
+      opacity: 0),
+
+    _inactive: (
+      opacity: 0),
+
+    _active: (
       opacity: 1,
       transition-delay: 5s,
       transition: 1.5s ease
     )
+  ),
 
-  );
+  //// 3 //////////// Typography Classes/IDs
+  t_links-hddr: (
+    font-family: ($Primary-Typeface),
+    color: $night,
+    font-weight: 600,
+    font-size: 1.6em
+  ),
 
-  $s2-Links-Typography: (
-
-    t_links-hddr: (
-      font-family: ($Primary-Typeface),
-      color: $night,
-      font-weight: 600,
-      font-size: 1.6em
-    )
-
-  );
-
-  $s2-Body-Typography: (
-
-    t_body-fttr: (
-      line-height: 2em,
+  t_body-fttr: (
+    line-height: 2em,
+    color: white,
+    font-family: $Primary-Typeface,
+    font-weight: 300,
+    font-size: 14px,
+    |a: (
       color: white,
-      font-family: $Primary-Typeface,
-      font-weight: 300,
-      font-size: 14px,
-      |a: (
-        color: white,
-        transition: .5s ease,
-        hover: (
-          color: $ocean,
-          transition: .25s ease))
-    ),
-
-    t_body-shortblurb: (
-      font-family: $Primary-Typeface,
-      font-weight: 300,
-      font-size: 16px
+      transition: .5s ease,
+      hover: (
+        color: $ocean,
+        transition: .25s ease
+      )
     )
+  ),
 
-  );
+  t_body-shortblurb: (
+    font-family: $Primary-Typeface,
+    font-weight: 300,
+    font-size: 16px
+  )
+
+);

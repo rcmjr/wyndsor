@@ -1,18 +1,20 @@
-//// --- CSS Global Spacing --- ////////////////////////////
+//// --- CSS GLOBAL SPACING --- ////////////////////////////
 $s0-Spacing: (
 
   //// 1 //////////// Margins
-  r_margin:(
+  f_margin:(
     |_auto: (
-      margin: auto)),
+      margin: auto)
+  ),
 
   //// 2 //////////// Padding
-  r_padding: (
+  f_padding: (
     |_dflt: (
       padding-left: (
         base: 105px),
       padding-right: (
-        base: 105px))
+        base: 105px)
+    )
   )
 
 );

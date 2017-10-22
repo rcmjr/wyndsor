@@ -1,18 +1,21 @@
-$s1-Base-Patterns: (
+//// --- PALETTE PATTERNS --- ////////////////////////////
+$s1-Patterns: (
 
-  pa_ptrn-stripedv: (
-    background: (-auto, pattern, 'to bottom', 2, $sky, $ocean, .25em, 1em),
-    height: 100%,
-    width: .85em,
-  )
+  //// 1 //////////// Patterns
+  p_pttrn-striped: (
+    _v: (
+      background: (-auto, pattern, 'to bottom', 2, $sky, $ocean, .25em, 1em),
+      height: 100%,
+      width: .85em,
+    )
+  ),
 
-);
-
-$s1-Brand-SVG: (
-  svg-bg: (
+  //// 2 //////////// SVG
+  f_svg-bg: (
     grid-column: '1 / 13',
     width: 100%,
     height: 100%,
     overflow: visible
   )
+
 );

@@ -11,11 +11,8 @@
     $compl-2: map-combine(
 
       /* Font Styles */
-      $s2-Base-Typography,
-      $s2-Links-Typography,
-      $s2-Body-Typography,
-
+      $s2-Typography,
       /* Parastyles */
-      $s2-Base-ParagraphAlignments,
+      $s2-Paragraph,
 
     true); /* Enables importing deeper levels of each map */

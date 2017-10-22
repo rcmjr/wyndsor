@@ -1,15 +1,19 @@
-$s1-Base-Strokes: (
+//// --- PALETTE STROKES --- ////////////////////////////
+$s1-Strokes: (
 
-  pa_strk-oceantop: (
-
-    padding-top: 2px,
-
-    before: (
-      display: block,
-      outline: 2px solid $ocean,
-      content: (-qt, ' '),
-      padding: 0,
-      margin: 0,
-      margin-top: -4px)
+  //// 1 //////////// Stroke Sets
+  p_strk-ocean: (
+    |_top: (
+      padding-top: 2px,
+      before: (
+        display: block,
+        outline: 2px solid $ocean,
+        content: (-qt, ' '),
+        padding: 0,
+        margin: 0,
+          margin-top: -4px
+      )
+    )
   )
+
 );
