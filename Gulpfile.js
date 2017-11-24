@@ -11,7 +11,11 @@ var sassOptions = {
 };
 
 gulp.task('workflow', function () {
-  gulp.src('./Composition/*.scss')
+  gulp.src([
+    '**/*.scss',
+    '!node_modules/**/*.scss',
+    '!_Dev/*.scss'
+  ])
   // Insert tasks here
   .pipe(sourcemaps.init())
     .pipe(sass(sassOptions).on('error', sass.logError))
@@ -21,5 +25,5 @@ gulp.task('workflow', function () {
 });
 
 gulp.task('default', function () {
-  gulp.watch('./Composition/*.scss', ['workflow']);
+  gulp.watch('./**/*.scss', ['workflow']);
 });
