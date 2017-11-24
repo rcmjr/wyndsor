@@ -3,7 +3,8 @@
         'buttons',
         'load',
         'nav',
-        'logos&marks';
+        'logos&marks',
+        'lightbox';
 
 //// --- MAP IMPORTS --- ////////////////////////////
 
@@ -23,6 +24,8 @@
       $s3-Navigation,
       /* Logo & Marks Styles */
       $s3-Logos,
+      /* Lightbox */
+      $s3-Lightbox,
 
       true);
 

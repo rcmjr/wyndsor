@@ -25,6 +25,7 @@ $s0-Rules: (
 
       |_cvr: (
         width: 100%,
+        max-width: 100%,
         object-fit: cover)
     )
   ),
@@ -39,8 +40,14 @@ $s0-Rules: (
 
       _h-stretch: (
         align-items: center,
-        justify-content: stretch)
-      ),
+        justify-content: stretch
+      )
+    ),
+
+    |_end: (
+      align-items: center,
+      justify-content: flex-end
+    ),
 
     |_top: (
       justify-content: flex-start,

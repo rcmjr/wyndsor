@@ -4,7 +4,15 @@ $s3-Logos: (
   //// 1 //////////// Logo Classes
   logo: (
     _header: (
-      fill: $night,
+      fill: (
+        base: $night,
+      /*  greater-desktop: red,
+        desktop: blue,
+        tablet: green,
+        phablet: yellow,
+        phone: pink,
+        tiny: purple */
+      ),
       width: 206px,
       height: 101px
     ),
@@ -17,7 +25,9 @@ $s3-Logos: (
 
   bowtie: (
     width: 100%,
-    text-align: center
+    text-align: center,
+    margin-top: (
+      tablet-down: 4rem)
   ),
 
   //// 2 //////////// Logo IDs
@@ -37,9 +47,9 @@ $s3-Logos: (
   #type_bowtie: (
     font-size: 20px,
     font-family: $Primary-Typeface,
-    vertical-align: bottom,
+    vertical-align: middle,
     font-weight: 300,
-    line-height: 22px
+    padding-bottom: .8rem
   )
 
 );

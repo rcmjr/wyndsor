@@ -4,10 +4,10 @@
   $Enable-StyleBrks: yes; // Enables breakpoints for Styles.
   $Enable-ImportantEpic: no; // Enables important part of The Epic.
   $Enable-AVP: yes; // Yes or No - Enable Auto Vendor Prefixes.
-  $Include-AliasBrkname: yes; // Adds breakpoint name to Aliases.
+  $Include-AliasBrkname: no; // Adds breakpoint name to Aliases.
 
 //// --- Workflow State --- ////////////////////////////
-  $Wyndsor-mode: dev; // Wyndsor's Dev or Prod mode
+  $Wyndsor-mode: prod; // Wyndsor's Dev or Prod mode
 
 
 //// --- DANGER ZONE - CHANGE THESE AT YOUR OWN RISK --- ////////////////////////////

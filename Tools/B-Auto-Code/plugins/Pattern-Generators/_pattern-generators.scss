@@ -17,7 +17,9 @@
       $gap-tally2: $size-tally2 + $gapsize;
 
 
+      #{$property}: -webkit-repeating-linear-gradient(unquote($direction), $color1, $color1 $size, transparent $size, transparent $gap-tally), -webkit-repeating-linear-gradient(unquote($direction), $color2 $size-tally, $color2 $size-tally2, transparent $size-tally2, transparent $gap-tally2);
       #{$property}: repeating-linear-gradient(unquote($direction), $color1, $color1 $size, transparent $size, transparent $gap-tally), repeating-linear-gradient(unquote($direction), $color2 $size-tally, $color2 $size-tally2, transparent $size-tally2, transparent $gap-tally2);
+
     }
   }
 }

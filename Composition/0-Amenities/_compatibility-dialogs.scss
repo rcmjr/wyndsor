@@ -1,0 +1,249 @@
+  .phonemessage {
+    display: none;
+  }
+
+  .ie-message {
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7) !important;
+    position: absolute;
+    z-index: 999999999;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    flex-shrink: 0;
+    overflow: auto;
+    justify-content: center;
+    flex-direction: column;
+    padding: 5%;
+
+    .ie-messagebox {
+      background-color: $red;
+      height: 80%;
+      margin-bottom: 2.5%;
+      padding: 5%;
+      overflow: visible;
+
+      .ie-messagediv {
+        width: 100%;
+        height: 100%;
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        flex-shrink: 0;
+        overflow: auto;
+        justify-content: center;
+        flex-direction: column;
+        overflow: visible;
+
+        .ie-messageimg {
+          width: 100%;
+          height: 11%;
+          position: relative;
+          overflow: visible;
+          display: flex;
+          justify-content: center;
+
+          img {
+            max-height: 100%;
+            width: auto;
+          }
+        }
+        .ie-messagetext {
+          width: 70%;
+          margin: 0 auto;
+          margin-top: 4%;
+          margin-bottom: 2rem;
+
+          p {
+            color: #fff;
+            text-align: center;
+          }
+
+          p:nth-child(1) {
+            font-family: 'myriad-pro', 'sans serif';
+            font-size: 225%;
+            line-height: 110%;
+            margin-bottom: 1rem;
+          }
+          p:nth-child(2) {
+            font-family: 'myriad-pro', 'sans serif';
+            font-size: 16px;
+            line-height: normal;
+            width: 60%;
+            margin: 0 auto;
+          }
+        }
+        .ie-messagebuttons {
+          display: block;
+          height: auto;
+          display: flex;
+          flex-wrap: wrap;
+          align-items: center;
+          flex-shrink: 0;
+          overflow: auto;
+          justify-content: center;
+          flex-direction: row;
+          width: 100%;
+
+          .ie-buttons-1 {
+            margin-right: 2.5%;
+            a {
+              float: right;
+            }
+          }
+          .ie-buttons-2 {
+            margin-left: 2.5%;
+          }
+          .ie-buttons-1 a, .ie-buttons-2 a {
+            width: 110px;
+            text-align: center;
+          }
+        }
+      }
+    }
+    .ie-contactus {
+      background-color: $black;
+      height: 15%;
+    }
+    .ie-icons {
+      padding-right: 12%;
+    }
+  }
+  .contactusmessage {
+    width: 45%;
+
+    p {
+      color: #fff;
+      font-size: 17px;
+      font-family: 'kith-regular', 'sans serif';
+      text-transform: uppercase;
+      padding-right: 2vw;
+      margin-bottom: 0;
+      line-height: normal;
+      text-align: right;
+    }
+  }
+  .contactus-info {
+    a {
+      color: #fff;
+      margin-bottom: 0;
+      font-family: 'myriad-pro', 'sans-serif';
+      font-size: 15px;
+    }
+    a:nth-child(1) {
+      padding-right: 1vw;
+    }
+    a:hover {
+      color: #fff;
+      text-decoration: underline #fff;
+    }
+    a:focus {
+      color: #fff;
+    }
+
+    .ie-icons {
+      padding-right: .5vw;
+    }
+  }
+  @include brkpoint('<=1130px') {
+    .contactusmessage {
+      width: initial;
+      p {
+        text-align: center;
+        padding-right: 0;
+      }
+    }
+    .ie-contactusdiv {
+      flex-direction: column;
+    }
+  }
+  @include brkpoint('<=610px') {
+    .ie-message .ie-messagebox .ie-messagediv {
+      .ie-messageimg {
+        height: 7%;
+      }
+      .ie-messagetext {
+        margin-top: 15%;
+        margin-bottom: 15%;
+        p:nth-child(1) {
+          font-size: 170%;
+        }
+        p:nth-child(2) {
+          width: 80%;
+        }
+      }
+      .ie-messagebuttons {
+        flex-direction: column;
+
+        .ie-buttons-1 {
+          margin: 0 auto;
+          margin-bottom: 10px;
+          width: auto;
+        }
+        .ie-buttons-2 {
+          margin: 0 auto;
+          width: auto;
+        }
+      }
+    }
+    .contactusmessage {
+      margin-bottom: 10px;
+      p {
+        font-size: 15px;
+      }
+    }
+    .contactus-info {
+      width: 90%;
+      display: flex;
+      flex-direction: column;
+      a {
+        font-size: 13px;
+        text-align: center;
+      }
+      a:nth-child(1) {
+        padding-right: 0;
+      }
+    }
+  }
+
+  .bn-white-outline {
+    text-align: center;
+    line-height: .5;
+    font-family: 'myriad-pro', sans-serif;
+    border-radius: 2px;
+    height: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 2px white solid;
+    color: white;
+
+    &:hover {
+      background: white;
+      border: none;
+      transition: all .5s ease;
+      color: $sky;
+    }
+  }
+
+
+
+#compmessage {
+  display: none;
+}
+
+#compmessage.exploreron {
+  display: flex;
+}
+
+.exploreroverride {
+  @include prefixed(filter, blur(10px));
+  overflow: hidden;
+  height: 100vh;
+  transform: scale(1.05);
+}
+
+.bodyoverride {
+  overflow: hidden;
+}

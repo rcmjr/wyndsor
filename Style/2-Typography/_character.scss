@@ -24,8 +24,14 @@ $s2-Typography: (
     text-transform: uppercase,
     font-weight: normal,
     text-align: center,
-    |h1-foliopiece: (
-      font-size: 40px)
+    |_h1-foliopiece: (
+      line-height: (
+        tablet-down: 2.25rem),
+      word-spacing: (
+        base: -.025rem,
+        tablet-down: -.25rem
+      )
+    )
   ),
 
   h2: (
@@ -41,12 +47,15 @@ $s2-Typography: (
 
   p: (
     font-family: $Primary-Typeface,
-    font-weight: 200,
+    font-weight: 300,
     line-height: 1.6rem
   ),
 
   //// 2 //////////// Typography Amenities
   wf:(
+    _wyndsor: (
+      opacity: 0),
+
     _loading: (
       opacity: 0),
 
@@ -55,7 +64,7 @@ $s2-Typography: (
 
     _active: (
       opacity: 1,
-      transition-delay: 5s,
+      transition-delay: 3s,
       transition: 1.5s ease
     )
   ),

@@ -1,44 +1,69 @@
-#lean_overlay {
-    position: fixed;
-    z-index:100;
-    top: 0px;
-    left: 0px;
-    margin: 0 auto;
-    height:100%;
-    width:100%;
-    background: white;
-    opacity: 0;
-    display: none;
-    grid-template-rows: 320px 1fr;
+$c-Modals: (
 
-    iframe {
-      grid-row: 2 / 3;
-    }
+  #lean_overlay: (
+    position: fixed,
+    z-index: 100,
+    top: 0px,
+    left: 0px,
+    margin: 0 auto,
+    height: 100%,
+    width: 100%,
+    background: white,
+    opacity: 0,
+    display: none,
+    grid-template-rows: 320px 1fr,
 
-    header {
-      grid-row: 1 / 2;
-    }
-}
-.a_touchbase-close {
-  position: absolute;
-    top: 0;
-    right: 0;
-    margin-top: 80px;
-    margin-right: 40px;
+    |iframe: (
+      min-height: 100%,
+      display: initial,
+      height: 100%,
+      position: absolute
+    ),
+    |header: (
+      grid-row: '1 / 2')
+  ),
 
-    a svg {
-      fill: $night;
-      transition: .25s ease;
-    }
-    a svg:hover {
-      fill: $sky;
-      transition: .25s ease;
-    }
-}
+  a_touchbase-close: (
+    position: absolute,
+    top: 0,
+    right: 0,
+    margin-top: (
+      base: 80px,
+      phone-down: 70px
+    ),
+    margin-right: (
+      base: 40px,
+      phone-down: 30px
+    ),
+    |child: (
+      name: "a svg",
+      fill: $night,
+      transition: .25s ease,
+      hover: (
+        fill: $sky,
+        transition: .25s ease,
+      )
+    )
+  ),
 
-.fa.fa-phone {
-  vertical-align: -1px;
-}
-.a_touchbase-container {
-  background: transparent;
-}
+  fa: (
+    |_fa-phone: (
+    vertical-align: -1px)
+  ),
+
+  a_touchbase-container: (
+    background: transparent),
+
+  c_modal-airtable-embed: (
+    min-height: 100%,
+    grid-row: '2 / 3',
+    display: block,
+    overflow: scroll,
+    position: absolute,
+    width: 100%,
+    z-index: 1,
+  ),
+
+  footer: (
+    margin-bottom: -5px)
+);
