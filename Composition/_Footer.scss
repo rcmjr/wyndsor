@@ -4,13 +4,12 @@ $c-Base-Footer: (
     width: 100%,
     height: (
       base: 320px,
-      tablet: 20px
+      phone-down: 500px
     ),
     position: relative,
     display: grid,
     grid-column-gap: 2em,
-    grid-template-columns: (
-      base: repeat(12, 1fr)),
+    grid-template-columns: repeat(12, 1fr),
     background: $night
   ),
 
@@ -19,49 +18,128 @@ $c-Base-Footer: (
       width: 100%,
       height: (
         base: 320px,
-        phablet: 20px,
-        tablet: 15px)
+        phone-down: 500px
       )
-    ),
+    )
+  ),
 
   a_fttr-main: (
+    transition: all .5s ease,
     display: grid,
     grid-column: '1 / 13',
-    grid-column-gap: 2em,
-    padding-left: 2em,
-    padding-right: 2em,
+    grid-column-gap: (
+      base: 2em,
+      tablet: 5rem,
+      phone-down: 0
+    ),
+    grid-row-gap: (
+      phablet: 1rem,
+      phone-down: 0
+    ),
+    padding-top: (
+      desktop: 1.75rem,
+      phablet: 5rem,
+      phone-down: 4rem
+    ),
+    padding-bottom: (
+      phablet: 4rem,
+      phone-down: 0
+    ),
+    padding-left: (
+      base: 2em,
+      tablet: 0
+    ),
+    padding-right: (
+      base: 2em,
+      tablet: 0
+    ),
+    height: (
+      base: 100%,
+      phone-down: 500px
+    ),
+    width: (
+      phone-down: 100vw),
+    grid-template-rows: (
+      phablet: 50% 50%,
+      phone-down: 1fr 1px 1fr 1px 1fr
+    ),
     grid-template-columns: (
-      base: repeat(12, 1fr)),
+      base: repeat(3, 1fr),
+      phablet: (repeat(2, 1fr) 1px repeat(2, 1fr)),
+      phone-down: (2rem 1fr 2rem)
+    ),
+    grid-template-areas: (
+      base: (-qt, 'sitemap logo copyright'),
+      phablet: (-qt, 'logo logo logo logo logo' 'sitemap sitemap division copyright copyright'),
+      phone-down: (-qt, "logo logo logo" ". division ." "sitemap sitemap sitemap" ". division2 ." "copyright copyright copyright")
+    ),
     |h1: (
       color: blue
     ),
 
     _sitemap: (
-      grid-column: '1 / 5',
+      grid-area: sitemap,
       align-self: center,
       |p: (
-        text-align: right,
+        text-align: (
+          base: right,
+          phone-down: center
+        ),
         width: 100%
       )
     ),
 
     _logo: (
-      grid-column: '5 / 9',
-      align-self: center,
-      justify-self: center
+      grid-area: logo,
+      align-self: (
+        base: center,
+        phone-down: end
+      ),
+      justify-self: center,
+      margin-bottom: (
+        phone-down: 2rem)
     ),
 
     _copyright: (
-      grid-column: '9 / 13',
-      align-self: center,
-      width: (
-        base: 100%,
-        tablet: 90%,
-        tinyphone: 20%),
+      grid-area: copyright,
+      align-self: (
+        base: center,
+        phone-down: start
+      ),
+      width: 100%,
+      margin-top: (
+        phone-down: 2rem),
       |p: (
         width: 100%,
-        text-align: left
+        text-align: (
+          base: left,
+          phone-down: center
+        ),
       )
+    )
+  ),
+
+  t_fttr-division: (
+    alias: t_fttr-division-2,
+    display: (
+      base: none,
+      phablet: block,
+      phone-down: block
+    ),
+    grid-area: division,
+    background: white,
+    height: (
+      phablet: 50%,
+      phone-down: 1px),
+    width: (
+      phablet: 1px,
+      phone-down: 2rem),
+    align-self: center,
+    justify-self: center,
+    _2: (
+      grid-area: division2,
+      display: (
+        phablet: none)
     )
   )
 

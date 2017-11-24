@@ -21,24 +21,62 @@ $c-FolioPieces-Section-1: (
       grid-template-areas: (-qt, '. header .', 'coverimg coverimg coverimg', '. . .', '. display .', '. . .', '. info1 .')
     ),
     |_dble: (
-      grid-template-rows: 150px 480px 40px 1fr 40px,
-      grid-template-areas: (-qt, '. header .', 'coverimg coverimg coverimg', '. . .', '. display .', '. . .')
+      grid-template-rows: (
+        base: 150px 480px 40px 1fr 40px,
+        tablet: 150px 480px 40px 100% 40px
+      ),
+      grid-template-areas: (-qt, '. header .', 'coverimg coverimg coverimg', '. . .', '. display .', '. . .'),
+      grid-template-columns: (
+        tablet: 1fr 83vw 1fr)
     )
   ),
 
   b_fp-hddr-div: (
     grid-area: header,
     height: 150px,
-    background: $testinggrey
+    background: $testinggrey,
+    |h1: (
+      font-size: (
+        phablet-down: 1.75rem,
+        phone-down: 1.4rem
+      ),
+      line-height: (
+        phone-down: 1.8rem)
+    ),
+    padding: (
+      phone-down: 2rem),
+    padding-bottom: (
+      phone-down: 1.75rem),
+    padding-left: (
+      tablet-down: 4rem),
+    padding-right: (
+      tablet-down: 4rem),
+    grid-column: (
+      phone-down: '1 / 4' !important)
   ),
 
   b_fp-cvrimg-div: (
     grid-area: coverimg,
-    height: 480px
+    height: 480px,
+    |child: (
+      name: "img:nth-child(1)",
+      display: (
+        base: block,
+        phablet-down: none)
+    ),
+    |child2: (
+      name: "img:nth-child(2)",
+      display: (
+        base: none,
+        phablet-down: block)
+    )
   ),
 
   b_fp-grid: (
-    grid-area: display
+    grid-area: display,
+    grid-template-rows: (
+      phablet-down: 1fr !important
+    )
   ),
 
   b_fp-info1: (
@@ -53,24 +91,42 @@ $c-FolioPieces-Section-2: (
     grid-column: '1 / 13',
     grid-area: body2,
     display: grid,
-    grid-template-rows: 150px 40px 410px 40px auto,
-    grid-template-areas: (-qt, 'break break break', '. . .', '. display .', '. . .', '. info2 .'),
-    |child: (
-      name: (#break),
-      grid-row: '3 / 4'
-    )
+    grid-template-rows: (
+      base: 150px 40px 410px 40px auto,
+      tablet: 150px 40px 300px 40px auto,
+      phablet-down: 150px 40px auto 40px auto
+    ),
+    grid-template-columns: (
+      tablet: 1fr 83vw 1fr !important
+    ),
+    grid-template-areas: (
+      base: (-qt, 'break break break', '. . .', '. display .', '. . .', '. info2 .'),
+      phone-down: (-qt, "break break break" ". . ." ". display ." ". . ." "info2 info2 info2")
+    ),
+    name: (#break),
+    grid-row: '3 / 4'
   ),
 
   b_fp-break-div: (
     grid-area: break,
-    padding: 2em
+    padding: 2em,
+    text-align: center,
+    |p: (
+      font-size: (
+        phablet-down: 1.75rem),
+      line-height: (
+        phone-down: 2rem)
+    )
   ),
 
   b_fp-info2: (
     grid-area: info2,
     padding: 2em,
     height: max-content,
-    column-count: 2,
+    column-count: (
+      base: 2,
+      phablet-down: 1
+    ),
     column-gap: 20px
   )
 );
@@ -78,14 +134,48 @@ $c-FolioPieces-Section-2: (
 $c-FolioPieces-Amenities: (
   b_fp-frme-left: (
     grid-column: '1 / 2',
-    grid-row: '4 / 5',
-    justify-self: start
+    grid-row: (
+      base: '4 / 5'
+    ),
+    justify-self: start,
+    display: (
+      phone-down: none),
+
+    |_fp2: (
+      grid-row: '3 / 4'),
+    |specialbars: (
+      display: none),
+    |_safari: (
+      background: none,
+      overflow: hidden,
+      |specialbars: (
+        display: block,
+        overflow: visible
+      )
+    )
   ),
 
   b_fp-frme-right: (
     grid-column: '3 / 4',
-    grid-row: '4 / 5',
-    justify-self: end
+    grid-row: (
+      base: '4 / 5'
+    ),
+    justify-self: end,
+    display: (
+      phone-down: none),
+
+    |_fp2: (
+      grid-row: '3 / 4'),
+    |specialbars: (
+      display: none),
+    |_safari: (
+      background: none,
+      overflow: hidden,
+      |specialbars: (
+        display: block,
+        overflow: visible
+      )
+    )
   ),
 
   b_fp-nav: (
@@ -94,7 +184,10 @@ $c-FolioPieces-Amenities: (
     grid-row: '2 / 3',
     grid-column: (
       base: '2 / 12',
-      desktop: '2 / 10'),
+      desktop: '2 / 10',
+      tablet: '2 / 8',
+      phablet-down: '1 / 7'
+    ),
     |child-0: (
       name: ('.button a'),
       padding: 15px,

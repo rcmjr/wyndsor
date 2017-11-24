@@ -3,56 +3,163 @@ $s3-States: (
   c_disp-img-strktop: (
     border-style: solid,
     border-color: $ocean,
-    border-top-width: 3px
+    border-top-width: 4px
   ),
 
   c_disp-fp-gridbase: (
     //grid-row: auto,
-    grid-template-rows: auto,
-    height: 410px
+    grid-template-rows: (
+      base: auto,
+      tablet: 300px
+    ),
+    height: (
+      base: 410px,
+      tablet: auto,
+      phablet-down: auto
+    ),
   ),
 
   c_disp-fp-subgrid: (
     _2: (
-      grid-template-columns: 1fr 1fr,
-      grid-template-areas: (-qt 'photo-1 photo-2')
+      grid-template-columns: (
+        base: 1fr 1fr,
+        phablet-down: 1fr
+      ),
+      grid-template-rows: (
+        phablet-down: 400px 400px
+      ),
+      grid-template-areas: (
+        base: (-qt 'photo-1 photo-2'),
+        phablet-down: (-qt 'photo-1' 'photo-2')
+      ),
     ),
     _3: (
-      grid-template-columns: 1fr 1fr 1fr,
-      grid-template-areas: (-qt 'photo-1 photo-2 photo-3')
+      grid-template-columns: (
+        base: 1fr 1fr 1fr,
+        phablet-down: 1fr
+      ),
+      grid-template-rows: (
+        phablet-down: 1fr 1fr 1fr
+      ),
+      grid-template-areas: (
+        base: (-qt 'photo-1 photo-2 photo-3'),
+        phablet-down: (-qt 'photo-1' 'photo-2' 'photo-3')
+      ),
+      height: (
+        folio-custom: 300px)
     ),
     _2x2: (
-      grid-template-columns: 1fr 1fr,
-      grid-template-areas: (-qt 'photo-3 photo-4')
+      grid-template-columns: (
+        base: 1fr 1fr,
+        phablet-down: 1fr
+      ),
+      grid-template-rows: (
+        phablet-down: 1fr 1fr
+      ),
+      grid-template-areas: (
+        base: (-qt 'photo-3 photo-4'),
+        phablet-down: (-qt 'photo-3' 'photo-4')
+      ),
     ),
     _3x2: (
-      grid-template-columns: 1fr 1fr,
-      grid-template-areas: (-qt 'photo-4 photo-5')
+      grid-template-columns: (
+        base: 1fr 1fr,
+        phablet-down: 1fr
+      ),
+      grid-template-rows: (
+        phablet-down: 1fr 1fr
+      ),
+      grid-template-areas: (
+        base: (-qt 'photo-4 photo-5'),
+        phablet-down: (-qt 'photo-4' 'photo-5')
+      ),
+      height: (
+        folio-custom: 300px,
+        phablet-down: 800px)
     ),
     _3x3: (
-      grid-template-columns: 1fr 1fr 1fr,
-      grid-template-areas: (-qt 'photo-4 photo-5 photo-6')
+      grid-template-columns: (
+        base: 1fr 1fr 1fr,
+        phablet-down: 1fr
+      ),
+      grid-template-rows: (
+        phablet-down: 1fr 1fr 1fr
+      ),
+      grid-template-areas: (
+        base: (-qt 'photo-4 photo-5 photo-6'),
+        phablet-down: (-qt 'photo-4' 'photo-5' 'photo-6')
+      ),
+      height: (
+        folio-custom: 300px)
     )
   ),
 
   c_disp-fp-gridimg: (
     _1: (
-      grid-area: photo-1
+      grid-area: photo-1,
+      max-height: (
+        tablet: 300px,
+        phablet-down: 400px
+      ),
+      height: (
+        tablet: 300px,
+        phablet-down: 400px
+      )
     ),
     _2: (
-      grid-area: photo-2
+      grid-area: photo-2,
+      max-height: (
+        tablet: 300px,
+        phablet-down: 400px
+      ),
+      height: (
+        tablet: 300px,
+        phablet-down: 400px
+      )
     ),
     _3: (
-      grid-area: photo-3
+      grid-area: photo-3,
+      max-height: (
+        tablet: 300px,
+        phablet-down: 400px
+      ),
+      height: (
+        tablet: 300px,
+        phablet-down: 400px
+      )
     ),
     _4: (
-      grid-area: photo-4
+      grid-area: photo-4,
+      max-height: (
+        tablet: 300px,
+        phablet-down: 400px
+      ),
+      height: (
+        tablet: 300px,
+        phablet-down: 400px
+      )
     ),
     _5: (
-      grid-area: photo-5
+      grid-area: photo-5,
+      max-height: (
+        tablet: 300px,
+        phablet-down: 400px
+      ),
+      height: (
+        tablet: 300px,
+        phablet-down: 400px
+      )
     ),
     _6: (
-      grid-area: photo-6
+      grid-area: photo-6,
+      max-height: (
+        tablet: 300px,
+        phablet-down: 400px
+      ),
+      height: (
+        tablet: 300px,
+        phablet-down: 400px
+      )
     )
   ),
 
@@ -71,12 +178,14 @@ $s3-States: (
     border-left: solid #232323 6px,
     margin-bottom: 10px,
     |project: (
-      auto: (hz-bar, 10px, left-5, $sky, (ease-in-out 1.5s), $ocean, (ease-in-out .5s))
+      auto: (hz-bar, 10px, left-5, $sky, (ease-in-out 1.5s), $ocean, (ease-in-out .5s)),
+      height: (
+        phone-down: 7px !important)
     )
   ),
 
   c_disp-hme-inprogressimg: (
-    width: 200px,
+    max-width: 200px,
     height: 150px,
     margin-top: 15px,
     margin-bottom: 15px
@@ -119,7 +228,7 @@ $s3-States: (
         padding-top: 2em
       ),
       |img: (
-        filter: blur(5px),
+        filter: blur(5px) grayscale(100%),
         transition: .5s ease
       )
     )
@@ -142,140 +251,17 @@ $s3-States: (
     transition: .5s ease,
     |child: (
       name: "a h2",
-      font-size: 2.4rem
-    )
-  ),
-
-  m-lightbox__close: (
-    top: 40px,
-    right: 40px,
-    |svg: (
-      fill: $sky,
-      width: 45px,
-      height: 45px
-    )
-  ),
-  c-lightbox-cntrls: (
-    font-family: 'kith-bold'
-  ),
-
-
-  m-lightbox: (
-    position: fixed,
-    top: 0,
-    left: 0,
-    width: 100vw,
-    height: 100vh,
-    background: $pitch,
-    z-index: 1,
-    opacity: 0,
-    transition: opacity 0.3s ease-out,
-    pointer-events: none,
-    |_is-active: (
-      opacity: 1,
-      z-index: 101,
-      pointer-events: auto
-    ),
-    |button: (
-      position: absolute,
-      margin: 0,
-      padding: 0,
-      z-index: 102,
-      background: transparent,
-      border: none,
-      cursor: pointer
-    )
-  ),
-
-  m-lightbox__slider: (
-    list-style: none,
-    margin: 0,
-    padding: 0,
-    width: 100vw,
-    height: 100vh
-  ),
-
-  m-lightbox__slide: (
-    position: absolute,
-    top: 0,
-    left: 0,
-    width: 100vw,
-    height: 100vh,
-    display: flex,
-    justify-content: center,
-    align-items: center,
-
-    |img: (
-      display: block,
-      max-width: (
-        base: calc(100vw - 2em),
-        phone: calc(100vw - 116px)
+      font-size: (
+        base: 2.4rem,
+        tablet: 2.2rem
       ),
-      max-height: (
-        base: 90vh,
-        phone: 90vh
+      line-height: (
+        base: 2.5rem,
+        tablet: 2.2rem
       ),
-      opacity: 0,
-      transition: opacity 0.2s ease
-    ),
-    |_child: (
-      name: ".is-loaded img",
-      transition-delay: 0s
-    ),
-    |_child-2: (
-      name: ".is-loaded.is-active img",
-      opacity: 1,
-      transition: opacity 0.3s ease,
-      transition-delay: .5s
-    ),
-    |_child-3: (
-      name: ".is-loaded.is-active .spinner",
-      display: none
     )
   ),
 
-  m-lightbox__nextPrev: (
-    top: 50%,
-    transform: translateY(-50%),
-    width: 42px,
-    height: 42px,
-    visibility: hidden,
-    opacity: 0,
-    transition: all 0.3s ease-out,
-    font-size: 50px,
-    color: white,
-
-    |_is-active: (
-      visibility: (
-        base: visible,
-        tablet: hidden
-      ),
-      opacity: 1
-    ),
-
-    |svg: (
-      display: block,
-      width: 100%,
-      height: auto
-    ),
-
-    _-next: (
-      right: 1em),
-
-    _-prev: (
-      left: 1em),
-
-    hover: (
-      cursor: pointer)
-  ),
-
-  m-lightbox__counter: (
-    display: none),
-
-  spinner: (
-    display: none),
-
-  test-class-col: (
-    font-family: "hello")
-
+  c_svg-bg-siderect: (
+    height: 1000vh)
 );

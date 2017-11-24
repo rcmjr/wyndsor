@@ -1,0 +1,130 @@
+$s3-Lightbox: (
+
+  m-lightbox__close: (
+    top: 40px,
+    right: 40px,
+    |svg: (
+      fill: $ocean,
+      width: 45px,
+      height: 45px
+    )
+  ),
+  c-lightbox-cntrls: (
+    font-family: 'kith-bold'
+  ),
+
+  m-lightbox: (
+    position: fixed,
+    top: 0,
+    left: 0,
+    width: 100vw,
+    height: 100vh,
+    background: $pitch,
+    z-index: 1,
+    opacity: 0,
+    transition: opacity 0.3s ease-out,
+    pointer-events: none,
+    |_is-active: (
+      opacity: 1,
+      z-index: 101,
+      pointer-events: auto
+    ),
+    |button: (
+      position: absolute,
+      margin: 0,
+      padding: 0,
+      z-index: 102,
+      background: transparent,
+      border: none,
+      cursor: pointer
+    )
+  ),
+
+  m-lightbox__slider: (
+    list-style: none,
+    margin: 0,
+    padding: 0,
+    width: 100vw,
+    height: 100vh
+  ),
+
+  m-lightbox__slide: (
+    position: absolute,
+    top: 0,
+    left: 0,
+    width: 100vw,
+    height: 100vh,
+    display: flex,
+    justify-content: center,
+    align-items: center,
+
+    |img: (
+      display: block,
+      max-width: (
+        base: calc(100vw - 2em),
+        phone: calc(100vw - 116px)
+      ),
+      max-height: (
+        base: 90vh,
+        phone: 90vh
+      ),
+      opacity: 0,
+      transition: opacity 0.2s ease
+    ),
+    |_child: (
+      name: ".is-loaded img",
+      transition-delay: 0s
+    ),
+    |_child-2: (
+      name: ".is-loaded.is-active img",
+      opacity: 1,
+      transition: opacity 0.3s ease,
+      transition-delay: .5s
+    ),
+    |_child-3: (
+      name: ".is-loaded.is-active .spinner",
+      display: none
+    )
+  ),
+
+  m-lightbox__nextPrev: (
+    top: 50%,
+    transform: translateY(-50%),
+    width: 42px,
+    height: 42px,
+    visibility: hidden,
+    opacity: 0,
+    transition: all 0.3s ease-out,
+    font-size: 50px,
+    color: white,
+
+    |_is-active: (
+      visibility: (
+        base: visible,
+        tablet: hidden
+      ),
+      opacity: 1
+    ),
+
+    |svg: (
+      display: block,
+      width: 100%,
+      height: auto
+    ),
+
+    _-next: (
+      right: 1em),
+
+    _-prev: (
+      left: 1em),
+
+    hover: (
+      cursor: pointer)
+  ),
+
+  m-lightbox__counter: (
+    display: none),
+
+  spinner: (
+    display: none)
+);

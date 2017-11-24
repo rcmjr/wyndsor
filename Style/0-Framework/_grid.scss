@@ -36,8 +36,9 @@ $s0-Grid: (
     |_col-fxd-3: (
       grid-template-columns: (
         base: 1fr 1230px 1fr,
-        tablet: 1fr 800px 1fr,
-        phablet: 1fr 500px 1fr,
+        folio-custom: 1fr 1000px 1fr,
+        tablet: 1fr 700px 1fr,
+        phablet: 1fr 78vw 1fr,
         phone: 1fr 80vw 1fr,
         tiny: 1fr
       )

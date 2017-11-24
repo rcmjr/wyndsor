@@ -23,9 +23,14 @@ $media-expressions: (
 $breakpoints: (
   greater-desktop: '>desktop',
   desktop: ('>tablet', '<=desktop'),
+  folio-custom: ('<=1390px'),
   tablet: ('>phablet', '<=tablet'),
+  tablet-down: ('<=tablet'),
+  phablet-up: ('>=phablet'),
   phablet: ('>phone', '<=phablet'),
+  phablet-down: ('<=phablet'),
   phone: ('>tiny', '<=phone'),
+  phone-down: ('<=phone'),
   tiny: ('<=tiny')
 ) !default;
 

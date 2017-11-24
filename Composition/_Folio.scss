@@ -10,31 +10,67 @@ $c-Folio-Section-1: (
   b_folio-sctn-1: (
     grid-column: '1 / 13',
     display: grid,
-    grid-template-rows: 1fr 140px
+    grid-template-rows: 1fr 140px,
+    transition: all .25s ease
   ),
 
   b_folio-sprd: (
     display: grid,
-    grid-column: '2 / 3',
+    grid-column: (
+      base: '2 / 3',
+      phone-down: '1 / 4'
+    ),
     grid-row: '1 / 2',
-    grid-template-columns: repeat(3, 1fr)
+    grid-template-columns: (
+      base: repeat(3, 1fr),
+      tablet-down: 1fr
+    ),
   ),
 
   b_folio-photo: (
     grid-row: auto,
     grid-column: auto,
     width: 100%,
-    height: 400px
+    height: (
+      base: 400px,
+      folio-custom: 300px,
+      phablet: 250px
+    ),
+    transition: all .25s ease
   ),
 
   b_folio-frme-left: (
     grid-column: '1 / 2',
-    justify-self: start
+    justify-self: start,
+    display: (
+      phone-down: none),
+    |specialbars: (
+      display: none),
+    |_safari: (
+      background: none,
+      overflow: hidden,
+      |specialbars: (
+        display: block,
+        overflow: visible
+      )
+    )
   ),
 
   b_folio-frme-right: (
     grid-column: '3 / 4',
-    justify-self: end
+    justify-self: end,
+    display: (
+      phone-down: none),
+    |specialbars: (
+      display: none),
+    |_safari: (
+      background: none,
+      overflow: hidden,
+      |specialbars: (
+        display: block,
+        overflow: visible
+      )
+    )
   )
 );
 
@@ -43,7 +79,10 @@ $c-Folio-Amenities: (
     height: 140px,
     width: 100%,
     grid-row: '2 / 3',
-    grid-column: '2 / 3',
+    grid-column: (
+      base: '2 / 3',
+      phone-down: '1 / 4'
+    ),
     |child: (
       name: ('.custom-pagination a:nth-child(2)'),
       display: none

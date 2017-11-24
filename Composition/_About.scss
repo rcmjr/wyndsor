@@ -4,7 +4,10 @@ $c-About-Baseboard: (
     grid-template-rows: (
       base: 1fr auto
     ),
-    padding-bottom: 140px
+    padding-bottom: (
+      base: 140px,
+      phablet-down: 0
+    ),
   )
 );
 
@@ -13,8 +16,14 @@ $c-About-Section-1: (
     grid-column: '1 / 4',
     grid-row: '1 / 2',
     display: grid,
-    grid-template-rows: 150px 650px 140px,
-    grid-template-areas: (-qt, 'header header header', 'coverimg coverimg coverimg', '. . .')
+    grid-template-rows: (
+      base: 150px 650px 140px,
+      phablet-down: 150px 650px
+    ),
+    grid-template-areas: (
+      base: (-qt, 'header header header', 'coverimg coverimg coverimg', '. . .'),
+      phablet-down: (-qt, "header header header" "coverimg coverimg coverimg")
+    ),
   ),
 
   b_about-hddr-div: (
@@ -36,29 +45,89 @@ $c-About-Section-2: (
     grid-row: '2 / 3',
     display: grid,
     grid-template-rows: auto,
-    grid-template-areas: (-qt, '. info .')
+    grid-template-areas: (-qt, ". bob ." ". info ." ". . ."),
+    padding-top: (
+      phablet-down: 5rem),
+    padding-bottom: (
+      phablet-down: 5rem,
+      tiny: 0
+    )
+  ),
+  b_about-bob-div: (
+    grid-area: bob,
+    height: 100%,
+    width: 100%,
+    display: flex,
+    justify-content: center,
+    margin-bottom: -.5rem
+  ),
+  b_about-bob: (
+    width: (
+      base: 70%,
+      tablet: 100%,
+      phablet: 120%,
+      phone-down: 70%
+    ),
+    display: (
+      base: flex,
+      phone-down: none
+    ),
+    max-height: (
+      phablet: 300px
+    ),
+    align-items: center,
+    justify-content: flex-end,
+    |_mobile: (
+      display: (
+        base: none,
+        phone-down: flex
+      ),
+      width: (
+        phone-down: 50%)
+    ),
+    |svg: (
+      width: 100%
+    )
   ),
 
   b_about-info: (
     grid-area: info,
-    padding: 2em,
+    padding: (
+      base: 5em,
+      phone-down: 4em
+    ),
     height: max-content,
-    column-count: 2,
-    column-gap: 20px
+    column-count: (
+      base: 2,
+      phablet-down: 1
+    ),
+    column-gap: 35px,
+    border-top-width: (
+      phablet-down: 2.5px)
   )
 );
 
 $c-About-Amenities: (
   b_about-frme-left: (
     grid-column: '1 / 2',
-    grid-row: '1 / 3',
-    justify-self: start
+    grid-row: (
+      base: '1 / 3',
+      phone-down: '2 / 3'
+    ),
+    justify-self: start,
+    display: (
+      tiny: none)
   ),
 
   b_about-frme-right: (
     grid-column: '3 / 4',
-    grid-row: '1 / 3',
-    justify-self: end
+    grid-row: (
+      base: '1 / 3',
+      phone-down: '2 / 3'
+    ),
+    justify-self: end,
+    display: (
+      tiny: none)
   )
 
 );
