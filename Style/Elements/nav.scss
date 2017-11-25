@@ -1,7 +1,7 @@
 @import "../../root";
 
 //// --- NAVIGATION --- ////////////////////////////
-$s3-Navigation: (
+$s-Navigation: (
 
   //// 1 //////////// Folio Pagination
   e_folionav: (
@@ -27,5 +27,5 @@ $s3-Navigation: (
 
 );
 
-$Epic-Map: $s3-Navigation;
+$Epic-Map: $s-Navigation;
 @import "../../the-epic";

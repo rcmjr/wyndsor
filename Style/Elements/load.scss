@@ -1,7 +1,7 @@
 @import "../../root";
 
 //// --- LOAD SCREEN --- ////////////////////////////
-$s3-LoadScreen: (
+$s-LoadScreen: (
 
   //// 1 //////////// Load Classes
   loaded: (
@@ -29,5 +29,5 @@ $s3-LoadScreen: (
 
 );
 
-$Epic-Map: $s3-LoadScreen;
+$Epic-Map: $s-LoadScreen;
 @import "../../the-epic";

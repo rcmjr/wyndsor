@@ -1,6 +1,6 @@
 @import "../../root";
 //// --- CSS GRID --- ////////////////////////////
-$s0-Grid: (
+$s-Grid: (
   f_grid: (
     display: grid,
     margin-top: 5000000px,
@@ -73,5 +73,5 @@ $s0-Grid: (
 
 ));
 
-$Epic-Map: $s0-Grid;
+$Epic-Map: $s-Grid;
 @import "../../the-epic";

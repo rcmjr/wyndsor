@@ -1,6 +1,6 @@
 @import "../../root";
 //// --- PALETTE PATTERNS --- ////////////////////////////
-$s1-Patterns: (
+$s-Patterns: (
 
   //// 1 //////////// Patterns
   p_pttrn-striped: (
@@ -22,5 +22,5 @@ $s1-Patterns: (
 
 );
 
-$Epic-Map: $s1-Patterns;
+$Epic-Map: $s-Patterns;
 @import "../../the-epic";

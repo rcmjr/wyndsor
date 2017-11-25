@@ -1,6 +1,6 @@
 @import "../../root";
 //// --- CSS GLOBAL SPACING --- ////////////////////////////
-$s0-Spacing: (
+$s-Spacing: (
 
   //// 1 //////////// Margins
   f_margin:(
@@ -20,5 +20,5 @@ $s0-Spacing: (
 
 );
 
-$Epic-Map: $s0-Spacing;
+$Epic-Map: $s-Spacing;
 @import "../../the-epic";

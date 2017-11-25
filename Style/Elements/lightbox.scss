@@ -1,5 +1,5 @@
 @import "../../root";
-$s3-Lightbox: (
+$s-Lightbox: (
 
   m-lightbox__close: (
     top: 40px,
@@ -130,5 +130,5 @@ $s3-Lightbox: (
     display: none)
 );
 
-$Epic-Map: $s3-Lightbox;
+$Epic-Map: $s-Lightbox;
 @import "../../the-epic";

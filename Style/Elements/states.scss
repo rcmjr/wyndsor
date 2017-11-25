@@ -1,6 +1,6 @@
 @import "../../root";
 
-$s3-States: (
+$s-States: (
 
   c_disp-img-strktop: (
     border-style: solid,
@@ -268,5 +268,5 @@ $s3-States: (
     height: 1000vh)
 );
 
-$Epic-Map: $s3-States;
+$Epic-Map: $s-States;
 @import "../../the-epic";

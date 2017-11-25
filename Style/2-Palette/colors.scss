@@ -1,6 +1,6 @@
 @import "../../root";
 //// --- PALETTE COLORS --- ////////////////////////////
-$s1-Color-Sets: (
+$s-Color-Sets: (
 
   //// 1 //////////// Character Color Sets
   p_chara-white: (
@@ -52,5 +52,5 @@ $s1-Color-Sets: (
 
 //// --- END COLORS --- ////////////////////////
 
-$Epic-Map: $s1-Color-Sets;
+$Epic-Map: $s-Color-Sets;
 @import "../../the-epic";

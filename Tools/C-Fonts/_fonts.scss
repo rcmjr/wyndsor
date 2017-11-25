@@ -1,7 +1,7 @@
 //// •••••• FUNDAMENTAL IMPORTS •••••• ////
-@import "plugins/FontAwesome/_tc+font-awesome.scss";
+
 // Put 'em here partner.
-@if $Wyndsor-mode == prod or $prime-dev-override == true {
+@if $Wyndsor-mode == prod {
 //// --- FONT IMPORTS --- ////////////////////////////
 
   //// 1 //////////// Kin Bold

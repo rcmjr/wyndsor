@@ -29,8 +29,8 @@ II. Your Style (IDs are not allowed unless they are for uber-specific website el
   2. Palette (Style Colors, textures, patterns, bg, etc.)
   3. Typography (Type Styles and other type related variables)
 
-  $s3-Base-Typography
-  $s3-Custom-Typography
+  $s-Base-Typography
+  $s-Custom-Typography
 
   $s0-Base-ColumnSets
   $s0-Base-RowSets
@@ -38,7 +38,7 @@ II. Your Style (IDs are not allowed unless they are for uber-specific website el
   $s0-Base-GlobalSpecs
   $s0-Base-RowSets
 
-  $s3-Base-ParagraphAlignments
+  $s-Base-ParagraphAlignments
 
 
   .patt_stripev

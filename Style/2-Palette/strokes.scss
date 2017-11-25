@@ -1,6 +1,6 @@
 @import "../../root";
 //// --- PALETTE STROKES --- ////////////////////////////
-$s1-Strokes: (
+$s-Strokes: (
 
   //// 1 //////////// Stroke Sets
   p_strk-ocean: (
@@ -19,5 +19,5 @@ $s1-Strokes: (
 
 );
 
-$Epic-Map: $s1-Strokes;
+$Epic-Map: $s-Strokes;
 @import "../../the-epic";

@@ -3,8 +3,8 @@
         'reset';
 
 //// --- PLUGINS --- //////////////////////////
-@import 'Tools/B-Auto-Code/plugins/Animations-css/animate',
-        'Tools/C-Fonts/fonts';
+@import 'Tools/C-Fonts/fonts',
+        'Tools/D-Mixins/mixins';
 
 //// --- STYLE --- ////////////////////////////
 @import //// i //////////// Framework
@@ -31,23 +31,23 @@
 //// --- MAP IMPORTS --- ////////////////////////////
 $Epic-Map-Prod: map-combine(
   /* Framework */
-  $s0-Rules,
-  $s0-Grid,
-  $s0-Spacing,
+  $s-Rules,
+  $s-Grid,
+  $s-Spacing,
   /* Palette */
-  $s1-Color-Sets,
-  $s1-Patterns,
-  $s1-Strokes,
+  $s-Color-Sets,
+  $s-Patterns,
+  $s-Strokes,
   /* Typography */
-  $s2-Typography,
-  $s2-Paragraph,
+  $s-Typography,
+  $s-Paragraph,
   /* Elements */
-  $s3-Buttons,
-  $s3-Lightbox,
-  $s3-LoadScreen,
-  $s3-Logos,
-  $s3-Navigation,
-  $s3-States,
+  $s-Buttons,
+  $s-Lightbox,
+  $s-LoadScreen,
+  $s-Logos,
+  $s-Navigation,
+  $s-States,
   /* About Page */
   $c-About-Baseboard,
   $c-About-Section-1,

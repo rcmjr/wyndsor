@@ -1,6 +1,6 @@
 @import "../../root";
 //// --- CSS GLOBAL RULES --- ////////////////////////////
-$s0-Rules: (
+$s-Rules: (
 
 //// 0 //////////// CSS Rule Amenities
   f_bg: (
@@ -82,5 +82,5 @@ $s0-Rules: (
 
 );
 
-$Epic-Map: $s0-Rules;
+$Epic-Map: $s-Rules;
 @import "../../the-epic";

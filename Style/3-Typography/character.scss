@@ -1,7 +1,7 @@
 @import "../../root";
 
 //// --- TYPOGRAPHY STYLES --- ////////////////////////////
-$s2-Typography: (
+$s-Typography: (
 
   //// 1 //////////// HTML Typography
   a: (
@@ -97,5 +97,5 @@ $s2-Typography: (
 
 );
 
-$Epic-Map: $s2-Typography;
+$Epic-Map: $s-Typography;
 @import "../../the-epic";

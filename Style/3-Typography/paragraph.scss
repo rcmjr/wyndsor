@@ -1,7 +1,7 @@
 @import "../../root";
 
 //// --- PARAGRAPH STYLES --- ////////////////////////////
-$s2-Paragraph: (
+$s-Paragraph: (
 
   //// 1 //////////// Paragraphy Alignments
   t_align: (
@@ -17,5 +17,5 @@ $s2-Paragraph: (
 
 );
 
-$Epic-Map: $s2-Paragraph;
+$Epic-Map: $s-Paragraph;
 @import "../../the-epic";

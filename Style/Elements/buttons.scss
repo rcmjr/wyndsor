@@ -1,7 +1,7 @@
 @import "../../root";
 
 //// --- BUTTONS --- ////////////////////////////
-$s3-Buttons: (
+$s-Buttons: (
 
   //// 1 //////////// Page Buttons
   e_bttn-homefresh: (
@@ -20,5 +20,5 @@ $s3-Buttons: (
 
 );
 
-$Epic-Map: $s3-Buttons;
+$Epic-Map: $s-Buttons;
 @import "../../the-epic";
