@@ -1,3 +1,5 @@
+@import "../../root";
+
 $s3-States: (
 
   c_disp-img-strktop: (
@@ -265,3 +267,6 @@ $s3-States: (
   c_svg-bg-siderect: (
     height: 1000vh)
 );
+
+$Epic-Map: $s3-States;
+@import "../../the-epic";

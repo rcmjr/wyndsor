@@ -1,24 +1,63 @@
-//// --- CORE 1 --- ////////////////////////////
-@import 'settings';
+//// --- RESET --- ////////////////////////////
+@import 'settings',
+        'reset';
 
-//// --- TOOLS --- ////////////////////////////
-@import 'Tools/A-Break-Points/brkpoints',
-        'Tools/B-Auto-Code/automations',
-        'Tools/C-Fonts/fonts',
-        'Tools/toolbox';
-
-//// --- CORE 2 --- ////////////////////////////
-@import 'switchboard';
+//// --- PLUGINS --- //////////////////////////
+@import 'Tools/B-Auto-Code/plugins/Animations-css/animate',
+        'Tools/C-Fonts/fonts';
 
 //// --- STYLE --- ////////////////////////////
-@import 'Style/0-Framework/_0-compl',
-        'Style/1-Palette/_1-compl',
-        'Style/2-Typography/_2-compl',
-        'Style/3-Elements/_3-compl',
-        'Style/_styleset';
+@import //// i //////////// Framework
+        'Style/0-Framework/grid',
+        'Style/0-Framework/rules',
+        'Style/0-Framework/spacing',
+        //// ii //////////// Palette
+        'Style/2-Palette/colors',
+        'Style/2-Palette/patterns',
+        'Style/2-Palette/strokes',
+        //// iii //////////// Typography
+        'Style/3-Typography/character',
+        'Style/3-Typography/paragraph',
+        //// iv //////////// Elements
+        'Style/Elements/buttons',
+        'Style/Elements/lightbox',
+        'Style/Elements/load',
+        'Style/Elements/logos&marks',
+        'Style/Elements/nav',
+        'Style/Elements/states',
+        //// v //////////// Pages
+        'Composition/About';
 
-//// --- COMPOSITION --- ////////////////////////////
-@import 'Composition/_sandbox';
+//// --- MAP IMPORTS --- ////////////////////////////
+$Epic-Map-Prod: map-combine(
+  /* Framework */
+  $s0-Rules,
+  $s0-Grid,
+  $s0-Spacing,
+  /* Palette */
+  $s1-Color-Sets,
+  $s1-Patterns,
+  $s1-Strokes,
+  /* Typography */
+  $s2-Typography,
+  $s2-Paragraph,
+  /* Elements */
+  $s3-Buttons,
+  $s3-Lightbox,
+  $s3-LoadScreen,
+  $s3-Logos,
+  $s3-Navigation,
+  $s3-States,
+  /* About Page */
+  $c-About-Baseboard,
+  $c-About-Section-1,
+  $c-About-Section-2,
+  $c-About-Amenities,
+true);
 
-//// --- CORE 3 --- ////////////////////////////
-@import 'the-epic';
+//// i //////////// Normal CSS
+@include switchboard($Epic-Map-Prod, normal);
+//// i //////////// Media Query Based CSS
+@include breakpointboard($Epic-Map-Prod, breakpoint);
+//// i //////////// Super Important CSS
+@if $Enable-ImportantEpic == yes {@include switchboard($Epic-Map-Prod, important);}

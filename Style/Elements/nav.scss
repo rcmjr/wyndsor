@@ -1,3 +1,5 @@
+@import "../../root";
+
 //// --- NAVIGATION --- ////////////////////////////
 $s3-Navigation: (
 
@@ -24,3 +26,6 @@ $s3-Navigation: (
   )
 
 );
+
+$Epic-Map: $s3-Navigation;
+@import "../../the-epic";

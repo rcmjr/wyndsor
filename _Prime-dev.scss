@@ -1,6 +1,28 @@
-@import url(Root-dev.css);
-@import "_Dev/0-compl-dev.css",
-        "_Dev/1-compl-dev.css",
-        "_Dev/2-compl-dev.css",
-        "_Dev/3-compl-dev.css",
-        "_Dev/sandbox-dev.css";
+//// --- RESET --- ////////////////////////////
+@import 'settings',
+        'root',
+        'reset';
+
+//// --- PLUGINS --- //////////////////////////
+@import 'Tools/B-Auto-Code/plugins/Animations-css/animate',
+        'Tools/C-Fonts/fonts';
+
+//// --- STYLE --- ////////////////////////////
+@import //// i //////////// Framework
+        'test/Style/0-Framework/grid',
+        'test/Style/0-Framework/rules',
+        'test/Style/0-Framework/spacing',
+        //// ii //////////// Palette
+        'test/Style/2-Palette/colors',
+        'test/Style/2-Palette/patterns',
+        'test/Style/2-Palette/strokes',
+        //// iii //////////// Typography
+        'test/Style/3-Typography/character',
+        'test/Style/3-Typography/paragraph',
+        //// iv //////////// Elements
+        'test/Style/Elements/buttons',
+        'test/Style/Elements/lightbox',
+        'test/Style/Elements/load',
+        'test/Style/Elements/logos&marks',
+        'test/Style/Elements/nav',
+        'test/Style/Elements/states';

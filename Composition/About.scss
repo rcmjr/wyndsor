@@ -1,3 +1,5 @@
+@import "../root";
+
 $c-About-Baseboard: (
   b_about-base: (
     display: grid,
@@ -101,7 +103,7 @@ $c-About-Section-2: (
       base: 2,
       phablet-down: 1
     ),
-    column-gap: 35px,
+    column-gap: 30px,
     border-top-width: (
       phablet-down: 2.5px)
   )
@@ -129,5 +131,12 @@ $c-About-Amenities: (
     display: (
       tiny: none)
   )
-
 );
+
+$Epic-Map: map-combine(
+  $c-About-Baseboard,
+  $c-About-Section-1,
+  $c-About-Section-2,
+  $c-About-Amenities,
+true);
+@import "../the-epic";

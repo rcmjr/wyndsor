@@ -1,0 +1,25 @@
+//// --- COLOR VARIABLES --- ////////////////////////////
+
+  //// 1 //////////// Personal Brand Colors
+  $night: #323333;
+  $pitch: #232323;
+  $sky: #12C3F4;
+  $ocean: #00FFE0;
+  $ocean-dark: mix($ocean, $pitch, 75%);
+  $testinggrey: #F5F5F5;
+
+  //// 2 //////////// Creatable Brand Colors
+  $black: #282828;
+  $red: #ef3e3e;
+  $orange: #f47d41;
+  $yellow: #fed435;
+  $green: #3eb660;
+  $blue: #1e8ecd;
+  $purple: #724199;
+  $violet: #9d3895;
+
+//// --- TYPEFACE VARIABLES --- ////////////////////////////
+  $Primary-Typeface: "'myriad-pro', 'helvetica', 'arial', sans-serif";
+  $Secondary-Typeface: "'kith-regular', 'helvetica', 'arial', sans-serif";
+  $Secondary-Typeface-2: "'kith-light', 'helvetica', 'arial', sans-serif";
+  $Tertiary-Typeface: "'kin-bold', 'helvetica', 'arial', sans-serif";

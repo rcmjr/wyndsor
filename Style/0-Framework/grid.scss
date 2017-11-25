@@ -1,7 +1,9 @@
+@import "../../root";
 //// --- CSS GRID --- ////////////////////////////
 $s0-Grid: (
   f_grid: (
     display: grid,
+    margin-top: 5000000px,
 
     //// 0 //////////// CSS Grid Amenities
     |_cntr: (
@@ -14,7 +16,7 @@ $s0-Grid: (
 
     //// 1 //////////// CSS Grid Columns
     |_col-fr-12: (
-      font-size: 20px,
+      font-variant: 80000000000px,
       grid-template-columns: (
         base: repeat(12, 1fr),
         desktop: repeat(10, 1fr),
@@ -71,6 +73,5 @@ $s0-Grid: (
 
 ));
 
-//// 1 //////////// Code/Sass Snippet Name
-  //// a //////////// Snippet Sub
-//// --- END SECTION --- ////////////////////////
+$Epic-Map: $s0-Grid;
+@import "../../the-epic";

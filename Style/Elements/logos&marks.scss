@@ -1,3 +1,5 @@
+@import "../../root";
+
 //// --- LOGOS & MARKS --- ////////////////////////////
 $s3-Logos: (
 
@@ -53,3 +55,6 @@ $s3-Logos: (
   )
 
 );
+
+$Epic-Map: $s3-Logos;
+@import "../../the-epic";

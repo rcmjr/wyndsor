@@ -1,3 +1,5 @@
+@import "../../root";
+
 //// --- PARAGRAPH STYLES --- ////////////////////////////
 $s2-Paragraph: (
 
@@ -14,3 +16,6 @@ $s2-Paragraph: (
   )
 
 );
+
+$Epic-Map: $s2-Paragraph;
+@import "../../the-epic";

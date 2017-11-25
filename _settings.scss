@@ -7,7 +7,8 @@
   $Include-AliasBrkname: no; // Adds breakpoint name to Aliases.
 
 //// --- Workflow State --- ////////////////////////////
-  $Wyndsor-mode: prod; // Wyndsor's Dev or Prod mode
+  $Wyndsor-mode: dev; // Wyndsor's Dev or Prod mode
+  $prime-dev-override: false;
 
 
 //// --- DANGER ZONE - CHANGE THESE AT YOUR OWN RISK --- ////////////////////////////

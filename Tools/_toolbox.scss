@@ -1,7 +1,6 @@
 //// --- WYNDSOR EXTENSIONS --- ////////////////////////////
 
   $watchlist: (
-    "#{$sass-extend}", // Use this to extend a placeholder class
     "#{$sass-alterego}", // Use this to create a class or id alter ego
     "#{$sass-overrides}", // Use to enable flobal application of important or a breakpoint
     "#{$sass-child}", // Use this to create child classes or to target a specific family of selectors

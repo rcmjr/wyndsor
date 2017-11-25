@@ -1,3 +1,4 @@
+@import "../../root";
 //// --- PALETTE PATTERNS --- ////////////////////////////
 $s1-Patterns: (
 
@@ -20,3 +21,6 @@ $s1-Patterns: (
   )
 
 );
+
+$Epic-Map: $s1-Patterns;
+@import "../../the-epic";

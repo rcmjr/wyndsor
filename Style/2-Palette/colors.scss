@@ -1,29 +1,10 @@
-//// --- COLOR VARIABLES --- ////////////////////////////
-
-  //// 1 //////////// Personal Brand Colors
-  $night: #323333;
-  $pitch: #232323;
-  $sky: #12C3F4;
-  $ocean: #00FFE0;
-  $ocean-dark: mix($ocean, $pitch, 75%);
-  $testinggrey: #F5F5F5;
-
-  //// 2 //////////// Creatable Brand Colors
-  $black: #282828;
-  $red: #ef3e3e;
-  $orange: #f47d41;
-  $yellow: #fed435;
-  $green: #3eb660;
-  $blue: #1e8ecd;
-  $purple: #724199;
-  $violet: #9d3895;
-
+@import "../../root";
 //// --- PALETTE COLORS --- ////////////////////////////
 $s1-Color-Sets: (
 
   //// 1 //////////// Character Color Sets
   p_chara-white: (
-    color: white),
+    color: black),
 
   p_chara-black: (
     color: $night),
@@ -70,3 +51,6 @@ $s1-Color-Sets: (
 );
 
 //// --- END COLORS --- ////////////////////////
+
+$Epic-Map: $s1-Color-Sets;
+@import "../../the-epic";

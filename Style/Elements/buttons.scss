@@ -1,3 +1,5 @@
+@import "../../root";
+
 //// --- BUTTONS --- ////////////////////////////
 $s3-Buttons: (
 
@@ -17,3 +19,6 @@ $s3-Buttons: (
   )
 
 );
+
+$Epic-Map: $s3-Buttons;
+@import "../../the-epic";

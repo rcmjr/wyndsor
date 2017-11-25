@@ -1,22 +1,9 @@
 
-//// --- PROD COMPILE --- ////////////////////////////
-$Epic-Map: null;
-$Epic-Style: null;
-
-@if $Wyndsor-mode == prod {
-
-  $Epic-Map: $sandbox;
-  $Epic-Style: $styleset;
-
+@if $Wyndsor-mode == dev {
   //// i //////////// Normal CSS
-  @include switchboard($Epic-Style, normal);
   @include switchboard($Epic-Map, normal);
-
-  //// i //////////// Media Query Based CSS
-  @if $Enable-StyleBrks == yes {@include breakpointboard($Epic-Style, breakpoint);}
+  //// ii //////////// Media Query Based CSS
   @include breakpointboard($Epic-Map, breakpoint);
-
-  //// i //////////// Super Important CSS
+  //// iii //////////// Super Important CSS
   @if $Enable-ImportantEpic == yes {@include switchboard($Epic-Map, important);}
-
 }

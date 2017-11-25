@@ -3,26 +3,25 @@
 var gulp = require('gulp');
 var sass = require('gulp-sass');
 var sourcemaps = require('gulp-sourcemaps');
-//var autoprefixer = require('gulp-autoprefixer');
+var changedInPlace = require('gulp-changed-in-place');
 
 var sassOptions = {
   errLogToConsole: true,
   outputStyle: 'compressed'
 };
+var SRC = ['**/*.scss',
+            '!node_modules/**/*.scss',
+            '!_Dev/*.scss'];
+var DEST = './test/';
 
 gulp.task('workflow', function () {
-  gulp.src([
-    '**/*.scss',
-    '!node_modules/**/*.scss',
-    '!_Dev/*.scss'
-  ])
-  // Insert tasks here
-  .pipe(sourcemaps.init())
-    .pipe(sass(sassOptions).on('error', sass.logError))
-  //  .pipe(autoprefixer({ browsers: ['last 2 versions'],cascade: true}))
-    .pipe(sourcemaps.write('./'))
-  .pipe(gulp.dest('./test/'))
-});
+  gulp.src(SRC)
+        .pipe(changedInPlace())
+        .pipe(sourcemaps.init())
+        .pipe(sass(sassOptions).on('error', sass.logError))
+        .pipe(sourcemaps.write('./'))
+        .pipe(gulp.dest(DEST))
+      });
 
 gulp.task('default', function () {
   gulp.watch('./**/*.scss', ['workflow']);

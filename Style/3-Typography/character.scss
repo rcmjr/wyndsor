@@ -1,8 +1,4 @@
-//// --- TYPEFACE VARIABLES --- ////////////////////////////
-$Primary-Typeface: "'myriad-pro', 'helvetica', 'arial', sans-serif";
-$Secondary-Typeface: "'kith-regular', 'helvetica', 'arial', sans-serif";
-$Secondary-Typeface-2: "'kith-light', 'helvetica', 'arial', sans-serif";
-$Tertiary-Typeface: "'kin-bold', 'helvetica', 'arial', sans-serif";
+@import "../../root";
 
 //// --- TYPOGRAPHY STYLES --- ////////////////////////////
 $s2-Typography: (
@@ -100,3 +96,6 @@ $s2-Typography: (
   )
 
 );
+
+$Epic-Map: $s2-Typography;
+@import "../../the-epic";
