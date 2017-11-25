@@ -12,7 +12,7 @@ var sassOptions = {
 var SRC = ['**/*.scss',
             '!node_modules/**/*.scss',
             '!_Dev/*.scss'];
-var DEST = './test/';
+var DEST = './css/';
 
 gulp.task('workflow', function () {
   gulp.src(SRC)
