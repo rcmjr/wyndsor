@@ -1,6 +1,6 @@
 // Spinning Icons
 // --------------------------
-@if $Wyndsor-mode == prod or $prime-dev-override == true {
+@if $Wyndsor-mode == prod {
   .#{$fa-css-prefix}-spin {
     -webkit-animation: fa-spin 2s infinite linear;
             animation: fa-spin 2s infinite linear;

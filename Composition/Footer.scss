@@ -1,4 +1,4 @@
-
+@import "../Admin/root";
 $c-Base-Footer: (
   a_fttr-wrapper: (
     width: 100%,
@@ -144,3 +144,5 @@ $c-Base-Footer: (
   )
 
 );
+$Epic-Map: $c-Base-Footer;
+@import "../Admin/the-epic";

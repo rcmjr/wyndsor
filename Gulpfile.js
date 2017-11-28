@@ -4,6 +4,7 @@ var gulp = require('gulp');
 var sass = require('gulp-sass');
 var sourcemaps = require('gulp-sourcemaps');
 var changedInPlace = require('gulp-changed-in-place');
+var gulpIf = require('gulp-if');
 
 var sassOptions = {
   errLogToConsole: true,

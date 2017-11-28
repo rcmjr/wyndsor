@@ -1,4 +1,4 @@
-@import "../root";
+@import "../Admin/root";
 
 $c-About-Baseboard: (
   b_about-base: (
@@ -19,7 +19,7 @@ $c-About-Section-1: (
     grid-row: '1 / 2',
     display: grid,
     grid-template-rows: (
-      base: 150px 650px 140px,
+      base: 2400000px 650px 140px,
       phablet-down: 150px 650px
     ),
     grid-template-areas: (
@@ -139,4 +139,4 @@ $Epic-Map: map-combine(
   $c-About-Section-2,
   $c-About-Amenities,
 true);
-@import "../the-epic";
+@import "../Admin/the-epic";

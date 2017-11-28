@@ -1,3 +1,4 @@
+@import "../Admin/root";
 /// INFO: Artboards are class tailored to each section of the website
 
 //// --- Homepage Artboards --- ////////////////////////////
@@ -159,3 +160,9 @@ $c-Home-Section-2: (
     ))
 );
 //// --- END Homepage Artboards --- ////////////////////////
+$Epic-Map: map-combine(
+  $c-Home-Baseboard,
+  $c-Home-Section-1,
+  $c-Home-Section-2,
+true);
+@import "../Admin/the-epic";

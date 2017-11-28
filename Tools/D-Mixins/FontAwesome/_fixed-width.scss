@@ -1,7 +1,7 @@
 // Fixed Width Icons
 // -------------------------
 
-@if $Wyndsor-mode == prod or $prime-dev-override == true {
+@if $Wyndsor-mode == prod {
   .#{$fa-css-prefix}-fw {
     width: (18em / 14);
     text-align: center;

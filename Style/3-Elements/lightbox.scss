@@ -1,4 +1,4 @@
-@import "../../root";
+@import "../../Admin/root";
 $s-Lightbox: (
 
   m-lightbox__close: (
@@ -131,4 +131,4 @@ $s-Lightbox: (
 );
 
 $Epic-Map: $s-Lightbox;
-@import "../../the-epic";
+@import "../../Admin/the-epic";

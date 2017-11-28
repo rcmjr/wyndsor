@@ -1,4 +1,4 @@
-@import "../../root";
+@import "../../Admin/root";
 //// --- PALETTE PATTERNS --- ////////////////////////////
 $s-Patterns: (
 
@@ -23,4 +23,4 @@ $s-Patterns: (
 );
 
 $Epic-Map: $s-Patterns;
-@import "../../the-epic";
+@import "../../Admin/the-epic";

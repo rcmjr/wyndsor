@@ -1,4 +1,4 @@
-@import "../../root";
+@import "../../Admin/root";
 
 //// --- PARAGRAPH STYLES --- ////////////////////////////
 $s-Paragraph: (
@@ -18,4 +18,4 @@ $s-Paragraph: (
 );
 
 $Epic-Map: $s-Paragraph;
-@import "../../the-epic";
+@import "../../Admin/the-epic";

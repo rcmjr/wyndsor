@@ -1,6 +1,6 @@
 //// --- RESET --- ////////////////////////////
 @import 'settings',
-        'reset';
+        'Admin/reset';
 
 //// --- PLUGINS --- //////////////////////////
 @import 'Tools/C-Fonts/fonts',
@@ -12,21 +12,32 @@
         'Style/0-Framework/rules',
         'Style/0-Framework/spacing',
         //// ii //////////// Palette
-        'Style/2-Palette/colors',
-        'Style/2-Palette/patterns',
-        'Style/2-Palette/strokes',
+        'Style/1-Palette/colors',
+        'Style/1-Palette/patterns',
+        'Style/1-Palette/strokes',
         //// iii //////////// Typography
-        'Style/3-Typography/character',
-        'Style/3-Typography/paragraph',
+        'Style/2-Typography/character',
+        'Style/2-Typography/paragraph',
         //// iv //////////// Elements
-        'Style/Elements/buttons',
-        'Style/Elements/lightbox',
-        'Style/Elements/load',
-        'Style/Elements/logos&marks',
-        'Style/Elements/nav',
-        'Style/Elements/states',
+        'Style/3-Elements/buttons',
+        'Style/3-Elements/lightbox',
+        'Style/3-Elements/load',
+        'Style/3-Elements/logos&marks',
+        'Style/3-Elements/nav',
+        'Style/3-Elements/states',
         //// v //////////// Pages
-        'Composition/About';
+        'Composition/About',
+        'Composition/Folio-Pieces',
+        'Composition/Folio',
+        'Composition/Footer',
+        'Composition/Header',
+        'Composition/Home',
+        'Composition/Maintenance',
+        //// vi //////////// Page Amenities
+        'Composition/Amenities/404',
+        'Composition/Amenities/Compatibility-Dialogs',
+        'Composition/Amenities/Forms',
+        'Composition/Amenities/Modals';
 
 //// --- MAP IMPORTS --- ////////////////////////////
 $Epic-Map-Prod: map-combine(
@@ -48,11 +59,28 @@ $Epic-Map-Prod: map-combine(
   $s-Logos,
   $s-Navigation,
   $s-States,
-  /* About Page */
+  /* Pages */
   $c-About-Baseboard,
   $c-About-Section-1,
   $c-About-Section-2,
   $c-About-Amenities,
+  $c-FolioPieces-Baseboard,
+  $c-FolioPieces-Section-1,
+  $c-FolioPieces-Section-2,
+  $c-FolioPieces-Amenities,
+  $c-Folio-Baseboard,
+  $c-Folio-Section-1,
+  $c-Folio-Amenities,
+  $c-Base-Footer,
+  $c-Base-Header,
+  $c-Home-Baseboard,
+  $c-Home-Section-1,
+  $c-Home-Section-2,
+  /* Page Amenities */
+  $c-Maintenance,
+  $c-404,
+  $c-Modals,
+
 true);
 
 //// i //////////// Normal CSS

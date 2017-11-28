@@ -1,3 +1,4 @@
+@import "../../Admin/root";
 $c-Modals: (
 
   #lean_overlay: (
@@ -67,3 +68,5 @@ $c-Modals: (
   footer: (
     margin-bottom: -5px)
 );
+$Epic-Map: $c-Modals;
+@import "../../Admin/the-epic";

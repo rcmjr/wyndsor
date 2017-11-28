@@ -1,4 +1,4 @@
-@import "../../root";
+@import "../../Admin/root";
 
 //// --- TYPOGRAPHY STYLES --- ////////////////////////////
 $s-Typography: (
@@ -98,4 +98,4 @@ $s-Typography: (
 );
 
 $Epic-Map: $s-Typography;
-@import "../../the-epic";
+@import "../../Admin/the-epic";

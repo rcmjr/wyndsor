@@ -1,3 +1,4 @@
+@import "../Admin/root";
 //// --- Folio Artboards --- ////////////////////////////
 $c-Folio-Baseboard: (
   b_folio-base: (
@@ -121,3 +122,9 @@ $c-Folio-Amenities: (
   )
 );
 //// --- END Folio Artboards --- ////////////////////////
+$Epic-Map: map-combine(
+  $c-Folio-Baseboard,
+  $c-Folio-Section-1,
+  $c-Folio-Amenities,
+true);
+@import "../Admin/the-epic";

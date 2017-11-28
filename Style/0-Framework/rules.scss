@@ -1,4 +1,4 @@
-@import "../../root";
+@import "../../Admin/root";
 //// --- CSS GLOBAL RULES --- ////////////////////////////
 $s-Rules: (
 
@@ -83,4 +83,4 @@ $s-Rules: (
 );
 
 $Epic-Map: $s-Rules;
-@import "../../the-epic";
+@import "../../Admin/the-epic";

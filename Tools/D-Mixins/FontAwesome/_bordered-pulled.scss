@@ -1,6 +1,6 @@
 // Bordered & Pulled
 // -------------------------
-@if $Wyndsor-mode == prod or $prime-dev-override == true {
+@if $Wyndsor-mode == prod {
   .#{$fa-css-prefix}-border {
     padding: .2em .25em .15em;
     border: solid .08em $fa-border-color;

@@ -1,4 +1,4 @@
-@import "../../root";
+@import "../../Admin/root";
 
 $s-States: (
 
@@ -269,4 +269,4 @@ $s-States: (
 );
 
 $Epic-Map: $s-States;
-@import "../../the-epic";
+@import "../../Admin/the-epic";

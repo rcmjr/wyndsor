@@ -17,7 +17,7 @@
   "_sliding-entrances/slideInRight.scss",
   "_sliding-entrances/slideInLeft.scss";
 
-@if $Wyndsor-mode == prod or $prime-dev-override == true {
+@if $Wyndsor-mode == prod {
   .slideInLeft {
     @include slideInLeft();
   }

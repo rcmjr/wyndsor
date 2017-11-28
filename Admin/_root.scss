@@ -1,13 +1,13 @@
 //// --- CORE 1 --- ////////////////////////////
-@import 'settings';
+@import '../settings';
 
 //// --- TOOLS --- ////////////////////////////
-@import 'Tools/A-Break-Points/brkpoints',
-        'Tools/B-Auto-Code/automations',
-        'Tools/toolbox';
+@import '../Tools/A-Break-Points/brkpoints',
+        '../Tools/B-Auto-Code/automations',
+        '../Tools/toolbox';
 
 //// --- CORE 2 --- ////////////////////////////
 @import 'switchboard';
 
 //// --- VARIABLES --- /////////////////////////
-@import 'Style/1-Variables/vars';
+@import '../Style/vars';

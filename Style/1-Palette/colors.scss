@@ -1,10 +1,10 @@
-@import "../../root";
+@import "../../Admin/root";
 //// --- PALETTE COLORS --- ////////////////////////////
 $s-Color-Sets: (
 
   //// 1 //////////// Character Color Sets
   p_chara-white: (
-    color: black),
+    color: white),
 
   p_chara-black: (
     color: $night),
@@ -53,4 +53,4 @@ $s-Color-Sets: (
 //// --- END COLORS --- ////////////////////////
 
 $Epic-Map: $s-Color-Sets;
-@import "../../the-epic";
+@import "../../Admin/the-epic";

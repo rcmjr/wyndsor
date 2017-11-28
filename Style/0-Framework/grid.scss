@@ -1,4 +1,4 @@
-@import "../../root";
+@import "../../Admin/root";
 //// --- CSS GRID --- ////////////////////////////
 $s-Grid: (
   f_grid: (
@@ -74,4 +74,4 @@ $s-Grid: (
 ));
 
 $Epic-Map: $s-Grid;
-@import "../../the-epic";
+@import "../../Admin/the-epic";

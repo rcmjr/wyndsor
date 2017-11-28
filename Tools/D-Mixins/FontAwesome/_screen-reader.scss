@@ -1,7 +1,7 @@
 // Screen Readers
 // -------------------------
 
-@if $Wyndsor-mode == prod or $prime-dev-override == true {
+@if $Wyndsor-mode == prod {
   .sr-only { @include sr-only(); }
   .sr-only-focusable { @include sr-only-focusable(); }
 }

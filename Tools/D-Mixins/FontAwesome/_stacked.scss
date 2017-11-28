@@ -1,7 +1,7 @@
 // Stacked Icons
 // -------------------------
 
-@if $Wyndsor-mode == prod or $prime-dev-override == true {
+@if $Wyndsor-mode == prod {
   .#{$fa-css-prefix}-stack {
     position: relative;
     display: inline-block;

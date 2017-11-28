@@ -1,6 +1,6 @@
 // Base Class Definition
 // -------------------------
-@if $Wyndsor-mode == prod or $prime-dev-override == true {
+@if $Wyndsor-mode == prod {
   .#{$fa-css-prefix} {
     display: inline-block;
     font: normal normal normal #{$fa-font-size-base}/#{$fa-line-height-base} FontAwesome; // shortening font declaration
