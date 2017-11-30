@@ -511,35 +511,31 @@
     }
   }
 
-  //// 4 //////////// Generates the classes, ids, and pseudo classes
-  @mixin switchboard($AlphaMap, $EpicAct, $breakpoint: null) {
-
-      //// --- CLASS and SUB-CLASS GENERATOR --- ////////////////////////////
-      @each $key, $value in $AlphaMap {
-
-        //// 1 //////////// Determines legit or placeholder class, or id.
-          $key-string: to-string($key);
-          $type: null;
-          $aliasnames: ();
-          $aliasname: null;
-          $exist-alias: null;
-          $exist-html: null;
-          $exist-extend: null;
-
-            @if if(str-index($key-string, '#'), true, false) {
-              $type: "#";
-            }
-            @else if if(str-index($key-string, '+'), true, false) {
-              $type: "%";
-              $exist-extend: true;
-            }
-            @else if chk-list($html-elements, $key) {
-              $type: "";
-              $exist-html: true;
-            }
-            @else {
-              $type: ".";
-            }
+  //// --- 4 - THE SWITCHBOARD --- ////////////////////////////
+  @mixin switchboard($AlphaMap, $EpicAct, $breakpoint: null) {          //// 1 //////////// Creates mixin name and required variables.
+                                                                        //
+      @each $key, $value in $AlphaMap {                                 /////// a ///////// Breaks apart all of the first level keys and values from the Epic-Map.
+                                                                        //
+          $key-string: to-string($key);                                 // i -- Ensures the $key is a string.
+          $type: null;                                                  // i -- Just enabling all the variables to work outside all conditions.
+          $aliasnames: ();                                              //
+          $aliasname: null;                                             //
+          $exist-alias: null;                                           //
+          $exist-html: null;                                            //
+                                                                        //
+            @if if(str-index($key-string, '#'), true, false) {          //// 2 //////////// This "if, else" checks each key for an identifier
+              $type: "#";                                               /////// a ///////// CSS ID identifier
+            }                                                           //
+            @else if if(str-index($key-string, '+'), true, false) {     /////// b ///////// CSS Namespace identifier
+              $type: "%";                                               //
+            }                                                           //
+            @else if chk-list($html-elements, $key) {                   /////// c ///////// CSS HTML identifier
+              $type: "";                                                //
+              $exist-html: true;                                        //
+            }                                                           //
+            @else {                                                     /////// d ///////// CSS Class identifier
+              $type: ".";                                               //
+            }                                                           //
 
             $mainname: $type + if(str-index($key-string, '#'), str-replace($key, '#', ''), if(str-index($key-string, '+'), str-replace($key, '+', ''), $key-string));
             $brkname: if($EpicAct == breakpoint, unquote('-' + $breakpoint), '');
@@ -577,7 +573,7 @@
             $aliasname: if($aliasnames != (), $aliasnames, unquote(''));
 
         //// 2 //////////// Creates the classes, ids, subclasses and pseudos
-          #{if($exist-html == true, $mainname, $mainname + if($exist-extend == true, $brkname, ""))}#{if($aliasname != null, unquote(', '), '')}#{if($aliasname != '', $aliasname, '')} {
+          #{if($exist-html == true, $mainname, $mainname)}#{if($aliasname != null, unquote(', '), '')}#{if($aliasname != '', $aliasname, '')} {
 
             //// ℹ︎ //////////// Forces the switchboard to compile to the important section or a specific breakpoint.
             $important-override: false !default;
@@ -610,15 +606,14 @@
               }
             }
           }
-
       }
     }
 
-  //// 5 //////////// Generates breakpoints and runs the switchboard within.
-  @mixin breakpointboard($AlphaMap, $EpicAct) {
-    @each $break, $breakvalues in $breakpoints {
-      @include brkpoint($breakvalues) {
-        @include switchboard($AlphaMap, $EpicAct, $break);
+  //// --- 5 - BREAKPOINT GENERATOR --- ////////////////////////////
+  @mixin breakpointboard($AlphaMap, $EpicAct) {             //// 1 //////////// Creates mixin name and required variables.
+    @each $break, $breakvalues in $breakpoints {            /////// a ///////// Breaks apart all of the breakpoint names and specs so the switchboard can run for each one in the list.
+      @include brkpoint($breakvalues) {                     /////// b ///////// Runs the Breakpoint Auto-Code
+        @include switchboard($AlphaMap, $EpicAct, $break);  /////// c ///////// Starts the Switchboard
       }
     }
   }

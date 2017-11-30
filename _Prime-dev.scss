@@ -1,3 +1,6 @@
+// To use for Dev, remove the underscore from the filename (remember to add an underscore to prime's!).
+// REMEMBER: This only contains dependencies and css imports via URL. It doesn't inline your style/comp css.
+
 //// --- RESET --- ////////////////////////////
 @import 'Admin/settings',
         'Admin/reset';
@@ -6,7 +9,7 @@
 @import 'Tools/C-Fonts/fonts',
         'Tools/D-Mixins/mixins';
 
-//// --- STYLE --- ////////////////////////////
+//// --- STYLE --- //////////////////////////// Add each css comp location here and append your css output folder name.
 @import //// i //////////// Framework
         'css/Style/0-Framework/grid.css',
         'css/Style/0-Framework/rules.css',

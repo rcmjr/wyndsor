@@ -1,3 +1,6 @@
+// To use for Prod, remove the underscore from the filename (remember to add an underscore to prime-dev's!).
+// REMEMBER: This inlines all css and concatenates all breakpoint css under single breakpoint media queries.
+
 //// --- RESET --- ////////////////////////////
 @import 'settings',
         'Admin/reset';
