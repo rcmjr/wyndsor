@@ -1,12 +1,8 @@
-// Windsor - The Fantastically Snazzy CSS Framework for Designers //
-//////////////////////////////////////////////////// by Creatable.
+# Windsor </br> A Snazzy SASS Framework
+## <i>Made for designers, by a designer.</i>
 
-TOC:
-I. HTML Structure
-II. SASS Structure
-
-
-------- HTML Structure -------
+---
+### Framework Structure -------
 
 1. Base : Section Divs
   2. Sand/Surfacing : Background Styling (color/pattern/picture/etc)
