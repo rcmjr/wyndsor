@@ -7,7 +7,14 @@ $s-Color-Sets: (
     color: white),
 
   p_chara-black: (
-    color: $night),
+    override: tablet,
+    color: $night,
+    font-family: 40px
+  ),
+
+  pyolo: (
+    font-size: 90px
+  ),
 
   p_chara-black-neo: (
     color: $pitch),

@@ -5,7 +5,7 @@
     "#{$sass-overrides}", // Use to enable flobal application of important or a breakpoint
     "#{$sass-child}", // Use this to create child classes or to target a specific family of selectors
     "#{$sass-subclass}", // Use this to create a direct sub-class/id
-    "#{$sass-placeholder}" // Use this to create a placeholder class
+    "#{$sass-namespace}" // Use this to create a namespace class
   );
 
 //// --- AUTO VENDOR PREFIXES --- ////////////////////////////

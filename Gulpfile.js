@@ -8,7 +8,7 @@ var gulpIf = require('gulp-if');
 
 var sassOptions = {
   errLogToConsole: true,
-  outputStyle: 'compressed'
+  outputStyle: 'nested'
 };
 var SRC = ['**/*.scss',
             '!node_modules/**/*.scss',

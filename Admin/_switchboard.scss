@@ -102,7 +102,7 @@
   }
 
   //// 2 //////////// Creates css properties or switches over to the lines
-  @mixin switch($EpicAct, $rslt, $rslt-brkpnt-solve, $rslt-imprtnt, $rslt-imprtnt-solve, $rslt-base, $rslt-base-solve, $startkey, $startvalue, $breakpoint, $redswitch, $blueswitch, $boardroute, $override-brkname) {
+  @mixin switch($EpicAct, $rslt, $rslt-brkpnt-solve, $rslt-imprtnt, $rslt-imprtnt-solve, $rslt-base, $rslt-base-solve, $startkey, $startvalue, $breakpoint, $redswitch, $blueswitch, $override-brkname) {
 
     $aliasnames: ();
     $mold-verify: null;
@@ -118,7 +118,6 @@
     $subhands: to-string($startkey);
       $subhands-verify: if($subhands != null, $subhands, "nope");
       $sublefty: if(chk-list($watchlist, $subhands-verify), true, false);
-      $subrighty: if(str-index($subhands-verify, $sass-extend), true, false);
       $subuppy: if(str-index($subhands-verify, $sass-child), true, false); // Checks for Class or ID child
       $subdowny: if(map-check($pseudos, $subhands-verify), true, false);
 
@@ -149,11 +148,11 @@
       }
       @else if $blueswitch == true {
         $rslt-base-solve: true;
-        $rslt-imprtnt-solve: true;
+        $rslt-imprtnt-solve: false;
         $rslt-brkpnt-solve: true;
       }
 
-    @if $sublefty != true and $boardroute == new and $subuppy == false and $subdowny == false {
+    @if $sublefty != true and $subuppy == false and $subdowny == false {
 
       $propval: to-string($startvalue);
 
@@ -219,7 +218,7 @@
     }
 
     // Creats Children within Children, Subclasses or Pseudos
-    @else if $subuppy == true and $boardroute == new {
+    @else if $subuppy == true {
 
         @each $key, $value in $startvalue {
           $mold: to-string($key);
@@ -283,15 +282,23 @@
             $subhands: to-string($key);
             $subrighty: if(map-check($pseudos, $subhands), true, false);
             $sublefty: if(str-index($subhands, $sass-subclass), true, false); // Checks for Sub-Classes/IDs
+            $subdowny: if(str-index($subhands, $sass-namespace), true, false);
             $linkcheck: if(str-index($key, 'name'), true, false);
 
-            @if $sublefty == false and $subrighty == false and $linkcheck == false {
-              @include switch($EpicAct, $rslt, $rslt-brkpnt-solve, $rslt-imprtnt, $rslt-imprtnt-solve, $rslt-base, $rslt-base-solve, $key, $value, $breakpoint, $redswitch, $blueswitch, $boardroute, $override-brkname);
+            @if $sublefty == false and $subrighty == false and $subdowny == false and $linkcheck == false{
+              @include switch($EpicAct, $rslt, $rslt-brkpnt-solve, $rslt-imprtnt, $rslt-imprtnt-solve, $rslt-base, $rslt-base-solve, $key, $value, $breakpoint, $redswitch, $blueswitch, $override-brkname);
             }
             @else if $subrighty == true {
               &#{unquote(":")}#{$key} {
                 @each $subprop, $subpropval in $value {
-                  @include switch($EpicAct, $rslt, $rslt-brkpnt-solve, $rslt-imprtnt, $rslt-imprtnt-solve, $rslt-base, $rslt-base-solve, $subprop, $subpropval, $breakpoint, $redswitch, $blueswitch, $boardroute, $override-brkname);
+                  @include switch($EpicAct, $rslt, $rslt-brkpnt-solve, $rslt-imprtnt, $rslt-imprtnt-solve, $rslt-base, $rslt-base-solve, $subprop, $subpropval, $breakpoint, $redswitch, $blueswitch, $override-brkname);
+                }
+              }
+            }
+            @else if $subdowny == true {
+              &#{unquote("\:")}#{$key} {
+                @each $subprop, $subpropval in $value {
+                  @include switch($EpicAct, $rslt, $rslt-brkpnt-solve, $rslt-imprtnt, $rslt-imprtnt-solve, $rslt-base, $rslt-base-solve, $subprop, $subpropval, $breakpoint, $redswitch, $blueswitch, $override-brkname);
                 }
               }
             }
@@ -302,17 +309,17 @@
         }
       }
 
-      @else if $subdowny == true and $boardroute == new {
+      @else if $subdowny == true {
         &#{unquote(":")}#{$startkey} {
           @each $subprop, $subpropval in $startvalue {
-            @include switch($EpicAct, $rslt, $rslt-brkpnt-solve, $rslt-imprtnt, $rslt-imprtnt-solve, $rslt-base, $rslt-base-solve, $subprop, $subpropval, $breakpoint, $redswitch, $blueswitch, $boardroute, $override-brkname);
+            @include switch($EpicAct, $rslt, $rslt-brkpnt-solve, $rslt-imprtnt, $rslt-imprtnt-solve, $rslt-base, $rslt-base-solve, $subprop, $subpropval, $breakpoint, $redswitch, $blueswitch, $override-brkname);
           }
         }
       }
     }
 
   //// 3 //////////// Routes acceptable connections through to the switches/lines
-  @mixin router($property, $propertyvalue, $value, $key, $breakpoint, $EpicAct, $boardroute, $breakpoint-override: false, $important-override: false, $override-brkname: null) {
+  @mixin router($property, $propertyvalue, $value, $key, $breakpoint, $EpicAct, $breakpoint-override: false, $important-override: false, $override-brkname: null) {
 
     $rslt-imprtnt-solve: null !default;
     $rslt-base-solve: null !default;
@@ -373,150 +380,135 @@
         $lefty: if(map-check($pseudos, $hands), true, false);
         $righty: if(str-index($hands, $sass-subclass), true, false); // Checks for Sub-Classes/IDs
         $uppy: if(str-index($hands, $sass-child), true, false); // Checks for Class or ID child
-        $downy: if(str-index($hands, $sass-extend), true, false);
-        $sidey: if(str-index($hands, $sass-overrides), true, false);
+        $thirdy: if(str-index($hands, $sass-namespace), true, false);
 
         @if $uppy == true and $righty == true {
           $uppy: true;
           $righty: false;
         }
 
-    @if $boardroute == new {
+    // For CSS Properties
+    @if $lefty != true and $righty != true and $uppy != true and $thirdy != true {
+      @include switch($EpicAct, $rslt, $rslt-brkpnt-solve, $rslt-imprtnt, $rslt-imprtnt-solve, $rslt-base, $rslt-base-solve, $property, $propertyvalue, $breakpoint, $redswitch, $blueswitch, $override-brkname);
+    }
 
-      // For CSS Properties
-      @if $lefty != true and $righty != true and $uppy != true {
-        @include switch($EpicAct, $rslt, $rslt-brkpnt-solve, $rslt-imprtnt, $rslt-imprtnt-solve, $rslt-base, $rslt-base-solve, $property, $propertyvalue, $breakpoint, $redswitch, $blueswitch, $boardroute, $override-brkname);
+    // For Pseudos
+    @else if $lefty == true {
+      &#{unquote(_($pseudos, $property))} {
+        @each $subprop, $subpropval in $propertyvalue {
+          $subuppy: if(str-index(to-string($subprop), $sass-child), true, false); // Checks for Class or ID child
+          @if $subuppy == false {
+            @include switch($EpicAct, $rslt, $rslt-brkpnt-solve, $rslt-imprtnt, $rslt-imprtnt-solve, $rslt-base, $rslt-base-solve, $subprop, $subpropval, $breakpoint, $redswitch, $blueswitch, $override-brkname);
+          }
+          @else if $subuppy == true {
+            @include router($subprop, $subpropval, $propertyvalue, null, $breakpoint, $EpicAct);
+          }
+        }
       }
+    }
 
-      // For Pseudos
-      @else if $lefty == true {
-        &#{unquote(_($pseudos, $property))} {
-          @each $subprop, $subpropval in $propertyvalue {
-            $subuppy: if(str-index(to-string($subprop), $sass-child), true, false); // Checks for Class or ID child
-            @if $subuppy == false {
-              @include switch($EpicAct, $rslt, $rslt-brkpnt-solve, $rslt-imprtnt, $rslt-imprtnt-solve, $rslt-base, $rslt-base-solve, $subprop, $subpropval, $breakpoint, $redswitch, $blueswitch, $boardroute, $override-brkname);
+    // For Sub-classes
+    @else if $righty == true {
+      &#{if($property != null, unquote("-"), '') + if(str-index($property, '_'), str-replace($property, _, ''), '')} {
+        @each $subprop, $subpropval in $propertyvalue {
+          @include switch($EpicAct, $rslt, $rslt-brkpnt-solve, $rslt-imprtnt, $rslt-imprtnt-solve, $rslt-base, $rslt-base-solve, $subprop, $subpropval, $breakpoint, $redswitch, $blueswitch, $override-brkname);
+        }
+      }
+    }
+
+    // For Children
+    @else if $uppy == true {
+
+      @each $subprop, $subpropval in $propertyvalue {
+        $mold: to-string($subprop);
+        $mold-verify: if($mold != null, $mold, "nope");
+        $linkcheck: if(str-index($mold-verify, 'name'), true, false);
+        $rslt-link: if(remove-duplicates(purge($linkcheck)) == (), false, true);
+
+        @if $rslt-link == true {
+          @for $i from 1 through length($subpropval) {
+            $propval: to-string(nth($subpropval, $i));
+            $aliastest1: null;
+            $aliastest2: null;
+
+            @if if(str-index($propval, '+'), true, true) {
+              $aliastest1: if(str-index($propval, '+'), str-replace($propval, '+', ' %'), $propval);
+              @if if(str-index($aliastest1, '__') == true, true, true) {
+                $aliastest2: if(str-index($aliastest1, '__'), str-replace($aliastest1, '__', ' .'), $aliastest1);
+                  @if if(str-index($aliastest2, '#'), true, true) {
+                    $aliasnames: append($aliasnames, " " + $aliastest2, comma);
+                  }
+                }
+              @else {
+                $aliasnames: append($aliasnames, $aliastest1, comma);
+              }
             }
-            @else if $subuppy == true {
-              @include router($subprop, $subpropval, $propertyvalue, null, $breakpoint, $EpicAct, new);
+            @else {
+              $aliasnames: append($aliasnames, $propval, comma);
             }
           }
         }
       }
 
-      // For Sub-classes
-      @else if $righty == true {
-        &#{if($property != null, unquote("-"), '') + if(str-index($property, '_'), str-replace($property, _, ''), '')} {
-          @each $subprop, $subpropval in $propertyvalue {
-            @include switch($EpicAct, $rslt, $rslt-brkpnt-solve, $rslt-imprtnt, $rslt-imprtnt-solve, $rslt-base, $rslt-base-solve, $subprop, $subpropval, $breakpoint, $redswitch, $blueswitch, $boardroute, $override-brkname);
-          }
-        }
-      }
+      $alias-prime-prehand: str-replace(to-string($property), ' ', ''); // Removes any space anomolies
+      $alias-prime: str-replace($alias-prime-prehand, $sass-child, ''); // Removes Children Key from $alias-prime
+      $alias-prime-childcheck: if(str-index($alias-prime, child), true, false); // Checks to see if $alias-prime has the Children convention "child"
+      $alias-prime-reserve: null;
 
-      // For Children
-      @else if $uppy == true {
+        @if $alias-prime-childcheck == true { // If the Child convention checks out, then it renders $alias-prime null
+          $alias-prime-reserve: $alias-prime;
+          $alias-prime: null;
+        }
+        @else { // Where as if there is a class or html name it does this:
+          $alias-prime: if(chk-list($html-elements, $alias-prime),
+            " " + $alias-prime,
+            unquote(" .") + $alias-prime);
+        }
+
+      $aliasname: if($aliasnames != (), $aliasnames, unquote(""));
+      $aliasname-s: $aliasname + unquote("");
+      $aliasname-sc: if(str-index(to-string($alias-prime-reserve), "_") == 1, true, false);
+      $aliasname-scs: if($aliasname-sc == true, str-slice($aliasname-s, 2, str-length($aliasname-s)), str-slice($aliasname-s, 1, str-length($aliasname-s)));
+      $alias-prime-sc: if(str-index(to-string($alias-prime), "_") == 3, true, false);
+      $alias-prime-scs: if($alias-prime-sc == true, str-slice($alias-prime, 4, str-length($alias-prime)), null);
+      $alias-prime-scf: if($alias-prime-sc == true, if(chk-list($html-elements, $alias-prime-scs),
+        $alias-prime-scs, str-insert($alias-prime-scs, ".", 1)), null);
+
+      &#{
+        if($alias-prime-sc == true, #{$alias-prime-scf}#{" " + $aliasname-scs},
+        if($alias-prime != null, #{$alias-prime}#{" " + $aliasname-scs},
+        $aliasname-scs)))}  {
 
         @each $subprop, $subpropval in $propertyvalue {
-          $mold: to-string($subprop);
-          $mold-verify: if($mold != null, $mold, "nope");
-          $linkcheck: if(str-index($mold-verify, 'name'), true, false);
-          $rslt-link: if(remove-duplicates(purge($linkcheck)) == (), false, true);
+          $subhands: to-string($subprop);
+          $subrighty: if(map-check($pseudos, $subhands), true, false);
+          $sublefty: if(str-index($subhands, $sass-subclass), true, false); // Checks for Sub-Classes/IDs
+          $subuppy: if(str-index($subhands, $sass-child), true, false);
+          $linkcheck: if(str-index($subhands, 'name'), true, false);
 
-          @if $rslt-link == true {
-            @for $i from 1 through length($subpropval) {
-              $propval: to-string(nth($subpropval, $i));
-              $aliastest1: null;
-              $aliastest2: null;
-
-              @if if(str-index($propval, '+'), true, true) {
-                $aliastest1: if(str-index($propval, '+'), str-replace($propval, '+', ' %'), $propval);
-                @if if(str-index($aliastest1, '__') == true, true, true) {
-                  $aliastest2: if(str-index($aliastest1, '__'), str-replace($aliastest1, '__', ' .'), $aliastest1);
-                    @if if(str-index($aliastest2, '#'), true, true) {
-                      $aliasnames: append($aliasnames, " " + $aliastest2, comma);
-                    }
-                  }
-                @else {
-                  $aliasnames: append($aliasnames, $aliastest1, comma);
-                }
-              }
-              @else {
-                $aliasnames: append($aliasnames, $propval, comma);
+          @if $sublefty == false and $subrighty == false and $subuppy == false and $linkcheck == false {
+            @include switch($EpicAct, $rslt, $rslt-brkpnt-solve, $rslt-imprtnt, $rslt-imprtnt-solve, $rslt-base, $rslt-base-solve, $subprop, $subpropval, $breakpoint, $redswitch, $blueswitch, $override-brkname);
+          }
+          @else if $subrighty == true {
+            &#{unquote(":")}#{$subprop} {
+              @each $subsubprop, $subsubpropval in $subpropval {
+                @include switch($EpicAct, $rslt, $rslt-brkpnt-solve, $rslt-imprtnt, $rslt-imprtnt-solve, $rslt-base, $rslt-base-solve, $subsubprop, $subsubpropval, $breakpoint, $redswitch, $blueswitch, $override-brkname);
               }
             }
           }
-        }
-
-        $alias-prime-prehand: str-replace(to-string($property), ' ', ''); // Removes any space anomolies
-        $alias-prime: str-replace($alias-prime-prehand, $sass-child, ''); // Removes Children Key from $alias-prime
-        $alias-prime-childcheck: if(str-index($alias-prime, child), true, false); // Checks to see if $alias-prime has the Children convention "child"
-        $alias-prime-reserve: null;
-
-          @if $alias-prime-childcheck == true { // If the Child convention checks out, then it renders $alias-prime null
-            $alias-prime-reserve: $alias-prime;
-            $alias-prime: null;
+          @else if $subuppy == true {
+            @include switch($EpicAct, $rslt, $rslt-brkpnt-solve, $rslt-imprtnt, $rslt-imprtnt-solve, $rslt-base, $rslt-base-solve, $subprop, $subpropval, $breakpoint, $redswitch, $blueswitch, $override-brkname);
           }
-          @else { // Where as if there is a class or html name it does this:
-            $alias-prime: if(chk-list($html-elements, $alias-prime),
-              " " + $alias-prime,
-              unquote(" .") + $alias-prime);
-          }
-
-        $aliasname: if($aliasnames != (), $aliasnames, unquote(""));
-        $aliasname-s: $aliasname + unquote("");
-        $aliasname-sc: if(str-index(to-string($alias-prime-reserve), "_") == 1, true, false);
-        $aliasname-scs: if($aliasname-sc == true, str-slice($aliasname-s, 2, str-length($aliasname-s)), str-slice($aliasname-s, 1, str-length($aliasname-s)));
-        $alias-prime-sc: if(str-index(to-string($alias-prime), "_") == 3, true, false);
-        $alias-prime-scs: if($alias-prime-sc == true, str-slice($alias-prime, 4, str-length($alias-prime)), null);
-        $alias-prime-scf: if($alias-prime-sc == true, if(chk-list($html-elements, $alias-prime-scs),
-          $alias-prime-scs, str-insert($alias-prime-scs, ".", 1)), null);
-
-        &#{
-          if($alias-prime-sc == true, #{$alias-prime-scf}#{" " + $aliasname-scs},
-          if($alias-prime != null, #{$alias-prime}#{" " + $aliasname-scs},
-          $aliasname-scs)))}  {
-
-          @each $subprop, $subpropval in $propertyvalue {
-            $subhands: to-string($subprop);
-            $subrighty: if(map-check($pseudos, $subhands), true, false);
-            $sublefty: if(str-index($subhands, $sass-subclass), true, false); // Checks for Sub-Classes/IDs
-            $subuppy: if(str-index($subhands, $sass-child), true, false);
-            $linkcheck: if(str-index($subhands, 'name'), true, false);
-            $subextend: if(str-index($subhands, $sass-extend), true, false);
-
-            @if $sublefty == false and $subrighty == false and $subuppy == false and $linkcheck == false and $subextend == false {
-              @include switch($EpicAct, $rslt, $rslt-brkpnt-solve, $rslt-imprtnt, $rslt-imprtnt-solve, $rslt-base, $rslt-base-solve, $subprop, $subpropval, $breakpoint, $redswitch, $blueswitch, $boardroute, $override-brkname);
-            }
-            @else if $subrighty == true {
-              &#{unquote(":")}#{$subprop} {
-                @each $subsubprop, $subsubpropval in $subpropval {
-                  @include switch($EpicAct, $rslt, $rslt-brkpnt-solve, $rslt-imprtnt, $rslt-imprtnt-solve, $rslt-base, $rslt-base-solve, $subsubprop, $subsubpropval, $breakpoint, $redswitch, $blueswitch, $boardroute, $override-brkname);
-                }
+          @else if $sublefty == true {
+            &#{if($subprop != null, unquote("-"), '') + if(str-index($subprop, '_'), str-replace($subprop, _, ''), '')} {
+              @each $subsubprop, $subsubpropval in $subpropval {
+                @include switch($EpicAct, $rslt, $rslt-brkpnt-solve, $rslt-imprtnt, $rslt-imprtnt-solve, $rslt-base, $rslt-base-solve, $subsubprop, $subsubpropval, $breakpoint, $redswitch, $blueswitch, $override-brkname);
               }
-            }
-            @else if $subuppy == true {
-              @include switch($EpicAct, $rslt, $rslt-brkpnt-solve, $rslt-imprtnt, $rslt-imprtnt-solve, $rslt-base, $rslt-base-solve, $subprop, $subpropval, $breakpoint, $redswitch, $blueswitch, $boardroute, $override-brkname);
-            }
-            @else if $sublefty == true {
-              &#{if($subprop != null, unquote("-"), '') + if(str-index($subprop, '_'), str-replace($subprop, _, ''), '')} {
-                @each $subsubprop, $subsubpropval in $subpropval {
-                  @include switch($EpicAct, $rslt, $rslt-brkpnt-solve, $rslt-imprtnt, $rslt-imprtnt-solve, $rslt-base, $rslt-base-solve, $subsubprop, $subsubpropval, $breakpoint, $redswitch, $blueswitch, $boardroute, $override-brkname);
-                }
-              }
-            }
-            @else if $subextend == true {
-              @include router($subprop, $subpropval, $propertyvalue, $key, $breakpoint, $EpicAct, extend);
             }
           }
         }
       }
     }
-
-    @else if $boardroute == extend and $Wyndsor-mode != dev {
-      @if $downy == true {
-        @include switch($EpicAct, $rslt, $rslt-brkpnt-solve, $rslt-imprtnt, $rslt-imprtnt-solve, $rslt-base, $rslt-base-solve, $property, $propertyvalue, $breakpoint, $redswitch, $blueswitch, $boardroute, $override-brkname);
-      }
-    }
-
   }
 
   //// 4 //////////// Generates the classes, ids, and pseudo classes
@@ -590,31 +582,31 @@
             //// ℹ︎ //////////// Forces the switchboard to compile to the important section or a specific breakpoint.
             $important-override: false !default;
             $breakpoint-override: false !default;
+            $override-brkname: null !default;
 
               @if $Enable-Overrides == yes {
                 $impride: chk-override($lock: $value, $key: $sass-overrides, $metal: important);
                 $important-override: if(remove-duplicates(purge($impride)) == (), false, true);
                 $brkride: chk-override($lock: $value, $key: $sass-overrides, $metal: breakpoint);
                 $breakpoint-override: if(remove-duplicates(purge($brkride)) == (), false, true);
-                $override-brkname: if($breakpoint-override == true, _($AlphaMap, $key, -t), null);
+                $override-brkname: if($breakpoint-override == true, _($AlphaMap, $key, $sass-overrides), null);
               }
-
             //// a //////////// Pushes specified class/id to the important section or breakpoint.
             @if $important-override == true and $EpicAct == important {
               @each $property, $propertyvalue in $value {
-                @include router($property, $propertyvalue, $value, $mainname, $breakpoint, $EpicAct, new, $breakpoint-override, $important-override);
+                @include router($property, $propertyvalue, $value, $mainname, $breakpoint, $EpicAct, $breakpoint-override, $important-override);
               }
             }
             @else if $breakpoint-override == true and $EpicAct == breakpoint {
               @each $property, $propertyvalue in $value {
-                @include router($property, $propertyvalue, $value, $mainname, $breakpoint, $EpicAct, new, $breakpoint-override, $important-override, $override-brkname);
+                @include router($property, $propertyvalue, $value, $mainname, $breakpoint, $EpicAct, $breakpoint-override, $important-override, $override-brkname);
               }
             }
 
             //// b //////////// Regular classes/ids enter here
             @if $breakpoint-override == false and $important-override == false {
               @each $property, $propertyvalue in $value {
-                @include router($property, $propertyvalue, $value, $mainname, $breakpoint, $EpicAct, new, $breakpoint-override, $important-override);
+                @include router($property, $propertyvalue, $value, $mainname, $breakpoint, $EpicAct, $breakpoint-override, $important-override);
               }
             }
           }

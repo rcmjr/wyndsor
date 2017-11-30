@@ -1,8 +1,8 @@
 //// --- Switches --- ////////////////////////////
 
-  $Enable-Overrides: no; // Enables Total Importance or Breakpoint.
+  $Enable-Overrides: yes; // Enables Total Importance or Breakpoint.
   $Enable-StyleBrks: yes; // Enables breakpoints for Styles.
-  $Enable-ImportantEpic: no; // Enables important part of The Epic.
+  $Enable-ImportantEpic: yes; // Enables important part of The Epic.
   $Enable-AVP: yes; // Yes or No - Enable Auto Vendor Prefixes.
   $Include-AliasBrkname: no; // Adds breakpoint name to Aliases.
 
@@ -14,10 +14,9 @@
   // Methodologies
   $sass-child: '|'; // Key for Children
   $sass-subclass: '_'; // Key for Sub-Classes
-  $sass-extend: "extend"; // Key for Extends
   $sass-alterego: "alias"; // Key for Aliases
   $sass-overrides: "override"; // Key for Overrides
-  $sass-placeholder: '+'; // Key for Placeholder classes
+  $sass-namespace: '+'; // Key for Namespace classes
 
   // Tools
   $sass-autoproperty: "auto"; // Creates property and property values via built-in automations
