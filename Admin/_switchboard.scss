@@ -120,6 +120,7 @@
       $sublefty: if(chk-list($watchlist, $subhands-verify), true, false);
       $subuppy: if(str-index($subhands-verify, $sass-child), true, false); // Checks for Class or ID child
       $subdowny: if(map-check($pseudos, $subhands-verify), true, false);
+      $subthirdy: if(str-index($subhands-verify, $sass-namespace), true, false);
 
     // Checks and Balances Breakpoints and Base Keys
     $mold: to-list($startvalue, "keys");
@@ -152,7 +153,7 @@
         $rslt-brkpnt-solve: true;
       }
 
-    @if $sublefty != true and $subuppy == false and $subdowny == false {
+    @if $sublefty != true and $subuppy == false and $subdowny == false and $subthirdy == false {
 
       $propval: to-string($startvalue);
 
@@ -282,10 +283,10 @@
             $subhands: to-string($key);
             $subrighty: if(map-check($pseudos, $subhands), true, false);
             $sublefty: if(str-index($subhands, $sass-subclass), true, false); // Checks for Sub-Classes/IDs
-            $subdowny: if(str-index($subhands, $sass-namespace), true, false);
+            $subthirdy: if(str-index($subhands, $sass-namespace), true, false);
             $linkcheck: if(str-index($key, 'name'), true, false);
 
-            @if $sublefty == false and $subrighty == false and $subdowny == false and $linkcheck == false{
+            @if $sublefty == false and $subrighty == false and $subthirdy == false and $linkcheck == false{
               @include switch($EpicAct, $rslt, $rslt-brkpnt-solve, $rslt-imprtnt, $rslt-imprtnt-solve, $rslt-base, $rslt-base-solve, $key, $value, $breakpoint, $redswitch, $blueswitch, $override-brkname);
             }
             @else if $subrighty == true {
@@ -295,8 +296,8 @@
                 }
               }
             }
-            @else if $subdowny == true {
-              &#{unquote("\:")}#{$key} {
+            @else if $subthirdy == true {
+              &#{unquote("\\:")}#{if(str-index($key, $sass-namespace), str-replace($key, $sass-namespace, ''), '')} {
                 @each $subprop, $subpropval in $value {
                   @include switch($EpicAct, $rslt, $rslt-brkpnt-solve, $rslt-imprtnt, $rslt-imprtnt-solve, $rslt-base, $rslt-base-solve, $subprop, $subpropval, $breakpoint, $redswitch, $blueswitch, $override-brkname);
                 }
@@ -308,7 +309,13 @@
           }
         }
       }
-
+      @else if $subthirdy == true {
+        &#{unquote("\\:")}#{if(str-index($startkey, $sass-namespace), str-replace($startkey, $sass-namespace, ''), '')} {
+          @each $subprop, $subpropval in $startvalue {
+            @include switch($EpicAct, $rslt, $rslt-brkpnt-solve, $rslt-imprtnt, $rslt-imprtnt-solve, $rslt-base, $rslt-base-solve, $subprop, $subpropval, $breakpoint, $redswitch, $blueswitch, $override-brkname);
+          }
+        }
+      }
       @else if $subdowny == true {
         &#{unquote(":")}#{$startkey} {
           @each $subprop, $subpropval in $startvalue {
@@ -316,7 +323,7 @@
           }
         }
       }
-    }
+  }
 
   //// 3 //////////// Routes acceptable connections through to the switches/lines
   @mixin router($property, $propertyvalue, $value, $key, $breakpoint, $EpicAct, $breakpoint-override: false, $important-override: false, $override-brkname: null) {
@@ -410,6 +417,15 @@
     // For Sub-classes
     @else if $righty == true {
       &#{if($property != null, unquote("-"), '') + if(str-index($property, '_'), str-replace($property, _, ''), '')} {
+        @each $subprop, $subpropval in $propertyvalue {
+          @include switch($EpicAct, $rslt, $rslt-brkpnt-solve, $rslt-imprtnt, $rslt-imprtnt-solve, $rslt-base, $rslt-base-solve, $subprop, $subpropval, $breakpoint, $redswitch, $blueswitch, $override-brkname);
+        }
+      }
+    }
+
+    // For Namespaces
+    @else if $thirdy == true {
+      &#{if($property != null, unquote("\\:"), '') + if(str-index($property, $sass-namespace), str-replace($property, $sass-namespace, ''), '')} {
         @each $subprop, $subpropval in $propertyvalue {
           @include switch($EpicAct, $rslt, $rslt-brkpnt-solve, $rslt-imprtnt, $rslt-imprtnt-solve, $rslt-base, $rslt-base-solve, $subprop, $subpropval, $breakpoint, $redswitch, $blueswitch, $override-brkname);
         }
@@ -525,19 +541,19 @@
                                                                         //
             @if if(str-index($key-string, '#'), true, false) {          //// 2 //////////// This "if, else" checks each key for an identifier
               $type: "#";                                               /////// a ///////// CSS ID identifier
-            }                                                           //
-            @else if if(str-index($key-string, '+'), true, false) {     /////// b ///////// CSS Namespace identifier
-              $type: "%";                                               //
-            }                                                           //
+            }                                                         //                                                         //
             @else if chk-list($html-elements, $key) {                   /////// c ///////// CSS HTML identifier
               $type: "";                                                //
               $exist-html: true;                                        //
-            }                                                           //
+            }
+            @else if if(str-index($key-string, '+'), true, false) {          //// 2 //////////// This "if, else" checks each key for an identifier
+              @error "Sorry, Namespaces aren`t allowed at this level. Trying creating a Class/ID then a Namespace.";                                              /////// a ///////// CSS ID identifier
+            }                                                             //
             @else {                                                     /////// d ///////// CSS Class identifier
               $type: ".";                                               //
             }                                                           //
 
-            $mainname: $type + if(str-index($key-string, '#'), str-replace($key, '#', ''), if(str-index($key-string, '+'), str-replace($key, '+', ''), $key-string));
+            $mainname: $type + if(str-index($key-string, '#'), str-replace($key, '#', ''), $key-string);
             $brkname: if($EpicAct == breakpoint, unquote('-' + $breakpoint), '');
             $aliasnames-str: null;
             $aliasnames-list2: null;
@@ -553,7 +569,7 @@
                       $aliasnames: append($aliasnames, #{$propval}#{$aliasbrk}, comma);
                     }
                     @else if if(str-index($propval, '+'), true, false) {
-                      $aliasnames: append($aliasnames, #{if(str-index($propval, '+'), str-replace($propval, '+', '%'), null)}#{$aliasbrk}, comma);
+                      @error "Sorry, you can`t create a Namespace this way, trying creating a class or ID first.";
                     }
                     @else if chk-list($html-elements, $propval) {
                       @error "Sorry, you can`t use '#{$propval}' as an alias.";
@@ -574,7 +590,6 @@
 
         //// 2 //////////// Creates the classes, ids, subclasses and pseudos
           #{if($exist-html == true, $mainname, $mainname)}#{if($aliasname != null, unquote(', '), '')}#{if($aliasname != '', $aliasname, '')} {
-
             //// ℹ︎ //////////// Forces the switchboard to compile to the important section or a specific breakpoint.
             $important-override: false !default;
             $breakpoint-override: false !default;

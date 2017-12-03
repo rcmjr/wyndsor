@@ -4,23 +4,32 @@ $s-Color-Sets: (
 
   //// 1 //////////// Character Color Sets
   p_chara-white: (
-    color: white),
+    color: blue),
 
   p_chara-black: (
     override: tablet,
-    color: $night,
+    color: purple,
     font-family: 40px
   ),
 
-  pyolo: (
-    font-size: 90px
+  #pyolo: (
+    font-size: 90px,
+    +blech: (
+      font-size: 30px
+    )
   ),
 
   p_chara-black-neo: (
     color: $pitch),
 
   p_chara-ocean: (
-    color: $ocean),
+    color: $ocean,
+    _yolo: (
+      font-family: (-qt, 'Myriad-Pro'),
+      +hey: (
+      font-size: 20px
+      )
+    )),
 
   //// 2 //////////// Background Color Sets
   p_bg-night: (

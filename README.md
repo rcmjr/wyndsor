@@ -1,110 +1,100 @@
-# Windsor </br> A Snazzy SASS Framework
+# Windsor </br> A Snazzy SASS Composer + Styleset
 ## <i>Made for designers, by a designer.</i>
+</br>
 
----
-### Framework Structure -------
+### The Dapper Framework
 
-1. Base : Section Divs
-  2. Sand/Surfacing : Background Styling (color/pattern/picture/etc)
-    3. Frame/Box : Section Padding, Column/Row Gutters
-      4. Play Areas : Rows
-        5. Bins/Slide Anchors : Columns/Divs
-            a. Toys/Slide Parts : HTML/PHP Elements
-            b. Weeds - Absolute Elements with Bleed
+> A really debonair description, coming soon.
 
+<hr>
 
-------- SASS Structure -------
+#### Levels:
+1. Base Styles
+2. Element Blocks
+3. Style Modifiers
 
-I. Tools (these are where the magic happens)
-  A. Breakpoints
-  B. Automations (vendor prefixes, generators, etc.)
-  C. Fonts (import fonts and @font-faces)
+#### Layout
+  ##### Form
+    - Display
+    - Flexbox
+    - Floats
+    - Overflow
+    - Vertical Alignment
+    - Grids
+    - Container
+  ##### Symmetry
+    - Positioning
+    - Sizing
+    - Spacing
+  ##### Tactics
+    - Visibility
+    - Z-Index
+    - Appearance (remove browser default styling)
+    - Interactivity
+#### Palette
+  ##### Bases
+    - Backgrounds
+    - Opacity
+    - Patterns
+  ##### Effects
+    - Borders
+    - Border Radius
+    - Shadows
+    - Outline
 
-II. Your Style (IDs are not allowed unless they are for uber-specific website elements)
-	1. Principles
-  2. Palette (Style Colors, textures, patterns, bg, etc.)
-  3. Typography (Type Styles and other type related variables)
+#### Typography
+  ##### Paragraph
+    - Styling
+    - Columns
+    - Line-height
+  ##### Character
+    - Styling
+    - Lists
+    - Text Transform
+    - Kerning/Leading
 
-  $s-Base-Typography
-  $s-Custom-Typography
+#### Elements
+  - Alerts
+  - Buttons
+  - Cards
+  - Forms
+  - Navigation
+  - SVG
+  - Logos & Marks
+  - IE Nope
+<hr>
 
-  $s0-Base-ColumnSets
-  $s0-Base-RowSets
+#### Tools:
+  1. CSS Custom Properties (--custom-name)
+  2. CSS Namespaces (Class/:namespace = Class:namespace)
+  3. CSS Classes/IDs (.Class-Name-ELement or #ID-Name-Element)
+  4. CSS Direct Children (.Class.child)
 
-  $s0-Base-GlobalSpecs
-  $s0-Base-RowSets
+#### Style Naming Syntax:
+##### Class Suffixes
+  - **x** -- Experience _(Margins, grid, flexbox, etc.)_
+  - **p** -- Palette _(Color, Background, Border, etc.)_
+  - **t** -- Typography _(Headings, body, line-height, etc.)_
+  - **e** -- Element _(Forms, buttons, etc.)_
 
-  $s-Base-ParagraphAlignments
+##### Syntax
 
+  Subclass:
+  > x-{property name}-modifier
 
-  .patt_stripev
+  Namespace:
+  > x-{property name}:modifier
 
-  .r_col fxd-5
-
-  .type_bowtie
-
-  .f_bg
-
-  .f_fg
-
-  .glob_f_grid-cntr
-
-  .r_pddn-dflt
-
-  .f_fill
-
-  .t_align left
-
-  .f_grid
-
-  .grid_justify-start
-
-  .grid_justify-end
-
-  .p_chara-white
-
-  .p_bg-night
-
-III. Your Components
-  a. Brand
-      -Logos/Marks
-      -Header
-      -Footer
-      -About-SubFooter
-  a. Artboards
-      -Home
-      -Folio
-      -Folio-Pieces
-      -About
-      -Resume
-      -Blog
-  c. Elements
-     -Modals
-     -Buttons
-     -Nav
-     -Forms
-     -Displays
-     -Compatibility Dialogs (Breakpoint/IE Messages)
-
-     .artb_home-sect-1
-
-     .artb_home-base
-     .artb_folio-base
-     .artb_fp-base
-
-     brnd_logo-header clr_svg-white
-
-	State rules. In this section, the various statuses of the modules and the basis of the site are prescribed. This is the only section in which the use of the keyword "! Important" is acceptable.
+  Direct Child:
+  > x-{property name} modifier
 
 
-  ------- CSS Component Makeup -------
+  p-chara-black
+  t-h1:60
+  e-button-large p_bg-black:hvr-blue
 
-  t-{tool} = For all of the fundamentals
-  s-{style} = For all of the styles
-  c-{component} = For all of the components
-
-	Block: blok
-	Buttons: bttn
+  Block: blok
+  Buttons: bttn
 	Modals: modl
 	Footer: fttr
 	Hover: hovr
@@ -112,7 +102,7 @@ III. Your Components
   Grids: grid
   Create: cr8
   Start: strt
-  Name: n
+  Name: name
   Number: nmbr
 
 ------- Comment Markup -------
@@ -126,9 +116,8 @@ III. Your Components
     //// a //////////// Snippet Sub
 //// --- END SECTION --- ////////////////////////
 
-------- Wish List -------
-Sibling classes (sort of using the alias feature), that way I can apply the same hover to different classes that are similar elements.
 
-Ability to create an alternate value in case a browser doesn't support a specific css feature - perhaps using "alt".
+####------- New Feature Dev List -------
 
-Add the conditional logic that if the simple bar graph is going to the right it inverts the number, and so on and so forth.
+1. Multiple Pseudos in one sitting.
+2. Alt css property list and generator in the event a browser doesn't support a specific property.
