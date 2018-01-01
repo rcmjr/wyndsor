@@ -1,0 +1,136 @@
+@mixin child-name($property) {
+  $aliasnames: ();
+
+  @each $key, $value in $property {
+    $mold: to-string($key);
+    $mold-verify: if($mold != null, $mold, "nope");
+    $linkcheck: if(str-index($mold-verify, 'name'), true, false);
+    $rslt-link: if(remove-duplicates(purge($linkcheck)) == (), false, true);
+
+    @if $rslt-link == true {
+      @for $i from 1 through length($value) {
+        $propval: to-string(nth($value, $i));
+        $aliastest1: null !default;
+        $aliastest2: null !default;
+
+        @if if(str-index($propval, '+'), true, true) {
+          $aliastest1: if(str-index($propval, '+'), str-replace($propval, '+', '%'), $propval);
+          @if if(str-index($aliastest1, '_'), true, true) {
+            $aliastest2: if(str-index($aliastest1, '_'), str-replace($aliastest1, '_', '.'), $aliastest1);
+              @if if(str-index($aliastest2, '#'), true, true) {
+                $aliasnames: append($aliasnames, $aliastest2, comma);
+              }
+            }
+          @else {
+            $aliasnames: append($aliasnames, $aliastest1, comma);
+          }
+        }
+        @else {
+          $aliasnames: append($aliasnames, $propval, comma);
+        }
+      }
+    }
+  }
+
+  $alias-prime-prehand: str-replace(to-string($property), ' ', '');
+  $alias-prime: str-replace($alias-prime-prehand, $sass-child, '');
+  $alias-prime-childcheck: if(str-index($alias-prime, child), true, false);
+  $alias-prime-reserve: null;
+
+    @if $alias-prime-childcheck == true { // If the Child convention checks out, then it renders $alias-prime null
+      $alias-prime-reserve: $alias-prime;
+      $alias-prime: null;
+    }
+    @else { // Where as if there is a class or html name it does this:
+      $alias-prime: if(chk-list($html-elements, $alias-prime),
+        " " + $alias-prime,
+        " ." + $alias-prime);
+    }
+
+  $aliasname: if($aliasnames != (), $aliasnames, unquote(""));
+  $aliasname-s: $aliasname + unquote("");
+  $aliasname-sc: if(str-index(to-string($alias-prime-reserve), "_") == 1, true, false);
+  $aliasname-scs: if($aliasname-sc == true, str-slice($aliasname-s, 2, str-length($aliasname-s)), str-slice($aliasname-s, 1, str-length($aliasname-s)));
+
+  $alias-prime-sc: if(str-index(to-string($alias-prime), "_") == 3, true, false);
+  $alias-prime-scs: if($alias-prime-sc == true, str-slice($alias-prime, 4, str-length($alias-prime)), null);
+  $alias-prime-scf: if($alias-prime-sc == true, if(chk-list($html-elements, $alias-prime-scs),
+    $alias-prime-scs, str-insert($alias-prime-scs, ".", 1)), null);
+
+  &#{
+  if($alias-prime-sc == true, #{$alias-prime-scf}#{" " + $aliasname-scs},
+  if($alias-prime != null, #{$alias-prime}#{" " + $aliasname-scs},
+  $aliasname-scs)))}  {@content;}
+}
+
+@mixin brker($property, $filter, $state: normal) {
+  $property: to-string($property);
+  $brker-pseudos: if(map-check($pseudos, $property), true, false);
+  $brker-namespace: if(str-index($property, $sass-namespace), true, false);
+  $brker-child: if(str-index($property, $sass-child), true, false);
+  $brker-subclass: if(str-index(str-slice($property, 0, 1), $sass-subclass), true, false);
+  $brker-regular: if(chk-list($watchlist, $property), true, false);
+
+  @if $brker-regular != true and $brker-pseudos == false and
+      $brker-namespace == false and $brker-child == false and
+      $brker-subclass == false and $filter == regular {@content;}
+  @else if $brker-pseudos == true and $filter == pseudo {
+    @if $state == normal {&#{unquote(_($pseudos, $property))} {@content;}}
+    @else if $state == inner {@content;}}
+  @else if $brker-namespace == true and $filter == namespace {
+    @if $state == normal {&#{if($property != null, unquote("\\:"), '') + if(str-index($property, $sass-namespace), str-replace($property, $sass-namespace, ''), '')} {@content;}}
+    @else if $state == inner {@content;}}
+  @else if $brker-child == true and $filter == child {
+    @if $state == normal {@include child-name($property) {@content;}}
+    @else if $state == inner {@content;}}
+  @else if $brker-subclass == true and $filter == subclass {
+    @if $state == normal {&#{if($property != null, unquote("-"), '') + if(str-index($property, '_'), str-replace($property, _, ''), '')} {@content;}}
+    @else if $state == inner {@content;}}
+}
+
+@mixin filterpoint($filter, $EpicAct, $redpill, $bluepill, $purplepill, $override-brkname, $breakpoint) {
+  @if $EpicAct == normal and $filter == regular {
+    $important-removal: normal;
+    @if $redpill == false and $bluepill == false and $purplepill == true {
+      @content;
+    }
+  }
+  @else if $EpicAct == breakpoint and $filter == full {
+    @if $redpill == false and $bluepill == true and $purplepill == false {
+      @if $override-brkname == $breakpoint {
+        @content;
+      }
+    }
+  }
+  @else if $EpicAct == important and $filter == full {
+    $important-removal: normal;
+    @if $redpill == true and $bluepill == false and $purplepill == false {
+      @content;
+    }
+  }
+}
+
+@mixin splitter($string, $list, $filter) {
+  $verb-prep: to-string(nth($list, 1));
+  $verb: if(str-index($verb-prep, ","), str-replace($verb-prep, ","), $verb-prep);
+
+  $splitter:
+    /* Value Commands */
+    if($verb == $sass-autoval, auto-val,
+    if($verb == $sass-custoval, custo-val,
+    if($verb == $sass-autovendor, auto-ven-val,
+
+    /* Property Commands */
+    if(chk-list($AVP, quote($string)), auto-ven-prop,
+    if(chk-list($ATG, quote($string)), auto-type,
+
+    /* Complete Autocode Commands */
+    if(str-index($string, $sass-autoprop), auto-prop,
+    if(str-index($string, $sass-custoprop), custo-prop,
+    regular)))))));
+
+  @if $splitter == $filter {
+
+    @content;
+  }
+}

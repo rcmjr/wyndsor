@@ -1,0 +1,52 @@
+//// --- RGBA and FALLBACK GENERATOR --- ////////////////////////////
+  @mixin rgba($property, $background, $opacity: 0.75, $mix: nope) {
+
+    @if $mix == lighten {
+      #{$property}: mix($background, white, $opacity * 100%);
+      #{$property}: rgba($background, $opacity);
+    }
+
+    @else if $mix == darken {
+      #{$property}: mix($background, black, $opacity * 100%);
+      #{$property}: rgba($background, $opacity);
+    }
+    @else if $mix == nope {
+      @warn 'Sorry you didnt include a mix color';
+    }
+    @else {
+      #{$property}: mix($background, $mix, $opacity * 100%);
+      #{$property}: rgba($background, $opacity);
+    }
+  }
+
+  @mixin color-tool($redline, $redline-str, $greenverb-list, $greenverb-str, $greenverb-length, $splitter, $breakpoint, $EpicAct, $important-check) {
+    $allowed-properties:
+      "color",
+      "background",
+      "--box-shadow-color";
+
+    @if chk-list($allowed-properties, $redline-str) and if(str-index($greenverb-str, "rgba"), true, false) {
+      $property: $redline;
+      $background: _from-hex(nth($greenverb-list, 2));
+      $opacity: to-number(nth($greenverb-list, 3));
+      $mix: if($greenverb-length >= 3, nth($greenverb-list, 4), nope);
+      $important: unquote(if($important-check == true, " !important", ""));
+
+      @if $mix == lighten {
+        #{$property}: mix($background, white, $opacity * 100%) + $important;
+        #{$property}: rgba($background, $opacity) + $important;
+      }
+
+      @else if $mix == darken {
+        #{$property}: mix($background, black, $opacity * 100%) + $important;
+        #{$property}: rgba($background, $opacity) + $important;
+      }
+      @else if $mix == nope {
+        @warn 'Sorry you didnt include a mix color';
+      }
+      @else {
+        #{$property}: mix($background, $mix, $opacity * 100%) + $important;
+        #{$property}: rgba($background, $opacity) + $important;
+      }
+    }
+  }

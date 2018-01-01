@@ -1,528 +1,462 @@
-  //// 0 //////////// Applies last-minute augmentations
+@import "breakers.scss";
 
-  @mixin receiver($propertyname, $propertyvalues, $propertyvalues-list, $valueslength, $toggle: null) {
+  //// 1 //////////// Connects to tools or to augmentations, filters into important or breakpoints
+  @mixin lines($redline, $greenline, $var-name, $breakpoint, $importance-check, $important-check, $importance-check-wcomma, $important-check-wcomma, $EpicAct, $important-removal: false, $customprops-feature: false) {
 
-    @if $toggle == vendor-prefix and $Enable-AVP == yes {
+    // Property Names
+    $redline: to-list($redline, "keys");
+    $redline-str: map-tostring($redline, ' ');
 
-      @each $prefix in $vprefixes {
-        #{'-' + $prefix + '-' + $propertyname}: $propertyvalues;
-      }
-      #{$propertyname}: $propertyvalues;
-    }
-    @else if $toggle == quote-it {
-      $cnctr-list: remove($propertyvalues-list, $sass-autoquote);
-      //$cnctr-str: map-tostring-qt($cnctr-list, ' '); Required for Atom Sass-Auto Compile
-      //$cnctr-str-multi: to-string($cnctr-list); Required for Atom Sass-Auto Compile
-      @if $valueslength == 2 {
-        #{$propertyname}: $cnctr-list;}
-      @else if $valueslength >= 3 {
-        #{$propertyname}: $cnctr-list;}
-    }
-    @else if $toggle == inner-vendor-prefix {
-      $cnctr-list: remove($propertyvalues-list, $sass-autovendor);
-      $cnctr-str: map-tostring-qt($cnctr-list, ' ');
-      @each $prefix in $vprefixes {
-        #{$propertyname}: #{'-' + $prefix + '-' + $cnctr-str};
-      }
-      #{$propertyname}: $cnctr-list;
-    }
-    @else {
-      #{$propertyname}: $propertyvalues;
-    }
+    // Property Values
+    $greenline: to-string($greenline);
 
-  }
+      // Important Runtime
+      $greenline-clean: if(str-index($greenline, ", !important"), str-replace($greenline, ", !important", " !important"),
+                        if(str-index($greenline, ", important"), str-replace($greenline, ", important", ""),
+                        if(str-index($greenline, " important"), str-replace($greenline, " important", ""), $greenline)));
 
-  //// 1 //////////// Connects to tools or to augmentations
-  @mixin lines($root-cnctr, $root-type, $cnctr, $type, $breakpoint, $EpicAct, $importantremoval: normal) {
-    $root-cnctr: to-list($root-cnctr, $root-type);
-    $root-cnctr-str: map-tostring($root-cnctr, ' ');
-    $cnctr: if(type-of($cnctr) == string, str-to-list(unquote($cnctr), ' '), if(type-of($cnctr) == list, if($cnctr != (), to-list($cnctr, $type), ""), $cnctr));
-    $cnctr-list: null;
+        // Important Warnings/Disables
+        @if $important-check == true and $importance-check == true {
+          @error "Sorry, in '#{$redline-str}', you shouldnt use both types of importance, try using only one.";
+        }
+        @if $Disable-ImportantRule == yes or $important-removal == true {
+          $importance-check: false;
+          $important-check: false;
+          $importance-check-wcomma: false;
+          $important-check-wcomma: false;
+          $greenline-clean: if(str-index($greenline, ", !important"), str-replace($greenline, ", !important", ""),
+                            if(str-index($greenline, " !important"), str-replace($greenline, " !important", ""),
+                            if(str-index($greenline, ", important"), str-replace($greenline, ", important", ""),
+                            if(str-index($greenline, " important"), str-replace($greenline, " important", ""), $greenline))));
+        }
 
-    @if $importantremoval == normal {
-      $cnctr-list: remove($cnctr, "important", true);
-    }
-    @else if $importantremoval == full-important {
-      $cnctr-list: remove($cnctr, "!important", true);
-      $cnctr-list: remove($cnctr, "important", true);
-    }
+        // Custom Property Variables - Auto Individual Properties
+        $custompropvar-check: if(str-index($greenline-clean, "#{" " + $sass-autovar}"), true, false);
+        $custompropvarfull-check: if(str-index($greenline-clean, "#{" " + $sass-autovar + "-full"}"), true, false);
+        $greenline-clean: if(str-index($greenline-clean, "#{" " + $sass-autovar + "-full"}"), str-replace($greenline-clean, "#{" " + $sass-autovar + "-full"}", ""),
+                          if(str-index($greenline-clean, "#{", " + $sass-autovar}"), str-replace($greenline-clean, "#{", " + $sass-autovar}", ""),
+                          if(str-index($greenline-clean, "#{" " + $sass-autovar}"), str-replace($greenline-clean, "#{" " + $sass-autovar}", ""), $greenline-clean)));
 
-    $cnctr-length: length($cnctr-list);
-    $splitter-verb: nth($cnctr-list, 1);
-    $splitter:
-      /* Inner Commands */
-      if($splitter-verb == $sass-autovalue-b, built-in,
-      if($splitter-verb == $sass-autovalue-c, add-on,
-      if($splitter-verb == $sass-autoquote, quote-it,
-      if($splitter-verb == $sass-autovendor, inner-vendor-prefix,
+        // Custom Property Variables - Variable Names and Customprops Switches
+        $var-name: str-replace(to-string($var-name), " ", "-");
+        $customprops-fetch: if($customprops-feature == true or $customprops-feature == true-all or $customprops-feature == true-full, true, false);
+        $redline-custompropname: if($customprops-fetch == true or $custompropvar-check == true, '--' + $var-name + '-' + $redline-str, "");
+        $redline-customprop: if($customprops-fetch == true or $custompropvar-check == true, 'var(' + $redline-custompropname + ')', "");
 
-      /* Auto Check Commands */
-      if(chk-list($AVP, quote($root-cnctr-str)), vendor-prefix,
-      if(chk-list($ATG, quote($root-cnctr-str)), auto-typography,
 
-      /* Exterior Commands */
-      if(str-index($root-cnctr-str, $sass-autoproperty), auto-property,
-      none)))))));
+    $greenline: if(type-of($greenline-clean) == 'string', str-to-list($greenline-clean), if(type-of($greenline-clean) == 'list', if($greenline-clean != (), to-list($greenline-clean, "keys"), ""), $greenline-clean));
+    $greenline-list: remove-comma($greenline);
+    $greenline-str: map-tostring($greenline-list, ' ');
+    $greenline-length: length($greenline-list);
 
-    $custo-call: to-string($splitter-verb);
-    $cnctr-str: map-tostring($cnctr-list, ' ');
+    $greenverb-prep: to-string(nth($greenline-list, 1));
+    $greenverb-list: remove($greenline-list, $greenverb-prep, true);
+    $greenverb-length: length($greenverb-list);
+    $greenverb-str: map-tostring($greenverb-list, ' ');
+    // Line Options:
+    // - auto-val // Wyndsor's Value Automations
+    // - custo-val // Your Custom Value Automations
+    // - auto-quote // Keeps quote marks when composing to CSS
+    // - auto-ven-val // Adds vendor prefixes to inner value
+    // - auto-ven-prop // Adds vendor prefixes to outer property
+    // - auto-type // Automatically converts font-size and generates line-height
+    // - auto-prop // Wyndsor's Property Automations
+    // - custo-prop // Your Property Automations
 
-    @if $splitter == auto-property {
-      $cnctr-str: map-tostring($cnctr-list, ' ');
-      @include toolbox($root-cnctr, $root-cnctr-str, $cnctr-list, $cnctr-str, $cnctr-length, $splitter, $custo-call, $breakpoint, $EpicAct);
-    }
-    @else if $splitter == vendor-prefix {
-      $cnctr-str: map-tostring($cnctr-list, ' ');
-      @include receiver($root-cnctr, $cnctr-str, $cnctr-list, $cnctr-length, $splitter);
-    }
-    @else if $splitter == auto-typography {
-      $cnctr-str: map-tostring($cnctr-list, ' ');
-      @include toolbox($root-cnctr, $root-cnctr-str, $cnctr-list, $cnctr-str, $cnctr-length, $splitter, $custo-call, $breakpoint, $EpicAct);
-    }
-    @else if ($cnctr-length > 1) {
-      @if $splitter == built-in or $splitter == add-on {
-        $cnctr-list:
-          if($splitter == built-in, remove($cnctr-list, $sass-autovalue-b),
-          if($splitter == add-on, remove($cnctr-list, $sass-autovalue-c),
-          $cnctr-list));
-        $cnctr-str: map-tostring($cnctr-list, ' ');
-        @include toolbox($root-cnctr, $root-cnctr-str, $cnctr-list, $cnctr-str, $cnctr-length, $splitter, $custo-call, $breakpoint, $EpicAct);
-      }
-      @else if $splitter == quote-it or $splitter == inner-vendor-prefix {
-        $cnctr-str: map-tostring($cnctr-list, ' ');
-        @include receiver($root-cnctr, $cnctr-str, $cnctr-list, $cnctr-length, $splitter);
+    //// 1 //////////// Wyndsor's Property Automations
+    @include splitter($redline-str, $greenline-list, auto-prop) {
+      $splitter: auto-prop;
+      @if $customprops-feature == true-all {
+        #{$redline-str}: #{$redline-customprop};
       }
       @else {
-        @include receiver($root-cnctr, $cnctr-str, $cnctr-list, $cnctr-length, $splitter);
+        @include simple-repeater($redline, $redline-str, $greenline-list, $greenline-str, $greenline-length, $splitter, $breakpoint, $EpicAct, $important-check);
+        //@include graph-simple($redline, $redline-str, $greenverb-list, $greenverb-str, $greenverb-length, $splitter, $breakpoint, $EpicAct, $important-check);
       }
     }
-    @else {
-      @include receiver($root-cnctr, $cnctr-str, $cnctr-list, $cnctr-length, $splitter);
+
+    //// 2 //////////// Your Property Automations
+    @include splitter($redline-str, $greenline-list, custo-prop) {
+      $splitter: custo-prop;
+      @if $customprops-feature == true-all {
+        #{$redline-str}: #{$redline-customprop};
+      }
+      @else {
+        @include crtrfone($redline, $redline-str, $greenverb-list, $greenverb-str, $greenverb-length, $splitter, $breakpoint, $EpicAct, $important-check);
+      }
+    }
+
+    //// 3 //////////// Auto Vendor Prefixes
+    @include splitter($redline-str, $greenline-list, auto-ven-prop) {
+
+      @if $Enable-AVP == yes {
+       @if $customprops-fetch == false {
+          @each $prefix in $vprefixes {
+            #{'-' + $prefix + '-' + $redline-str}: #{$greenline-str};
+          }
+          #{$redline-str}: #{$greenline-str};
+        }
+        @else if $customprops-fetch == true or $custompropvar-check == true {
+          @if $custompropvarfull-check == true or $customprops-feature == true-full {
+            #{$redline-custompropname}: #{$greenline-str};
+          }
+          @each $prefix in $vprefixes {
+            #{'-' + $prefix + '-' + $redline-str}: #{$redline-customprop};
+          }
+          #{$redline-str}: #{$redline-customprop};
+        }
+      }
+      @else {
+        #{$redline-str}: #{$greenline-str};
+      }
+    }
+
+    //// 4 //////////// Built-In Typography
+    @include splitter($redline-str, $greenline-list, auto-type) {
+      $greenline-list: remove($greenline-list, "!important", true);
+      $greenline-str: if(str-index($greenline-str, "!important"), str-replace($greenline-str, "!important", ""), $greenline-str);
+      $greenline-length: length($greenline-list);
+
+      @if $Enable-ATG == yes {
+        @if $customprops-fetch == false {
+          @include sassline($redline, $redline-str, $greenline-list, $greenline-str, $greenline-length, $breakpoint, $EpicAct, $important-check);
+        }
+        @else if $customprops-fetch == true or $custompropvar-check == true {
+          @if $redline-str == "font-size" {
+            @if $custompropvarfull-check == true or $customprops-feature == true-full {
+              #{$redline-custompropname}: #{$greenline-clean};
+            }
+            #{$redline-str}: #{$redline-customprop};
+          }
+          @else if $redline-str == unquote($sass-autotype) {
+            font-size: #{unquote('var(--' + $var-name + '-font-size)')};
+            line-height: #{unquote('var(--' + $var-name + '-line-height)')};
+          }
+        }
+      }
+      @else if $Enable-ATG == no {
+       @if $customprops-fetch == false {
+          @if $redline-str == "font-size" {
+            #{$redline-str}: #{$greenline-clean};
+          }
+          @else if $redline-str == unquote($sass-autotype) {
+            @include sassline($redline, $redline-str, $greenline-list, $greenline-str, $greenline-length, $breakpoint, $EpicAct, $important-check);
+          }
+        }
+        @else if $customprops-fetch == true or $custompropvar-check == true {
+          @if $redline-str == "font-size" {
+            @if $custompropvarfull-check == true or $customprops-feature == true-full {
+              #{$redline-custompropname}: #{$greenline-clean};
+            }
+            #{$redline-str}: #{$redline-customprop};
+          }
+          @else if $redline-str == unquote($sass-autotype) {
+            font-size: #{unquote('var(--' + $var-name + '-font-size)')};
+            line-height: #{unquote('var(--' + $var-name + '-line-height)')};
+          }
+        }
+      }
+    }
+
+    //// 5 //////////// Value Automations
+    @if ($greenline-length > 1) {
+
+      // Wyndsor's Value Automations
+      @include splitter($redline-str, $greenline-list, auto-val) {
+        $splitter: auto-val;
+        @if $customprops-feature == true-all {
+          #{$redline-str}: #{$redline-customprop};
+        }
+        @else if $custompropvar-check == true {
+          @error "Sorry, you cant use -var here.";
+        }
+        @else {
+          @include color-tool($redline, $redline-str, $greenverb-list, $greenverb-str, $greenverb-length, $splitter, $breakpoint, $EpicAct, $important-check);
+          @include pattern-tool-1($redline, $redline-str, $greenverb-list, $greenverb-str, $greenverb-length, $splitter, $breakpoint, $EpicAct, $important-check);
+        }
+      }
+
+      // Your Value Automations
+      @include splitter($redline-str, $greenline-list, custo-val) {
+        $splitter: custo-val;
+        @if $customprops-feature == true-all {
+          #{$redline-str}: #{$redline-customprop};
+        }
+        @else if $custompropvar-check == true {
+          @error "Sorry, you cant use -var here.";
+        }
+        @else {
+          @include crtrfone($redline, $redline-str, $greenverb-list, $greenverb-str, $greenverb-length, $splitter, $breakpoint, $EpicAct, $important-check);
+        }
+      }
+
+      // Inner vendor prefixes upon request
+      @include splitter($redline-str, $greenline-list, auto-ven-val) {
+        $important: unquote(if($important-check == true, " !important", ""));
+        @if $customprops-fetch == true or $custompropvar-check == true {
+          @each $prefix in $vprefixes {
+            @if $custompropvarfull-check == true or $customprops-feature == true-full {
+              #{'--' + $prefix + '-' + $var-name + '-' + $redline-str}: #{$greenverb-str};
+            }
+            #{$redline-str}: #{'var(--' + $prefix + '-' + $var-name + '-' + $redline-str + ')'};
+          }
+          @if $custompropvarfull-check == true or $customprops-feature == true-full {
+            #{$redline-custompropname}: #{$greenverb-str};
+          }
+          #{$redline-str}:  #{$redline-customprop};
+        }
+        @else {
+          @each $prefix in $vprefixes {
+            #{$redline-str}: #{'-' + $prefix + '-' + $greenverb-str};
+          }
+          #{$redline-str}: #{$greenverb-str};
+        }
+      }
+    }
+
+    //// 6 //////////// Regular CSS
+    @include splitter($redline-str, $greenline-list, regular) {
+      @if $customprops-fetch == true or $custompropvar-check == true {
+        @if $custompropvarfull-check == true or $customprops-feature == true-full {
+          #{$redline-custompropname}: #{$greenline-clean};
+        }
+        #{$redline-str}: #{$redline-customprop};
+      }
+      @else {
+        #{$redline-str}: #{$greenline-clean};
+      }
     }
   }
 
-  //// 2 //////////// Creates css properties or switches over to the lines
-  @mixin switch($EpicAct, $rslt, $rslt-brkpnt-solve, $rslt-imprtnt, $rslt-imprtnt-solve, $rslt-base, $rslt-base-solve, $startkey, $startvalue, $breakpoint, $redswitch, $blueswitch, $override-brkname) {
+  //// 2 //////////// Switches between regular and important/breakpoint CSS
+  @mixin switch($EpicAct, $startkey, $startvalue, $var-name, $breakpoint, $importance-check, $important-check, $importance-check-wcomma, $important-check-wcomma, $customprops-feature: false, $breakpoint-override: false, $important-override: false, $override-brkname: null, $gm-override: false) {
 
-    $aliasnames: ();
-    $mold-verify: null;
-    $rslt-link: null;
-    $mold: null;
-    $mold-verify: null;
-    $brkpntcheck: null;
-    $rslttotal: null;
-    $brkpntgo: null;
-    $aliastest1: null;
-    $aliastest2: null;
+    $property: to-string($startkey);
+    $propvalue: to-string($startvalue);
+    $important-removal: null;
+    $redpill: null;
+    $bluepill: null;
+    $purplepill: null;
 
-    $subhands: to-string($startkey);
-      $subhands-verify: if($subhands != null, $subhands, "nope");
-      $sublefty: if(chk-list($watchlist, $subhands-verify), true, false);
-      $subuppy: if(str-index($subhands-verify, $sass-child), true, false); // Checks for Class or ID child
-      $subdowny: if(map-check($pseudos, $subhands-verify), true, false);
-      $subthirdy: if(str-index($subhands-verify, $sass-namespace), true, false);
-
-    // Checks and Balances Breakpoints and Base Keys
-    $mold: to-list($startvalue, "keys");
-    $mold-verify: to-string(if($mold != null, $mold, "nope"));
-
-      @each $breakpoint, $breakpointvalue in $breakpoints {
-        $replacement: if(str-index(to-string($mold-verify), $breakpoint), true, false);
-        $rslt: append($rslt, $replacement);
+    @if $important-override == true {
+      @if $EpicAct == important {
+        $redpill: true;
+        $bluepill: false;
+        $purplepill: false;
+        $important-removal: true;
       }
-      $rslt: if(remove-duplicates(purge($rslt)) == (), false, true); // Breakpoints
-
-      $importantcheck: if(str-index($mold-verify, ' important'), true, false);
-      $rslt-imprtnt: if(remove-duplicates(purge($importantcheck)) == (), false, true); // Important
-      $basemold: if(type-of($startvalue) == map, if($startvalue != (), to-list($startvalue, "keys"), ""), "");
-      $basecheck: if(nth($basemold, 1) == base, true, false);
-      $rslt-base: if(remove-duplicates(purge($basecheck)) == (), false, true);
-
-    $override-brkname: if($override-brkname != null, $override-brkname, "nope");
-      $breakpointcheck2: if(str-index($mold-verify, $override-brkname), true, false);
-      $rslt-brkpnt2: if(remove-duplicates(purge($breakpointcheck2)) == (), false, true);
-
-      @if $redswitch == true {
-        $rslt-base-solve: true;
-        $rslt-imprtnt-solve: true;
-        $rslt-brkpnt-solve: false;
-      }
-      @else if $blueswitch == true {
-        $rslt-base-solve: true;
-        $rslt-imprtnt-solve: false;
-        $rslt-brkpnt-solve: true;
-      }
-
-    @if $sublefty != true and $subuppy == false and $subdowny == false and $subthirdy == false {
-
-      $propval: to-string($startvalue);
-
-      // First Level properties (no breakpoints, base or anything else but solid first level css)
-      @if $redswitch == false and $blueswitch == false {
-        @if $EpicAct == normal or $EpicAct == important {
-          @if $rslt == false and $rslt-imprtnt == $rslt-imprtnt-solve and $rslt-base == false {
-            @include lines($startkey, "keys", $startvalue, "keys", $breakpoint, $EpicAct);
-          }
-        }
-      }
-      @else if $redswitch == true and $blueswitch == false {
-        @if $rslt == $rslt-brkpnt-solve {
-          @include lines($startkey, "keys", $startvalue, "keys", $breakpoint, $EpicAct);
-        }
-      }
-      @else if $blueswitch == true and $redswitch == false and $breakpoint == $override-brkname {
-        @if $rslt == false and $rslt-imprtnt == $rslt-imprtnt-solve {
-          @include lines($startkey, "keys", $startvalue, "keys", $breakpoint, $EpicAct, full-important);
-        }
-      }
-
-      // Second Level properties (can be breakpoints, base, etc.)
-      @each $key, $value in $startvalue {
-        $mold: to-string($key);
-          $mold-verify: if($mold != null, $mold, "nope");
-          $basecheck: if(str-index($mold, base), true, false);
-          $breakpointcheck: if($breakpoint != null, if(str-index($mold-verify, $breakpoint), true, false), "()");
-          $breakpointcheck3: if(str-index($mold-verify, $override-brkname), true, false);
-        $submold: to-string($value);
-          $submold-verify: if($submold != null, $submold, "nope");
-          $importantcheck: if(str-index($submold-verify, ' important'), true, false);
-
-        $rslt-base: if(remove-duplicates(purge($basecheck)) == (), false, true);
-        $rslt-imprtnt: if(remove-duplicates(purge($importantcheck)) == (), false, true);
-        $rslt-brkpnt: if($rslt-brkpnt-solve != false, if(remove-duplicates(purge($breakpointcheck)) == (), false, true), false);
-        $rslt-brkpnt3: if(remove-duplicates(purge($breakpointcheck3)) == (), false, true);
-
-        $propval: to-string(to-list($value, "values"));
-
-        @if $redswitch == false and $blueswitch == false {
-          @if $rslt-base == $rslt-base-solve and $rslt-imprtnt == $rslt-imprtnt-solve and $rslt-brkpnt == $rslt-brkpnt-solve {
-            @include lines($startkey, "keys", $value, "values", $breakpoint, $EpicAct);
-          }
-          @else if $rslt-imprtnt == true and $rslt-brkpnt == true {
-            @warn "Sorry, you can't have it both ways. If you'd like to make this important within a breakpoint just add an '!'";
-          }
-        }
-        @else if $redswitch == true and $blueswitch == false {
-          @if $rslt-base == $rslt-base-solve and $rslt-brkpnt == $rslt-brkpnt-solve {
-            @include lines($startkey, "keys", $value, "values", $breakpoint, $EpicAct);
-          }
-        }
-        @else if $blueswitch == true and $redswitch == false and $breakpoint == $override-brkname {
-          @if $rslt-brkpnt2 == true and $rslt-brkpnt3 == true {
-            @include lines($startkey, "keys", $value, "values", $breakpoint, $EpicAct);
-          }
-          @else if $rslt-brkpnt2 == false and $rslt-base == true {
-            @include lines($startkey, "keys", $value, "values", $breakpoint, $EpicAct);
-          }
-        }
+      @else {
+        $redpill: false;
+        $bluepill: false;
+        $purplepill: false;
       }
     }
-
-    // Creats Children within Children, Subclasses or Pseudos
-    @else if $subuppy == true {
-
-        @each $key, $value in $startvalue {
-          $mold: to-string($key);
-          $mold-verify: if($mold != null, $mold, "nope");
-          $linkcheck: if(str-index($mold-verify, 'name'), true, false);
-          $rslt-link: if(remove-duplicates(purge($linkcheck)) == (), false, true);
-          @if $rslt-link == true {
-            @for $i from 1 through length($value) {
-              $propval: to-string(nth($value, $i));
-
-              @if if(str-index($propval, '+'), true, true) {
-                $aliastest1: if(str-index($propval, '+'), str-replace($propval, '+', '%'), $propval);
-                @if if(str-index($aliastest1, '_'), true, true) {
-                  $aliastest2: if(str-index($aliastest1, '_'), str-replace($aliastest1, '_', '.'), $aliastest1);
-                    @if if(str-index($aliastest2, '#'), true, true) {
-                      $aliasnames: append($aliasnames, $aliastest2, comma);
-                    }
-                  }
-                @else {
-                  $aliasnames: append($aliasnames, $aliastest1, comma);
-                }
-              }
-              @else {
-                $aliasnames: append($aliasnames, $propval, comma);
-              }
-            }
-          }
-        }
-
-        $alias-prime-prehand: str-replace(to-string($startkey), ' ', '');
-        $alias-prime: str-replace($alias-prime-prehand, $sass-child, '');
-        $alias-prime-childcheck: if(str-index($alias-prime, child), true, false);
-        $alias-prime-reserve: null;
-
-          @if $alias-prime-childcheck == true { // If the Child convention checks out, then it renders $alias-prime null
-            $alias-prime-reserve: $alias-prime;
-            $alias-prime: null;
-          }
-          @else { // Where as if there is a class or html name it does this:
-            $alias-prime: if(chk-list($html-elements, $alias-prime),
-              " " + $alias-prime,
-              " ." + $alias-prime);
-          }
-
-          $aliasname: if($aliasnames != (), $aliasnames, unquote(""));
-          $aliasname-s: $aliasname + unquote("");
-          $aliasname-sc: if(str-index(to-string($alias-prime-reserve), "_") == 1, true, false);
-          $aliasname-scs: if($aliasname-sc == true, str-slice($aliasname-s, 2, str-length($aliasname-s)), str-slice($aliasname-s, 1, str-length($aliasname-s)));
-
-          $alias-prime-sc: if(str-index(to-string($alias-prime), "_") == 3, true, false);
-          $alias-prime-scs: if($alias-prime-sc == true, str-slice($alias-prime, 4, str-length($alias-prime)), null);
-          $alias-prime-scf: if($alias-prime-sc == true, if(chk-list($html-elements, $alias-prime-scs),
-            $alias-prime-scs, str-insert($alias-prime-scs, ".", 1)), null);
-
-          &#{
-            if($alias-prime-sc == true, #{$alias-prime-scf}#{" " + $aliasname-scs},
-            if($alias-prime != null, #{$alias-prime}#{" " + $aliasname-scs},
-            $aliasname-scs)))}  {
-
-          @each $key, $value in $startvalue {
-            $subhands: to-string($key);
-            $subrighty: if(map-check($pseudos, $subhands), true, false);
-            $sublefty: if(str-index($subhands, $sass-subclass), true, false); // Checks for Sub-Classes/IDs
-            $subthirdy: if(str-index($subhands, $sass-namespace), true, false);
-            $linkcheck: if(str-index($key, 'name'), true, false);
-
-            @if $sublefty == false and $subrighty == false and $subthirdy == false and $linkcheck == false{
-              @include switch($EpicAct, $rslt, $rslt-brkpnt-solve, $rslt-imprtnt, $rslt-imprtnt-solve, $rslt-base, $rslt-base-solve, $key, $value, $breakpoint, $redswitch, $blueswitch, $override-brkname);
-            }
-            @else if $subrighty == true {
-              &#{unquote(":")}#{$key} {
-                @each $subprop, $subpropval in $value {
-                  @include switch($EpicAct, $rslt, $rslt-brkpnt-solve, $rslt-imprtnt, $rslt-imprtnt-solve, $rslt-base, $rslt-base-solve, $subprop, $subpropval, $breakpoint, $redswitch, $blueswitch, $override-brkname);
-                }
-              }
-            }
-            @else if $subthirdy == true {
-              &#{unquote("\\:")}#{if(str-index($key, $sass-namespace), str-replace($key, $sass-namespace, ''), '')} {
-                @each $subprop, $subpropval in $value {
-                  @include switch($EpicAct, $rslt, $rslt-brkpnt-solve, $rslt-imprtnt, $rslt-imprtnt-solve, $rslt-base, $rslt-base-solve, $subprop, $subpropval, $breakpoint, $redswitch, $blueswitch, $override-brkname);
-                }
-              }
-            }
-            @else if $sublefty == true {
-              @warn "Creating subclasses within children this far down, isnt allowed.";
-            }
-          }
-        }
+    @else if $breakpoint-override == true {
+      @if $EpicAct == breakpoint {
+        $redpill: false;
+        $bluepill: true;
+        $purplepill: false;
+        $important-removal: true;
       }
-      @else if $subthirdy == true {
-        &#{unquote("\\:")}#{if(str-index($startkey, $sass-namespace), str-replace($startkey, $sass-namespace, ''), '')} {
-          @each $subprop, $subpropval in $startvalue {
-            @include switch($EpicAct, $rslt, $rslt-brkpnt-solve, $rslt-imprtnt, $rslt-imprtnt-solve, $rslt-base, $rslt-base-solve, $subprop, $subpropval, $breakpoint, $redswitch, $blueswitch, $override-brkname);
-          }
-        }
+      @else {
+        $redpill: false;
+        $bluepill: false;
+        $purplepill: false;
       }
-      @else if $subdowny == true {
-        &#{unquote(":")}#{$startkey} {
-          @each $subprop, $subpropval in $startvalue {
-            @include switch($EpicAct, $rslt, $rslt-brkpnt-solve, $rslt-imprtnt, $rslt-imprtnt-solve, $rslt-base, $rslt-base-solve, $subprop, $subpropval, $breakpoint, $redswitch, $blueswitch, $override-brkname);
-          }
-        }
+    }
+    @else {
+      @if $EpicAct == important and $importance-check == true {
+        $redpill: true;
+        $bluepill: false;
+        $purplepill: false;
+        $important-removal: true;
       }
+      @if $EpicAct == normal and $importance-check == false {
+        $redpill: false;
+        $bluepill: false;
+        $purplepill: true;
+        $important-removal: false;
+      }
+    }
+    @if $breakpoint-override == true and $importance-check == true {
+      @warn "Heads up, Wyndsor always picks breakpoint overrides over importance, and '#{$startkey}' has an important rule under a breakpoint override.";
+    }
+
+    // For Regular CSS
+    @include filterpoint(regular, $EpicAct, $redpill, $bluepill, $purplepill, $override-brkname, $breakpoint) {
+      @include lines($property, $propvalue, $var-name, $breakpoint, $importance-check, $important-check, $importance-check-wcomma, $important-check-wcomma, $EpicAct, $important-removal, $customprops-feature);
+    }
+    // For Breakpoints and Important CSS
+    @include filterpoint(full, $EpicAct, $redpill, $bluepill, $purplepill, $override-brkname, $breakpoint) {
+      @include lines($property, $propvalue, $var-name, $breakpoint, $importance-check, $important-check, $importance-check-wcomma, $important-check-wcomma, $EpicAct, $important-removal, $customprops-feature);
+    }
   }
 
   //// 3 //////////// Routes acceptable connections through to the switches/lines
-  @mixin router($property, $propertyvalue, $value, $key, $breakpoint, $EpicAct, $breakpoint-override: false, $important-override: false, $override-brkname: null) {
+  @mixin router($property, $propertyvalue, $value, $key, $var-name, $breakpoint, $EpicAct, $customprops-feature, $breakpoint-override: false, $important-override: false, $override-brkname: null, $gm-override: false, $gm-override-2: false) {
 
-    $rslt-imprtnt-solve: null !default;
-    $rslt-base-solve: null !default;
-    $rslt-brkpnt-solve: null !default;
-    $redswitch: false !default;
-    $blueswitch: false !default;
     $aliasnames: ();
-    $rslt: (); // Breakpoint
-    $rslt-imprtnt: (); // Important
-    $rslt-base: (); // Base
     $property: to-string($property);
-
-    @if $EpicAct == normal {
-      $rslt-imprtnt-solve: false !default;
-      $rslt-base-solve: true !default;
-      $rslt-brkpnt-solve: false !default;
-
-      @if $important-override == true {
-        $redswitch: false;
-        $blueswitch: false;
-      }
-      @else if $breakpoint-override == true {
-        $blueswitch: false;
-        $redswitch: false;
-      }
-    }
-    @else if $EpicAct == important {
-      $rslt-imprtnt-solve: true !default;
-      $rslt-base-solve: true !default;
-      $rslt-brkpnt-solve: false !default;
-
-      @if $important-override == true {
-        $redswitch: true;
-        $blueswitch: false;
-      }
-      @else if $breakpoint-override == true {
-        $blueswitch: false;
-        $redswitch: false;
-      }
-    }
-    @else if $EpicAct == breakpoint {
-      $rslt-imprtnt-solve: false !default;
-      $rslt-base-solve: false !default;
-      $rslt-brkpnt-solve: true !default;
-
-      @if $breakpoint-override == true {
-        $blueswitch: true;
-        $redswitch: false;
-      }
-      @else if $important-override == true {
-        $redswitch: false;
-        $blueswitch: false;
-      }
-    }
-
-    //// ℹ︎ //////////// Removing or allowing extensions, pseudos and subclasses
-      $hands: to-string($property);
-        $lefty: if(map-check($pseudos, $hands), true, false);
-        $righty: if(str-index($hands, $sass-subclass), true, false); // Checks for Sub-Classes/IDs
-        $uppy: if(str-index($hands, $sass-child), true, false); // Checks for Class or ID child
-        $thirdy: if(str-index($hands, $sass-namespace), true, false);
-
-        @if $uppy == true and $righty == true {
-          $uppy: true;
-          $righty: false;
-        }
+    $propvalue: to-string($propertyvalue);
+    $off: off;
 
     // For CSS Properties
-    @if $lefty != true and $righty != true and $uppy != true and $thirdy != true {
-      @include switch($EpicAct, $rslt, $rslt-brkpnt-solve, $rslt-imprtnt, $rslt-imprtnt-solve, $rslt-base, $rslt-base-solve, $property, $propertyvalue, $breakpoint, $redswitch, $blueswitch, $override-brkname);
+    @include brker ($property, regular) {
+
+      $baseORbreak-check: if(type-of($propertyvalue) == "map", true, false);
+
+      @if $baseORbreak-check == false {
+        $importance-check: if(str-index(to-string($propertyvalue), " important"), true, false);
+        $important-check: if(str-index(to-string($propertyvalue), " !important"), true, false);
+        $importance-check-wcomma: if(str-index(to-string($propertyvalue), ", important"), true, false);
+        $important-check-wcomma: if(str-index(to-string($propertyvalue), ", !important"), true, false);
+
+        @include switch($EpicAct, $property, $propertyvalue, $var-name, $breakpoint, $importance-check, $important-check, $importance-check-wcomma, $important-check-wcomma, $customprops-feature, $breakpoint-override, $important-override, $override-brkname);
+      }
+      @else if $baseORbreak-check == true {
+        @each $key, $value in $propertyvalue {
+          $base-filter: if($key == "base", true, false);
+          $break-filter: if($key == $breakpoint, true, false);
+
+          $propertyvalue: to-string($value);
+
+          $importance-check: if(str-index(to-string($propertyvalue), " important"), true, false);
+          $important-check: if(str-index(to-string($propertyvalue), " !important"), true, false);
+          $importance-check-wcomma: if(str-index(to-string($propertyvalue), ", important"), true, false);
+          $important-check-wcomma: if(str-index(to-string($propertyvalue), ", !important"), true, false);
+
+          @if $base-filter == true {
+            @include switch($EpicAct, $property, $propertyvalue, $var-name, $breakpoint, $importance-check, $important-check, $importance-check-wcomma, $important-check-wcomma, $customprops-feature, $breakpoint-override, $important-override, $override-brkname);
+          }
+          @else if $break-filter == true and $EpicAct == breakpoint {
+            @if $Scope-BreakpointOverride == all {
+              @if $breakpoint-override == true {
+                $override-brkname: $override-brkname;
+              }
+              @else {
+                $override-brkname: $breakpoint;
+                $breakpoint-override: true;
+              }
+            }
+            @else if $Scope-BreakpointOverride == norm {
+              $override-brkname: $breakpoint;
+              $breakpoint-override: true;
+            }
+            $var-name: $var-name + "-" + $breakpoint;
+            @include switch($EpicAct, $property, $propertyvalue, $var-name, $breakpoint, $importance-check, $important-check, $importance-check-wcomma, $important-check-wcomma, $customprops-feature, $breakpoint-override, $important-override, $override-brkname);
+          }
+        }
+      }
+
     }
 
     // For Pseudos
-    @else if $lefty == true {
-      &#{unquote(_($pseudos, $property))} {
-        @each $subprop, $subpropval in $propertyvalue {
-          $subuppy: if(str-index(to-string($subprop), $sass-child), true, false); // Checks for Class or ID child
-          @if $subuppy == false {
-            @include switch($EpicAct, $rslt, $rslt-brkpnt-solve, $rslt-imprtnt, $rslt-imprtnt-solve, $rslt-base, $rslt-base-solve, $subprop, $subpropval, $breakpoint, $redswitch, $blueswitch, $override-brkname);
-          }
-          @else if $subuppy == true {
-            @include router($subprop, $subpropval, $propertyvalue, null, $breakpoint, $EpicAct);
-          }
+    @include brker ($property, pseudo) {
+      $var-name: append($var-name, ps, space);
+      //// ℹ︎ //////////// Forces the router to compile to the important section or a specific breakpoint.
+      @if $Enable-Overrides == yes and $gm-override == false {
+        // Overrides
+        $important-override: if(remove-duplicates(purge(chk-override($propertyvalue, important))) == (), false, true);
+        $breakpoint-override: if(remove-duplicates(purge(chk-override($propertyvalue, breakpoint))) == (), false, true);
+        $brkname-override: remove-duplicates(purge(chk-override($propertyvalue, breakpoint-name)));
+        $override-brkname: if($brkname-override != (), to-string(list-first($brkname-override)), null);
+        $gm-override: if(remove-duplicates(purge(chk-override($propertyvalue, override-all))) == (), false, true);
+      }
+      @if $Enable-Features == yes and $gm-override-2 == false {
+        // Enables
+        $customprops-feature: if(remove-duplicates(purge(chk-override($propertyvalue, custom-property, enables))) == (), false, true);
+        $customprops-feature: if(remove-duplicates(purge(chk-override($propertyvalue, custom-property-all, enables))) == (), $customprops-feature, true-all);
+        $customprops-feature: if(remove-duplicates(purge(chk-override($propertyvalue, custom-property-full, enables))) == (), $customprops-feature, true-full);
+        $gm-override-2: if(remove-duplicates(purge(chk-override($propertyvalue, override-all, enables))) == (), false, true);
+      }
+      @each $subprop, $subpropval in $propertyvalue {
+        @include brker ($subprop, regular) {
+          @include router($subprop, $subpropval, $propertyvalue, null, $var-name, $breakpoint, $EpicAct, $customprops-feature, $breakpoint-override, $important-override, $override-brkname, $gm-override, $gm-override-2);
+        }
+        @include brker ($subprop, child, inner) {
+          @include router($subprop, $subpropval, $propertyvalue, null, $var-name, $breakpoint, $EpicAct, $customprops-feature, $breakpoint-override, $important-override, $override-brkname, $gm-override, $gm-override-2);
         }
       }
     }
 
     // For Sub-classes
-    @else if $righty == true {
-      &#{if($property != null, unquote("-"), '') + if(str-index($property, '_'), str-replace($property, _, ''), '')} {
-        @each $subprop, $subpropval in $propertyvalue {
-          @include switch($EpicAct, $rslt, $rslt-brkpnt-solve, $rslt-imprtnt, $rslt-imprtnt-solve, $rslt-base, $rslt-base-solve, $subprop, $subpropval, $breakpoint, $redswitch, $blueswitch, $override-brkname);
+    @include brker ($property, subclass) {
+      $var-name: append($var-name, sc, space);
+      //// ℹ︎ //////////// Forces the router to compile to the important section or a specific breakpoint.
+      @if $Enable-Overrides == yes and $gm-override == false {
+        // Overrides
+        $important-override: if(remove-duplicates(purge(chk-override($propertyvalue, important))) == (), false, true);
+        $breakpoint-override: if(remove-duplicates(purge(chk-override($propertyvalue, breakpoint))) == (), false, true);
+        $brkname-override: remove-duplicates(purge(chk-override($propertyvalue, breakpoint-name)));
+        $override-brkname: if($brkname-override != (), to-string(list-first($brkname-override)), null);
+        $gm-override: if(remove-duplicates(purge(chk-override($propertyvalue, override-all))) == (), false, true);
+      }
+      @if $Enable-Features == yes and $gm-override-2 == false {
+        // Enables
+        $customprops-feature: if(remove-duplicates(purge(chk-override($propertyvalue, custom-property, enables))) == (), false, true);
+        $customprops-feature: if(remove-duplicates(purge(chk-override($propertyvalue, custom-property-all, enables))) == (), $customprops-feature, true-all);
+        $customprops-feature: if(remove-duplicates(purge(chk-override($propertyvalue, custom-property-full, enables))) == (), $customprops-feature, true-full);
+        $gm-override-2: if(remove-duplicates(purge(chk-override($propertyvalue, override-all, enables))) == (), false, true);
+      }
+      @each $subprop, $subpropval in $propertyvalue {
+        @include brker ($subprop, regular) {
+          @include router($subprop, $subpropval, $propertyvalue, null, $var-name, $breakpoint, $EpicAct, $customprops-feature, $breakpoint-override, $important-override, $override-brkname, $gm-override, $gm-override-2);
+        }
+        @include brker ($subprop, pseudo, inner) {
+          @include router($subprop, $subpropval, $propertyvalue, null, $var-name, $breakpoint, $EpicAct, $customprops-feature, $breakpoint-override, $important-override, $override-brkname, $gm-override, $gm-override-2);
         }
       }
     }
 
     // For Namespaces
-    @else if $thirdy == true {
-      &#{if($property != null, unquote("\\:"), '') + if(str-index($property, $sass-namespace), str-replace($property, $sass-namespace, ''), '')} {
-        @each $subprop, $subpropval in $propertyvalue {
-          @include switch($EpicAct, $rslt, $rslt-brkpnt-solve, $rslt-imprtnt, $rslt-imprtnt-solve, $rslt-base, $rslt-base-solve, $subprop, $subpropval, $breakpoint, $redswitch, $blueswitch, $override-brkname);
+    @include brker ($property, namespace) {
+      $var-name: append($var-name, nm, space);
+      //// ℹ︎ //////////// Forces the router to compile to the important section or a specific breakpoint.
+      @if $Enable-Overrides == yes and $gm-override == false {
+        // Overrides
+        $important-override: if(remove-duplicates(purge(chk-override($propertyvalue, important))) == (), false, true);
+        $breakpoint-override: if(remove-duplicates(purge(chk-override($propertyvalue, breakpoint))) == (), false, true);
+        $brkname-override: remove-duplicates(purge(chk-override($propertyvalue, breakpoint-name)));
+        $override-brkname: if($brkname-override != (), to-string(list-first($brkname-override)), null);
+        $gm-override: if(remove-duplicates(purge(chk-override($propertyvalue, override-all))) == (), false, true);
+      }
+      @if $Enable-Features == yes and $gm-override-2 == false {
+        // Enables
+        $customprops-feature: if(remove-duplicates(purge(chk-override($propertyvalue, custom-property, enables))) == (), false, true);
+        $customprops-feature: if(remove-duplicates(purge(chk-override($propertyvalue, custom-property-all, enables))) == (), $customprops-feature, true-all);
+        $customprops-feature: if(remove-duplicates(purge(chk-override($propertyvalue, custom-property-full, enables))) == (), $customprops-feature, true-full);
+        $gm-override-2: if(remove-duplicates(purge(chk-override($propertyvalue, override-all, enables))) == (), false, true);
+      }
+      @each $subprop, $subpropval in $propertyvalue {
+        @include brker ($subprop, regular) {
+          @include router($subprop, $subpropval, $propertyvalue, null, $var-name, $breakpoint, $EpicAct, $customprops-feature, $breakpoint-override, $important-override, $override-brkname, $gm-override, $gm-override-2);
         }
       }
     }
 
     // For Children
-    @else if $uppy == true {
-
-      @each $subprop, $subpropval in $propertyvalue {
-        $mold: to-string($subprop);
-        $mold-verify: if($mold != null, $mold, "nope");
-        $linkcheck: if(str-index($mold-verify, 'name'), true, false);
-        $rslt-link: if(remove-duplicates(purge($linkcheck)) == (), false, true);
-
-        @if $rslt-link == true {
-          @for $i from 1 through length($subpropval) {
-            $propval: to-string(nth($subpropval, $i));
-            $aliastest1: null;
-            $aliastest2: null;
-
-            @if if(str-index($propval, '+'), true, true) {
-              $aliastest1: if(str-index($propval, '+'), str-replace($propval, '+', ' %'), $propval);
-              @if if(str-index($aliastest1, '__') == true, true, true) {
-                $aliastest2: if(str-index($aliastest1, '__'), str-replace($aliastest1, '__', ' .'), $aliastest1);
-                  @if if(str-index($aliastest2, '#'), true, true) {
-                    $aliasnames: append($aliasnames, " " + $aliastest2, comma);
-                  }
-                }
-              @else {
-                $aliasnames: append($aliasnames, $aliastest1, comma);
-              }
-            }
-            @else {
-              $aliasnames: append($aliasnames, $propval, comma);
-            }
-          }
-        }
+    @include brker ($property, child) {
+      $var-name: append($var-name, ch, space);
+      //// ℹ︎ //////////// Forces the router to compile to the important section or a specific breakpoint.
+      @if $Enable-Overrides == yes and $gm-override == false {
+        // Overrides
+        $important-override: if(remove-duplicates(purge(chk-override($propertyvalue, important))) == (), false, true);
+        $breakpoint-override: if(remove-duplicates(purge(chk-override($propertyvalue, breakpoint))) == (), false, true);
+        $brkname-override: remove-duplicates(purge(chk-override($propertyvalue, breakpoint-name)));
+        $override-brkname: if($brkname-override != (), to-string(list-first($brkname-override)), null);
+        $gm-override: if(remove-duplicates(purge(chk-override($propertyvalue, override-all))) == (), false, true);
       }
-
-      $alias-prime-prehand: str-replace(to-string($property), ' ', ''); // Removes any space anomolies
-      $alias-prime: str-replace($alias-prime-prehand, $sass-child, ''); // Removes Children Key from $alias-prime
-      $alias-prime-childcheck: if(str-index($alias-prime, child), true, false); // Checks to see if $alias-prime has the Children convention "child"
-      $alias-prime-reserve: null;
-
-        @if $alias-prime-childcheck == true { // If the Child convention checks out, then it renders $alias-prime null
-          $alias-prime-reserve: $alias-prime;
-          $alias-prime: null;
-        }
-        @else { // Where as if there is a class or html name it does this:
-          $alias-prime: if(chk-list($html-elements, $alias-prime),
-            " " + $alias-prime,
-            unquote(" .") + $alias-prime);
-        }
-
-      $aliasname: if($aliasnames != (), $aliasnames, unquote(""));
-      $aliasname-s: $aliasname + unquote("");
-      $aliasname-sc: if(str-index(to-string($alias-prime-reserve), "_") == 1, true, false);
-      $aliasname-scs: if($aliasname-sc == true, str-slice($aliasname-s, 2, str-length($aliasname-s)), str-slice($aliasname-s, 1, str-length($aliasname-s)));
-      $alias-prime-sc: if(str-index(to-string($alias-prime), "_") == 3, true, false);
-      $alias-prime-scs: if($alias-prime-sc == true, str-slice($alias-prime, 4, str-length($alias-prime)), null);
-      $alias-prime-scf: if($alias-prime-sc == true, if(chk-list($html-elements, $alias-prime-scs),
-        $alias-prime-scs, str-insert($alias-prime-scs, ".", 1)), null);
-
-      &#{
-        if($alias-prime-sc == true, #{$alias-prime-scf}#{" " + $aliasname-scs},
-        if($alias-prime != null, #{$alias-prime}#{" " + $aliasname-scs},
-        $aliasname-scs)))}  {
-
-        @each $subprop, $subpropval in $propertyvalue {
-          $subhands: to-string($subprop);
-          $subrighty: if(map-check($pseudos, $subhands), true, false);
-          $sublefty: if(str-index($subhands, $sass-subclass), true, false); // Checks for Sub-Classes/IDs
-          $subuppy: if(str-index($subhands, $sass-child), true, false);
-          $linkcheck: if(str-index($subhands, 'name'), true, false);
-
-          @if $sublefty == false and $subrighty == false and $subuppy == false and $linkcheck == false {
-            @include switch($EpicAct, $rslt, $rslt-brkpnt-solve, $rslt-imprtnt, $rslt-imprtnt-solve, $rslt-base, $rslt-base-solve, $subprop, $subpropval, $breakpoint, $redswitch, $blueswitch, $override-brkname);
-          }
-          @else if $subrighty == true {
-            &#{unquote(":")}#{$subprop} {
-              @each $subsubprop, $subsubpropval in $subpropval {
-                @include switch($EpicAct, $rslt, $rslt-brkpnt-solve, $rslt-imprtnt, $rslt-imprtnt-solve, $rslt-base, $rslt-base-solve, $subsubprop, $subsubpropval, $breakpoint, $redswitch, $blueswitch, $override-brkname);
-              }
-            }
-          }
-          @else if $subuppy == true {
-            @include switch($EpicAct, $rslt, $rslt-brkpnt-solve, $rslt-imprtnt, $rslt-imprtnt-solve, $rslt-base, $rslt-base-solve, $subprop, $subpropval, $breakpoint, $redswitch, $blueswitch, $override-brkname);
-          }
-          @else if $sublefty == true {
-            &#{if($subprop != null, unquote("-"), '') + if(str-index($subprop, '_'), str-replace($subprop, _, ''), '')} {
-              @each $subsubprop, $subsubpropval in $subpropval {
-                @include switch($EpicAct, $rslt, $rslt-brkpnt-solve, $rslt-imprtnt, $rslt-imprtnt-solve, $rslt-base, $rslt-base-solve, $subsubprop, $subsubpropval, $breakpoint, $redswitch, $blueswitch, $override-brkname);
-              }
-            }
-          }
-        }
+      @if $Enable-Features == yes and $gm-override-2 == false {
+        // Enables
+        $customprops-feature: if(remove-duplicates(purge(chk-override($propertyvalue, custom-property, enables))) == (), false, true);
+        $customprops-feature: if(remove-duplicates(purge(chk-override($propertyvalue, custom-property-all, enables))) == (), $customprops-feature, true-all);
+        $customprops-feature: if(remove-duplicates(purge(chk-override($propertyvalue, custom-property-full, enables))) == (), $customprops-feature, true-full);
+        $gm-override-2: if(remove-duplicates(purge(chk-override($propertyvalue, override-all, enables))) == (), false, true);
+      }
+      // Put child-name mixin back here if it doesn't work in the brker mixin
+      @each $subprop, $subpropval in $propertyvalue {
+        $subhands: to-string($subprop);
+          @include router($subprop, $subpropval, $propertyvalue, null, $var-name, $breakpoint, $EpicAct, $customprops-feature, $breakpoint-override, $important-override, $override-brkname, $gm-override, $gm-override-2);
       }
     }
   }
@@ -533,27 +467,32 @@
       @each $key, $value in $AlphaMap {                                 /////// a ///////// Breaks apart all of the first level keys and values from the Epic-Map.
                                                                         //
           $key-string: to-string($key);                                 // i -- Ensures the $key is a string.
-          $type: null;                                                  // i -- Just enabling all the variables to work outside all conditions.
+          $type: null;
+          $var-name: ();                                             // i -- Just enabling all the variables to work outside all conditions.
           $aliasnames: ();                                              //
           $aliasname: null;                                             //
           $exist-alias: null;                                           //
-          $exist-html: null;                                            //
+          $exist-html: null;
+          $customfeatures: ();                                          //
                                                                         //
             @if if(str-index($key-string, '#'), true, false) {          //// 2 //////////// This "if, else" checks each key for an identifier
-              $type: "#";                                               /////// a ///////// CSS ID identifier
+              $type: "#";
+              $var-name: append($var-name, id, space);                                               /////// a ///////// CSS ID identifier
             }                                                         //                                                         //
             @else if chk-list($html-elements, $key) {                   /////// c ///////// CSS HTML identifier
               $type: "";                                                //
-              $exist-html: true;                                        //
+              $exist-html: true;
+              $var-name: append($var-name, html, space);                                       //
             }
             @else if if(str-index($key-string, '+'), true, false) {          //// 2 //////////// This "if, else" checks each key for an identifier
               @error "Sorry, Namespaces aren`t allowed at this level. Trying creating a Class/ID then a Namespace.";                                              /////// a ///////// CSS ID identifier
             }                                                             //
             @else {                                                     /////// d ///////// CSS Class identifier
-              $type: ".";                                               //
-            }                                                           //
-
-            $mainname: $type + if(str-index($key-string, '#'), str-replace($key, '#', ''), $key-string);
+              $type: ".";
+              $var-name: append($var-name, class, space);                                              //
+            }
+            $prename: if(str-index($key-string, '#'), str-replace($key, '#', ''), $key-string);
+            $mainname: $type + $prename;
             $brkname: if($EpicAct == breakpoint, unquote('-' + $breakpoint), '');
             $aliasnames-str: null;
             $aliasnames-list2: null;
@@ -585,42 +524,42 @@
                 }
               }
             }
-
+            $var-name: append($var-name, $prename, space);
             $aliasname: if($aliasnames != (), $aliasnames, unquote(''));
 
+
         //// 2 //////////// Creates the classes, ids, subclasses and pseudos
-          #{if($exist-html == true, $mainname, $mainname)}#{if($aliasname != null, unquote(', '), '')}#{if($aliasname != '', $aliasname, '')} {
-            //// ℹ︎ //////////// Forces the switchboard to compile to the important section or a specific breakpoint.
-            $important-override: false !default;
-            $breakpoint-override: false !default;
-            $override-brkname: null !default;
+        #{if($exist-html == true, $mainname, $mainname)}#{if($aliasname != null, unquote(', '), '')}#{if($aliasname != '', $aliasname, '')} {
 
-              @if $Enable-Overrides == yes {
-                $impride: chk-override($lock: $value, $key: $sass-overrides, $metal: important);
-                $important-override: if(remove-duplicates(purge($impride)) == (), false, true);
-                $brkride: chk-override($lock: $value, $key: $sass-overrides, $metal: breakpoint);
-                $breakpoint-override: if(remove-duplicates(purge($brkride)) == (), false, true);
-                $override-brkname: if($breakpoint-override == true, _($AlphaMap, $key, $sass-overrides), null);
-              }
-            //// a //////////// Pushes specified class/id to the important section or breakpoint.
-            @if $important-override == true and $EpicAct == important {
-              @each $property, $propertyvalue in $value {
-                @include router($property, $propertyvalue, $value, $mainname, $breakpoint, $EpicAct, $breakpoint-override, $important-override);
-              }
-            }
-            @else if $breakpoint-override == true and $EpicAct == breakpoint {
-              @each $property, $propertyvalue in $value {
-                @include router($property, $propertyvalue, $value, $mainname, $breakpoint, $EpicAct, $breakpoint-override, $important-override, $override-brkname);
-              }
-            }
+          //// ℹ︎ //////////// Forces the switchboard to compile to the important section or a specific breakpoint.
+          $important-override: false !default;
+          $breakpoint-override: false !default;
+          $override-brkname: null;
+          $customprops-feature: false !default;
+          $gm-override: false !default;
+          $gm-override-2: false !default;
 
-            //// b //////////// Regular classes/ids enter here
-            @if $breakpoint-override == false and $important-override == false {
-              @each $property, $propertyvalue in $value {
-                @include router($property, $propertyvalue, $value, $mainname, $breakpoint, $EpicAct, $breakpoint-override, $important-override);
-              }
-            }
+          @if $Enable-Overrides == yes {
+            // Overrides
+            $important-override: if(remove-duplicates(purge(chk-override($value, important))) == (), false, true);
+            $breakpoint-override: if(remove-duplicates(purge(chk-override($value, breakpoint))) == (), false, true);
+            $brkname-override: remove-duplicates(purge(chk-override($value, breakpoint-name)));
+            $override-brkname: if($brkname-override != (), to-string(list-first($brkname-override)), null);
+            $gm-override: if(remove-duplicates(purge(chk-override($value, override-all))) == (), false, true);
           }
+          @if $Enable-Features == yes {
+            // Enables
+            $customprops-feature: if(remove-duplicates(purge(chk-override($value, custom-property, enables))) == (), false, true);
+            $customprops-feature: if(remove-duplicates(purge(chk-override($value, custom-property-all, enables))) == (), $customprops-feature, true-all);
+            $customprops-feature: if(remove-duplicates(purge(chk-override($value, custom-property-full, enables))) == (), $customprops-feature, true-full);
+            $gm-override-2: if(remove-duplicates(purge(chk-override($value, override-all, enables))) == (), false, true);
+          }
+
+          //// a //////////// Pushes specified class/id to the important section or breakpoint.
+          @each $property, $propertyvalue in $value {
+            @include router($property, $propertyvalue, $value, $mainname, $var-name, $breakpoint, $EpicAct, $customprops-feature, $breakpoint-override, $important-override, $override-brkname, $gm-override, $gm-override-2);
+          }
+        }
       }
     }
 

@@ -1,14 +1,14 @@
-@mixin pattern-tool-1($property-key, $property-key-string, $property-list, $property-string, $property-length, $splitter, $custo-name, $breakpoint, $EpicAct) {
-  @if $property-key-string == background and if(str-index($property-string, "pattern"), true, false) {
-    $property: $property-key;
-    $patterntype: nth($property-list, 1);
-    $direction: nth($property-list, 2);
-    $coloramount: nth($property-list, 3);
-    $color1: nth($property-list, 4);
-    $color2: nth($property-list, 5);
-    $size: nth($property-list, 6);
-    $gapsize: nth($property-list, 7);
-    //$mix: if($property-length >= 3, nth($property-list, 3), nope);
+@mixin pattern-tool-1($redline, $redline-str, $greenline-list, $greenline-str, $greenline-length, $splitter, $breakpoint, $EpicAct, $important-check) {
+  @if $redline-str == background and if(str-index($greenline-str, "pattern"), true, false) {
+    $property: $redline;
+    $patterntype: nth($greenline-list, 1);
+    $direction: nth($greenline-list, 2);
+    $coloramount: nth($greenline-list, 3);
+    $color1: nth($greenline-list, 4);
+    $color2: nth($greenline-list, 5);
+    $size: nth($greenline-list, 6);
+    $gapsize: nth($greenline-list, 7);
+    //$mix: if($greenline-length >= 3, nth($greenline-list, 3), nope);
 
     @if $coloramount == 2 {
       $gap-tally: $size + $gapsize;

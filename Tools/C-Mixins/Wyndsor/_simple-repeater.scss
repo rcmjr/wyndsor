@@ -1,0 +1,83 @@
+@mixin simple-repeater($redline, $redline-str, $greenverb-list, $greenverb-str, $greenverb-length, $splitter, $breakpoint, $EpicAct, $important-check) {
+  $determiner: nth($greenverb-list, 1);
+  $decider: if(str-index($determiner, repeat), true, false);
+
+  // Runs the Repeater if Called
+  @if $decider == true {
+
+    // Pulls the Property Name to repeat
+    $propertyname: nth($greenverb-list, 2);
+
+    // Checks for Namespace Command
+    $namespace: if(str-index($greenverb-str, "namespace"), name-true,
+                false);
+    $greenverb-list: if($namespace == name-true, remove($greenverb-list, "namespace", true),
+                     $greenverb-list);
+    $greenverb-length: length($greenverb-list);
+                     font-style: $namespace;
+                     font-weight: $greenverb-list;
+
+     // Checks for All or Fill Command
+     $check: if(str-index(nth($greenverb-list, $greenverb-length), "all-"), all-true,
+                 if(str-index(nth($greenverb-list, $greenverb-length), "fill-"), fill-true,
+                 false));
+    // Removes Either Command and Pulls Unit
+    $unit: if($check == all-true, str-replace(nth($greenverb-list, $greenverb-length), "all-", ""),
+           if($check == fill-true, str-replace(nth($greenverb-list, $greenverb-length), "fill-", ""),
+           $Global-Default-Unit));
+    $unit: if(str-index($unit, "\\"), str-replace($unit, "\\", ""), $unit);
+    $greenverb-list: if($check == all-true or $check == fill-true,
+                     remove($greenverb-list, nth($greenverb-list, $greenverb-length)),
+                     $greenverb-list);
+
+    // Filters based on All or Fill
+    @if $check == all-true {
+      @for $i from 3 through length($greenverb-list) {
+        $number: strip-units(to-number(nth($greenverb-list, $i)));
+        @if $namespace == name-true {
+          &#{"\\:" + $number} {
+            #{$propertyname}: #{$number + $unit};
+          }
+        }
+        @else {
+          &#{-$number} {
+            #{$propertyname}: #{$number + $unit};
+          }
+        }
+      }
+    }
+    // If Fill
+    @else {
+      @for $i from 3 through length($greenverb-list) {
+        $number-stripped: strip-units(to-number(nth($greenverb-list, $i)));
+        $number: to-number(nth($greenverb-list, $i));
+        $unit-check: unitless($number);
+
+        @if $unit-check == true {
+          @if $namespace == name-true {
+            &#{"\\:" + $number-stripped} {
+              #{$propertyname}: #{$number-stripped + $unit};
+            }
+          }
+          @else {
+            &#{-$number-stripped} {
+              #{$propertyname}: #{$number-stripped + $unit};
+            }
+          }
+        }
+        @else if $unit-check == false {
+          @if $namespace == name-true {
+            &#{"\\:" + $number-stripped} {
+              #{$propertyname}: #{$number};
+            }
+          }
+          @else {
+            &#{-$number-stripped} {
+              #{$propertyname}: #{$number};
+            }
+          }
+        }
+      }
+    }
+  }
+}

@@ -2,12 +2,7 @@
 // REMEMBER: This inlines all css and concatenates all breakpoint css under single breakpoint media queries.
 
 //// --- RESET --- ////////////////////////////
-@import 'settings',
-        'Admin/reset';
-
-//// --- PLUGINS --- //////////////////////////
-@import 'Tools/C-Fonts/fonts',
-        'Tools/D-Mixins/mixins';
+@import 'Admin/reset';
 
 //// --- STYLE --- ////////////////////////////
 @import //// i //////////// Framework
@@ -16,6 +11,7 @@
         'Style/0-Experience/tactics',
         //// ii //////////// Palette
         'Style/1-Palette/colors',
+        'Style/1-Palette/testing',
         'Style/1-Palette/patterns',
         'Style/1-Palette/strokes',
         //// iii //////////// Typography
@@ -50,6 +46,7 @@ $Epic-Map-Prod: map-combine(
   $s-Spacing,
   /* Palette */
   $s-Color-Sets,
+  $s-Testing,
   $s-Patterns,
   $s-Strokes,
   /* Typography */

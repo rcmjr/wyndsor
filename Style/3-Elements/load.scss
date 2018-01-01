@@ -1,4 +1,4 @@
-@import "../../Admin/root";
+@import "../../Admin/Dev/root";
 
 //// --- LOAD SCREEN --- ////////////////////////////
 $s-LoadScreen: (
@@ -30,4 +30,4 @@ $s-LoadScreen: (
 );
 
 $Epic-Map: $s-LoadScreen;
-@import "../../Admin/the-epic";
+@import "../../Admin/Dev/the-epic";

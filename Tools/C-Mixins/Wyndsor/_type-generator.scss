@@ -6,10 +6,11 @@
 }
 
 @function unit-check($font-size) {
+  $font-size: if($font-size == null, 1, $font-size);
   $re-size-return: null;
   $font-size-s: to-string($font-size);
-  $font-size-clean: strip-units($font-size);
-  $base-fontsize-clean: strip-units($base-fontsize);
+  $font-size-clean: strip-units(to-number($font-size));
+  $base-fontsize-clean: strip-units(to-number($base-fontsize));
   $px-rem: .1 / ($base-fontsize-clean / 100) * .625;
   $base-em-correction: ((.1 / $base-fontsize-clean) * 62.5) * 10;
   $px-rem2: ((.1 / $base-fontsize-clean) * .625) * 100;
@@ -32,55 +33,67 @@
 }
 
 // Set fontsize and baseline at once. Mix of fontsize and baseline mixin.
-@mixin sassline($property-key, $property-key-string, $property-list, $property-string, $property-length, $splitter, $custo-name, $breakpoint, $EpicAct) {
-
+@mixin sassline($redline, $redline-str, $greenline-list, $greenline-str, $greenline-length, $breakpoint, $EpicAct, $important-check) {
   $breakpoints-limit: length($media-sizes);
   $fs-check: false !default;
   $ts-check: false !default;
 
   $points: map-values($media-sizes);
   $breakpointcheck: $breakpoint;
-  $options-length: length($property-list);
+  $options-length: length($greenline-list);
   $options-check: if($options-length > 1, true, false);
   $breakpoint: if($breakpoint != null, index($media-sizes, $breakpoint), ($breakpoints-limit - 1));
 
-  $fontsize: unit-check(nth($property-list, 1));
+  $fontsize: unit-check(nth($greenline-list, 1));
+  $important: unquote(if($important-check == true, " !important", ""));
 
   $lineheight: $base-lineheight !default;
+  $lineheight-new: null;
+
+  @if $options-check == true {
+    $lineheight-new: to-number(nth($greenline-list, 2));
+    @if type-of($lineheight-new) == 'number' and not unitless($lineheight-new) {
+      $lineheight-new: $lineheight-new / ($lineheight-new * 0 + 1);
+     @warn "FYI, Wyndsors Type Generator only uses the lineheight number as a multiplier and ignores all units.";
+    }
+    @else {
+     $lineheight-new: to-number($lineheight-new);
+    }
+  }
   $cap-height: $fontsize * .75 !default;
   $below: 2 !default;
 
-    @if $property-key-string == "font-size" {
+    @if $redline-str == "font-size" {
       @if $options-check == false {
-        $lineheight: $base-lineheight;
+        $lineheight: $lineheight;
       }
       @else if $options-check == true {
-        $lineheight: nth($property-list, 2);
+        $lineheight: $lineheight-new;
       }
       $ts-check: false;
     }
-    @else if $property-key-string == "type-style" {
+    @else if $redline-str == "type-style" {
       @if $options-check == false {
         @warn "Sorry, your type-style is missing its line-height.";
       }
       @else if $options-check == true {
-        $lineheight: nth($property-list, 2);
-        //$cap-height: if($options-length > 2, nth($property-list, 3), $cap-height);
-        //$below: if($options-length > 3, nth($property-list, 4), $below);
+        $lineheight: $lineheight-new;
+        //$cap-height: if($options-length > 2, nth($greenline-list, 3), $cap-height);
+        //$below: if($options-length > 3, nth($greenline-list, 4), $below);
       }
       $ts-check: true;
     }
     @else {
-      @warn "So, this is awkward. #{$property-key-string} is ending up in the Tool: Auto-Code: Plugin: Auto Typography Generator.";
+      @warn "So, this is awkward. #{$redline-str} is ending up in the Tool: Auto-Code: Plugin: Auto Typography Generator.";
     }
 
-  font-size: #{$fontsize}rem;
-  line-height: #{$lineheight}rem;
+  font-size: #{$fontsize}rem + $important;
+  line-height: #{$lineheight}rem + $important;
 
   @if $ts-check == true {
     $baseline-shift: #{($fontsize / 2 * (($lineheight / $fontsize) - $cap-height))};
     $baseline-push: #{$below - (($fontsize / 2 * (($lineheight / $fontsize) - $cap-height)))};
-    margin-bottom: #{$baseline-push}rem;
-    padding-top: #{$baseline-shift}rem;
+    margin-bottom: #{$baseline-push}rem + $important;
+    padding-top: #{$baseline-shift}rem + $important;
   }
 }

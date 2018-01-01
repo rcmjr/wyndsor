@@ -1,13 +1,7 @@
-// To use for Dev, remove the underscore from the filename (remember to add an underscore to prime's!).
 // REMEMBER: This only contains dependencies and css imports via URL. It doesn't inline your style/comp css.
 
 //// --- RESET --- ////////////////////////////
-@import 'Admin/settings',
-        'Admin/reset';
-
-//// --- PLUGINS --- //////////////////////////
-@import 'Tools/C-Fonts/fonts',
-        'Tools/D-Mixins/mixins';
+@import 'Admin/reset';
 
 //// --- STYLE --- //////////////////////////// Add each css comp location here and append your css output folder name.
 @import //// i //////////// Framework
@@ -16,6 +10,7 @@
         'css/Style/0-Experience/tactics.css',
         //// ii //////////// Palette
         'css/Style/1-Palette/colors.css',
+        'css/Style/1-Palette/testing.css',
         'css/Style/1-Palette/patterns.css',
         'css/Style/1-Palette/strokes.css',
         //// iii //////////// Typography

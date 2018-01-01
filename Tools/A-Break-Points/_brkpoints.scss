@@ -31,7 +31,8 @@ $breakpoints: (
   phablet-down: ('<=phablet'),
   phone: ('>tiny', '<=phone'),
   phone-down: ('<=phone'),
-  tiny: ('<=tiny')
+  tiny: ('<=tiny'),
+  test: ('<=tiny', 'handheld')
 ) !default;
 
 //// ▾▾▾ NETHERMOST FUNDAMENTAL IMPORTS ▾▾▾ ////

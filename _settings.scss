@@ -1,31 +1,38 @@
 //// --- Switches --- ////////////////////////////
 
-  $Enable-Overrides: yes; // Enables Total Importance or Breakpoint.
-  $Enable-StyleBrks: yes; // Enables breakpoints for Styles.
-  $Enable-ImportantEpic: yes; // Enables important part of The Epic.
+  $Enable-Overrides: yes; // Enables Total Importance or Breakpoints.
+  $Scope-BreakpointOverride: norm; // Switch between overriding everything including existing breakpoints (all) or everything but those (norm).
+  $Enable-Features: yes; // Enables Custom-property variables and future features.
+  $Enable-ImportantEpic: yes; // Enables important CSS in The Epic.
+  $Disable-ImportantRule: no; // Disables important CSS rule.
   $Enable-AVP: yes; // Yes or No - Enable Auto Vendor Prefixes.
-  $Include-AliasBrkname: no; // Adds breakpoint name to Aliases.
+  $Include-AliasBrkname: no; // Adds breakpoint name to Aliases, helpful if you want to target specific breakpoint styles.
+
+//// --- Global Parameters --- ////////////////////////////
+  $Global-Default-Unit: px;
 
 //// --- Workflow State --- ////////////////////////////
-  $Wyndsor-mode: dev; // Wyndsor's Dev or Prod mode
+  $Wyndsor-mode: dev; // Dev or Prod mode
 
 //// --- DANGER ZONE - CHANGE THESE AT YOUR OWN RISK --- ////////////////////////////
 
-  // Methodologies
-  $sass-child: '|'; // Key for Children
-  $sass-subclass: '_'; // Key for Sub-Classes
+  // Keys
+  $sass-child: "|"; // Key for Children
+  $sass-subclass: "_"; // Key for Sub-Classes
   $sass-alterego: "alias"; // Key for Aliases
   $sass-overrides: "override"; // Key for Overrides
-  $sass-namespace: '+'; // Key for Namespace classes
+  $sass-namespace: "+"; // Key for Namespace classes
+  $sass-enables: "enable"; // Key for Specific Feature Enables
 
   // Tools
-  $sass-autoproperty: "auto"; // Creates property and property values via built-in automations
-  $sass-autovalue-b: "-auto"; // Creates property values via built-in automations
-  $sass-autovalue-c: "-custo"; // Creates property values via custom automations
+  $sass-autoprop: "auto"; // Creates property and property values via built-in automations
+  $sass-custoprop: "custo"; // Creates property and property values via your custom automations
+  $sass-autoval: "-auto"; // Creates property values via built-in automations
+  $sass-custoval: "-custo"; // Creates property values via custom automations
 
   // Augmentations
   $sass-autovendor: "-vp"; // Adds vendors to property values
-  $sass-autoquote: "-qt"; // Maintains quotes after composing
+  $sass-autovar: "-var"; // Creates custom property variable for CSS Property
 
   // Typography
   $Enable-ATG: yes; // Enable Auto Typography Generator

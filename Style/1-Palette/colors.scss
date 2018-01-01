@@ -1,21 +1,41 @@
-@import "../../Admin/root";
+@import "../../Admin/Dev/root";
+
 //// --- PALETTE COLORS --- ////////////////////////////
 $s-Color-Sets: (
 
   //// 1 //////////// Character Color Sets
   p_chara-white: (
-    color: blue),
+    color: purple),
 
   p_chara-black: (
-    override: tablet,
-    color: purple,
-    font-family: 40px
+    override: (tablet),
+    color: blue,
+    font-family: hell07,
+    |_heyo: (
+      margin: 0
+    ),
+    after: (
+      |yolo: (
+        override: tablet,
+        color: $night
+      ),
+      font-size: 6000000px,
+      background: red
+    ),
+    _yolo: (
+      font-size: 1809px,
+      hover: (
+        font-weight: 100px important
+      )
+    )
   ),
 
   #pyolo: (
+    override: important,
     font-size: 90px,
     +blech: (
-      font-size: 30px
+      override: tablet,
+      font-size: 8990px
     )
   ),
 
@@ -25,7 +45,7 @@ $s-Color-Sets: (
   p_chara-ocean: (
     color: $ocean,
     _yolo: (
-      font-family: (-qt, 'Myriad-Pro'),
+      font-family: ('Myriad-Pro', 'Brandon-Grotesque' important),
       +hey: (
       font-size: 20px
       )
@@ -33,7 +53,8 @@ $s-Color-Sets: (
 
   //// 2 //////////// Background Color Sets
   p_bg-night: (
-    background: $night,
+    override: desktop applesauce,
+    background: blue,
     _dark: (
       background: (-auto, rgba, $night, .5, darken)),
     _light: (
@@ -69,4 +90,4 @@ $s-Color-Sets: (
 //// --- END COLORS --- ////////////////////////
 
 $Epic-Map: $s-Color-Sets;
-@import "../../Admin/the-epic";
+@import "../../Admin/Dev/the-epic";

@@ -1,4 +1,4 @@
-@import "../../Admin/root";
+@import "../../Admin/Dev/root";
 
 //// --- NAVIGATION --- ////////////////////////////
 $s-Navigation: (
@@ -28,4 +28,4 @@ $s-Navigation: (
 );
 
 $Epic-Map: $s-Navigation;
-@import "../../Admin/the-epic";
+@import "../../Admin/Dev/the-epic";

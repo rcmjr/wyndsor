@@ -1,0 +1,72 @@
+@import "../../Admin/Dev/root";
+//// --- PALETTE COLORS --- ////////////////////////////
+$s-Testing: (
+
+  //// 1 //////////// Character Color Sets
+  child-test: (
+    override: test,
+    color: (
+      base: green -var-full,
+      test: blue -var
+    ),
+    column-gap: 90px,
+    +wow: (
+      font-weight: 30rem
+    ),
+    _yolo: (
+      margin: 35px,
+      grid-area: ". yolo ." ". heyo ." -var,
+      background: (-auto, rgba, $night, .5, darken),
+      font-family: ("Courier Sans", "Helvetica", "Kith Regular", !important),
+      font-size: 39px !important,
+      type-style: 50px 1.85,
+      after: (
+        margin: (51px,),
+        font-family: ("Affair", sans-serif, "Kith Sans", Arial-sans !important),
+        |hello: (
+          background: (
+            base: #333333 !important,
+            desktop: #FFF
+          ),
+          transition: (
+            base: (-vp repeating-linear-gradient(45deg, blue, red))
+          ),
+          padding: (
+            base: 70px,
+          )
+        )
+      )
+    )
+  ),
+  header: (
+    override: important,
+    background: blue,
+    margin-top: 19%,
+    margin-bottom: 4%,
+    padding: 40px,
+    |_coolio: (
+      line-height: 20px
+    )
+  ),
+  b_chara-test: (
+    padding: (
+      base: 999px important,
+      tablet: 40px important
+    ),
+    _yoho: (
+      override: desktop,
+      auto: (
+        repeat,
+        padding-top,
+        221, 10, 5, 9ex, 10,
+        all-px
+      )
+    )
+  )
+
+);
+
+//// --- END COLORS --- ////////////////////////
+
+$Epic-Map: $s-Testing;
+@import "../../Admin/Dev/the-epic";

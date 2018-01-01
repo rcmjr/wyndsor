@@ -1,5 +1,5 @@
-@mixin graph-simple($property-key, $property-key-string, $property-list, $property-string, $property-length, $splitter, $custo-name, $breakpoint, $EpicAct) {
-  $determiner: nth($property-list, 1);
+@mixin graph-simple($redline, $redline-str, $greenverb-list, $greenverb-str, $greenverb-length, $splitter, $breakpoint, $EpicAct, $important-check) {
+  $determiner: nth($greenverb-list, 1);
   $decider:
     if($determiner == hz-bar, $determiner,
     if($determiner == donut, $determiner,
@@ -8,8 +8,8 @@
   $bar-steps: 5 !default;
 
   @if $decider == hz-bar {
-    $bar-height: nth($property-list, 2);
-    $bar-way: nth($property-list, 3);
+    $bar-height: nth($greenverb-list, 2);
+    $bar-way: nth($greenverb-list, 3);
     $bar-direction:
       if(str-index($bar-way, left), right,
       if(str-index($bar-way, right), left,
@@ -22,10 +22,10 @@
 
     $bar-number: str-replace($bar-way, "#{$bar-direction-remove}-");
     $bar-steps-change: to-number(if($bar-number != (), $bar-number, $bar-steps));
-    $bar-color: nth($property-list, 4);
-    $bar-shift: nth($property-list, 5);
-    $bar-hover-color: nth($property-list, 6);
-    $bar-hover-shift: nth($property-list, 7);
+    $bar-color: nth($greenverb-list, 4);
+    $bar-shift: nth($greenverb-list, 5);
+    $bar-hover-color: nth($greenverb-list, 6);
+    $bar-hover-shift: nth($greenverb-list, 7);
 
     width: 100%;
     position: relative;
@@ -60,15 +60,15 @@
 
   @else if $decider == donut {
 
-    $name: nth($property-list, 2);
-    $perc: nth($property-list, 3);
-    $size: nth($property-list, 4);
-    $width: nth($property-list, 5);
-    $speed: nth($property-list, 6);
-    $base: nth($property-list, 7);
-    $center: nth($property-list, 8);
-    $color: nth($property-list, 9);
-    $textSize: nth($property-list, 10);
+    $name: nth($greenverb-list, 2);
+    $perc: nth($greenverb-list, 3);
+    $size: nth($greenverb-list, 4);
+    $width: nth($greenverb-list, 5);
+    $speed: nth($greenverb-list, 6);
+    $base: nth($greenverb-list, 7);
+    $center: nth($greenverb-list, 8);
+    $color: nth($greenverb-list, 9);
+    $textSize: nth($greenverb-list, 10);
 
   $donut-percent: 5 !default;
   $donut-magic: (100/$donut-percent);
