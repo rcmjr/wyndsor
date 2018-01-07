@@ -10,21 +10,19 @@
         'Style/0-Experience/symmetry',
         'Style/0-Experience/tactics',
         //// ii //////////// Palette
+        'Style/1-Palette/typography',
         'Style/1-Palette/colors',
         'Style/1-Palette/testing',
         'Style/1-Palette/patterns',
         'Style/1-Palette/strokes',
-        //// iii //////////// Typography
-        'Style/2-Typography/character',
-        'Style/2-Typography/paragraph',
-        //// iv //////////// Elements
+        //// iii //////////// Elements
         'Style/3-Elements/buttons',
         'Style/3-Elements/lightbox',
         'Style/3-Elements/load',
         'Style/3-Elements/logos&marks',
         'Style/3-Elements/nav',
         'Style/3-Elements/states',
-        //// v //////////// Pages
+        //// iv //////////// Pages
         'Composition/About',
         'Composition/Folio-Pieces',
         'Composition/Folio',
@@ -32,7 +30,7 @@
         'Composition/Header',
         'Composition/Home',
         'Composition/Maintenance',
-        //// vi //////////// Page Amenities
+        //// v //////////// Page Amenities
         'Composition/Amenities/404',
         'Composition/Amenities/Compatibility-Dialogs',
         'Composition/Amenities/Forms',
@@ -49,9 +47,7 @@ $Epic-Map-Prod: map-combine(
   $s-Testing,
   $s-Patterns,
   $s-Strokes,
-  /* Typography */
   $s-Typography,
-  $s-Paragraph,
   /* Elements */
   $s-Buttons,
   $s-Lightbox,
