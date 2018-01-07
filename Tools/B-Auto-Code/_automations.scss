@@ -1,4 +1,3 @@
-//// --- FUNCTIONS --- ////////////////////////////
 
   //// 1 //////////// Deep Get Variable Key from Map
     @function _($map, $keys...) {
@@ -167,7 +166,7 @@
 	    @return join($value, $list);
     }
 
-  //// 11 //////////// Reverse a String
+  //// 10 //////////// Reverse a String
     @function str-reverse($string) {
       $reverse-string: "";
       @for $i from 1 through str-length($string) {
@@ -177,12 +176,12 @@
       @return $reverse-string;
     }
 
-  //// 12 //////////// Find Last Part of List
+  //// 11 //////////// Find Last Part of List
     @function last($list) {
       @return nth($list, length($list));
     }
 
-  //// 13 //////////// Filters out a list of terms by checking it against a map
+  //// 12 //////////// Filters out a list of terms by checking it against a map
     @function list-checkmake($list, $map, $type: keys) {
       $keys: ();
       $values: ();
@@ -221,7 +220,7 @@
       }
     }
 
-  //// 14 //////////// Removes keys from maps
+  //// 13 //////////// Removes keys from maps
     @function map-removeKeys($map, $keys) {
     	$length: length($keys);
     	@if ($length > 1) {
@@ -235,7 +234,7 @@
     	}
     }
 
-  //// 15 //////////// Removes keys from maps
+  //// 14 //////////// Removes keys from maps
     @function remove-duplicates($list, $recursive: false) {
       $rslt: ();
 
@@ -253,7 +252,7 @@
       @return $rslt;
     }
 
-  //// 16 //////////// Convert string to list (must be used in @each)
+  //// 15 //////////// Convert string to list (must be used in @each)
     @function str-to-list($string, $separator: ' ', $startAt: 1) {
         $string: to-string($string);
         $workStr: str-slice($string,$startAt);
@@ -269,6 +268,7 @@
     }
 
   //// 16 //////////// Color conversion
+    // Part 1
     // Part 1
     @function _hex-to-dec($string) {
       $hex: "0" "1" "2" "3" "4" "5" "6" "7" "8" "9" "a" "b" "c" "d" "e" "f";
@@ -322,11 +322,6 @@
       }
 
       @return rgb(_hex-to-dec($r), _hex-to-dec($g), _hex-to-dec($b));
-    }
-
-  //// 16 //////////// Convert string to list
-    @function to-list-simple($value) {
-      @return if(type-of($value) != list, ($value,), $value);
     }
 
   //// 17 //////////// Replace a specific value in a list
@@ -396,6 +391,7 @@
       @each $groove, $pin in $lock {
         $lefthand: if(str-index(to-string($groove), unquote($sass-overrides)), true, false);
         $righthand: if(str-index(to-string($groove), unquote($sass-enables)), true, false);
+
         @if $lefthand == true and $filter == overrides {
           $mold: to-string(to-list($pin, $type));
           $mold-verify: if($mold != null, $mold, "nope");
@@ -407,19 +403,12 @@
           }
 
           // Breakpoint Array
-          @else if $override == breakpoint {
-            @each $breakpoint, $breakpointvalue in $breakpoints {
-              $brk-rep: if(str-index($mold-verify, $breakpoint), true, false);
+          @else if $override == breakpoint or $override == breakpoint-name {
+            $breakpoints: to-list($breakpoints, "keys");
+            $test: to-list($pin, "keys");
+            @for $i from 1 through length($test) {
+              $brk-rep: if(chk-list($breakpoints, nth($test, $i)), true, false);
               $var-override: append($var-override, $brk-rep);
-              $toll: if($brk-rep == true, 1 + $toll, 0 + $toll);
-            }
-          }
-
-          // Breakpoint-Name Array
-          @else if $override == breakpoint-name {
-            @each $breakpoint, $breakpointvalue in $breakpoints {
-              $brk-rep: if(str-index($mold-verify, $breakpoint), true, false);
-              $var-override: if($brk-rep == true, append($var-override, $breakpoint), append($var-override, yolo));
               $toll: if($brk-rep == true, 1 + $toll, 0 + $toll);
             }
           }
@@ -460,28 +449,31 @@
         }
         $var-override: purge($var-override);
       }
+
       $turnpike: $miles + $toll2;
-      @if $override == breakpoint-name {
+
+      @if $override == breakpoint-name or $override == breakpoint {
         @if $var-override == () {
           @return $var-override;
         }
         @else if $var-override != () {
           @if $toll > 1 {
-            @error "Sorry, you cant apply more than one breakpoint here.";
+            @error "Sorry, #{$toll} - #{$override + " " + $brk-rep + " " + $var-override} | #{$mold-verify} | - you can`t apply more than one breakpoint here.";
           }
           @else {@return $var-override;}
         }
       }
+
       @else {
         @if $var-override == () {
           @return $var-override;
         }
         @else if $var-override != () {
           @if $toll > 1 {
-            @error "Sorry, you cant apply more than one breakpoint here.";
+            @error "Sorry, you can`t apply more than one breakpoint here.";
           }
           @else if $turnpike > 1 {
-            @error "Sorry, you cant have it both ways, go with a breakpoint or importance.";
+            @error "Sorry, you can`t have it both ways, go with a breakpoint or importance.";
           }
           @else {@return to-string($var-override);}
         }
@@ -505,12 +497,13 @@
       @return $result;
     }
 
-  //// 22 //////////// Converts list to string
+  //// 21 //////////// Converts list to string
     @function to-string($value) {
       @return inspect($value);
     }
 
-  //// 21 //////////// Removes all stated values from a list
+  //// 22 //////////// Removes or adds all stated values from a list
+    // V1
     @function remove-comma($list) {
       $result: ();
       @if $list != () {
@@ -525,8 +518,7 @@
         @return $list;
       }
     }
-
-  //// 21 //////////// Removes all stated values from a list
+    // V2
     @function add-commas($list) {
       $result: ();
       @if $list != () {
@@ -540,6 +532,7 @@
         @return $list;
       }
     }
+
   //// 23 //////////// Check to see if a term exists in a List
     @function chk-list($list, $term) {
       $rslt: null;
@@ -561,82 +554,127 @@
 
   //// 24 //////////// Convert String to Number
     @function to-number($value) {
-    @if type-of($value) == 'number' {
-      @return $value;
-    } @else if type-of($value) != 'string' {
-      $_: log('Value for `to-number` should be a number or a string.');
-    }
-
-    $result: 0;
-    $digits: 0;
-    $minus: str-slice($value, 1, 1) == '-';
-    $numbers: ('0': 0, '1': 1, '2': 2, '3': 3, '4': 4, '5': 5, '6': 6, '7': 7, '8': 8, '9': 9);
-
-    @for $i from if($minus, 2, 1) through str-length($value) {
-      $character: str-slice($value, $i, $i);
-
-      @if not (index(map-keys($numbers), $character) or $character == '.') {
-        @return to-length(if($minus, -$result, $result), str-slice($value, $i))
+      @if type-of($value) == 'number' {
+        @return $value;
+      } @else if type-of($value) != 'string' {
+        $_: log('Value for `to-number` should be a number or a string.');
       }
 
-      @if $character == '.' {
-        $digits: 1;
-      } @else if $digits == 0 {
-        $result: $result * 10 + map-get($numbers, $character);
-      } @else {
-        $digits: $digits * 10;
-        $result: $result + map-get($numbers, $character) / $digits;
-      }
-    }
+      $result: 0;
+      $digits: 0;
+      $minus: str-slice($value, 1, 1) == '-';
+      $numbers: ('0': 0, '1': 1, '2': 2, '3': 3, '4': 4, '5': 5, '6': 6, '7': 7, '8': 8, '9': 9);
 
-    @return if($minus, -$result, $result);;
-  }
+      @for $i from if($minus, 2, 1) through str-length($value) {
+        $character: str-slice($value, $i, $i);
+
+        @if not (index(map-keys($numbers), $character) or $character == '.') {
+          @return to-length(if($minus, -$result, $result), str-slice($value, $i));
+        }
+
+        @if $character == '.' {
+          $digits: 1;
+        } @else if $digits == 0 {
+          $result: $result * 10 + map-get($numbers, $character);
+        } @else {
+          $digits: $digits * 10;
+          $result: $result + map-get($numbers, $character) / $digits;
+        }
+      }
+      @return if($minus, -$result, $result);
+    }
 
   //// 25 //////////// Removes Unit from Number
-
-  @function to-number($value) {
-    @if type-of($value) == 'number' {
-      @return $value;
-    } @else if type-of($value) != 'string' {
-      $_: log('Value for `to-number` should be a number or a string.');
+    @function strip-units($number) {
+     @if type-of($number) == 'number' and not unitless($number) {
+       @return $number / ($number * 0 + 1);
+     }
+     @else {
+       @return $number;
+     }
     }
-
-    $result: 0;
-    $digits: 0;
-    $minus: str-slice($value, 1, 1) == '-';
-    $numbers: ('0': 0, '1': 1, '2': 2, '3': 3, '4': 4, '5': 5, '6': 6, '7': 7, '8': 8, '9': 9);
-
-    @for $i from if($minus, 2, 1) through str-length($value) {
-      $character: str-slice($value, $i, $i);
-
-      @if not (index(map-keys($numbers), $character) or $character == '.') {
-        @return to-length(if($minus, -$result, $result), str-slice($value, $i))
-      }
-
-      @if $character == '.' {
-        $digits: 1;
-      } @else if $digits == 0 {
-        $result: $result * 10 + map-get($numbers, $character);
-      } @else {
-        $digits: $digits * 10;
-        $result: $result + map-get($numbers, $character) / $digits;
-      }
-    }
-    @return if($minus, -$result, $result);
-  }
-
-  @function strip-units($number) {
-   @if type-of($number) == 'number' and not unitless($number) {
-     @return $number / ($number * 0 + 1);
-   }
-   @else {
-     @return $number;
-   }
-  }
 
   //// 26 //////////// Pulls First Entry in List
-  @function list-first($list) {
+    @function list-first($list) {
      @return nth($list, 1);
-  }
+    }
 
-//// --- END FUNCTIONS --- ////////////////////////
+  //// 27 //////////// Counts Breakpoints
+    @function count-brkpnts($breakpoint, $media-sizes) {
+      $list-out: to-list($media-sizes, 'keys');
+      $number: index($list-out, $breakpoint);
+      @return $number;
+    }
+
+  //// 28 //////////// Checks Units
+    @function unit-check($font-size) {
+      $font-size: if($font-size == null, 1, $font-size);
+      $re-size-return: null;
+      $font-size-s: to-string($font-size);
+      $font-size-clean: strip-units(to-number($font-size));
+      $base-fontsize-clean: strip-units(to-number($base-fontsize));
+      $px-rem: .1 / ($base-fontsize-clean / 100) * .625;
+      $base-em-correction: ((.1 / $base-fontsize-clean) * 62.5) * 10;
+      $px-rem2: ((.1 / $base-fontsize-clean) * .625) * 100;
+      $perc-rem2: (1 / $base-fontsize-clean) * 1000;
+      $re-size:
+        if(str-index($font-size-s, nth($Units, 1)), $font-size-clean * $px-rem2, /* px to rem */
+        if(str-index($font-size-s, nth($Units, 2)), $font-size-clean, /* rem */
+        if(str-index($font-size-s, nth($Units, 3)), $font-size-clean * $base-em-correction, /* em */
+        if(str-index($font-size-s, nth($Units, 4)), (($font-size-clean * .01) * $perc-rem2) * $px-rem2, /* % to rem */
+        if(str-index($font-size-s, nth($Units, 5)), ($font-size-clean * 0.466666666666667) * $base-em-correction,
+        if(str-index($font-size-s, nth($Units, 6)), ($font-size-clean * 1.6) * $base-em-correction,
+        if(str-index($font-size-s, nth($Units, 7)), ($font-size-clean * 9.6) * $base-em-correction,
+        if(str-index($font-size-s, nth($Units, 8)), ($font-size-clean * 0.037795275590551) * $base-em-correction,
+        if(str-index($font-size-s, nth($Units, 9)), ($font-size-clean * 0.37795275590551) * $base-em-correction,
+        if(str-index($font-size-s, nth($Units, 10)), ($font-size-clean * 0.1333333) * $base-em-correction,
+        $font-size * .1
+        ))))))))));
+
+      @return $re-size;
+    }
+
+  //// 29 //////////// Slice list
+    @function slice-list($list, $start: 1, $end: length($list)) {
+      $result: null;
+
+      @if type-of($start) != number or type-of($end) != number {
+        @warn "Either $start or $end are not a number for `slice`.";
+      }
+
+      @else if $start > $end {
+        @warn "The start index has to be lesser than or equals to the end index for `slice`.";
+      }
+
+      @else if $start < 1 or $end < 1 {
+        @warn "List indexes must be non-zero integers for `slice`.";
+      }
+
+      @else if $start > length($list) {
+        @warn "List index is #{$start} but list is only #{length($list)} item long for `slice`.";
+      }
+
+      @else if $end > length($list) {
+        @warn "List index is #{$end} but list is only #{length($list)} item long for `slice`.";
+      }
+
+      @else {
+        $result: ();
+
+        @for $i from $start through $end {
+          $result: append($result, nth($list, $i));
+        }
+      }
+      @return $result;
+    }
+
+  //// 30 //////////// Find x in list
+    @function last-index($list, $value) {
+      @for $i from length($list)*-1 through -1 {
+        @if nth($list, abs($i)) == $value {
+          @return abs($i);
+        }
+      }
+
+      @return null;
+    }

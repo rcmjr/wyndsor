@@ -1,4 +1,4 @@
-@mixin child-name($property) {
+@mixin child-name($property, $var-name) {
   $aliasnames: ();
 
   @each $key, $value in $property {
@@ -17,6 +17,9 @@
           $aliastest1: if(str-index($propval, '+'), str-replace($propval, '+', '%'), $propval);
           @if if(str-index($aliastest1, '_'), true, true) {
             $aliastest2: if(str-index($aliastest1, '_'), str-replace($aliastest1, '_', '.'), $aliastest1);
+              @if if(str-index($propval, '\\*'), true, false) {
+                @error "Heads up! You're using an '*' as a childname in #{$var-name}, which isn't going to work.";
+              }
               @if if(str-index($aliastest2, '#'), true, true) {
                 $aliasnames: append($aliasnames, $aliastest2, comma);
               }
@@ -63,14 +66,16 @@
   $aliasname-scs)))}  {@content;}
 }
 
-@mixin brker($property, $filter, $state: normal) {
+@mixin brker($property, $var-name, $filter, $state: normal) {
   $property: to-string($property);
   $brker-pseudos: if(map-check($pseudos, $property), true, false);
   $brker-namespace: if(str-index($property, $sass-namespace), true, false);
   $brker-child: if(str-index($property, $sass-child), true, false);
   $brker-subclass: if(str-index(str-slice($property, 0, 1), $sass-subclass), true, false);
   $brker-regular: if(chk-list($watchlist, $property), true, false);
-
+  @if if(str-index($property, '\\*'), true, false) {
+    @error "Heads up! You're using an '*' as a subclass under #{$var-name}, which isn't going to work.";
+  }
   @if $brker-regular != true and $brker-pseudos == false and
       $brker-namespace == false and $brker-child == false and
       $brker-subclass == false and $filter == regular {@content;}
@@ -81,7 +86,7 @@
     @if $state == normal {&#{if($property != null, unquote("\\:"), '') + if(str-index($property, $sass-namespace), str-replace($property, $sass-namespace, ''), '')} {@content;}}
     @else if $state == inner {@content;}}
   @else if $brker-child == true and $filter == child {
-    @if $state == normal {@include child-name($property) {@content;}}
+    @if $state == normal {@include child-name($property, $var-name) {@content;}}
     @else if $state == inner {@content;}}
   @else if $brker-subclass == true and $filter == subclass {
     @if $state == normal {&#{if($property != null, unquote("-"), '') + if(str-index($property, '_'), str-replace($property, _, ''), '')} {@content;}}

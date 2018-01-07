@@ -1,39 +1,5 @@
-
-@function count-brkpnts($breakpoint, $media-sizes) {
-    $list-out: to-list($media-sizes, 'keys');
-    $number: index($list-out, $breakpoint);
-    @return $number;
-}
-
-@function unit-check($font-size) {
-  $font-size: if($font-size == null, 1, $font-size);
-  $re-size-return: null;
-  $font-size-s: to-string($font-size);
-  $font-size-clean: strip-units(to-number($font-size));
-  $base-fontsize-clean: strip-units(to-number($base-fontsize));
-  $px-rem: .1 / ($base-fontsize-clean / 100) * .625;
-  $base-em-correction: ((.1 / $base-fontsize-clean) * 62.5) * 10;
-  $px-rem2: ((.1 / $base-fontsize-clean) * .625) * 100;
-  $perc-rem2: (1 / $base-fontsize-clean) * 1000;
-  $re-size:
-    if(str-index($font-size-s, nth($Units, 1)), $font-size-clean * $px-rem2, /* px to rem */
-    if(str-index($font-size-s, nth($Units, 2)), $font-size-clean, /* rem */
-    if(str-index($font-size-s, nth($Units, 3)), $font-size-clean * $base-em-correction, /* em */
-    if(str-index($font-size-s, nth($Units, 4)), (($font-size-clean * .01) * $perc-rem2) * $px-rem2, /* % to rem */
-    if(str-index($font-size-s, nth($Units, 5)), ($font-size-clean * 0.466666666666667) * $base-em-correction,
-    if(str-index($font-size-s, nth($Units, 6)), ($font-size-clean * 1.6) * $base-em-correction,
-    if(str-index($font-size-s, nth($Units, 7)), ($font-size-clean * 9.6) * $base-em-correction,
-    if(str-index($font-size-s, nth($Units, 8)), ($font-size-clean * 0.037795275590551) * $base-em-correction,
-    if(str-index($font-size-s, nth($Units, 9)), ($font-size-clean * 0.37795275590551) * $base-em-correction,
-    if(str-index($font-size-s, nth($Units, 10)), ($font-size-clean * 0.1333333) * $base-em-correction,
-    $font-size * .1
-    ))))))))));
-
-  @return $re-size;
-}
-
 // Set fontsize and baseline at once. Mix of fontsize and baseline mixin.
-@mixin sassline($redline, $redline-str, $greenline-list, $greenline-str, $greenline-length, $breakpoint, $EpicAct, $important-check) {
+@mixin gen-type($redline, $redline-str, $greenline-list, $greenline-str, $greenline-length, $breakpoint, $EpicAct, $important-check) {
   $breakpoints-limit: length($media-sizes);
   $fs-check: false !default;
   $ts-check: false !default;
@@ -84,7 +50,7 @@
       $ts-check: true;
     }
     @else {
-      @warn "So, this is awkward. #{$redline-str} is ending up in the Tool: Auto-Code: Plugin: Auto Typography Generator.";
+      @warn "So, this is awkward. #{$redline-str} is ending up in the Tool: Mixins: Plugin: Auto Typography Generator.";
     }
 
   font-size: #{$fontsize}rem + $important;

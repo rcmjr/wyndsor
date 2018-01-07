@@ -8,26 +8,26 @@
     $redline-str: map-tostring($redline, ' ');
 
     // Property Values
-    $greenline: to-string($greenline);
+    $greenline-str: to-string($greenline);
 
       // Important Runtime
-      $greenline-clean: if(str-index($greenline, ", !important"), str-replace($greenline, ", !important", " !important"),
-                        if(str-index($greenline, ", important"), str-replace($greenline, ", important", ""),
-                        if(str-index($greenline, " important"), str-replace($greenline, " important", ""), $greenline)));
+      $greenline-clean: if(str-index($greenline-str, ", !important"), str-replace($greenline-str, ", !important", " !important"),
+                        if(str-index($greenline-str, ", important"), str-replace($greenline-str, ", important", ""),
+                        if(str-index($greenline-str, " important"), str-replace($greenline-str, " important", ""), $greenline-str)));
 
         // Important Warnings/Disables
         @if $important-check == true and $importance-check == true {
-          @error "Sorry, in '#{$redline-str}', you shouldnt use both types of importance, try using only one.";
+          @error "Sorry, in '#{$redline-str}', you shouldn`t use both types of importance, try using only one.";
         }
         @if $Disable-ImportantRule == yes or $important-removal == true {
           $importance-check: false;
           $important-check: false;
           $importance-check-wcomma: false;
           $important-check-wcomma: false;
-          $greenline-clean: if(str-index($greenline, ", !important"), str-replace($greenline, ", !important", ""),
-                            if(str-index($greenline, " !important"), str-replace($greenline, " !important", ""),
-                            if(str-index($greenline, ", important"), str-replace($greenline, ", important", ""),
-                            if(str-index($greenline, " important"), str-replace($greenline, " important", ""), $greenline))));
+          $greenline-clean: if(str-index($greenline-str, ", !important"), str-replace($greenline-str, ", !important", ""),
+                            if(str-index($greenline-str, " !important"), str-replace($greenline-str, " !important", ""),
+                            if(str-index($greenline-str, ", important"), str-replace($greenline-str, ", important", ""),
+                            if(str-index($greenline-str, " important"), str-replace($greenline-str, " important", ""), $greenline-str))));
         }
 
         // Custom Property Variables - Auto Individual Properties
@@ -70,8 +70,8 @@
         #{$redline-str}: #{$redline-customprop};
       }
       @else {
-        @include simple-repeater($redline, $redline-str, $greenline-list, $greenline-str, $greenline-length, $splitter, $breakpoint, $EpicAct, $important-check);
-        //@include graph-simple($redline, $redline-str, $greenverb-list, $greenverb-str, $greenverb-length, $splitter, $breakpoint, $EpicAct, $important-check);
+        @include repeater($redline, $redline-str, $greenline-list, $greenline-str, $greenline-length, $splitter, $breakpoint, $EpicAct, $important-check);
+        @include gen-graph($redline, $redline-str, $greenverb-list, $greenverb-str, $greenverb-length, $splitter, $breakpoint, $EpicAct, $important-check);
       }
     }
 
@@ -119,7 +119,7 @@
 
       @if $Enable-ATG == yes {
         @if $customprops-fetch == false {
-          @include sassline($redline, $redline-str, $greenline-list, $greenline-str, $greenline-length, $breakpoint, $EpicAct, $important-check);
+          @include gen-type($redline, $redline-str, $greenline-list, $greenline-str, $greenline-length, $breakpoint, $EpicAct, $important-check);
         }
         @else if $customprops-fetch == true or $custompropvar-check == true {
           @if $redline-str == "font-size" {
@@ -140,7 +140,7 @@
             #{$redline-str}: #{$greenline-clean};
           }
           @else if $redline-str == unquote($sass-autotype) {
-            @include sassline($redline, $redline-str, $greenline-list, $greenline-str, $greenline-length, $breakpoint, $EpicAct, $important-check);
+            @include gen-type($redline, $redline-str, $greenline-list, $greenline-str, $greenline-length, $breakpoint, $EpicAct, $important-check);
           }
         }
         @else if $customprops-fetch == true or $custompropvar-check == true {
@@ -168,11 +168,11 @@
           #{$redline-str}: #{$redline-customprop};
         }
         @else if $custompropvar-check == true {
-          @error "Sorry, you cant use -var here.";
+          @error "Sorry, you can`t use -var here.";
         }
         @else {
-          @include color-tool($redline, $redline-str, $greenverb-list, $greenverb-str, $greenverb-length, $splitter, $breakpoint, $EpicAct, $important-check);
-          @include pattern-tool-1($redline, $redline-str, $greenverb-list, $greenverb-str, $greenverb-length, $splitter, $breakpoint, $EpicAct, $important-check);
+          @include gen-color ($redline, $redline-str, $greenverb-list, $greenverb-str, $greenverb-length, $splitter, $breakpoint, $EpicAct, $important-check);
+          @include gen-pattern ($redline, $redline-str, $greenverb-list, $greenverb-str, $greenverb-length, $splitter, $breakpoint, $EpicAct, $important-check);
         }
       }
 
@@ -183,7 +183,7 @@
           #{$redline-str}: #{$redline-customprop};
         }
         @else if $custompropvar-check == true {
-          @error "Sorry, you cant use -var here.";
+          @error "Sorry, you can`t use -var here.";
         }
         @else {
           @include crtrfone($redline, $redline-str, $greenverb-list, $greenverb-str, $greenverb-length, $splitter, $breakpoint, $EpicAct, $important-check);
@@ -232,7 +232,7 @@
   @mixin switch($EpicAct, $startkey, $startvalue, $var-name, $breakpoint, $importance-check, $important-check, $importance-check-wcomma, $important-check-wcomma, $customprops-feature: false, $breakpoint-override: false, $important-override: false, $override-brkname: null, $gm-override: false) {
 
     $property: to-string($startkey);
-    $propvalue: to-string($startvalue);
+    $propvalue: $startvalue; // Might need to-string()
     $important-removal: null;
     $redpill: null;
     $bluepill: null;
@@ -279,7 +279,7 @@
       }
     }
     @if $breakpoint-override == true and $importance-check == true {
-      @warn "Heads up, Wyndsor always picks breakpoint overrides over importance, and '#{$startkey}' has an important rule under a breakpoint override.";
+      @warn "Heads up, Wyndsor always picks breakpoints over importance, and '#{$var-name + ": " + $startkey}' has an important rule as well as a breakpoint.";
     }
 
     // For Regular CSS
@@ -301,7 +301,7 @@
     $off: off;
 
     // For CSS Properties
-    @include brker ($property, regular) {
+    @include brker ($property, $var-name, regular) {
 
       $baseORbreak-check: if(type-of($propertyvalue) == "map", true, false);
 
@@ -351,7 +351,7 @@
     }
 
     // For Pseudos
-    @include brker ($property, pseudo) {
+    @include brker ($property, $var-name, pseudo) {
       $var-name: append($var-name, ps, space);
       //// ℹ︎ //////////// Forces the router to compile to the important section or a specific breakpoint.
       @if $Enable-Overrides == yes and $gm-override == false {
@@ -370,17 +370,17 @@
         $gm-override-2: if(remove-duplicates(purge(chk-override($propertyvalue, override-all, enables))) == (), false, true);
       }
       @each $subprop, $subpropval in $propertyvalue {
-        @include brker ($subprop, regular) {
+        @include brker ($subprop, $var-name, regular) {
           @include router($subprop, $subpropval, $propertyvalue, null, $var-name, $breakpoint, $EpicAct, $customprops-feature, $breakpoint-override, $important-override, $override-brkname, $gm-override, $gm-override-2);
         }
-        @include brker ($subprop, child, inner) {
+        @include brker ($subprop, $var-name, child, inner) {
           @include router($subprop, $subpropval, $propertyvalue, null, $var-name, $breakpoint, $EpicAct, $customprops-feature, $breakpoint-override, $important-override, $override-brkname, $gm-override, $gm-override-2);
         }
       }
     }
 
     // For Sub-classes
-    @include brker ($property, subclass) {
+    @include brker ($property, $var-name, subclass) {
       $var-name: append($var-name, sc, space);
       //// ℹ︎ //////////// Forces the router to compile to the important section or a specific breakpoint.
       @if $Enable-Overrides == yes and $gm-override == false {
@@ -399,17 +399,17 @@
         $gm-override-2: if(remove-duplicates(purge(chk-override($propertyvalue, override-all, enables))) == (), false, true);
       }
       @each $subprop, $subpropval in $propertyvalue {
-        @include brker ($subprop, regular) {
+        @include brker ($subprop, $var-name, regular) {
           @include router($subprop, $subpropval, $propertyvalue, null, $var-name, $breakpoint, $EpicAct, $customprops-feature, $breakpoint-override, $important-override, $override-brkname, $gm-override, $gm-override-2);
         }
-        @include brker ($subprop, pseudo, inner) {
+        @include brker ($subprop, $var-name, pseudo, inner) {
           @include router($subprop, $subpropval, $propertyvalue, null, $var-name, $breakpoint, $EpicAct, $customprops-feature, $breakpoint-override, $important-override, $override-brkname, $gm-override, $gm-override-2);
         }
       }
     }
 
     // For Namespaces
-    @include brker ($property, namespace) {
+    @include brker ($property, $var-name, namespace) {
       $var-name: append($var-name, nm, space);
       //// ℹ︎ //////////// Forces the router to compile to the important section or a specific breakpoint.
       @if $Enable-Overrides == yes and $gm-override == false {
@@ -428,14 +428,14 @@
         $gm-override-2: if(remove-duplicates(purge(chk-override($propertyvalue, override-all, enables))) == (), false, true);
       }
       @each $subprop, $subpropval in $propertyvalue {
-        @include brker ($subprop, regular) {
+        @include brker ($subprop, $var-name, regular) {
           @include router($subprop, $subpropval, $propertyvalue, null, $var-name, $breakpoint, $EpicAct, $customprops-feature, $breakpoint-override, $important-override, $override-brkname, $gm-override, $gm-override-2);
         }
       }
     }
 
     // For Children
-    @include brker ($property, child) {
+    @include brker ($property, $var-name, child) {
       $var-name: append($var-name, ch, space);
       //// ℹ︎ //////////// Forces the router to compile to the important section or a specific breakpoint.
       @if $Enable-Overrides == yes and $gm-override == false {
@@ -482,7 +482,7 @@
             @else if chk-list($html-elements, $key) {                   /////// c ///////// CSS HTML identifier
               $type: "";                                                //
               $exist-html: true;
-              $var-name: append($var-name, html, space);                                       //
+              $var-name: append($var-name, html, space);
             }
             @else if if(str-index($key-string, '+'), true, false) {          //// 2 //////////// This "if, else" checks each key for an identifier
               @error "Sorry, Namespaces aren`t allowed at this level. Trying creating a Class/ID then a Namespace.";                                              /////// a ///////// CSS ID identifier
@@ -491,13 +491,16 @@
               $type: ".";
               $var-name: append($var-name, class, space);                                              //
             }
-            $prename: if(str-index($key-string, '#'), str-replace($key, '#', ''), $key-string);
+
+            $prename-pre: if(str-index($key-string, '#'), str-replace($key-string, '#', ''), $key-string);
+            $prename: if(str-index($prename-pre, '\\*'), str-replace($prename-pre, '\\*', '*'), $prename-pre);
             $mainname: $type + $prename;
             $brkname: if($EpicAct == breakpoint, unquote('-' + $breakpoint), '');
             $aliasnames-str: null;
             $aliasnames-list2: null;
             $aliasbrk: if($EpicAct == breakpoint and $Include-AliasBrkname == yes, unquote('-' + $breakpoint), '');
 
+            // Creates Alter Egos
             @each $property, $propertyvalue in $value {
               $exist-alias: chk-list($property, $sass-alterego);
               @if $exist-alias == true {
@@ -511,7 +514,7 @@
                       @error "Sorry, you can`t create a Namespace this way, trying creating a class or ID first.";
                     }
                     @else if chk-list($html-elements, $propval) {
-                      @error "Sorry, you can`t use '#{$propval}' as an alias.";
+                      @error "Sorry, '#{$propval}' is an html name, and can`t be used as an alias.";
                     }
                     @else {
                       $aliasnames: append($aliasnames, #{unquote(".")}#{$propval}#{$aliasbrk}, comma);

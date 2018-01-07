@@ -58,7 +58,7 @@
 
 //// --- HTML ELEMENTS LIST --- ////////////////////////////
   $html-elements:
-    a, abbr, acronym,
+    \*, a, abbr, acronym,
     address, applet, area,
     article, aside, audio,
     b, base, basefont,
@@ -106,7 +106,7 @@
     "type-style";
 
   $Units:
-    // I dont recommend changing the order, it could gum up the ATG.
+    // I don`t recommend changing the order, it could gum up the ATG.
     px, rem, em,
     %, ch, pc,
     in, cm, mm,

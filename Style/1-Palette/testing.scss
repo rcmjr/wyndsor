@@ -1,20 +1,34 @@
 @import "../../Admin/Dev/root";
 //// --- PALETTE COLORS --- ////////////////////////////
+
+$color-palette: (
+  bl: "navy grey" "pink purple",
+  blk: black blue pink);
+
+$padding: (
+  tiny:  12px 20px 30px 6px,
+  huge: 2rem 3rem 4rem 6rem);
+
+$grids: (
+  desktop: ". block ." ". area ." ". footer .",
+  tablet: ". hmm hmm hmm .",
+  mobile: "yolo yolo yolo");
+
 $s-Testing: (
 
   //// 1 //////////// Character Color Sets
   child-test: (
-    override: test,
+    override: (phone-down),
     color: (
-      base: green -var-full,
+      base: pink -var-full,
       test: blue -var
     ),
-    column-gap: 90px,
+    column-gap: 92px,
     +wow: (
-      font-weight: 30rem
+      font-weight: 50rem
     ),
     _yolo: (
-      margin: 35px,
+      margin: 36px,
       grid-area: ". yolo ." ". heyo ." -var,
       background: (-auto, rgba, $night, .5, darken),
       font-family: ("Courier Sans", "Helvetica", "Kith Regular", !important),
@@ -38,9 +52,16 @@ $s-Testing: (
       )
     )
   ),
+  \*: (
+    padding: 420px,
+    |_hmm: (
+      alias: (whasssup),
+      margin: 0
+    )
+  ),
   header: (
     override: important,
-    background: blue,
+    background: green,
     margin-top: 19%,
     margin-bottom: 4%,
     padding: 40px,
@@ -48,18 +69,16 @@ $s-Testing: (
       line-height: 20px
     )
   ),
-  b_chara-test: (
+  #b_chara-test: (
     padding: (
-      base: 999px important,
+      base: 25rem important,
       tablet: 40px important
     ),
-    _yoho: (
-      override: desktop,
+    _yolo: (
       auto: (
-        repeat,
-        padding-top,
-        221, 10, 5, 9ex, 10,
-        all-px
+        wy-repeat-any,
+        grid-area,
+        $color-palette,
       )
     )
   )

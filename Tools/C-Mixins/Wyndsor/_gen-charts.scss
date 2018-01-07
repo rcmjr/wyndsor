@@ -1,4 +1,4 @@
-@mixin graph-simple($redline, $redline-str, $greenverb-list, $greenverb-str, $greenverb-length, $splitter, $breakpoint, $EpicAct, $important-check) {
+@mixin gen-graph($redline, $redline-str, $greenverb-list, $greenverb-str, $greenverb-length, $splitter, $breakpoint, $EpicAct, $important-check) {
   $determiner: nth($greenverb-list, 1);
   $decider:
     if($determiner == hz-bar, $determiner,
@@ -215,8 +215,5 @@
         opacity: 0;
       }
     }
-  }
-  @else {
-    @warn "Sorry, that doesnt exist yet.";
   }
 }
