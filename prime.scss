@@ -1,4 +1,3 @@
-// To use for Prod, remove the underscore from the filename (remember to add an underscore to prime-dev's!).
 // REMEMBER: This inlines all css and concatenates all breakpoint css under single breakpoint media queries.
 
 //// --- RESET --- ////////////////////////////
@@ -6,35 +5,22 @@
 
 //// --- STYLE --- ////////////////////////////
 @import //// i //////////// Framework
-        'Style/0-Experience/form',
-        'Style/0-Experience/symmetry',
-        'Style/0-Experience/tactics',
+        'Style/1-Experience/form',
+        'Style/1-Experience/symmetry',
+        'Style/1-Experience/tactics',
         //// ii //////////// Palette
-        'Style/1-Palette/typography',
-        'Style/1-Palette/colors',
-        'Style/1-Palette/testing',
-        'Style/1-Palette/patterns',
-        'Style/1-Palette/strokes',
+        'Style/2-Palette/typography',
+        'Style/2-Palette/colors',
+        'Style/2-Palette/testing',
+        'Style/2-Palette/patterns',
+        'Style/2-Palette/strokes',
         //// iii //////////// Elements
         'Style/3-Elements/buttons',
         'Style/3-Elements/lightbox',
         'Style/3-Elements/load',
         'Style/3-Elements/logos&marks',
         'Style/3-Elements/nav',
-        'Style/3-Elements/states',
-        //// iv //////////// Pages
-        'Composition/About',
-        'Composition/Folio-Pieces',
-        'Composition/Folio',
-        'Composition/Footer',
-        'Composition/Header',
-        'Composition/Home',
-        'Composition/Maintenance',
-        //// v //////////// Page Amenities
-        'Composition/Amenities/404',
-        'Composition/Amenities/Compatibility-Dialogs',
-        'Composition/Amenities/Forms',
-        'Composition/Amenities/Modals';
+        'Style/3-Elements/states';
 
 //// --- MAP IMPORTS --- ////////////////////////////
 $Epic-Map-Prod: map-combine(
@@ -55,27 +41,6 @@ $Epic-Map-Prod: map-combine(
   $s-Logos,
   $s-Navigation,
   $s-States,
-  /* Pages */
-  $c-About-Baseboard,
-  $c-About-Section-1,
-  $c-About-Section-2,
-  $c-About-Amenities,
-  $c-FolioPieces-Baseboard,
-  $c-FolioPieces-Section-1,
-  $c-FolioPieces-Section-2,
-  $c-FolioPieces-Amenities,
-  $c-Folio-Baseboard,
-  $c-Folio-Section-1,
-  $c-Folio-Amenities,
-  $c-Base-Footer,
-  $c-Base-Header,
-  $c-Home-Baseboard,
-  $c-Home-Section-1,
-  $c-Home-Section-2,
-  /* Page Amenities */
-  $c-Maintenance,
-  $c-404,
-  $c-Modals,
 
 true);
 

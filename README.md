@@ -73,9 +73,8 @@
 #### Style Naming Syntax:
 ##### Class Suffixes
   - **x** -- Experience _(Margins, grid, flexbox, etc.)_
-  - **p** -- Palette _(Color, Background, Border, etc.)_
-  - **t** -- Typography _(Headings, body, line-height, etc.)_
-  - **e** -- Element _(Forms, buttons, etc.)_
+  - **p** -- Palette _(Color, Background, Border, Typography, etc.)_
+  - **e** -- Element _(Forms, buttons, logos, modals, etc.)_
 
 ##### Syntax
 
@@ -86,7 +85,7 @@
   > x-{property name}:modifier
 
   Direct Child:
-  > x-{property name} modifier
+  > x-{property name}.modifier
 
 
   p-chara-black

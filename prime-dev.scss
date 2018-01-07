@@ -5,32 +5,19 @@
 
 //// --- STYLE --- //////////////////////////// Add each css comp location here and append your css output folder name.
 @import //// i //////////// Framework
-        'css/Style/0-Experience/form.css',
-        'css/Style/0-Experience/symmetry.css',
-        'css/Style/0-Experience/tactics.css',
+        'css/Style/1-Experience/form.css',
+        'css/Style/1-Experience/symmetry.css',
+        'css/Style/1-Experience/tactics.css',
         //// ii //////////// Palette
-        'css/Style/1-Palette/typography.css',
-        'css/Style/1-Palette/colors.css',
-        'css/Style/1-Palette/testing.css',
-        'css/Style/1-Palette/patterns.css',
-        'css/Style/1-Palette/strokes.css',
+        'css/Style/2-Palette/typography.css',
+        'css/Style/2-Palette/colors.css',
+        'css/Style/2-Palette/testing.css',
+        'css/Style/2-Palette/patterns.css',
+        'css/Style/2-Palette/strokes.css',
         //// iii //////////// Elements
         'css/Style/3-Elements/buttons.css',
         'css/Style/3-Elements/lightbox.css',
         'css/Style/3-Elements/load.css',
         'css/Style/3-Elements/logos&marks.css',
         'css/Style/3-Elements/nav.css',
-        'css/Style/3-Elements/states.css',
-        //// iv //////////// Pages
-        'css/Composition/About.css',
-        'css/Composition/Folio-Pieces.css',
-        'css/Composition/Folio.css',
-        'css/Composition/Footer.css',
-        'css/Composition/Header.css',
-        'css/Composition/Home.css',
-        'css/Composition/Maintenance.css',
-        //// v //////////// Page Amenities
-        'css/Composition/Amenities/404.css',
-        'css/Composition/Amenities/Compatibility-Dialogs.css',
-        'css/Composition/Amenities/Forms.css',
-        'css/Composition/Amenities/Modals.css';
+        'css/Style/3-Elements/states.css';
