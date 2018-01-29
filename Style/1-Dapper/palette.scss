@@ -1,0 +1,51 @@
+@import "../../Admin/Dev/root";
+
+//// --- PALETTE COLORS --- ////////////////////////////
+
+// Add any new colors to list for automatic population across Dapper.
+$p-Colors:(
+  red: $red,
+  orange: $orange,
+  yellow: $yellow,
+  green: $green,
+  blue: $blue,
+  purple: $purple,
+  violet: $violet,
+  black: $black
+  );
+
+$p-Palette:(
+  // Instagram Filters
+  p_insta:(
+    +aden:(auto:(instagram-css, aden))
+  ),
+
+  p_anime:(
+    +bounce:(auto:(animation-css, bounceInUp, dflt, 20s))
+  ),
+
+  // Colors
+  p_color:(
+    auto:(
+      wy-repeat-any,
+      namespace,
+      color,
+      $p-Colors
+      )
+    ),
+  // Backgrounds
+  p_bg:(
+    auto:(
+      wy-repeat-any,
+      namespace,
+      background,
+      $p-Colors
+      )
+    )
+
+);
+
+//// --- END COLORS --- ////////////////////////
+
+$Epic-Map: $p-Palette;
+@import "../../Admin/Dev/the-epic";

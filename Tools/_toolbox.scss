@@ -122,8 +122,3 @@
     #{$sass-child}, // This is used to create child classes or to target a specific family of selectors
     #{$sass-subclass}, // This is used to create a direct sub-class/id
     #{$sass-enables});
-
-//// --- WYNDSOR FEATURE KEYS --- ////////////////////////////
-  $WFE-customprops: custom-props;
-  $WFE-important: important;
-  $WFE-overrideall: applesauce;

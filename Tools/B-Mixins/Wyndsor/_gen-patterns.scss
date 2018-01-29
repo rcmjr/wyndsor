@@ -1,4 +1,5 @@
-@mixin gen-pattern ($redline, $redline-str, $greenline-list, $greenline-str, $greenline-length, $splitter, $breakpoint, $EpicAct, $important-check) {
+@mixin gen-pattern ($redline, $redline-str, $greenverb-list, $greenverb-str, $greenverb-length, $splitter, $breakpoint, $EpicAct, $namebreak-feature, $important-check) {
+
   @if $redline-str == background and if(str-index($greenline-str, "pattern"), true, false) {
     $property: $redline;
     $patterntype: nth($greenline-list, 1);

@@ -1,0 +1,897 @@
+@mixin anime($animation-name) {
+  //// --- ATTENTION SEAKERS --- ////////////////////////////
+  // Bounce
+  @if $animation-name == bounce {
+  0%, 20%, 50%, 80%, 100% {@include transform(translateY(0));}
+	40% {@include transform(translateY(-30px));}
+	60% {@include transform(translateY(-15px));}}
+
+  // Flash
+  @if $animation-name == flash {
+  0%, 50%, 100% {opacity: 1;}
+	25%, 75% {opacity: 0;}}
+
+  // Jello
+  @if $animation-name == jello {
+  11.1% {@include transform(none);}
+  22.2% {@include transform(skewX(-12.5deg) skewY(-12.5deg));}
+  33.3% {@include transform(skewX(6.25deg) skewY(6.25deg));}
+  44.4% {@include transform(skewX(-3.125deg) skewY(-3.125deg));}
+  55.5% {@include transform(skewX(1.5625deg) skewY(1.5625deg));}
+  66.6% {@include transform(skewX(-0.78125deg) skewY(-0.78125deg));}
+  77.7% {@include transform(skewX(0.390625deg) skewY(0.390625deg));}
+  88.8% {@include transform(skewX(-0.1953125deg) skewY(-0.1953125deg));}
+  100% {@include transform(none);}}
+
+  // Pulse
+  @if $animation-name == pulse {
+    0% {@include transform(scale(1));}
+   50% {@include transform(scale(1.1));}
+  100% {@include transform(scale(1));}}
+
+  // RubberBand
+  @if $animation-name == rubberband {
+    0% {@include transform(scale3d(1, 1, 1));}
+   30% {@include transform(scale3d(1.25, 0.75, 1));}
+   40% {@include transform(scale3d(0.75, 1.25, 1));}
+   50% {@include transform(scale3d(1.15, 0.85, 1));}
+   65% {@include transform(scale3d(.95, 1.05, 1));}
+   75% {@include transform(scale3d(1.05, .95, 1));}
+  100% {@include transform(scale3d(1, 1, 1));}}
+
+  // Shake
+  @if $animation-name == shake {
+  0%, 100% {@include transform(translateX(0));}
+	10%, 30%, 50%, 70%, 90% {@include transform(translateX(-10px));}
+	20%, 40%, 60%, 80% {@include transform(translateX(10px));}}
+
+  // Swing
+  @if $animation-name == swing {
+  20%, 40%, 60%, 80%, 100% {@include transform-origin(top center);}
+	20% {@include transform(rotate(15deg));}
+	40% {@include transform(rotate(-10deg));}
+	60% {@include transform(rotate(5deg));}
+	80% {@include transform(rotate(-5deg));}
+	100% {@include transform(rotate(0deg));}}
+
+  // Tada
+  @if $animation-name == tada {
+  0% {@include transform(scale(1));}
+	10%, 20% {@include transform(scale(0.9) rotate(-3deg));}
+	30%, 50%, 70%, 90% {@include transform(scale(1.1) rotate(3deg));}
+	40%, 60%, 80% {@include transform(scale(1.1) rotate(-3deg));}
+	100% {@include transform(scale(1) rotate(0));}}
+
+  // Wobble
+  @if $animation-name == wobble {
+    0% {@include transform(translateX(0%));}
+   15% {@include transform(translateX(-25%) rotate(-5deg));}
+   30% {@include transform(translateX(20%) rotate(3deg));}
+   45% {@include transform(translateX(-15%) rotate(-3deg));}
+   60% {@include transform(translateX(10%) rotate(2deg));}
+   75% {@include transform(translateX(-5%) rotate(-1deg));}
+  100% {@include transform(translateX(0%));}}
+
+  //// --- BOUNCING ENTRANCES --- ////////////////////////////
+  // Bounce In
+  @if $animation-name == bounceIn {
+  0% {
+    opacity: 0;
+    @include transform(scale(.3));
+  }
+  50% {
+    opacity: 1;
+    @include transform(scale(1.05));
+  }
+  70% {@include transform(scale(.9));
+  }
+  100% {@include transform(scale(1));}}
+
+  // Bounce In Down
+  @if $animation-name == bounceInDown {
+  0% {
+    opacity: 0;
+    @include transform(translateY(-2000px));
+    }
+  60% {
+    opacity: 1;
+    @include transform(translateY(30px));
+  }
+  80% {@include transform(translateY(-10px));}
+  100% {@include transform(translateY(0));}}
+
+  // Bounce In Left
+  @if $animation-name == bounceInLeft {
+  0% {
+    opacity: 0;
+    @include transform(translateX(-2000px));
+  }
+  60% {
+    opacity: 1;
+    @include transform(translateX(30px));
+  }
+  80% {@include transform(translateX(-10px));}
+  100% {@include transform(translateX(0));}}
+
+  // Bounce In Right
+  @if $animation-name == bounceInRight {
+  0% {
+    opacity: 0;
+    @include transform(translateX(2000px));
+  }
+  60% {
+    opacity: 1;
+    @include transform(translateX(-30px));
+  }
+  80% {@include transform(translateX(10px));}
+  100% {@include transform(translateX(0));}}
+
+  // Bounce In Up
+  @if $animation-name == bounceInUp {
+  0% {
+    opacity: 0;
+    @include transform(translateY(2000px));
+  }
+  60% {
+    opacity: 1;
+    @include transform(translateY(-30px));
+  }
+  80% {@include transform(translateY(10px));}
+  100% {@include transform(translateY(0));}}
+
+  //// --- BOUNCING EXITS --- ////////////////////////////
+  // Bounce Out
+  @if $animation-name == bounceOut {
+  0% {@include transform(scale(1));}
+  25% {@include transform(scale(.95));}
+  50% {
+    opacity: 1;
+    @include transform(scale(1.1));
+  }
+  100% {
+    opacity: 0;
+    @include transform(scale(.3));
+  }}
+
+  // Bounce Out Down
+  @if $animation-name == bounceOutDown {
+  0% {@include transform(translateY(0));}
+  20% {
+    opacity: 1;
+    @include transform(translateY(-20px));
+  }
+  100% {
+    opacity: 0;
+    @include transform(translateY(2000px));
+  }}
+
+  // Bounce Out Left
+  @if $animation-name == bounceOutLeft {
+    0% {@include transform(translateX(0));}
+   20% {
+     opacity: 1;
+     @include transform(translateX(20px));
+    }
+  100% {
+    opacity: 0;
+    @include transform(translateX(-2000px));
+  }}
+
+  // Bounce Out Right
+  @if $animation-name == bounceOutRight {
+    0% {@include transform(translateX(0));}
+   20% {
+     opacity: 1;
+     @include transform(translateX(-20px));
+    }
+  100% {
+    opacity: 0;
+    @include transform(translateX(2000px));
+  }}
+
+  // Bounce Out Up
+  @if $animation-name == bounceOutUp {
+    0% {@include transform(translateY(0));}
+   20% {
+    opacity: 1;
+    @include transform(translateY(20px));
+  }
+	100% {
+  	opacity: 0;
+  	@include transform(translateY(-2000px));
+  }}
+
+  //// --- FADING ENTRANCES --- ////////////////////////////
+  // Fade In
+  @if $animation-name == fadeIn {
+    0% {opacity: 0;}
+	100% {opacity: 1;}}
+
+  // Fade In Down
+  @if $animation-name == fadeInDown {
+  0% {
+    opacity: 0;
+    @include transform(translateY(-20px));
+  }
+  100% {
+    opacity: 1;
+    @include transform(translateY(0));
+  }}
+
+  // Fade In Down Big
+  @if $animation-name == fadeInDownBig {
+  0% {
+    opacity: 0;
+    @include transform(translateY(-2000px));
+  }
+  100% {
+    opacity: 1;
+    @include transform(translateY(0));
+  }}
+
+  // Fade In Left
+  @if $animation-name == fadeInLeft {
+  0% {
+    opacity: 0;
+    @include transform(translateX(-20px));
+  }
+  100% {
+    opacity: 1;
+    @include transform(translateX(0));
+  }}
+
+  // Fade In Left Big
+  @if $animation-name == fadeInLeftBig {
+  0% {
+    opacity: 0;
+    @include transform(translateX(-2000px));
+  }
+  100% {
+    opacity: 1;
+    @include transform(translateX(0));
+  }}
+
+  // Fade In Right
+  @if $animation-name == fadeInRight {
+  0% {
+    opacity: 0;
+    @include transform(translateX(20px));
+  }
+  100% {
+    opacity: 1;
+    @include transform(translateX(0));
+  }}
+
+  // Fade In Right Big
+  @if $animation-name == fadeInRightBig {
+  0% {
+    opacity: 0;
+    @include transform(translateX(2000px));
+  }
+  100% {
+    opacity: 1;
+    @include transform(translateX(0));
+  }}
+
+  // Fade In Up
+  @if $animation-name == fadeInUp {
+  0% {
+    opacity: 0;
+    @include transform(translateY(20px));}
+  100% {
+    opacity: 1;
+    @include transform(translateY(0));
+  }}
+
+  // Fade In Up Big
+  @if $animation-name == fadeInUpBig {
+  0% {
+    opacity: 0;
+    @include transform(translateY(2000px));
+  }
+  100% {
+    opacity: 1;
+    @include transform(translateY(0));
+  }}
+
+  //// --- FADING EXITS --- ////////////////////////////
+  // Fade Out
+  @if $animation-name == fadeOut {
+    0% {opacity: 1;}
+	100% {opacity: 0;}}
+
+  // Fade Out Down
+  @if $animation-name == fadeOutDown {
+  0% {
+    opacity: 1;
+    @include transform(translateY(0));
+  }
+  100% {
+    opacity: 0;
+    @include transform(translateY(20px));
+  }}
+
+  // Fade Out Down Big
+  @if $animation-name == fadeOutDownBig {
+  0% {
+    opacity: 1;
+    @include transform(translateY(0));
+  }
+  100% {
+    opacity: 0;
+    @include transform(translateY(2000px));
+  }}
+
+  // Fade Out Left
+  @if $animation-name == fadeOutLeft {
+  0% {
+    opacity: 1;
+    @include transform(translateX(0));
+  }
+  100% {
+    opacity: 0;
+    @include transform(translateX(-20px));
+  }}
+
+  // Fade Out Left Big
+  @if $animation-name == fadeOutLeftBig {
+  0% {
+    opacity: 1;
+    @include transform(translateX(0));
+  }
+  100% {
+    opacity: 0;
+    @include transform(translateX(-2000px));
+  }}
+
+  // Fade Out Right
+  @if $animation-name == fadeOutRight {
+  0% {
+    opacity: 1;
+    @include transform(translateX(0));
+  }
+  100% {
+    opacity: 0;
+    @include transform(translateX(20px));
+  }}
+
+  // Fade Out Right Big
+  @if $animation-name == fadeOutRightBig {
+  0% {
+    opacity: 1;
+    @include transform(translateX(0));
+  }
+  100% {
+    opacity: 0;
+    @include transform(translateX(2000px));
+  }}
+
+  // Fade Out Up
+  @if $animation-name == fadeOutUp {
+  0% {
+    opacity: 1;
+    @include transform(translateY(0));
+  }
+  100% {
+    opacity: 0;
+    @include transform(translateY(-20px));
+  }}
+
+  // Fade Out Up Big
+  @if $animation-name == fadeOutUpBig {
+  0% {
+    opacity: 1;
+    @include transform(translateY(0));
+  }
+  100% {
+    opacity: 0;
+    @include transform(translateY(-2000px));
+  }}
+
+  //// --- FLIPPERS --- ////////////////////////////
+  // Flip
+  @if $animation-name == flip {
+  0% {
+    @include transform(perspective(400px) rotateY(0));
+    animation-timing-function: ease-out;
+  }
+  40% {
+    @include transform(perspective(400px) translateZ(150px) rotateY(170deg));
+    animation-timing-function: ease-out;
+  }
+  50% {
+    @include transform(perspective(400px) translateZ(150px) rotateY(190deg) scale(1));
+    animation-timing-function: ease-in;
+  }
+  80% {
+    @include transform(perspective(400px) rotateY(360deg) scale(.95));
+    animation-timing-function: ease-in;
+  }
+  100% {
+    @include transform(perspective(400px) scale(1));
+    animation-timing-function: ease-in;
+  }}
+
+  // Flip In X
+  @if $animation-name == flipInX {
+  0% {
+    opacity: 0;
+    @include transform(perspective(400px) rotateX(90deg));
+  }
+  40% {
+    @include transform(perspective(400px) rotateX(-10deg));
+  }
+  70% {
+    @include transform(perspective(400px) rotateX(10deg));
+  }
+  100% {
+    opacity: 1;
+    @include transform(perspective(400px) rotateX(0deg));
+  }}
+
+  // Flip In Y
+  @if $animation-name == flipInY {
+  0% {
+    opacity: 0;
+    @include transform(perspective(400px) rotateY(90deg));
+  }
+  40% {
+    @include transform(perspective(400px) rotateY(-10deg));
+  }
+  70% {
+    @include transform(perspective(400px) rotateY(10deg));
+  }
+  100% {
+    opacity: 1;
+    @include transform(perspective(400px) rotateY(0deg));
+  }}
+
+  // Flip Out X
+  @if $animation-name == flipOutX {
+  0% {
+    opacity: 1;
+    @include transform(perspective(400px) rotateX(0deg));
+  }
+  100% {
+    opacity: 0;
+    @include transform(perspective(400px) rotateX(90deg));
+  }}
+
+  // Flip Out Y
+  @if $animation-name == flipOutY {
+  0% {
+    opacity: 1;
+    @include transform(perspective(400px) rotateY(0deg));
+  }
+  100% {
+    opacity: 0;
+    @include transform(perspective(400px) rotateY(90deg));
+  }}
+
+  //// --- LIGHTSPEED --- ////////////////////////////
+  // LightSpeed In
+  @if $animation-name == lightSpeedIn {
+  0% {
+  	opacity: 0;
+  	@include transform(translateX(100%) skewX(-30deg));
+  }
+	60% {
+  	opacity: 1;
+  	@include transform(translateX(-20%) skewX(30deg));
+  }
+	80% {
+  	opacity: 1;
+  	@include transform(translateX(0%) skewX(-15deg));
+  }
+	100% {
+  	opacity: 1;
+  	@include transform(translateX(0%) skewX(0deg));
+  }}
+
+  // LightSpeed Out
+  @if $animation-name == lightSpeedOut {
+  0% {
+    opacity: 1;
+    @include transform(translateX(0%) skewX(0deg));
+  }
+  100% {
+    opacity: 0;
+    @include transform(translateX(100%) skewX(-30deg));
+  }}
+
+  //// --- ROTATING ENTRANCES --- ////////////////////////////
+  // Rotate In
+  @if $animation-name == rotateIn {
+  0% {
+    opacity: 0;
+    @include transform(rotate(-200deg));
+    @include transform-origin(center center);
+  }
+  100% {
+    opacity: 1;
+    @include transform(rotate(0));
+    @include transform-origin(center center);
+  }}
+
+  // Rotate In Down Left
+  @if $animation-name == rotateInDownLeft {
+  0% {
+    opacity: 0;
+    @include transform(rotate(-90deg));
+    @include transform-origin(left bottom);
+  }
+  100% {
+    opacity: 1;
+    @include transform(rotate(0));
+    @include transform-origin(left bottom);
+  }}
+
+  // Rotate In Down Right
+  @if $animation-name == rotateInDownRight {
+  0% {
+    opacity: 0;
+    @include transform(rotate(90deg));
+    @include transform-origin(right bottom);
+  }
+  100% {
+    opacity: 1;
+    @include transform(rotate(0));
+    @include transform-origin(right bottom);
+  }}
+
+  // Rotate In Up Left
+  @if $animation-name == rotateInUpLeft {
+  0% {
+    opacity: 0;
+    @include transform(rotate(90deg));
+    @include transform-origin(left bottom);
+  }
+  100% {
+    opacity: 1;
+    @include transform(rotate(0));
+    @include transform-origin(left bottom);
+  }}
+
+  // Rotate In Up Right
+  @if $animation-name == rotateInUpRight {
+  0% {
+    opacity: 0;
+    @include transform(rotate(-90deg));
+    @include transform-origin(right bottom);
+  }
+  100% {
+    opacity: 1;
+    @include transform(rotate(0));
+    @include transform-origin(right bottom);
+  }}
+
+  //// --- ROTATING EXITS --- ////////////////////////////
+  // Rotate Out
+  @if $animation-name == rotateOut {
+  0% {
+  	opacity: 1;
+  	@include transform(rotate(0));
+  	@include transform-origin(center center);
+  }
+	100% {
+  	opacity: 0;
+  	@include transform(rotate(200deg));
+  	@include transform-origin(center center);
+  }}
+
+  // Rotate Out Down Left
+  @if $animation-name == rotateOutDownLeft {
+  0% {
+  	opacity: 1;
+  	@include transform(rotate(0));
+  	@include transform-origin(left bottom);
+  }
+	100% {
+  	opacity: 0;
+  	@include transform(rotate(90deg));
+  	@include transform-origin(left bottom);
+  }}
+
+  // Rotate Out Down Right
+  @if $animation-name == rotateOutDownRight {
+  0% {
+  	opacity: 1;
+  	@include transform(rotate(0));
+  	@include transform-origin(right bottom);
+  }
+	100% {
+  	opacity: 0;
+  	@include transform(rotate(-90deg));
+  	@include transform-origin(right bottom);
+  }}
+
+  // Rotate Out Up Left
+  @if $animation-name == rotateOutUpLeft {
+  0% {
+  	opacity: 1;
+  	@include transform(rotate(0));
+  	@include transform-origin(left bottom);
+  }
+ 100% {
+   opacity: 0;
+   @include transform(rotate(-90deg));
+   @include transform-origin(left bottom);
+  }}
+
+  // Rotate Out Up Right
+  @if $animation-name == rotateOutUpRight {
+  0% {
+    opacity: 1;
+    @include transform(rotate(0));
+    @include transform-origin(right bottom);
+  }
+  100% {
+    opacity: 0;
+    @include transform(rotate(90deg));
+    @include transform-origin(right bottom);
+  }}
+
+  //// --- SLIDING ENTRANCES --- ////////////////////////////
+  // Slide In Down
+  @if $animation-name == slideInDown {
+  0% {
+    opacity: 0;
+    @include transform(translateY(-2000px));
+  }
+  100% {
+    opacity: 1;
+    @include transform(translateY(0));
+  }}
+
+  // Slide In Left
+  @if $animation-name == slideInLeft {
+  0% {
+    opacity: 0;
+    @include transform(translateX(-2000px));
+  }
+  100% {
+    opacity: 1;
+    @include transform(translateX(0));
+  }}
+
+  // Slide In Right
+  @if $animation-name == slideInRight {
+  0% {
+    opacity: 0;
+    @include transform(translateX(2000px));
+  }
+  100% {
+    opacity: 1;
+    @include transform(translateX(0));
+  }}
+
+  // Slide In Up
+  @if $animation-name == slideInUp {
+  0% {
+    opacity: 0;
+    @include transform(translateY(2000px));
+  }
+  100% {
+    opacity: 1;
+    @include transform(translateY(0));
+  }}
+
+  //// --- SLIDING EXITS --- ////////////////////////////
+  // Slide Out Down
+  @if $animation-name == slideOutDown {
+  0% {
+    opacity: 0;
+    @include transform(translateY(-2000px));
+  }
+  100% {
+    opacity: 1;
+    @include transform(translateY(0));
+  }}
+
+  // Slide Out Left
+  @if $animation-name == slideOutLeft {
+  0% {
+    opacity: 0;
+    @include transform(translateX(-2000px));
+  }
+  100% {
+    opacity: 1;
+    @include transform(translateX(0));
+  }}
+
+  // Slide Out Right
+  @if $animation-name == slideOutRight {
+  0% {
+    opacity: 0;
+    @include transform(translateX(2000px));
+  }
+  100% {
+    opacity: 1;
+    @include transform(translateX(0));
+  }}
+
+  // Slide Out Up
+  @if $animation-name == slideOutUp {
+  0% {
+    opacity: 0;
+    @include transform(translateY(2000px));
+  }
+  100% {
+    opacity: 1;
+    @include transform(translateY(0));
+  }}
+
+  //// --- SPECIALS --- ////////////////////////////
+  // Hinge
+  @if $animation-name == hinge {
+  0% {
+    animation-timing-function: ease-in-out;
+    @include transform(rotate(0));
+    @include transform-origin(top left);
+  }
+  20%, 60% {
+    animation-timing-function: ease-in-out;
+    @include transform(rotate(80deg));
+    @include transform-origin(top left);
+  }
+  40% {
+    animation-timing-function: ease-in-out;
+    @include transform(rotate(60deg));
+    @include transform-origin(top left);
+  }
+  80% {
+    opacity: 1;
+    animation-timing-function: ease-in-out;
+    @include transform(rotate(60deg) translateY(0));
+    @include transform-origin(top left);
+  }
+  100% {
+    opacity: 0;
+    @include transform(translateY(700px));
+  }}
+
+  // Roll In
+  @if $animation-name == rollIn {
+  0% {
+    opacity: 0;
+    @include transform(translateX(-100%) rotate(-120deg));
+  }
+  100% {
+    opacity: 1;
+    @include transform(translateX(0px) rotate(0deg));
+  }}
+
+  // Roll Out
+  @if $animation-name == rollOut {
+  0% {
+    opacity: 1;
+    @include transform(translateX(0px) rotate(0deg));
+  }
+  100% {
+    opacity: 0;
+    @include transform(translateX(100%) rotate(120deg));
+  }}
+
+  //// --- ZOOMING ENTRANCES --- ////////////////////////////
+  // Zoom In
+  @if $animation-name == zoomIn {
+  0% {
+    opacity: 0;
+    @include transform(scale3d(.3, .3, .3));
+  }
+  50% {opacity: 1;}}
+
+  // Zoom In Down
+  @if $animation-name == zoomInDown {
+  0% {
+    animation-timing-function: cubic-bezier(0.550, 0.055, 0.675, 0.190);
+    opacity: 0;
+    @include transform(scale3d(.1, .1, .1) translate3d(0, -1000px, 0));
+  }
+  60% {
+    animation-timing-function: cubic-bezier(0.175, 0.885, 0.320, 1);
+    opacity: 1;
+    @include transform(scale3d(.475, .475, .475) translate3d(0, 60px, 0));
+  }}
+
+  // Zoom In Left
+  @if $animation-name == zoomInLeft {
+  0% {
+    animation-timing-function: cubic-bezier(0.550, 0.055, 0.675, 0.190);
+    opacity: 0;
+    @include transform(scale3d(.1, .1, .1) translate3d(-1000px, 0, 0));
+  }
+  60% {
+    animation-timing-function: cubic-bezier(0.175, 0.885, 0.320, 1);
+    opacity: 1;
+    @include transform(scale3d(.475, .475, .475) translate3d(10px, 0, 0));
+  }}
+
+  // Zoom In Right
+  @if $animation-name == zoomInRight {
+  0% {
+    animation-timing-function: cubic-bezier(0.550, 0.055, 0.675, 0.190);
+    opacity: 0;
+    @include transform(scale3d(.1, .1, .1) translate3d(1000px, 0, 0));
+  }
+  60% {
+    animation-timing-function: cubic-bezier(0.175, 0.885, 0.320, 1);
+    opacity: 1;
+    @include transform(scale3d(.475, .475, .475) translate3d(-10px, 0, 0));
+  }}
+
+  // Zoom In Up
+  @if $animation-name == zoomInUp {
+  0% {
+    animation-timing-function: cubic-bezier(0.550, 0.055, 0.675, 0.190);
+    opacity: 0;
+    @include transform(scale3d(.1, .1, .1) translate3d(0, 1000px, 0));
+  }
+  60% {
+    animation-timing-function: cubic-bezier(0.175, 0.885, 0.320, 1);
+    opacity: 1;
+    @include transform(scale3d(.475, .475, .475) translate3d(0, -60px, 0));
+  }}
+
+  //// --- ZOOMING EXITS --- ////////////////////////////
+  // Zoom Out
+  @if $animation-name == zoomOut {
+  0% {opacity: 1;}
+  50% {
+    opacity: 0;
+    @include transform(scale3d(.3, .3, .3));
+  }
+  100% {opacity: 0;}}
+
+  // Zoom Out Down
+  @if $animation-name == zoomOutDown {
+  40% {
+    animation-timing-function: cubic-bezier(0.550, 0.055, 0.675, 0.190);
+    opacity: 1;
+    @include transform(scale3d(.475, .475, .475) translate3d(0, -60px, 0));
+  }
+  100% {
+    animation-timing-function: cubic-bezier(0.175, 0.885, 0.320, 1);
+    opacity: 0;
+    @include transform(scale3d(.1, .1, .1) translate3d(0, 2000px, 0));
+    @include transform-origin(center bottom);
+  }}
+
+  // Zoom Out Left
+  @if $animation-name == zoomOutLeft {
+  40% {
+    opacity: 1;
+    @include transform(scale3d(.475, .475, .475) translate3d(42px, 0, 0));
+  }
+  100% {
+    opacity: 0;
+    @include transform(scale(.1) translate3d(-2000px, 0, 0));
+    @include transform-origin(left center);
+  }}
+
+  // Zoom Out Right
+  @if $animation-name == zoomOutRight {
+  40% {
+    opacity: 1;
+    @include transform(scale3d(.475, .475, .475) translate3d(-42px, 0, 0));
+  }
+  100% {
+    opacity: 0;
+    @include transform(scale(.1) translate3d(2000px, 0, 0));
+    @include transform-origin(right center);
+  }}
+
+  // Zoom Out Up
+  @if $animation-name == zoomOutUp {
+  40% {
+    animation-timing-function: cubic-bezier(0.550, 0.055, 0.675, 0.190);
+    opacity: 1;
+    @include transform(scale3d(.475, .475, .475) translate3d(0, 60px, 0));
+  }
+  100% {
+    animation-timing-function: cubic-bezier(0.175, 0.885, 0.320, 1);
+    opacity: 0;
+    @include transform(scale3d(.1, .1, .1) translate3d(0, -2000px, 0));
+    @include transform-origin(center bottom);
+  }}
+}

@@ -14,44 +14,44 @@
 3. Style Modifiers
 
 #### Layout
-  ##### Form
+  ##### Methods
     - Display
     - Flexbox
     - Floats
     - Overflow
     - Vertical Alignment
-    - Grids
-    - Container
-  ##### Symmetry
-    - Positioning
-    - Sizing
-    - Spacing
-  ##### Tactics
     - Visibility
     - Z-Index
+    - Positioning
     - Appearance (remove browser default styling)
-    - Interactivity
+  ##### Spacing & Size
+    - Margins
+    - Padding
+    - Widths
+    - Heights
+    - Size
+  #### Grids & Blocks
+    - Grid Template Areas
+    - Default Widths
+    - Blocks (Grid Areas)
 #### Palette
-  ##### Bases
+  ##### Colors & BGs
     - Backgrounds
-    - Opacity
+    - Colors
     - Patterns
-  ##### Effects
+    - Opacity
+    - SVG
+  ##### Strokes
     - Borders
     - Border Radius
     - Shadows
     - Outline
-
-#### Typography
-  ##### Paragraph
-    - Styling
+  ##### Typography
     - Columns
-    - Line-height
-  ##### Character
-    - Styling
-    - Lists
+    - Styles
     - Text Transform
     - Kerning/Leading
+    - Text-Transform
 
 #### Elements
   - Alerts
@@ -78,14 +78,20 @@
 
 ##### Syntax
 
+Dapper uses the SBM approach. SBM is based on BEM, but changes up the syntax to accommodate Dapper's structural framework.
+
+SBM
+  > suite__block---modifier</br>
+  > suite__block---modifier-clarifiers
+
   Subclass:
-  > x-{property name}-modifier
+  > x__styler---modifier
 
   Namespace:
-  > x-{property name}:modifier
+  > x__styler:modifier
 
   Direct Child:
-  > x-{property name}.modifier
+  > x__styler.modifier
 
 
   p-chara-black

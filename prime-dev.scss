@@ -1,23 +1,25 @@
-// REMEMBER: This only contains dependencies and css imports via URL. It doesn't inline your style/comp css.
+// REMEMBER: This only
+// contains dependencies
+// and css imports via URL.
+// It doesn't inline
+// any css at all.
 
-//// --- RESET --- ////////////////////////////
-@import 'Admin/reset';
+//// --- DEV IMPORTS --- ////////////////////////////
+//// Add the DEST of your sass files here with ".css" at the end (this will embed your css files as urls).
 
-//// --- STYLE --- //////////////////////////// Add each css comp location here and append your css output folder name.
-@import //// i //////////// Framework
-        'css/Style/1-Experience/form.css',
-        'css/Style/1-Experience/symmetry.css',
-        'css/Style/1-Experience/tactics.css',
-        //// ii //////////// Palette
-        'css/Style/2-Palette/typography.css',
-        'css/Style/2-Palette/colors.css',
-        'css/Style/2-Palette/testing.css',
-        'css/Style/2-Palette/patterns.css',
-        'css/Style/2-Palette/strokes.css',
-        //// iii //////////// Elements
-        'css/Style/3-Elements/buttons.css',
-        'css/Style/3-Elements/lightbox.css',
-        'css/Style/3-Elements/load.css',
-        'css/Style/3-Elements/logos&marks.css',
-        'css/Style/3-Elements/nav.css',
-        'css/Style/3-Elements/states.css';
+@import
+  //// i //////////// Reset/Normalize
+  'Admin/reset',
+  //// ii //////////// Framework
+  'Style/variables.css',
+  'Style/1-Dapper/globals.css',
+  'Style/1-Dapper/layout.css',
+  'Style/1-Dapper/palette.css',
+  'Style/1-Dapper/typography.css',
+  //// iii //////////// Elements
+  'Style/2-Components/buttons.css',
+  'Style/2-Components/lightbox.css',
+  'Style/2-Components/load.css',
+  'Style/2-Components/logos&marks.css',
+  'Style/2-Components/nav.css',
+  'Style/2-Components/states.css';

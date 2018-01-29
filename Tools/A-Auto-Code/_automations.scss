@@ -378,10 +378,11 @@
       $lock: $propertyvalue;
       $type: "keys";
       $var-override: () !default;
-      $imp-rep: null !default;
-      $brk-rep: null !default;
-      $cprop-rep: null !default;
-      $mold-verify: null !default;
+      $imp-rep: null;
+      $brk-rep: null;
+      $brk-pnt: null;
+      $cprop-rep: null;
+      $mold-verify: null;
       $toll: 0 !default;
       $toll2: 0 !default;
       $miles: 0 !default;
@@ -407,9 +408,15 @@
             $test: to-list($pin, "keys");
             @for $i from 1 through length($test) {
               $brk-rep: if(chk-list($breakpoints, nth($test, $i)), true, false);
+              $brk-pnt: if($brk-rep == true, nth($test, $i), $brk-pnt);
               $var-override: append($var-override, $brk-rep);
               $toll: if($brk-rep == true, 1 + $toll, 0 + $toll);
             }
+          }
+
+          @else if $override == all-breakpoints {
+            $allbrks-rep: if(str-index($mold-verify, $WFE-allbreakpoints), true, false);
+            $var-override: append($var-override, $allbrks-rep);
           }
 
           @else if $override == override-all {
@@ -441,6 +448,10 @@
             $cprop-rep: if(str-index($mold-verify, $WFE-customprops + "-full"), true, false);
             $var-override: append($var-override, $cprop-rep);
           }
+          @else if $override == name-break {
+            $nprop-rep: if(str-index($mold-verify, $WFE-namebreak), true, false);
+            $var-override: append($var-override, $nprop-rep);
+          }
           @else if $override == override-all {
             $ovrall-rep: if(str-index($mold-verify, $WFE-overrideall), true, false);
             $var-override: append($var-override, $ovrall-rep);
@@ -453,13 +464,25 @@
 
       @if $override == breakpoint-name or $override == breakpoint {
         @if $var-override == () {
-          @return $var-override;
+          @if $override == breakpoint {
+            @return $var-override;
+          }
+          @else if $override == breakpoint-name {
+            @return $brk-pnt;
+          }
         }
         @else if $var-override != () {
           @if $toll > 1 {
             @error "Sorry, #{$toll} - #{$override + " " + $brk-rep + " " + $var-override} | #{$mold-verify} | - you can`t apply more than one breakpoint here.";
           }
-          @else {@return $var-override;}
+          @else {
+            @if $override == breakpoint {
+              @return $var-override;
+            }
+            @else if $override == breakpoint-name {
+              @return $brk-pnt;
+            }
+          }
         }
       }
 
@@ -555,8 +578,9 @@
     @function to-number($value) {
       @if type-of($value) == 'number' {
         @return $value;
-      } @else if type-of($value) != 'string' {
-        $_: log('Value for `to-number` should be a number or a string.');
+      }
+      @else if type-of($value) != 'string' {
+          @error 'Value for `to-number` should be a number or a string.';
       }
 
       $result: 0;
@@ -566,7 +590,6 @@
 
       @for $i from if($minus, 2, 1) through str-length($value) {
         $character: str-slice($value, $i, $i);
-
         @if not (index(map-keys($numbers), $character) or $character == '.') {
           @return to-length(if($minus, -$result, $result), str-slice($value, $i));
         }
@@ -580,7 +603,8 @@
           $result: $result + map-get($numbers, $character) / $digits;
         }
       }
-      @return if($minus, -$result, $result);
+
+      @return if($minus, -$result, $result);;
     }
 
   //// 25 //////////// Removes Unit from Number
@@ -635,7 +659,7 @@
 
   //// 29 //////////// Slice list
     @function slice-list($list, $start: 1, $end: length($list)) {
-      $result: null;
+      $result: 0;
 
       @if type-of($start) != number or type-of($end) != number {
         @warn "Either $start or $end are not a number for `slice`.";
@@ -658,8 +682,6 @@
       }
 
       @else {
-        $result: ();
-
         @for $i from $start through $end {
           $result: append($result, nth($list, $i));
         }

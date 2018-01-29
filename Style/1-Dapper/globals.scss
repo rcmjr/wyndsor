@@ -1,0 +1,25 @@
+@import "../../Admin/Dev/root";
+//// --- CSS GRID --- ////////////////////////////
+
+$g-Globals: (
+
+  //// a //////////// Adobe Typekit Flash Supressor
+  wf:(
+    _wyndsor: (
+      opacity: 0),
+
+    _loading: (
+      opacity: 0),
+
+    _inactive: (
+      opacity: 0),
+
+    _active: (
+      opacity: 1,
+      transition-delay: 3s,
+      transition: 1.5s ease
+    )),
+);
+
+$Epic-Map: $g-Globals;
+@import "../../Admin/Dev/the-epic";

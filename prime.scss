@@ -1,52 +1,44 @@
-// REMEMBER: This inlines all css and concatenates all breakpoint css under single breakpoint media queries.
+// REMEMBER: This inlines
+// all css, and concatenates
+// all breakpoint css under
+// single media queries.
 
-//// --- RESET --- ////////////////////////////
-@import 'Admin/reset';
-
-//// --- STYLE --- ////////////////////////////
-@import //// i //////////// Framework
-        'Style/1-Experience/form',
-        'Style/1-Experience/symmetry',
-        'Style/1-Experience/tactics',
-        //// ii //////////// Palette
-        'Style/2-Palette/typography',
-        'Style/2-Palette/colors',
-        'Style/2-Palette/testing',
-        'Style/2-Palette/patterns',
-        'Style/2-Palette/strokes',
-        //// iii //////////// Elements
-        'Style/3-Elements/buttons',
-        'Style/3-Elements/lightbox',
-        'Style/3-Elements/load',
-        'Style/3-Elements/logos&marks',
-        'Style/3-Elements/nav',
-        'Style/3-Elements/states';
+//// --- IMPORTS --- ////////////////////////////
+@import
+  //// i //////////// Reset/Normalize
+  'Admin/reset',
+  //// i //////////// Framework
+  'Style/variables',
+  'Style/1-Dapper/globals',
+  'Style/1-Dapper/layout',
+  'Style/1-Dapper/palette',
+  'Style/1-Dapper/typography',
+  //// ii //////////// Elements
+  'Style/2-Components/buttons',
+  'Style/2-Components/lightbox',
+  'Style/2-Components/load',
+  'Style/2-Components/logos&marks',
+  'Style/2-Components/nav',
+  'Style/2-Components/states';
 
 //// --- MAP IMPORTS --- ////////////////////////////
 $Epic-Map-Prod: map-combine(
   /* Framework */
-  $s-Rules,
-  $s-Grid,
-  $s-Spacing,
-  /* Palette */
-  $s-Color-Sets,
-  $s-Testing,
-  $s-Patterns,
-  $s-Strokes,
-  $s-Typography,
+  $g-Globals,
+  $l-Layout,
+  $p-Palette,
+  $t-Typography,
   /* Elements */
-  $s-Buttons,
-  $s-Lightbox,
-  $s-LoadScreen,
-  $s-Logos,
-  $s-Navigation,
-  $s-States,
+  $c-Buttons,
+  $c-Lightbox,
+  $c-LoadScreen,
+  $c-Logos,
+  $c-Navigation,
+  $c-States,
 
 true);
 
-//// i //////////// Normal CSS
-@include switchboard($Epic-Map-Prod, normal);
-//// i //////////// Media Query Based CSS
-@include breakpointboard($Epic-Map-Prod, breakpoint);
-//// i //////////// Super Important CSS
-@if $Enable-ImportantEpic == yes {@include switchboard($Epic-Map-Prod, important);}
+//// --- ALL THE MAGIC --- ////////////////////////////
+@include switchboard($Epic-Map-Prod, normal); // Normal CSS
+@include breakpointboard($Epic-Map-Prod, breakpoint); // Breakpoint CSS
+@if $Enable-ImportantEpic == yes {@include switchboard($Epic-Map-Prod, important);} // Super-Important CSS

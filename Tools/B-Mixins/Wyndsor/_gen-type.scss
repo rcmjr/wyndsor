@@ -1,5 +1,5 @@
 // Set fontsize and baseline at once. Mix of fontsize and baseline mixin.
-@mixin gen-type($redline, $redline-str, $greenline-list, $greenline-str, $greenline-length, $breakpoint, $EpicAct, $important-check) {
+@mixin gen-type($redline, $redline-str, $greenverb-list, $greenverb-str, $greenverb-length, $splitter, $breakpoint, $EpicAct, $namebreak-feature, $important-check) {
   $breakpoints-limit: length($media-sizes);
   $fs-check: false !default;
   $ts-check: false !default;

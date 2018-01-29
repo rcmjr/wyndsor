@@ -6,10 +6,12 @@
   $Enable-ImportantEpic: yes; // Enables important CSS in The Epic.
   $Disable-ImportantRule: no; // Disables important CSS rule.
   $Enable-AVP: yes; // Yes or No - Enable Auto Vendor Prefixes.
-  $Include-AliasBrkname: no; // Adds breakpoint name to Aliases, helpful if you want to target specific breakpoint styles.
+  $Enable-NameBrkname: yes; // Enables breakpoints to be added to CSS names, helpful if you want to target specific breakpoint styles on your css.
+  $Include-AliasBrkname: no; // Adds breakpoint name to Aliases, helpful if you want to add breakpoint names to aliases. If on, Aliases won't be added to base css.
 
 //// --- Global Parameters --- ////////////////////////////
   $Global-Default-Unit: px;
+  $Global-NameBreak-Separator: default; // Options: direct-child (.), child ( .), namespace (:), default (-), default-under (_)
 
 //// --- Workflow State --- ////////////////////////////
   $Wyndsor-mode: dev; // Dev or Prod mode
@@ -38,4 +40,11 @@
   $Enable-ATG: yes; // Enable Auto Typography Generator
   $sass-autotype: "type-style";
   $base-fontsize: 100%; // 10px = 1 rem
-  $base-lineheight: 1.6 //
+  $base-lineheight: 1.6; //
+
+  // Wyndsor Feature & Override keys
+  $WFE-customprops: custom-props;
+  $WFE-important: important;
+  $WFE-namebreak: breakname;
+  $WFE-overrideall: applesauce;
+  $WFE-allbreakpoints: all-breakpoints;

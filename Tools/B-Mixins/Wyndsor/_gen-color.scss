@@ -19,7 +19,7 @@
     }
   }
 
-  @mixin gen-color($redline, $redline-str, $greenverb-list, $greenverb-str, $greenverb-length, $splitter, $breakpoint, $EpicAct, $important-check) {
+  @mixin gen-color($redline, $redline-str, $greenverb-list, $greenverb-str, $greenverb-length, $splitter, $breakpoint, $EpicAct, $namebreak-feature, $important-check) {
     $allowed-properties:
       "color",
       "background",

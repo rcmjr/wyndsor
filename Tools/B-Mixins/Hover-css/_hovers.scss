@@ -1,0 +1,2736 @@
+@mixin hovers($hover-name) {
+  //// --- 2D TRANSITIONS --- ////////////////////////////
+  // Backward
+  @if $hover-name == backward {
+    @include prefixed(transition-duration, $mediumDuration);
+    @include prefixed(transition-property, transform);
+
+    &:hover,
+    &:focus,
+    &:active {
+      @include prefixed(transform, translateX(-8px));
+    }
+  }
+  // Bob
+  @if $hover-name == bob {
+    @include keyframes($hover-name) {
+    0% {@include prefixed(transform, translateY(-8px));}
+  	50% {@include prefixed(transform, translateY(-4px));}
+  	100% {@include prefixed(transform, translateY(-8px));}}
+
+    @include keyframes(#{$hover-name}-float) {
+    100% {@include prefixed(transform, translateY(-8px));}}
+
+    &:hover,
+  	&:focus,
+  	&:active {
+  		@include prefixed(animation-name, "bob-float, bob");
+  		@include prefixed(animation-duration, ".3s, 1.5s");
+  		@include prefixed(animation-delay, "0s, .3s");
+  		@include prefixed(animation-timing-function, "ease-out, ease-in-out");
+  		@include prefixed(animation-iteration-count, "1, infinite");
+  		@include prefixed(animation-fill-mode, "forwards");
+  		@include prefixed(animation-direction, "normal, alternate");
+  	}}
+  // Bounce-In
+  @if $hover-name == bounceIn {
+    @include prefixed(transition-duration, $slowDuration);
+
+    &:hover,
+    &:focus,
+    &:active {
+      @include prefixed(transform, scale(1.2));
+      @include prefixed(transition-timing-function, cubic-bezier(.47,2.02,.31,-0.36));
+    }
+  }
+  // Bounce-Out
+  @if $hover-name == bounceOut {
+    @include prefixed(transition-duration, $slowDuration);
+
+  	&:hover,
+  	&:focus,
+  	&:active {
+  		@include prefixed(transform, scale(.8));
+  		@include prefixed(transition-timing-function, cubic-bezier(.47,2.02,.31,-0.36));
+  	}
+  }
+  // Buzz-Out
+  @if $hover-name == buzzOut {
+    @include keyframes($hover-name) {
+      10% {@include prefixed(transform, translateX(3px) rotate(2deg));}
+      20% {@include prefixed(transform, translateX(-3px) rotate(-2deg));}
+      30% {@include prefixed(transform, translateX(3px) rotate(2deg));}
+      40% {@include prefixed(transform, translateX(-3px) rotate(-2deg));}
+      50% {@include prefixed(transform, translateX(2px) rotate(1deg));}
+      60% {@include prefixed(transform, translateX(-2px) rotate(-1deg));}
+      70% {@include prefixed(transform, translateX(2px) rotate(1deg));}
+      80% {@include prefixed(transform, translateX(-2px) rotate(-1deg));}
+      90% {@include prefixed(transform, translateX(1px) rotate(0));}
+      100% {@include prefixed(transform, translateX(-1px) rotate(0));}}
+
+    &:hover,
+    &:focus,
+    &:active {
+      @include prefixed(animation-name, buzzOut);
+      @include prefixed(animation-duration, .75s);
+      @include prefixed(animation-timing-function, linear);
+      @include prefixed(animation-iteration-count, 1);
+    }
+  }
+  // Buzz
+  @if $hover-name == buzz {
+    @include keyframes($hover-name) {
+      50% {@include prefixed(transform, translateX(3px) rotate(2deg));}
+      100% {@include prefixed(transform, translateX(-3px) rotate(-2deg));}}
+
+    &:hover,
+    &:focus,
+    &:active {
+      @include prefixed(animation-name, buzz);
+      @include prefixed(animation-duration, .15s);
+      @include prefixed(animation-timing-function, linear);
+      @include prefixed(animation-iteration-count, infinite);
+    }
+  }
+  // Float
+  @if $hover-name == float {
+    @include prefixed(transition-duration, $mediumDuration);
+  	@include prefixed(transition-property, transform);
+  	@include prefixed(transition-timing-function, ease-out);
+
+  	&:hover,
+  	&:focus,
+  	&:active {
+  		@include prefixed(transform, translateY(-8px));
+  	}
+  }
+  // Forward
+  @if $hover-name == foward {
+    @include prefixed(transition-duration, $mediumDuration);
+  	@include prefixed(transition-property, transform);
+
+  	&:hover,
+  	&:focus,
+  	&:active {
+  		@include prefixed(transform, translateX(8px));
+  	}
+  }
+  // Grow-Rotate
+  @if $hover-name == growRotate {
+    @include prefixed(transition-duration, $mediumDuration);
+  	@include prefixed(transition-property, transform);
+
+  	&:hover,
+  	&:focus,
+  	&:active {
+  		@include prefixed(transform, scale(1.1) rotate(4deg));
+  	}
+  }
+  // Grow
+  @if $hover-name == grow {
+    @include prefixed(transition-duration, $mediumDuration);
+  	@include prefixed(transition-property, transform);
+
+  	&:hover,
+  	&:focus,
+  	&:active {
+  		@include prefixed(transform, scale(1.1));
+  	}
+  }
+  // Hang
+  @if $hover-name == hang {
+    @include keyframes($hover-name) {
+      0% {@include prefixed(transform, translateY(8px));}
+      50% {@include prefixed(transform, translateY(4px));}
+      100% {@include prefixed(transform, translateY(8px));}}
+
+    @include keyframes(#{$hover-name}-sink) {
+      100% {@include prefixed(transform, translateY(8px));}}
+
+    &:hover,
+  	&:focus,
+  	&:active {
+  		@include prefixed(animation-name, "#{$nameSpace}-hang-sink, #{$nameSpace}-hang");
+  		@include prefixed(animation-duration, ".3s, 1.5s");
+  		@include prefixed(animation-delay, "0s, .3s");
+  		@include prefixed(animation-timing-function, "ease-out, ease-in-out");
+  		@include prefixed(animation-iteration-count, "1, infinite");
+  		@include prefixed(animation-fill-mode, "forwards");
+  		@include prefixed(animation-direction, "normal, alternate");
+  	}}
+  // Pop
+  @if $hover-name == pop {
+    @include keyframes($hover-name) {
+    50% {@include prefixed(transform, scale(1.2));}}
+
+    &:hover,
+  	&:focus,
+  	&:active {
+  		@include prefixed(animation-name, pop);
+  		@include prefixed(animation-duration, $mediumDuration);
+  		@include prefixed(animation-timing-function, linear);
+  		@include prefixed(animation-iteration-count, 1);
+  	}}
+  // Pulse-Grow
+  @if $hover-name == pulseGrow {
+    @include keyframes($hover-name) {
+      to {@include prefixed(transform, scale(1.1));}}
+
+  	&:hover,
+  	&:focus,
+  	&:active {
+  		@include prefixed(animation-name, pulseGrow);
+  		@include prefixed(animation-duration, $mediumDuration);
+  		@include prefixed(animation-timing-function, linear);
+  		@include prefixed(animation-iteration-count, infinite);
+  		@include prefixed(animation-direction, alternate);
+  	}}
+  // Pulse-Shrink
+  @if $hover-name == pulseShrink {
+    @include keyframes($hover-name) {
+      to {@include prefixed(transform, scale(.9));}}
+
+    &:hover,
+    &:focus,
+    &:active {
+      @include prefixed(animation-name, pulseShrink);
+      @include prefixed(animation-duration, $mediumDuration);
+      @include prefixed(animation-timing-function, linear);
+      @include prefixed(animation-iteration-count, infinite);
+      @include prefixed(animation-direction, alternate);
+    }}
+  // Pulse
+  @if $hover-name == pulse {
+    @include keyframes($hover-name) {
+      25% {@include prefixed(transform, scale(1.1));}
+      75% {@include prefixed(transform, scale(.9));}}
+
+    &:hover,
+    &:focus,
+    &:active {
+      @include prefixed(animation-name, pulse);
+      @include prefixed(animation-duration, 1s);
+      @include prefixed(animation-timing-function, linear);
+      @include prefixed(animation-iteration-count, infinite);
+    }}
+  // Push
+  @if $hover-name == push {
+    @include keyframes($hover-name) {
+      50% {@include prefixed(transform, scale(.8));}
+      100% {@include prefixed(transform, scale(1));}}
+
+    &:hover,
+    &:focus,
+    &:active {
+      @include prefixed(animation-name, push);
+      @include prefixed(animation-duration, .3s);
+      @include prefixed(animation-timing-function, linear);
+      @include prefixed(animation-iteration-count, 1);
+    }}
+  // Rotate
+  @if $hover-name == rotate {
+    @include prefixed(transition-duration, $mediumDuration);
+    @include prefixed(transition-property, transform);
+
+    &:hover,
+    &:focus,
+    &:active {
+      @include prefixed(transform, rotate(4deg));
+    }}
+  // Shrink
+  @if $hover-name == shrink {
+    @include prefixed(transition-duration, $mediumDuration);
+  	@include prefixed(transition-property, transform);
+
+  	&:hover,
+  	&:focus,
+  	&:active {
+  		@include prefixed(transform, scale(.9));
+  	}}
+  // Sink
+  @if $hover-name == sink {
+    @include prefixed(transition-duration, $mediumDuration);
+  	@include prefixed(transition-property, transform);
+  	@include prefixed(transition-timing-function, ease-out);
+
+  	&:hover,
+  	&:focus,
+  	&:active {
+  		@include prefixed(transform, translateY(8px));
+  	}}
+  // Skew-Backward
+  @if $hover-name == skewBackward {
+    @include prefixed(transition-duration, $mediumDuration);
+  	@include prefixed(transition-property, transform);
+  	@include prefixed(transform-origin, 0 100%);
+
+  	&:hover,
+  	&:focus,
+  	&:active {
+  		@include prefixed(transform, skew(10deg));
+  	}}
+  // Skew-Forward
+  @if $hover-name == skewForward {
+    @include prefixed(transition-duration, $mediumDuration);
+  	@include prefixed(transition-property, transform);
+  	@include prefixed(transform-origin, 0 100%);
+
+  	&:hover,
+  	&:focus,
+  	&:active {
+  		@include prefixed(transform, skew(-10deg));
+  	}}
+  // Skew
+  @if $hover-name == skew {
+    @include prefixed(transition-duration, $mediumDuration);
+  	@include prefixed(transition-property, transform);
+
+  	&:hover,
+  	&:focus,
+  	&:active {
+  		@include prefixed(transform, skew(-10deg));
+  	}}
+  // Wobble-Bottom
+  @if $hover-name == wobbleBottom {
+    @include keyframes($hover-name) {
+      16.65% {@include prefixed(transform, skew(-12deg));}
+      33.3% {@include prefixed(transform, skew(10deg));}
+      49.95% {@include prefixed(transform, skew(-6deg));}
+      66.6% {@include prefixed(transform, skew(4deg));}
+      83.25% {@include prefixed(transform, skew(-2deg));}
+      100% {@include prefixed(transform, skew(0));}}
+
+    @include prefixed(transform-origin, 100% 0);
+
+    &:hover,
+    &:focus,
+    &:active {
+      @include prefixed(animation-name, wobbleBottom);
+      @include prefixed(animation-duration, 1s);
+      @include prefixed(animation-timing-function, ease-in-out);
+      @include prefixed(animation-iteration-count, 1);
+    }}
+  // Wobble-Horizontal
+  @if $hover-name == wobbleHorizontal {
+    @include keyframes($hover-name) {
+      16.65% {@include prefixed(transform, translateX(8px));}
+      33.3% {@include prefixed(transform, translateX(-6px));}
+      49.95% {@include prefixed(transform, translateX(4px));}
+      66.6% {@include prefixed(transform, translateX(-2px));}
+      83.25% {@include prefixed(transform, translateX(1px));}
+      100% {@include prefixed(transform, translateX(0));}}
+
+  	&:hover,
+  	&:focus,
+  	&:active {
+  		@include prefixed(animation-name, wobbleHorizontal);
+  		@include prefixed(animation-duration, 1s);
+  		@include prefixed(animation-timing-function, ease-in-out);
+  		@include prefixed(animation-iteration-count, 1);
+  	}}
+  // Wobble-Skew
+  @if $hover-name == wobbleSkew {
+    @include keyframes($hover-name) {
+      16.65% {@include prefixed(transform, skew(-12deg));}
+      33.3% {@include prefixed(transform, skew(10deg));}
+      49.95% {@include prefixed(transform, skew(-6deg));}
+      66.6% {@include prefixed(transform, skew(4deg));}
+      83.25% {@include prefixed(transform, skew(-2deg));}
+      100% {@include prefixed(transform, skew(0));}}
+
+    &:hover,
+    &:focus,
+    &:active {
+      @include prefixed(animation-name, wobbleSkew);
+      @include prefixed(animation-duration, 1s);
+      @include prefixed(animation-timing-function, ease-in-out);
+      @include prefixed(animation-iteration-count, 1);
+    }}
+  // Wobble-to-Bottom-Right
+  @if $hover-name == wobbleToBottomRight {
+    @include keyframes($hover-name) {
+      16.65% {@include prefixed(transform, translate(8px, 8px));}
+      33.3% {@include prefixed(transform, translate(-6px, -6px));}
+      49.95% {@include prefixed(transform, translate(4px, 4px));}
+      66.6% {@include prefixed(transform, translate(-2px, -2px));}
+      83.25% {@include prefixed(transform, translate(1px, 1px));}
+      100% {@include prefixed(transform, translate(0, 0));}}
+
+    &:hover,
+    &:focus,
+    &:active {
+      @include prefixed(animation-name, wobbleToBottomRight);
+      @include prefixed(animation-duration, 1s);
+      @include prefixed(animation-timing-function, ease-in-out);
+      @include prefixed(animation-iteration-count, 1);
+    }}
+  // Wobble-to-Top-Right
+  @if $hover-name == wobbleToTopRight {
+    @include keyframes($hover-name) {
+      16.65% {@include prefixed(transform, translate(8px, -8px));}
+      33.3% {@include prefixed(transform, translate(-6px, 6px));}
+      49.95% {@include prefixed(transform, translate(4px, -4px));}
+      66.6% {@include prefixed(transform, translate(-2px, 2px));}
+      83.25% {@include prefixed(transform, translate(1px, -1px));}
+      100% {@include prefixed(transform, translate(0, 0));}}
+
+    &:hover,
+    &:focus,
+    &:active {
+      @include prefixed(animation-name, wobbleToTopRight);
+      @include prefixed(animation-duration, 1s);
+      @include prefixed(animation-timing-function, ease-in-out);
+      @include prefixed(animation-iteration-count, 1);
+    }}
+  // Wobble-Top
+  @if $hover-name == wobbleTop {
+    @include keyframes($hover-name) {
+      16.65% {@include prefixed(transform, skew(-12deg));}
+      33.3% {@include prefixed(transform, skew(10deg));}
+      49.95% {@include prefixed(transform, skew(-6deg));}
+      66.6% {@include prefixed(transform, skew(4deg));}
+      83.25% {@include prefixed(transform, skew(-2deg));}
+      100% {@include prefixed(transform, skew(0));}}
+
+    @include prefixed(transform-origin, 0 100%);
+
+    &:hover,
+    &:focus,
+    &:active {
+      @include prefixed(animation-name, wobbleTop);
+      @include prefixed(animation-duration, 1s);
+      @include prefixed(animation-timing-function, ease-in-out);
+      @include prefixed(animation-iteration-count, 1);
+    }}
+  // Wobble-Vertical
+  @if $hover-name == wobbleVertical {
+    @include keyframes($hover-name) {
+      16.65% {@include prefixed(transform, translateY(8px));}
+      33.3% {@include prefixed(transform, translateY(-6px));}
+      49.95% {@include prefixed(transform, translateY(4px));}
+      66.6% {@include prefixed(transform, translateY(-2px));}
+      83.25% {@include prefixed(transform, translateY(1px));}
+      100% {@include prefixed(transform, translateY(0));}}
+
+    &:hover,
+    &:focus,
+    &:active {
+      @include prefixed(animation-name, wobbleVertical);
+      @include prefixed(animation-duration, 1s);
+      @include prefixed(animation-timing-function, ease-in-out);
+      @include prefixed(animation-iteration-count, 1);
+    }}
+
+
+  //// --- BACKGROUND TRANSITIONS --- ////////////////////////////
+  // Back-Pulse
+  @if $hover-name == backPulse {
+    @include keyframes($hover-name) {
+      50% {background-color: rgba(32, 152, 209, .75);}}
+
+    overflow: hidden;
+    @include prefixed(transition-duration, $slowDuration);
+    @include prefixed(transition-property, "color, background-color");
+
+    &:hover,
+    &:focus,
+    &:active {
+      @include prefixed(animation-name, backPulse);
+      @include prefixed(animation-duration, 1s);
+      @include prefixed(animation-delay, $slowDuration);
+      @include prefixed(animation-timing-function, linear);
+      @include prefixed(animation-iteration-count, infinite);
+      background-color: $activeColor;
+      color: white;
+    }}
+  // Bounce-To-Bottom
+  @if $hover-name == bounceToBottom {
+    position: relative;
+  	@include prefixed(transition-property, color);
+  	@include prefixed(transition-duration, $slowDuration);
+
+  	&:before {
+  		content: "";
+  		position: absolute;
+  		z-index: -1;
+  		top: 0;
+  		left: 0;
+  		right: 0;
+  		bottom: 0;
+  		background: $activeColor;
+  		@include prefixed(transform, scaleY(0));
+  		@include prefixed(transform-origin, 50% 0);
+  		@include prefixed(transition-property, transform);
+  		@include prefixed(transition-duration, $slowDuration);
+  		@include prefixed(transition-timing-function, ease-out);
+  	}
+
+  	&:hover,
+  	&:focus,
+  	&:active {
+  		color: white;
+
+  		&:before {
+  			@include prefixed(transform, scaleY(1));
+  			@include prefixed(transition-timing-function, cubic-bezier(.52,1.64,.37,.66));
+  		}
+  	}}
+  // Bounce-To-Left
+  @if $hover-name == bounceToLeft {
+    position: relative;
+  	@include prefixed(transition-property, color);
+  	@include prefixed(transition-duration, $slowDuration);
+
+  	&:before {
+  		content: "";
+  		position: absolute;
+  		z-index: -1;
+  		top: 0;
+  		left: 0;
+  		right: 0;
+  		bottom: 0;
+  		background: $activeColor;
+  		@include prefixed(transform, scaleX(0));
+  		@include prefixed(transform-origin, 100% 50%);
+  		@include prefixed(transition-property, transform);
+  		@include prefixed(transition-duration, $slowDuration);
+  		@include prefixed(transition-timing-function, ease-out);
+  	}
+
+  	&:hover,
+  	&:focus,
+  	&:active {
+  		color: white;
+
+  		&:before {
+  			@include prefixed(transform, scaleX(1));
+  			@include prefixed(transition-timing-function, cubic-bezier(.52,1.64,.37,.66));
+  		}
+  	}}
+  // Bounce-To-Right
+  @if $hover-name == bounceToRight {
+    position: relative;
+  	@include prefixed(transition-property, color);
+  	@include prefixed(transition-duration, $slowDuration);
+
+  	&:before {
+  		content: "";
+  		position: absolute;
+  		z-index: -1;
+  		top: 0;
+  		left: 0;
+  		right: 0;
+  		bottom: 0;
+  		background: $activeColor;
+  		@include prefixed(transform, scaleX(0));
+  		@include prefixed(transform-origin, 0 50%);
+  		@include prefixed(transition-property, transform);
+  		@include prefixed(transition-duration, $slowDuration);
+  		@include prefixed(transition-timing-function, ease-out);
+  	}
+
+  	&:hover,
+  	&:focus,
+  	&:active {
+  		color: white;
+
+  		&:before {
+  			@include prefixed(transform, scaleX(1));
+  			@include prefixed(transition-timing-function, cubic-bezier(.52,1.64,.37,.66));
+  		}
+  	}}
+  // Bounce-To-Top
+  @if $hover-name == bounceToTop {
+    position: relative;
+  	@include prefixed(transition-property, color);
+  	@include prefixed(transition-duration, $slowDuration);
+
+  	&:before {
+  		content: "";
+  		position: absolute;
+  		z-index: -1;
+  		top: 0;
+  		left: 0;
+  		right: 0;
+  		bottom: 0;
+  		background: $activeColor;
+  		@include prefixed(transform, scaleY(0));
+  		@include prefixed(transform-origin, 50% 100%);
+  		@include prefixed(transition-property, transform);
+  		@include prefixed(transition-duration, $slowDuration);
+  		@include prefixed(transition-timing-function, ease-out);
+  	}
+
+  	&:hover,
+  	&:focus,
+  	&:active {
+  		color: white;
+
+  		&:before {
+  			@include prefixed(transform, scaleY(1));
+  			@include prefixed(transition-timing-function, cubic-bezier(.52,1.64,.37,.66));
+  		}
+  	}}
+  // Fade
+  @if $hover-name == fade {
+    overflow: hidden;
+  	@include prefixed(transition-duration, $mediumDuration);
+  	@include prefixed(transition-property, "color, background-color, background");
+
+  	&:hover,
+  	&:focus,
+  	&:active {
+  		background-color: #12C3F4;
+  		color: white;
+  		background: white;
+  	}}
+  // Radial-In
+  @if $hover-name == radialIn {
+    position: relative;
+  	overflow: hidden;
+  	background: $activeColor;
+  	@include prefixed(transition-property, color);
+  	@include prefixed(transition-duration, $mediumDuration);
+
+  	&:before {
+  		content: "";
+  		position: absolute;
+  		z-index: -1;
+  		top: 0;
+  		left: 0;
+  		right: 0;
+  		bottom: 0;
+  		background: $primaryColor;
+  		border-radius: 100%;
+  		@include prefixed(transform, scale(2));
+  		@include prefixed(transition-property, transform);
+  		@include prefixed(transition-duration, $mediumDuration);
+  		@include prefixed(transition-timing-function, ease-out);
+  	}
+
+  	&:hover,
+  	&:focus,
+  	&:active {
+  		color: white;
+
+  		&:before {
+  			@include prefixed(transform, scale(0));
+  		}
+  	}}
+  // Radial-Out
+  @if $hover-name == radialOut {
+    position: relative;
+  	overflow: hidden;
+  	background: $primaryColor;
+  	@include prefixed(transition-property, color);
+  	@include prefixed(transition-duration, $mediumDuration);
+
+  	&:before {
+  		content: "";
+  		position: absolute;
+  		z-index: -1;
+  		top: 0;
+  		left: 0;
+  		right: 0;
+  		bottom: 0;
+  		background: $activeColor;
+  		border-radius: 100%;
+  		@include prefixed(transform, scale(0));
+  		@include prefixed(transition-property, transform);
+  		@include prefixed(transition-duration, $mediumDuration);
+  		@include prefixed(transition-timing-function, ease-out);
+  	}
+
+  	&:hover,
+  	&:focus,
+  	&:active {
+  		color: white;
+
+  		&:before {
+  			@include prefixed(transform, scale(2));
+  		}
+  	}}
+  // Rectangle-In
+  @if $hover-name == rectangleIn {
+    position: relative;
+  	background: $activeColor;
+  	@include prefixed(transition-property, color);
+  	@include prefixed(transition-duration, $mediumDuration);
+
+  	&:before {
+  		content: "";
+  		position: absolute;
+  		z-index: -1;
+  		top: 0;
+  		left: 0;
+  		right: 0;
+  		bottom: 0;
+  		background: $primaryColor;
+  		@include prefixed(transform, scale(1));
+  		@include prefixed(transition-property, transform);
+  		@include prefixed(transition-duration, $mediumDuration);
+  		@include prefixed(transition-timing-function, ease-out);
+  	}
+
+  	&:hover,
+  	&:focus,
+  	&:active {
+  		color: white;
+
+  		&:before {
+  			@include prefixed(transform, scale(0));
+  		}
+  	}}
+  // Rectangle-Out
+  @if $hover-name == rectangleOut {
+    position: relative;
+  	background: $primaryColor;
+  	@include prefixed(transition-property, color);
+  	@include prefixed(transition-duration, $mediumDuration);
+
+  	&:before {
+  		content: "";
+  		position: absolute;
+  		z-index: -1;
+  		top: 0;
+  		left: 0;
+  		right: 0;
+  		bottom: 0;
+  		background: $activeColor;
+  		@include prefixed(transform, scale(0));
+  		@include prefixed(transition-property, transform);
+  		@include prefixed(transition-duration, $mediumDuration);
+  		@include prefixed(transition-timing-function, ease-out);
+  	}
+
+  	&:hover,
+  	&:focus,
+  	&:active {
+  		color: white;
+
+  		&:before {
+  			@include prefixed(transform, scale(1));
+  		}
+  	}}
+  // Shutter-In-Horizontal
+  @if $hover-name == shutterInHorizontal {
+    position: relative;
+  	background: $activeColor;
+  	@include prefixed(transition-property, color);
+  	@include prefixed(transition-duration, $mediumDuration);
+
+  	&:before {
+  		content: "";
+  		position: absolute;
+  		z-index: -1;
+  		top: 0;
+  		bottom: 0;
+  		left: 0;
+  		right: 0;
+  		background: $primaryColor;
+  		@include prefixed(transform, scaleX(1));
+  		@include prefixed(transform-origin, 50%);
+  		@include prefixed(transition-property, transform);
+  		@include prefixed(transition-duration, $mediumDuration);
+  		@include prefixed(transition-timing-function, ease-out);
+  	}
+
+  	&:hover,
+  	&:focus,
+  	&:active {
+  		color: white;
+
+  		&:before {
+  			@include prefixed(transform, scaleX(0));
+  		}
+  	}}
+  // Shutter-In-Vertical
+  @if $hover-name == shutterInVertical {
+    position: relative;
+  	background: $activeColor;
+  	@include prefixed(transition-property, color);
+  	@include prefixed(transition-duration, $mediumDuration);
+
+  	&:before {
+  		content: "";
+  		position: absolute;
+  		z-index: -1;
+  		top: 0;
+  		bottom: 0;
+  		left: 0;
+  		right: 0;
+  		background: $primaryColor;
+  		@include prefixed(transform, scaleY(1));
+  		@include prefixed(transform-origin, 50%);
+  		@include prefixed(transition-property, transform);
+  		@include prefixed(transition-duration, $mediumDuration);
+  		@include prefixed(transition-timing-function, ease-out);
+  	}
+
+  	&:hover,
+  	&:focus,
+  	&:active {
+  		color: white;
+
+  		&:before {
+  			@include prefixed(transform, scaleY(0));
+  		}
+  	}}
+  // Shutter-Out-Horizontal
+  @if $hover-name == shutterOutHorizontal {
+    position: relative;
+  	background: $primaryColor;
+  	@include prefixed(transition-property, color);
+  	@include prefixed(transition-duration, $mediumDuration);
+
+  	&:before {
+  		content: "";
+  		position: absolute;
+  		z-index: -1;
+  		top: 0;
+  		bottom: 0;
+  		left: 0;
+  		right: 0;
+  		background: $activeColor;
+  		@include prefixed(transform, scaleX(0));
+  		@include prefixed(transform-origin, 50%);
+  		@include prefixed(transition-property, transform);
+  		@include prefixed(transition-duration, $mediumDuration);
+  		@include prefixed(transition-timing-function, ease-out);
+  	}
+
+  	&:hover,
+  	&:focus,
+  	&:active {
+  		color: white;
+
+  		&:before {
+  			@include prefixed(transform, scaleX(1));
+  		}
+  	}}
+  // Shutter-Out-Vertical
+  @if $hover-name == shutterOutVertical {
+    position: relative;
+  	background: $primaryColor;
+  	@include prefixed(transition-property, color);
+  	@include prefixed(transition-duration, $mediumDuration);
+
+  	&:before {
+  		content: "";
+  		position: absolute;
+  		z-index: -1;
+  		top: 0;
+  		bottom: 0;
+  		left: 0;
+  		right: 0;
+  		background: $activeColor;
+  		@include prefixed(transform, scaleY(0));
+  		@include prefixed(transform-origin, 50%);
+  		@include prefixed(transition-property, transform);
+  		@include prefixed(transition-duration, $mediumDuration);
+  		@include prefixed(transition-timing-function, ease-out);
+  	}
+
+  	&:hover,
+  	&:focus,
+  	&:active {
+  		color: white;
+
+  		&:before {
+  			@include prefixed(transform, scaleY(1));
+  		}
+  	}}
+  // Sweep-To-Bottom
+  @if $hover-name == sweepToBottom {
+    position: relative;
+  	@include prefixed(transition-property, color);
+  	@include prefixed(transition-duration, $mediumDuration);
+
+  	&:before {
+  		content: "";
+  		position: absolute;
+  		z-index: -1;
+  		top: 0;
+  		left: 0;
+  		right: 0;
+  		bottom: 0;
+  		background: $activeColor;
+  		@include prefixed(transform, scaleY(0));
+  		@include prefixed(transform-origin, 50% 0);
+  		@include prefixed(transition-property, transform);
+  		@include prefixed(transition-duration, $mediumDuration);
+  		@include prefixed(transition-timing-function, ease-out);
+  	}
+
+  	&:hover,
+  	&:focus,
+  	&:active {
+  		color: white;
+
+  		&:before {
+  			@include prefixed(transform, scaleY(1));
+  		}
+  	}}
+  // Sweep-To-Left
+  @if $hover-name == sweepToLeft {
+    position: relative;
+  	@include prefixed(transition-property, color);
+  	@include prefixed(transition-duration, $mediumDuration);
+
+  	&:before {
+  		content: "";
+  		position: absolute;
+  		z-index: -1;
+  		top: 0;
+  		left: 0;
+  		right: 0;
+  		bottom: 0;
+  		background: $activeColor;
+  		@include prefixed(transform, scaleX(0));
+  		@include prefixed(transform-origin, 100% 50%);
+  		@include prefixed(transition-property, transform);
+  		@include prefixed(transition-duration, $mediumDuration);
+  		@include prefixed(transition-timing-function, ease-out);
+  	}
+
+  	&:hover,
+  	&:focus,
+  	&:active {
+  		color: white;
+
+  		&:before {
+  			@include prefixed(transform, scaleX(1));
+  		}
+  	}}
+  // Sweep-To-Right
+  @if $hover-name == sweepToRight {
+  	position: relative;
+  	@include prefixed(transition-property, color);
+  	@include prefixed(transition-duration, $mediumDuration);
+
+  	&:before {
+  		content: "";
+  		position: absolute;
+  		z-index: -1;
+  		top: 0;
+  		left: 0;
+  		right: 0;
+  		bottom: 0;
+  		background: $activeColor;
+  		@include prefixed(transform, scaleX(0));
+  		@include prefixed(transform-origin, 0 50%);
+  		@include prefixed(transition-property, transform);
+  		@include prefixed(transition-duration, $mediumDuration);
+  		@include prefixed(transition-timing-function, ease-out);
+  	}
+
+  	&:hover,
+  	&:focus,
+  	&:active {
+  		color: white;
+
+  		&:before {
+  			@include prefixed(transform, scaleX(1));
+  		}
+  	}}
+  // Sweep-To-Top
+  @if $hover-name == sweepToTop {
+    position: relative;
+  	@include prefixed(transition-property, color);
+  	@include prefixed(transition-duration, $mediumDuration);
+
+  	&:before {
+  		content: "";
+  		position: absolute;
+  		z-index: -1;
+  		top: 0;
+  		left: 0;
+  		right: 0;
+  		bottom: 0;
+  		background: $activeColor;
+  		@include prefixed(transform, scaleY(0));
+  		@include prefixed(transform-origin, 50% 100%);
+  		@include prefixed(transition-property, transform);
+  		@include prefixed(transition-duration, $mediumDuration);
+  		@include prefixed(transition-timing-function, ease-out);
+  	}
+
+  	&:hover,
+  	&:focus,
+  	&:active {
+  		color: white;
+
+  		&:before {
+  			@include prefixed(transform, scaleY(1));
+  		}
+  	}}
+
+  //// --- BORDER-TRANSITIONS --- ////////////////////////////
+  // Border-Fade
+  @if $hover-name == borderFade {
+    $borderWidth: 4px;
+
+  	@include prefixed(transition-duration, $mediumDuration);
+  	@include prefixed(transition-property, box-shadow);
+  	box-shadow:
+  			inset 0 0 0 $borderWidth $primaryColor,
+  			0 0 1px rgba(0, 0, 0, 0); /* Hack to improve aliasing on mobile/tablet devices */
+
+  	&:hover,
+  	&:focus,
+  	&:active {
+  		box-shadow:
+  			inset 0 0 0 $borderWidth $activeColor,
+  			0 0 1px rgba(0, 0, 0, 0); /* Hack to improve aliasing on mobile/tablet devices */
+  	}}
+  // Hollow
+  @if $hover-name == hollow {
+    $borderWidth: 4px;
+
+  	@include prefixed(transition-duration, $mediumDuration);
+  	@include prefixed(transition-property, background);
+  	box-shadow:
+  		inset 0 0 0 $borderWidth $primaryColor,
+  		0 0 1px rgba(0, 0, 0, 0); /* Hack to improve aliasing on mobile/tablet devices */
+
+  	&:hover,
+  	&:focus,
+  	&:active {
+  		background: none;
+  	}}
+  // Outline-In
+  @if $hover-name == outlineIn {
+    $outerBorderWidth: 4px;
+  	$innerBorderWidth: 4px;
+
+  	position: relative;
+
+  	&:before {
+  		pointer-events: none;
+  		content: '';
+  		position: absolute;
+  		border: $primaryColor solid $outerBorderWidth;
+  		top: -($outerBorderWidth + $innerBorderWidth) * 2;
+  		right: -($outerBorderWidth + $innerBorderWidth) * 2;
+  		bottom: -($outerBorderWidth + $innerBorderWidth) * 2;
+  		left: -($outerBorderWidth + $innerBorderWidth) * 2;
+  		opacity: 0;
+  		@include prefixed(transition-duration, .3s);
+  		@include prefixed(transition-property, "top, right, bottom, left");
+  	}
+
+  	&:hover:before,
+  	&:focus:before,
+  	&:active:before {
+  		top: -($outerBorderWidth + $innerBorderWidth);
+  		right: -($outerBorderWidth + $innerBorderWidth);
+  		bottom: -($outerBorderWidth + $innerBorderWidth);
+  		left: -($outerBorderWidth + $innerBorderWidth);
+  		opacity: 1;
+  	}}
+  // Outline-Out
+  @if $hover-name == outlineOut {
+    $outerBorderWidth: 4px;
+  	$innerBorderWidth: 4px;
+
+  	position: relative;
+
+  	&:before {
+  		content: '';
+  		position: absolute;
+  		border: $primaryColor solid $outerBorderWidth;
+  		top: 0;
+  		right: 0;
+  		bottom: 0;
+  		left: 0;
+  		@include prefixed(transition-duration, .3s);
+  		@include prefixed(transition-property, "top, right, bottom, left");
+  	}
+
+  	&:hover:before,
+  	&:focus:before,
+  	&:active:before {
+  		top: -($outerBorderWidth + $innerBorderWidth);
+  		right: -($outerBorderWidth + $innerBorderWidth);
+  		bottom: -($outerBorderWidth + $innerBorderWidth);
+  		left: -($outerBorderWidth + $innerBorderWidth);
+  	}}
+  // Overline-From-Center
+  @if $hover-name == overlineFromCenter {
+    $duration: $mediumDuration;
+
+  	position: relative;
+  	overflow: hidden;
+
+  	&:before {
+  		content: "";
+  		position: absolute;
+  		z-index: -1;
+  		left: 50%;
+  		right: 50%;
+  		top: 0;
+  		background: $activeColor;
+  		height: 4px;
+  		@include prefixed(transition-property, "left, right");
+  		@include prefixed(transition-duration, $duration);
+  		@include prefixed(transition-timing-function, ease-out);
+  	}
+
+  	&:hover,
+  	&:focus,
+  	&:active {
+
+  		&:before {
+  			left: 0;
+  			right: 0;
+  		}
+  	}}
+  // Overline-From-Left
+  @if $hover-name == overlineFromLeft {
+    $duration: $mediumDuration;
+
+  	position: relative;
+  	overflow: hidden;
+
+  	&:before {
+  		content: "";
+  		position: absolute;
+  		z-index: -1;
+  		left: 0;
+  		right: 100%;
+  		top: 0;
+  		background: $activeColor;
+  		height: 4px;
+  		@include prefixed(transition-property, "right");
+  		@include prefixed(transition-duration, $duration);
+  		@include prefixed(transition-timing-function, ease-out);
+  	}
+
+  	&:hover,
+  	&:focus,
+  	&:active {
+
+  		&:before {
+  			right: 0;
+  		}
+  	}}
+  // Overline-From-Right
+  @if $hover-name == overlineFromRight {
+    $duration: $mediumDuration;
+
+  	position: relative;
+  	overflow: hidden;
+
+  	&:before {
+  		content: "";
+  		position: absolute;
+  		z-index: -1;
+  		left: 100%;
+  		right: 0;
+  		top: 0;
+  		background: $activeColor;
+  		height: 4px;
+  		@include prefixed(transition-property, "left");
+  		@include prefixed(transition-duration, $duration);
+  		@include prefixed(transition-timing-function, ease-out);
+  	}
+
+  	&:hover,
+  	&:focus,
+  	&:active {
+
+  		&:before {
+  			left: 0;
+  		}
+  	}}
+  // Overline-Reveal
+  @if $hover-name == overlineReveal {
+    $duration: $mediumDuration;
+
+  	position: relative;
+  	overflow: hidden;
+
+  	&:before {
+  		content: "";
+  		position: absolute;
+  		z-index: -1;
+  		left: 0;
+  		right: 0;
+  		top: 0;
+  		background: $activeColor;
+  		height: 4px;
+  		@include prefixed(transform, translateY(-4px));
+  		@include prefixed(transition-property, transform);
+  		@include prefixed(transition-duration, $duration);
+  		@include prefixed(transition-timing-function, ease-out);
+  	}
+
+  	&:hover,
+  	&:focus,
+  	&:active {
+
+  		&:before {
+  			@include prefixed(transform, translateY(0));
+  		}
+  	}}
+  // Reveal
+  @if $hover-name == reveal {
+    $duration: #{$fastDuration};
+
+  	position: relative;
+  	overflow: hidden;
+
+  	&:before {
+  		content: "";
+  		position: absolute;
+  		z-index: -1;
+  		left: 0;
+  		right: 0;
+  		top: 0;
+  		bottom: 0;
+  		border-color: #{$activeColor};
+  		border-style: solid;
+  		border-width: 0;
+  		@include prefixed(transition-property, border-width);
+  		@include prefixed(transition-duration, #{$duration});
+  		@include prefixed(transition-timing-function, ease-out);
+  	}
+
+  	&:hover,
+  	&:focus,
+  	&:active {
+
+  		&:before {
+  			@include prefixed(transform, translateY(0));
+  			border-width: 4px;
+  		}
+  	}}
+  // Ripple-In
+  @if $hover-name == rippleIn {
+    @include keyframes($hover-name) {
+      100% {
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        opacity: 1;
+      }}
+
+    $outerBorderWidth: 4px;
+  	$innerBorderWidth: 4px;
+
+  	position: relative;
+
+  	&:before {
+  		content: '';
+  		position: absolute;
+  		border: $primaryColor solid $outerBorderWidth;
+  		top: -(6px + 6px);
+  		right: -(6px + 6px);
+  		bottom: -(6px + 6px);
+  		left: -(6px + 6px);
+  		opacity: 0;
+  		@include prefixed(animation-duration, 1s);
+  	}
+
+  	&:hover:before,
+  	&:focus:before,
+  	&:active:before {
+  		@include prefixed(animation-name, #{$nameSpace}-ripple-in);
+  	}}
+  // Ripple-Out
+  @if $hover-name == rippleOut {
+    @include keyframes($hover-name) {
+      100% {
+    		top: -(6px + 6px);
+    		right: -(6px + 6px);
+    		bottom: -(6px + 6px);
+    		left: -(6px + 6px);
+    		opacity: 0;
+    	}}
+
+    $outerBorderWidth: 6px;
+    $innerBorderWidth: 6px;
+
+    position: relative;
+
+    &:before {
+      content: '';
+      position: absolute;
+      border: $primaryColor solid $outerBorderWidth;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      left: 0;
+      @include prefixed(animation-duration, 1s);
+    }
+
+    &:hover:before,
+    &:focus:before,
+    &:active:before {
+      @include prefixed(animation-name, #{$nameSpace}-ripple-out);
+    }}
+  // Round-Corners
+  @if $hover-name == roundCorners {
+    @include prefixed(transition-duration, $mediumDuration);
+  	@include prefixed(transition-property, border-radius);
+
+  	&:hover,
+  	&:focus,
+  	&:active {
+  		border-radius: 1em;
+  	}}
+  // Trim
+  @if $hover-name == trim {
+    $outerBorderWidth: 4px;
+  	$innerBorderWidth: 4px;
+
+  	position: relative;
+
+  	&:before {
+  		content: '';
+  		position: absolute;
+  		border: white solid $innerBorderWidth;
+  		top: $outerBorderWidth;
+  		left: $outerBorderWidth;
+  		right: $outerBorderWidth;
+  		bottom: $outerBorderWidth;
+  		opacity: 0;
+  		@include prefixed(transition-duration, $mediumDuration);
+  		@include prefixed(transition-property, opacity);
+  	}
+
+  	&:hover:before,
+  	&:focus:before,
+  	&:active:before {
+  		opacity: 1;
+  	}}
+  // Underline-From-Center
+  @if $hover-name == underlineFromCenter {
+    $duration: $mediumDuration;
+
+  	position: relative;
+  	overflow: hidden;
+
+  	&:before {
+  		content: "";
+  		position: absolute;
+  		z-index: -1;
+  		left: 50%;
+  		right: 50%;
+  		bottom: 0;
+  		background: $activeColor;
+  		height: 4px;
+  		@include prefixed(transition-property, "left, right");
+  		@include prefixed(transition-duration, $duration);
+  		@include prefixed(transition-timing-function, ease-out);
+  	}
+
+  	&:hover,
+  	&:focus,
+  	&:active {
+
+  		&:before {
+  			left: 0;
+  			right: 0;
+  		}
+  	}}
+  // Underline-From-Left
+  @if $hover-name == underlineFromLeft {
+    $duration: $mediumDuration;
+
+  	position: relative;
+  	overflow: hidden;
+
+  	&:before {
+  		content: "";
+  		position: absolute;
+  		z-index: -1;
+  		left: 0;
+  		right: 100%;
+  		bottom: 0;
+  		background: $activeColor;
+  		height: 4px;
+  		@include prefixed(transition-property, "right");
+  		@include prefixed(transition-duration, $duration);
+  		@include prefixed(transition-timing-function, ease-out);
+  	}
+
+  	&:hover,
+  	&:focus,
+  	&:active {
+
+  		&:before {
+  			right: 0;
+  		}
+  	}}
+  // Underline-From-Right
+  @if $hover-name == underlineFromRight {
+    $duration: $mediumDuration;
+
+  	position: relative;
+  	overflow: hidden;
+
+  	&:before {
+  		content: "";
+  		position: absolute;
+  		z-index: -1;
+  		left: 100%;
+  		right: 0;
+  		bottom: 0;
+  		background: $activeColor;
+  		height: 4px;
+  		@include prefixed(transition-property, "left");
+  		@include prefixed(transition-duration, $duration);
+  		@include prefixed(transition-timing-function, ease-out);
+  	}
+
+  	&:hover,
+  	&:focus,
+  	&:active {
+
+  		&:before {
+  			left: 0;
+  		}
+  	}}
+  // Underline-Reveal
+  @if $hover-name == underlineReveal {
+    $duration: $mediumDuration;
+
+  	position: relative;
+  	overflow: hidden;
+
+  	&:before {
+  		content: "";
+  		position: absolute;
+  		z-index: -1;
+  		left: 0;
+  		right: 0;
+  		bottom: 0;
+  		background: $activeColor;
+  		height: 4px;
+  		@include prefixed(transform, translateY(4px));
+  		@include prefixed(transition-property, transform);
+  		@include prefixed(transition-duration, $duration);
+  		@include prefixed(transition-timing-function, ease-out);
+  	}
+
+  	&:hover,
+  	&:focus,
+  	&:active {
+
+  		&:before {
+  			@include prefixed(transform, translateY(0));
+  		}
+  	}}
+
+  //// --- CURLS --- ////////////////////////////
+  // Curl-Bottom-Left
+  @if $hover-name == curlBottomLeft {
+    position: relative;
+
+    &:before {
+      pointer-events: none;
+      position: absolute;
+      content: '';
+      height: 0;
+      width: 0;
+      bottom: 0;
+      left: 0;
+      background: $revealAreaColor; /* IE9 */
+      background: linear-gradient(
+        45deg,
+        $revealAreaColor 45%,
+        $curlLineColor 50%,
+        $curlTransitionColor 56%,
+        $curlLastColor 80%
+      );
+      box-shadow: 1px -1px 1px rgba(0, 0, 0, .4);
+      @include prefixed(transition-duration, $mediumDuration);
+      @include prefixed(transition-property, "width, height");
+    }
+
+    &:hover:before,
+    &:focus:before,
+    &:active:before {
+      width: $curlWidth;
+      height: $curlHeight;
+    }}
+  // Curl-Bottom-Right
+  @if $hover-name == curlBottomRight {
+    position: relative;
+
+  	&:before {
+  		pointer-events: none;
+  		position: absolute;
+  		content: '';
+  		height: 0;
+  		width: 0;
+  		bottom: 0;
+  		right: 0;
+  		background: $revealAreaColor; /* IE9 */
+  		background: linear-gradient(
+  			315deg,
+  			$revealAreaColor 45%,
+  			$curlLineColor 50%,
+  			$curlTransitionColor 56%,
+  			$curlLastColor 80%
+  		);
+  		box-shadow: -1px -1px 1px rgba(0, 0, 0, .4);
+  		@include prefixed(transition-duration, $mediumDuration);
+  		@include prefixed(transition-property, "width, height");
+  	}
+
+  	&:hover:before,
+  	&:focus:before,
+  	&:active:before {
+  		width: $curlWidth;
+  		height: $curlHeight;
+  	}}
+  // Curl-Top-Left
+  @if $hover-name == curlTopLeft {
+    position: relative;
+
+  	&:before {
+  		pointer-events: none;
+  		position: absolute;
+  		content: '';
+  		height: 0;
+  		width: 0;
+  		top: 0;
+  		left: 0;
+  		background: $revealAreaColor; /* IE9 */
+  		background: linear-gradient(
+  			135deg,
+  			$revealAreaColor 45%,
+  			$curlLineColor 50%,
+  			$curlTransitionColor 56%,
+  			$curlLastColor 80%
+  		);
+  		filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#ffffff', endColorstr='#000000');/*For IE7-8-9*/
+
+  		z-index: 1000;
+  		box-shadow: 1px 1px 1px rgba(0, 0, 0, .4);
+  		@include prefixed(transition-duration, $mediumDuration);
+  		@include prefixed(transition-property, "width, height");
+  	}
+
+  	&:hover:before,
+  	&:focus:before,
+  	&:active:before {
+  		width: $curlWidth;
+  		height: $curlHeight;
+  	}}
+  // Curl-Top-Right
+  @if $hover-name == curlTopRight {
+    position: relative;
+
+  	&:before {
+  		pointer-events: none;
+  		position: absolute;
+  		content: '';
+  		height: 0;
+  		width: 0;
+  		top: 0;
+  		right: 0;
+  		background: $revealAreaColor; /* IE9 */
+  		background: linear-gradient(
+  			225deg,
+  			$revealAreaColor 45%,
+  			$curlLineColor 50%,
+  			$curlTransitionColor 56%,
+  			$curlLastColor 80%
+  		);
+  		box-shadow: -1px 1px 1px rgba(0, 0, 0, .4);
+  		@include prefixed(transition-duration, $mediumDuration);
+  		@include prefixed(transition-property, "width, height");
+  	}
+
+  	&:hover:before,
+  	&:focus:before,
+  	&:active:before {
+  		width: $curlWidth;
+  		height: $curlHeight;
+  	}}
+
+  //// --- ICONS --- ////////////////////////////
+  // Icon-Back
+  @if $hover-name == iconBack {
+    position: relative;
+  	padding-left: 2.2em;
+  	@include prefixed(transition-duration, $fastDuration);
+
+  	&:before {
+  		content: "\f137";
+  		position: absolute;
+  		left: 1em;
+  		padding: 0 1px;
+  		font-family: FontAwesome;
+  		@include prefixed(transform, translateZ(0));
+  		@include prefixed(transition-duration, $fastDuration);
+  		@include prefixed(transition-property, transform);
+  		@include prefixed(transition-timing-function, ease-out);
+  	}
+
+  	&:hover,
+  	&:focus,
+  	&:active {
+
+  		&:before {
+  			@include prefixed(transform, translateX(-4px));
+  		}
+  	}}
+  // Icon-Bob
+  @if $hover-name == iconBob {
+    @include keyframes($hover-name) {
+      0% {@include prefixed(transform, translateY(-6px));}
+      50% {@include prefixed(transform, translateY(-2px));}
+      100% {@include prefixed(transform, translateY(-6px));}}
+
+    @include keyframes(#{$hover-name}-float) {
+        100% {@include prefixed(transform, translateY(-6px));}}
+
+    position: relative;
+  	padding-right: 2.2em;
+  	@include prefixed(transition-duration, $mediumDuration);
+
+  	&:before {
+  		content: "\f077";
+  		position: absolute;
+  		right: 1em;
+  		padding: 0 1px;
+  		font-family: FontAwesome;
+  		@include prefixed(transform, translateZ(0));
+  	}
+
+  	&:hover,
+  	&:focus,
+  	&:active {
+
+  		&:before {
+  			@include prefixed(animation-name, "iconBob-float, iconBob");
+  			@include prefixed(animation-duration, ".3s, 1.5s");
+  			@include prefixed(animation-delay, "0s, .3s");
+  			@include prefixed(animation-timing-function, "ease-out, ease-in-out");
+  			@include prefixed(animation-iteration-count, "1, infinite");
+  			@include prefixed(animation-fill-mode, "forwards");
+  			@include prefixed(animation-direction, "normal, alternate");
+  		}
+  	}}
+  // Icon-Bounce-Out
+  @if $hover-name == iconBounceOut {
+    @include keyframes($hover-name) {
+      50% {@include prefixed(transform, scale(1.5));}}
+
+    position: relative;
+  	padding-right: #{$spaceBetweenTextAndArrows};
+  	@include prefixed(transition-duration, $mediumDuration);
+
+  	&:before {
+  		content: "\f088";
+  		position: absolute;
+  		right: 1em;
+  		padding: 0 1px;
+  		font-family: FontAwesome;
+  		@include prefixed(transform, translateZ(0));
+  		@include prefixed(transition-duration, $mediumDuration);
+  		@include prefixed(transition-property, transform);
+  		@include prefixed(transition-timing-function, ease-out);
+  	}
+
+  	&:hover,
+  	&:focus,
+  	&:active {
+
+  		&:before {
+  			@include prefixed(transform, scale(.9));
+  			@include prefixed(transition-timing-function, cubic-bezier(.47,2.02,.31,-0.36));
+  		}
+  	}}
+  // Icon-Bounce
+  @if $hover-name == iconBounce {
+    position: relative;
+    padding-right: #{$spaceBetweenTextAndArrows};
+    @include prefixed(transition-duration, $mediumDuration);
+
+    &:before {
+      content: "\f087";
+      position: absolute;
+      right: 1em;
+      padding: 0 1px;
+      font-family: FontAwesome;
+      @include prefixed(transform, translateZ(0));
+      @include prefixed(transition-duration, $mediumDuration);
+      @include prefixed(transition-property, transform);
+      @include prefixed(transition-timing-function, ease-out);
+    }
+
+    &:hover,
+    &:focus,
+    &:active {
+
+      &:before {
+        @include prefixed(transform, scale(1.5));
+        @include prefixed(transition-timing-function, cubic-bezier(.47,2.02,.31,-0.36));
+      }
+    }}
+  // Icon-Buzz-Out
+  @if $hover-name == iconBuzzOut {
+    @include keyframes($hover-name) {
+      10% {@include prefixed(transform, translateX(3px) rotate(2deg));}
+      20% {@include prefixed(transform, translateX(-3px) rotate(-2deg));}
+      30% {@include prefixed(transform, translateX(3px) rotate(2deg));}
+      40% {@include prefixed(transform, translateX(-3px) rotate(-2deg));}
+      50% {@include prefixed(transform, translateX(2px) rotate(1deg));}
+      60% {@include prefixed(transform, translateX(-2px) rotate(-1deg));}
+      70% {@include prefixed(transform, translateX(2px) rotate(1deg));}
+      80% {@include prefixed(transform, translateX(-2px) rotate(-1deg));}
+      90% {@include prefixed(transform, translateX(1px) rotate(0));}
+      100% {@include prefixed(transform, translateX(-1px) rotate(0));}}
+
+    position: relative;
+    padding-right: 2.2em;
+    @include prefixed(transition-duration, $mediumDuration);
+
+    &:before {
+      content: "\f023";
+      position: absolute;
+      right: 1em;
+      padding: 0 1px;
+      font-family: FontAwesome;
+      @include prefixed(transform, translateZ(0));
+    }
+
+    &:hover,
+    &:focus,
+    &:active {
+
+      &:before {
+        @include prefixed(animation-name, iconBuzzOut);
+        @include prefixed(animation-duration, .75s);
+        @include prefixed(animation-timing-function, linear);
+        @include prefixed(animation-iteration-count, 1);
+      }
+    }}
+  // Icon-Buzz
+  @if $hover-name == iconBuzz {
+    @include keyframes($hover-name) {
+      50% {@include prefixed(transform, translateX(3px) rotate(2deg));}
+      100% {@include prefixed(transform, translateX(-3px) rotate(-2deg));}}
+
+    position: relative;
+    padding-right: 2.2em;
+    @include prefixed(transition-duration, $mediumDuration);
+
+    &:before {
+      content: "\f017";
+      position: absolute;
+      right: 1em;
+      padding: 0 1px;
+      font-family: FontAwesome;
+      @include prefixed(transform, translateZ(0));
+    }
+
+    &:hover,
+    &:focus,
+    &:active {
+
+      &:before {
+        @include prefixed(animation-name, iconBuzz);
+        @include prefixed(animation-duration, .15s);
+        @include prefixed(animation-timing-function, linear);
+        @include prefixed(animation-iteration-count, infinite);
+      }
+    }}
+  // Icon-Down
+  @if $hover-name == iconDown {
+    @include keyframes($hover-name) {
+      0%, 50%, 100% {@include prefixed(transform, translateY(0));}
+    	25%, 75% {@include prefixed(transform, translateY(6px));}}
+
+    position: relative;
+    padding-right: #{$spaceBetweenTextAndArrows};
+
+    &:before {
+      content: "\f01a";
+      position: absolute;
+      right: 1em;
+      padding: 0 1px;
+      font-family: FontAwesome;
+      @include prefixed(transform, translateZ(0));
+    }
+
+    &:hover,
+    &:focus,
+    &:active {
+
+      &:before {
+        @include prefixed(animation-name, iconDown);
+        @include prefixed(animation-duration, .75s);
+        @include prefixed(animation-timing-function, ease-out);
+      }
+    }}
+  // Icon-Drop
+  @if $hover-name == iconDrop {
+    @include keyframes($hover-name) {
+      0% {opacity: 0;}
+      50% {
+        opacity: 0;
+        @include prefixed(transform, translateY(-100%));
+      }
+      51%, 100% {opacity: 1;}}
+
+    position: relative;
+    padding-right: #{$spaceBetweenTextAndArrows};
+
+    &:before {
+      content: "\f041";
+      position: absolute;
+      right: 1em;
+      opacity: 1;
+      padding: 0 1px;
+      font-family: FontAwesome;
+      @include prefixed(transform, translateZ(0));
+    }
+
+    &:hover,
+    &:focus,
+    &:active {
+
+      &:before {
+        opacity: 0;
+        @include prefixed(transition-duration, #{$mediumDuration});
+        @include prefixed(animation-name, iconDrop);
+        @include prefixed(animation-duration, #{$slowDuration});
+        @include prefixed(animation-delay, #{$mediumDuration});
+        @include prefixed(animation-fill-mode, forwards);
+        @include prefixed(animation-timing-function, ease-in-out);
+        @include prefixed(animation-timing-function, cubic-bezier(.52,1.64,.37,.66));
+      }
+    }}
+  // Icon-Fade
+  @if $hover-name == iconFade {
+    position: relative;
+  	padding-right: #{$spaceBetweenTextAndArrows};
+
+  	&:before {
+  		content: "\f00c";
+  		position: absolute;
+  		right: 1em;
+  		padding: 0 1px;
+  		font-family: FontAwesome;
+  		@include prefixed(transform, translateZ(0));
+  		@include prefixed(transition-duration, .5s);
+  		@include prefixed(transition-property, color);
+  	}
+
+  	&:hover,
+  	&:focus,
+  	&:active {
+
+  		&:before {
+  			color: #0F9E5E;
+  		}
+  	}}
+  // Icon-Float-Away
+  @if $hover-name == iconFloatAway {
+    @include keyframes($hover-name) {
+      0% {opacity: 1;}
+      100% {
+        opacity: 0;
+        @include prefixed(transform, translateY(-1em));}}
+
+    position: relative;
+    padding-right: #{$spaceBetweenTextAndArrows};
+
+    &:before,
+    &:after {
+      content: "\f055";
+      position: absolute;
+      right: 1em;
+      padding: 0 1px;
+      font-family: FontAwesome;
+    }
+
+    &:after {
+      opacity: 0;
+      @include prefixed(animation-duration, #{$slowDuration});
+      @include prefixed(animation-fill-mode, forwards);
+    }
+
+    &:hover,
+    &:focus,
+    &:active {
+
+      &:after {
+        @include prefixed(animation-name, #{$nameSpace}-icon-float-away);
+        @include prefixed(animation-timing-function, ease-out);
+      }
+    }}
+  // Icon-Float
+  @if $hover-name == iconFloat {
+    position: relative;
+  	padding-right: 2.2em;
+  	@include prefixed(transition-duration, $mediumDuration);
+
+  	&:before {
+  		content: "\f01b";
+  		position: absolute;
+  		right: 1em;
+  		padding: 0 1px;
+  		font-family: FontAwesome;
+  		@include prefixed(transform, translateZ(0));
+  		@include prefixed(transition-duration, $mediumDuration);
+  		@include prefixed(transition-property, transform);
+  		@include prefixed(transition-timing-function, ease-out);
+  	}
+
+  	&:hover,
+  	&:focus,
+  	&:active {
+
+  		&:before {
+  			@include prefixed(transform, translateY(-4px));
+  		}
+  	}}
+  // Icon-Forward
+  @if $hover-name == iconFoward {
+    position: relative;
+  	padding-right: 2.2em;
+  	@include prefixed(transition-duration, $fastDuration);
+
+  	&:before {
+  		content: "\f138";
+  		position: absolute;
+  		right: 1em;
+  		padding: 0 1px;
+  		font-family: FontAwesome;
+  		@include prefixed(transform, translateZ(0));
+  		@include prefixed(transition-duration, $fastDuration);
+  		@include prefixed(transition-property, transform);
+  		@include prefixed(transition-timing-function, ease-out);
+  	}
+
+  	&:hover,
+  	&:focus,
+  	&:active {
+
+  		&:before {
+  			@include prefixed(transform, translateX(4px));
+  		}
+  	}}
+  // Icon-Grow-Rotate
+  @if $hover-name == iconGrowRotate {
+    $duration: $mediumDuration;
+
+  	position: relative;
+  	padding-right: #{$spaceBetweenTextAndArrows};
+  	@include prefixed(transition-duration, $duration);
+
+  	&:before {
+  		content: "\f095";
+  		position: absolute;
+  		right: 1em;
+  		padding: 0 1px;
+  		font-family: FontAwesome;
+  		@include prefixed(transform, translateZ(0));
+  		@include prefixed(transition-duration, $duration);
+  		@include prefixed(transition-property, transform);
+  		@include prefixed(transition-timing-function, ease-out);
+  	}
+
+  	&:hover,
+  	&:focus,
+  	&:active {
+
+  		&:before {
+  			@include prefixed(transform, scale(1.5) rotate(12deg));
+  		}
+  	}}
+  // Icon-Grow
+  @if $hover-name == iconGrow {
+    position: relative;
+  	padding-right: #{$spaceBetweenTextAndArrows};
+  	@include prefixed(transition-duration, $mediumDuration);
+
+  	&:before {
+  		content: "\f118";
+  		position: absolute;
+  		right: 1em;
+  		padding: 0 1px;
+  		font-family: FontAwesome;
+  		@include prefixed(transform, translateZ(0));
+  		@include prefixed(transition-duration, $mediumDuration);
+  		@include prefixed(transition-property, transform);
+  		@include prefixed(transition-timing-function, ease-out);
+  	}
+
+  	&:hover,
+  	&:focus,
+  	&:active {
+
+  		&:before {
+  			@include prefixed(transform, scale(1.3) translateZ(0));
+  		}
+  	}}
+  // Icon-Hang
+  @if $hover-name == iconHang {
+    @include keyframes($hover-name) {
+      0% {@include prefixed(transform, translateY(6px));}
+    	50% {@include prefixed(transform, translateY(2px));}
+    	100% {@include prefixed(transform, translateY(6px));}}
+
+    @include keyframes(#{$hover-name}-sink) {
+      100% {@include prefixed(transform, translateY(6px));}}
+
+    position: relative;
+    padding-right: 2.2em;
+    @include prefixed(transition-duration, $mediumDuration);
+
+    &:before {
+      content: "\f078";
+      position: absolute;
+      right: 1em;
+      padding: 0 1px;
+      font-family: FontAwesome;
+      @include prefixed(transform, translateZ(0));
+    }
+
+    &:hover,
+    &:focus,
+    &:active {
+
+      &:before {
+        @include prefixed(animation-name, "iconHang-sink, iconHang");
+        @include prefixed(animation-duration, ".3s, 1.5s");
+        @include prefixed(animation-delay, "0s, .3s");
+        @include prefixed(animation-timing-function, "ease-out, ease-in-out");
+        @include prefixed(animation-iteration-count, "1, infinite");
+        @include prefixed(animation-fill-mode, "forwards");
+        @include prefixed(animation-direction, "normal, alternate");
+      }
+    }}
+  // Icon-Pop
+  @if $hover-name == iconPop {
+    @include keyframes($hover-name) {
+      50% {@include prefixed(transform, scale(1.5));}}
+
+    position: relative;
+    padding-right: #{$spaceBetweenTextAndArrows};
+    @include prefixed(transition-duration, $mediumDuration);
+
+    &:before {
+      content: "\f005";
+      position: absolute;
+      right: 1em;
+      padding: 0 1px;
+      font-family: FontAwesome;
+      @include prefixed(transform, translateZ(0));
+      @include prefixed(transition-duration, $mediumDuration);
+      @include prefixed(transition-property, transform);
+      @include prefixed(transition-timing-function, ease-out);
+    }
+
+    &:hover,
+    &:focus,
+    &:active {
+
+      &:before {
+        @include prefixed(animation-name, iconPop);
+        @include prefixed(animation-duration, $mediumDuration);
+        @include prefixed(animation-timing-function, linear);
+        @include prefixed(animation-iteration-count, 1);
+      }
+    }}
+  // Icon-Pulse-Grow
+  @if $hover-name == iconPulseGrow {
+    @include keyframes($hover-name) {
+      to {@include prefixed(transform, scale(1.3));}}
+
+    position: relative;
+    padding-right: #{$spaceBetweenTextAndArrows};
+
+    &:before {
+      content: "\f015";
+      position: absolute;
+      right: 1em;
+      padding: 0 1px;
+      font-family: FontAwesome;
+      @include prefixed(transform, translateZ(0));
+      @include prefixed(transition-timing-function, ease-out);
+    }
+
+    &:hover,
+    &:focus,
+    &:active {
+
+      &:before {
+        @include prefixed(animation-name, iconPulseGrow);
+        @include prefixed(animation-duration, $mediumDuration);
+        @include prefixed(animation-timing-function, linear);
+        @include prefixed(animation-iteration-count, infinite);
+        @include prefixed(animation-direction, alternate);
+      }
+    }}
+  // Icon-Pulse-Shrink
+  @if $hover-name == iconPulseShrink {
+    @include keyframes($hover-name) {
+      to {@include prefixed(transform, scale(.8));}}
+
+      position: relative;
+      padding-right: #{$spaceBetweenTextAndArrows};
+
+      &:before {
+        content: "\f015";
+        position: absolute;
+        right: 1em;
+        padding: 0 1px;
+        font-family: FontAwesome;
+        @include prefixed(transform, translateZ(0));
+        @include prefixed(transition-timing-function, ease-out);
+      }
+
+      &:hover,
+      &:focus,
+      &:active {
+
+        &:before {
+          @include prefixed(animation-name, iconPulseShrink);
+          @include prefixed(animation-duration, $mediumDuration);
+          @include prefixed(animation-timing-function, linear);
+          @include prefixed(animation-iteration-count, infinite);
+          @include prefixed(animation-direction, alternate);
+        }
+      }}
+  // Icon-Pulse
+  @if $hover-name == iconPulse {
+    @include keyframes($hover-name) {
+      25% {@include prefixed(transform, scale(1.3));}
+      75% {@include prefixed(transform, scale(.8));}}
+
+      position: relative;
+      padding-right: #{$spaceBetweenTextAndArrows};
+
+      &:before {
+        content: "\f015";
+        position: absolute;
+        right: 1em;
+        padding: 0 1px;
+        font-family: FontAwesome;
+        @include prefixed(transform, translateZ(0));
+        @include prefixed(transition-timing-function, ease-out);
+      }
+
+      &:hover,
+      &:focus,
+      &:active {
+
+        &:before {
+          @include prefixed(animation-name, iconPulse);
+          @include prefixed(animation-duration, 1s);
+          @include prefixed(animation-timing-function, linear);
+          @include prefixed(animation-iteration-count, infinite);
+        }
+      }}
+  // Icon-Push
+  @if $hover-name == iconPush {
+    @include keyframes($hover-name) {
+      50% {@include prefixed(transform, scale(.5));}}
+
+    position: relative;
+    padding-right: #{$spaceBetweenTextAndArrows};
+    @include prefixed(transition-duration, $mediumDuration);
+
+    &:before {
+      content: "\f006";
+      position: absolute;
+      right: 1em;
+      padding: 0 1px;
+      font-family: FontAwesome;
+      @include prefixed(transform, translateZ(0));
+      @include prefixed(transition-duration, $mediumDuration);
+      @include prefixed(transition-property, transform);
+      @include prefixed(transition-timing-function, ease-out);
+    }
+
+    &:hover,
+    &:focus,
+    &:active {
+
+      &:before {
+        @include prefixed(animation-name, iconPush);
+        @include prefixed(animation-duration, $mediumDuration);
+        @include prefixed(animation-timing-function, linear);
+        @include prefixed(animation-iteration-count, 1);
+      }
+    }}
+  // Icon-Rotate
+  @if $hover-name == iconRotate {
+    $duration: $mediumDuration;
+    position: relative;
+  	padding-right: #{$spaceBetweenTextAndArrows};
+  	@include prefixed(transition-duration, $duration);
+
+  	&:before {
+  		content: "\f0c6";
+  		position: absolute;
+  		right: 1em;
+  		padding: 0 1px;
+  		font-family: FontAwesome;
+  		@include prefixed(transform, translateZ(0));
+  		@include prefixed(transition-duration, $duration);
+  		@include prefixed(transition-property, transform);
+  		@include prefixed(transition-timing-function, ease-out);
+  	}
+
+  	&:hover,
+  	&:focus,
+  	&:active {
+
+  		&:before {
+  			@include prefixed(transform, rotate(20deg));
+  		}
+  	}}
+  // Icon-Shrink
+  @if $hover-name == iconShrink {
+    position: relative;
+  	padding-right: #{$spaceBetweenTextAndArrows};
+  	@include prefixed(transition-duration, $mediumDuration);
+
+  	&:before {
+  		content: "\f119";
+  		position: absolute;
+  		right: 1em;
+  		padding: 0 1px;
+  		font-family: FontAwesome;
+  		@include prefixed(transform, translateZ(0));
+  		@include prefixed(transition-duration, $mediumDuration);
+  		@include prefixed(transition-property, transform);
+  		@include prefixed(transition-timing-function, ease-out);
+  	}
+
+  	&:hover,
+  	&:focus,
+  	&:active {
+
+  		&:before {
+  			@include prefixed(transform, scale(.8));
+  		}
+  	}}
+  // Icon-Sink-Away
+  @if $hover-name == iconSinkAway {
+    @include keyframes($hover-name) {
+      0% {opacity: 1;}
+      100% {
+        opacity: 0;
+        @include prefixed(transform, translateY(1em));}}
+
+      position: relative;
+      padding-right: #{$spaceBetweenTextAndArrows};
+
+    &:before,
+    &:after {
+      content: "\f056";
+      position: absolute;
+      right: 1em;
+      padding: 0 1px;
+      font-family: FontAwesome;
+      @include prefixed(transform, translateZ(0));
+    }
+
+    &:after {
+      opacity: 0;
+      @include prefixed(animation-duration, #{$slowDuration});
+      @include prefixed(animation-fill-mode, forwards);
+    }
+
+    &:hover,
+    &:focus,
+    &:active {
+
+      &:after {
+        @include prefixed(animation-name, #{$nameSpace}-icon-sink-away);
+        @include prefixed(animation-timing-function, ease-out);
+      }
+    }}
+  // Icon-Sink
+  @if $hover-name == iconSink {
+    position: relative;
+  	padding-right: 2.2em;
+  	@include prefixed(transition-duration, $mediumDuration);
+
+  	&:before {
+  		content: "\f01a";
+  		position: absolute;
+  		right: 1em;
+  		padding: 0 1px;
+  		font-family: FontAwesome;
+  		@include prefixed(transform, translateZ(0));
+  		@include prefixed(transition-duration, $mediumDuration);
+  		@include prefixed(transition-property, transform);
+  		@include prefixed(transition-timing-function, ease-out);
+  	}
+
+  	&:hover,
+  	&:focus,
+  	&:active {
+
+  		&:before {
+  			@include prefixed(transform, translateY(4px));
+  		}
+  	}}
+  // Icon-Spin
+  @if $hover-name == iconSpin {
+    position: relative;
+  	padding-right: 2.2em;
+
+  	&:before {
+  		content: "\f021";
+  		position: absolute;
+  		right: 1em;
+  		padding: 0 1px;
+  		font-family: FontAwesome;
+  		@include prefixed(transition-duration, 1s);
+  		@include prefixed(transition-property, transform);
+  		@include prefixed(transition-timing-function, ease-in-out);
+  	}
+
+  	&:hover,
+  	&:focus,
+  	&:active {
+
+  		&:before {
+  			@include prefixed(transform, rotate(360deg));
+  		}
+  	}}
+  // Icon-Up
+  @if $hover-name == iconUp {
+    @include keyframes($hover-name) {
+      0%, 50%, 100% {@include prefixed(transform, translateY(0));}
+      25%, 75% {@include prefixed(transform, translateY(-6px));}}
+
+    position: relative;
+    padding-right: 2.2em;
+
+    &:before {
+      content: "\f01b";
+      position: absolute;
+      right: 1em;
+      padding: 0 1px;
+      font-family: FontAwesome;
+      @include prefixed(transform, translateZ(0));
+    }
+
+    &:hover,
+    &:focus,
+    &:active {
+
+      &:before {
+        @include prefixed(animation-name, iconUp);
+        @include prefixed(animation-duration, .75s);
+        @include prefixed(animation-timing-function, ease-out);
+      }
+    }}
+  // Icon-Wobble-Horizontal
+  @if $hover-name == iconWobbleHorizontal {
+    @include keyframes($hover-name) {
+      16.65% {@include prefixed(transform, translateX(6px));}
+      33.3% {@include prefixed(transform, translateX(-5px));}
+      49.95% {@include prefixed(transform, translateX(4px));}
+      66.6% {@include prefixed(transform, translateX(-2px));}
+      83.25% {@include prefixed(transform, translateX(1px));}
+      100% {@include prefixed(transform, translateX(0));}}
+
+    position: relative;
+    padding-right: 2.2em;
+    @include prefixed(transition-duration, $mediumDuration);
+
+    &:before {
+      content: "\f061";
+      position: absolute;
+      right: 1em;
+      padding: 0 1px;
+      font-family: FontAwesome;
+      @include prefixed(transform, translateZ(0));
+    }
+
+    &:hover,
+    &:focus,
+    &:active {
+
+      &:before {
+        @include prefixed(animation-name, iconWobbleHorizontal);
+        @include prefixed(animation-duration, 1s);
+        @include prefixed(animation-timing-function, ease-in-out);
+        @include prefixed(animation-iteration-count, 1);
+      }
+    }}
+  // Icon-Wobble-Vertical
+  @if $hover-name == iconWobbleVertical {
+    @include keyframes($hover-name) {
+      16.65% {@include prefixed(transform, translateY(6px));}
+      33.3% {@include prefixed(transform, translateY(-5px));}
+      49.95% {@include prefixed(transform, translateY(4px));}
+      66.6% {@include prefixed(transform, translateY(-2px));}
+      83.25% {@include prefixed(transform, translateY(1px));}
+      100% {@include prefixed(transform, translateY(0));}}
+
+    position: relative;
+    padding-right: 2.2em;
+    @include prefixed(transition-duration, $mediumDuration);
+
+    &:before {
+      content: "\f062";
+      position: absolute;
+      right: 1em;
+      padding: 0 1px;
+      font-family: FontAwesome;
+      @include prefixed(transform, translateZ(0));
+    }
+
+    &:hover,
+    &:focus,
+    &:active {
+
+      &:before {
+        @include prefixed(animation-name, iconWobbleVertical);
+        @include prefixed(animation-duration, 1s);
+        @include prefixed(animation-timing-function, ease-in-out);
+        @include prefixed(animation-iteration-count, 1);
+      }
+    }}
+
+  //// --- SHADOW-AND-GLOW TRANSITIONS --- ////////////////////////////
+  // Box-Shadow-Inset
+  @if $hover-name == boxShadowInset {
+    @include prefixed(transition-duration, $mediumDuration);
+  	@include prefixed(transition-property, box-shadow);
+
+  	box-shadow: inset 0 0 0 $shadowColor,
+  		0 0 1px rgba(0, 0, 0, 0); /* Hack to improve aliasing on mobile/tablet devices */
+
+  	&:hover,
+  	&:focus,
+  	&:active {
+  		box-shadow: inset 2px 2px 2px $shadowColor,
+  		0 0 1px rgba(0, 0, 0, 0); /* Hack to improve aliasing on mobile/tablet devices */
+  	}}
+  // Box-Shadow-Outset
+  @if $hover-name == boxShadowOutset {
+    @include prefixed(transition-duration, $mediumDuration);
+  	@include prefixed(transition-property, box-shadow);
+
+  	&:hover,
+  	&:focus,
+  	&:active {
+  		box-shadow: 2px 2px 2px $shadowColor;
+  	}}
+  // Float-Shadow
+  @if $hover-name == floatShadow {
+    position: relative;
+  	@include prefixed(transition-duration, $mediumDuration);
+  	@include prefixed(transition-property, transform);
+
+  	&:before {
+  	  pointer-events: none;
+  	  position: absolute;
+  	  z-index: -1;
+  	  content: '';
+  	  top: 100%;
+  	  left: 5%;
+  	  height: 10px;
+  	  width: 90%;
+  	  opacity: 0;
+  	  background: -webkit-radial-gradient(center, ellipse, rgba(0,0,0,.35) 0%, rgba(0, 0, 0, 0) 80%);
+  	  background: radial-gradient(ellipse at center, rgba(0,0,0,.35) 0%,rgba(0,0,0,0) 80%); /* W3C */
+  		@include prefixed(transition-duration, $mediumDuration);
+  		@include prefixed(transition-property, "transform, opacity");
+  	}
+
+  	&:hover,
+  	&:focus,
+  	&:active {
+  		@include prefixed(transform, translateY(-5px)); /* move the element up by 5px */
+
+  		&:before {
+  			opacity: 1;
+  			@include prefixed(transform, translateY(5px)); /* move the element down by 5px (it will stay in place because it's attached to the element that also moves up 5px) */
+  		}
+  	}}
+  // Glow
+  @if $hover-name == glow {
+    @include prefixed(transition-duration, $mediumDuration);
+  	@include prefixed(transition-property, box-shadow);
+
+  	&:hover,
+  	&:focus,
+  	&:active {
+  		box-shadow: 0 0 8px $shadowColor;
+  	}}
+  // Grow-Shadow
+  @if $hover-name == growShadow {
+    @include prefixed(transition-duration, $mediumDuration);
+  	@include prefixed(transition-property, "box-shadow, transform");
+
+  	&:hover,
+  	&:focus,
+  	&:active {
+  		box-shadow: 0 10px 10px -10px rgba(0, 0, 0, 0.5);
+  		@include prefixed(transform, scale(1.1));
+  	}}
+  // Shadow-Radial
+  @if $hover-name == shadowRadial {
+    position: relative;
+
+  	&:before,
+  	&:after {
+  	  pointer-events: none;
+        position: absolute;
+  	  content: '';
+        left: 0;
+        width: 100%;
+        box-sizing: border-box;
+        background-repeat: no-repeat;
+        height: 5px;
+        opacity: 0;
+  	  @include prefixed(transition-duration, $mediumDuration);
+  	  @include prefixed(transition-property, opacity);
+  	}
+
+  	&:before {
+  	  bottom: 100%;
+  	  background: -webkit-radial-gradient(50% 150%, ellipse, $shadowColor 0%, rgba(0, 0, 0, 0) 80%);
+        background: radial-gradient(ellipse at 50% 150%, $shadowColor 0%, rgba(0, 0, 0, 0) 80%);
+  	}
+
+  	&:after {
+  	  top: 100%;
+  	  background: -webkit-radial-gradient(50% -50%, ellipse, $shadowColor 0%, rgba(0, 0, 0, 0) 80%);
+  	  background: radial-gradient(ellipse at 50% -50%, $shadowColor 0%, rgba(0, 0, 0, 0) 80%);
+  	}
+
+  	&:hover:before,
+  	&:focus:before,
+  	&:active:before,
+  	&:hover:after,
+  	&:focus:after,
+  	&:active:after {
+  	  opacity: 1;
+  	}}
+  // Shadow
+  @if $hover-name == shadow {
+    @include prefixed(transition-duration, $mediumDuration);
+  	@include prefixed(transition-property, box-shadow);
+
+  	&:hover,
+  	&:focus,
+  	&:active {
+  		box-shadow: 0 10px 10px -10px rgba(0, 0, 0, 0.5);
+  	}
+  }}
+
+  //// --- SPEECH BUBBLES --- ////////////////////////////
+  // Bubble-Bottom
+  @if $hover-name == bubbleBottom {
+    position: relative;
+
+  	&:before {
+  		pointer-events: none;
+  		position: absolute;
+  		z-index: -1;
+  		content: '';
+  		border-style: solid;
+  		@include prefixed(transition-duration, $mediumDuration);
+  		@include prefixed(transition-property, transform);
+  		left: calc(50% - #{$tipWidth});
+  		bottom: 0;
+  		border-width: $tipHeight $tipWidth 0 $tipWidth;
+  		border-color: $tipColor transparent transparent transparent;
+  	}
+
+  	&:hover:before,
+  	&:focus:before,
+  	&:active:before {
+  		@include prefixed(transform, translateY($tipHeight));
+  	}}
+  // Bubble-Float-Bottom
+  @if $hover-name == bubbleFloatBottom {
+    position: relative;
+  	@include prefixed(transition-duration, $mediumDuration);
+  	@include prefixed(transition-property, transform);
+
+  	&:before {
+  		position: absolute;
+  		z-index: -1;
+  		content: '';
+  		left: calc(50% - #{$tipWidth});
+  		bottom: 0;
+  		border-style: solid;
+  		border-width: $tipHeight $tipWidth 0 $tipWidth;
+  		border-color: $tipColor transparent transparent transparent;
+  		@include prefixed(transition-duration, $mediumDuration);
+  		@include prefixed(transition-property, transform);
+  	}
+
+  	&:hover,
+  	&:focus,
+  	&:active {
+  		@include prefixed(transform, translateY(-($tipHeight)));
+
+  		&:before {
+  			@include prefixed(transform, translateY($tipHeight));
+  		}
+  	}}
+  // Bubble-Float-Left
+  @if $hover-name == bubbleFloatLeft {
+    position: relative;
+  	@include prefixed(transition-duration, $mediumDuration);
+  	@include prefixed(transition-property, transform);
+
+  	&:before {
+  		position: absolute;
+  		z-index: -1;
+  		content: '';
+  		top: calc(50% - #{$tipHeight});
+  		left: 0;
+  		border-style: solid;
+  		border-width: $tipHeight $tipWidth $tipHeight 0;
+  		border-color: transparent $tipColor transparent transparent;
+  		@include prefixed(transition-duration, $mediumDuration);
+  		@include prefixed(transition-property, transform);
+  	}
+
+  	&:hover,
+  	&:focus,
+  	&:active {
+  		@include prefixed(transform, translateX($tipWidth));
+
+  		&:before {
+  			@include prefixed(transform, translateX(-($tipWidth)));
+  		}
+  	}}
+  // Bubble-Float-Right
+  @if $hover-name == bubbleFloatRight {
+    position: relative;
+  	@include prefixed(transition-duration, $mediumDuration);
+  	@include prefixed(transition-property, transform);
+
+  	&:before {
+  		position: absolute;
+  		z-index: -1;
+  		top: calc(50% - #{$tipHeight});
+  		right: 0;
+  		content: '';
+  		border-style: solid;
+  		border-width: $tipHeight 0 $tipHeight $tipWidth;
+  		border-color: transparent transparent transparent $tipColor;
+  		@include prefixed(transition-duration, $mediumDuration);
+  		@include prefixed(transition-property, transform);
+  	}
+
+  	&:hover,
+  	&:focus,
+  	&:active {
+  		@include prefixed(transform, translateX(-($tipWidth)));
+
+  		&:before {
+  			@include prefixed(transform, translateX($tipWidth));
+  		}
+  	}}
+  // Bubble-Float-Top
+  @if $hover-name == bubbleFloatTop {
+    position: relative;
+  	@include prefixed(transition-duration, $mediumDuration);
+  	@include prefixed(transition-property, transform);
+
+  	&:before {
+  		position: absolute;
+  		z-index: -1;
+  		content: '';
+  		left: calc(50% - #{$tipWidth});
+  		top: 0;
+  		border-style: solid;
+  		border-width: 0 $tipWidth $tipHeight $tipWidth;
+  		border-color: transparent transparent $tipColor transparent;
+  		@include prefixed(transition-duration, $mediumDuration);
+  		@include prefixed(transition-property, transform);
+  	}
+
+  	&:hover,
+  	&:focus,
+  	&:active {
+  		@include prefixed(transform, translateY($tipHeight));
+
+  		&:before {
+  			@include prefixed(transform, translateY(-($tipHeight)));
+  		}
+  	}}
+  // Bubble-Left
+  @if $hover-name == bubbleLeft {
+    position: relative;
+
+  	&:before {
+  		pointer-events: none;
+  		position: absolute;
+  		z-index: -1;
+  		content: '';
+  		border-style: solid;
+  		@include prefixed(transition-duration, $mediumDuration);
+  		@include prefixed(transition-property, transform);
+  		top: calc(50% - #{$tipHeight});
+  		left: 0;
+  		border-width: $tipHeight $tipWidth $tipHeight 0;
+  		border-color: transparent $tipColor transparent transparent;
+  	}
+
+  	&:hover:before,
+  	&:focus:before,
+  	&:active:before {
+  		@include prefixed(transform, translateX(-($tipWidth)));
+  	}}
+  // Bubble-Right
+  @if $hover-name == bubbleRight {
+    position: relative;
+
+  	&:before {
+  		pointer-events: none;
+  		position: absolute;
+  		z-index: -1;
+  		content: '';
+  		border-style: solid;
+  		@include prefixed(transition-duration, $mediumDuration);
+  		@include prefixed(transition-property, transform);
+  		top: calc(50% - #{$tipHeight});
+  		right: 0;
+  		border-width: $tipHeight 0 $tipHeight $tipWidth;
+  		border-color: transparent transparent transparent $tipColor;
+  	}
+
+  	&:hover:before,
+  	&:focus:before,
+  	&:active:before {
+  		@include prefixed(transform, translateX($tipWidth));
+  	}}
+  // Bubble-Top
+  @if $hover-name == bubbleTop {
+    position: relative;
+
+  	&:before {
+  		pointer-events: none;
+  		position: absolute;
+  		z-index: -1;
+  		content: '';
+  		border-style: solid;
+  		@include prefixed(transition-duration, $mediumDuration);
+  		@include prefixed(transition-property, transform);
+  		left: calc(50% - #{$tipWidth});
+  		top: 0;
+  		border-width: 0 $tipWidth $tipHeight $tipWidth;
+  		border-color: transparent transparent $tipColor transparent;
+  	}
+
+  	&:hover:before,
+  	&:focus:before,
+  	&:active:before {
+  		@include prefixed(transform, translateY(-($tipHeight)));
+  	}}

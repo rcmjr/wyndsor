@@ -1,0 +1,24 @@
+// This has all of the required dependencies. Don't Remove.
+@import "../../Admin/Dev/root";
+//// --- LAYOUT --- ////////////////////////////
+
+$l-Layout: (
+  //// 1 //////////// Grids
+  l_grid--container-area: (
+    +homepage: (
+      grid-template-columns: (
+        base: 20px 1fr 20px
+      ),
+      grid-template-rows: (
+        base: 20rem 1fr
+      ),
+      grid-template-areas: (
+        base: ". yolo ." ". middle ."
+      ))
+    ),
+
+);
+
+$Epic-Map: $l-Layout;
+// This produces the development css. Don't Remove (even if in Prod mode).
+@import "../../Admin/Dev/the-epic";

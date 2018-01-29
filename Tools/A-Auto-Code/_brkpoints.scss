@@ -21,18 +21,16 @@ $media-expressions: (
 
 //// --- Breakpoint Variables --- ////////////////////////////
 $breakpoints: (
-  greater-desktop: '>desktop',
-  desktop: ('>tablet', '<=desktop'),
-  folio-custom: ('<=1390px'),
-  tablet: ('>phablet', '<=tablet'),
-  tablet-down: ('<=tablet'),
-  phablet-up: ('>=phablet'),
-  phablet: ('>phone', '<=phablet'),
-  phablet-down: ('<=phablet'),
-  phone: ('>tiny', '<=phone'),
-  phone-down: ('<=phone'),
-  tiny: ('<=tiny'),
-  test: ('<=tiny', 'handheld')
+  dsk-up: '>desktop',
+  dsk: ('>tablet', '<=desktop'),
+  tblt: ('>phablet', '<=tablet'),
+  tblt-dn: ('<=tablet'),
+  pblt-up: ('>=phablet'),
+  pblt: ('>phone', '<=phablet'),
+  pblt-dn: ('<=phablet'),
+  phn: ('>tiny', '<=phone'),
+  phn-dn: ('<=phone'),
+  tny: ('<=tiny')
 ) !default;
 
 //// ▾▾▾ NETHERMOST FUNDAMENTAL IMPORTS ▾▾▾ ////

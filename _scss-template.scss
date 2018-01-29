@@ -1,14 +1,11 @@
-// This has all of the required dependencies. Don't Remove.
-  @import "../../Admin/Dev/root";
+@import "../../Admin/Dev/root"; // This has all of the required dependencies. Don't Remove.
+//// --- DESCRIPTION --- ////////////////////////////
 
-//// --- CSS DESCRIPTION --- ////////////////////////////
-$w-CSS-Map-Name: (
+$x-MapName: (
 
   // Begin Mapping in Here! :)
 
 );
 
-// Change to New Map Name.
-  $Epic-Map: $w-CSS-Map-Name;
-// This produces the development css. Don't Remove (even if in Prod mode).
-  @import "../../Admin/Dev/the-epic";
+$Epic-Map: $x-MapName; // Change to New Map Name.
+@import "../../Admin/Dev/the-epic"; // This produces the development css. Don't Remove (even if in Prod mode).
