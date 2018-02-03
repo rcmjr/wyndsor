@@ -10,8 +10,7 @@
 
 // Always required
 @import
-  "_variables",
-  "_animations";
+  "_variables";
 
 // Applies CSS Instagram filter to images.
 @mixin animation-css($redline, $redline-str, $greenverb-list, $greenverb-str, $greenverb-length, $splitter, $breakpoint, $EpicAct, $namebreak-feature, $important-check) {
@@ -48,17 +47,12 @@
                   if(nth($greenverb-list, 8) != dflt, /* Do This */ nth($greenverb-list, 8), /* Otherwise This */ $visibilityDefault),
                   $visibilityDefault);
 
-    @include keyframes($filter) {
-      @include anime($filter);
-    }
-
-    @include animation-name($filter);
-    @include count($count);
-    @include duration($duration);
-    @include delay($delay);
-    @include function($function);
-    @include fill-mode($fill);
-    @include visibility($visibility);
-
+    @include prefixed(animation-name, $filter);
+    @include prefixed(iteration-count, $count);
+    @include prefixed(duration, $duration);
+    @include prefixed(delay, $delay);
+    @include prefixed(timing-function, $function);
+    @include prefixed(fill-mode, $fill);
+    @include prefixed(visibility, $visibility);
   }
 }

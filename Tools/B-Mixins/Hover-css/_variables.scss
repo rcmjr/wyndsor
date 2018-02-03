@@ -1,21 +1,19 @@
 // DEFAULT OPTIONS
+@import "../../../Style/variables";
 
 // Durations
 $fastDuration: .1s !default;
 $mediumDuration: .3s !default;
 $slowDuration: .5s !default;
 
-// Colors
-$primaryColor: #e1e1e1 !default;
-$secondaryColor: #666 !default;
-$highlightColor: #ccc !default;
-$activeColor: #2098D1 !default;
-$shadowColor: rgba(0, 0, 0, .6) !default;
+// Default Variables
+$defaultIcon: fa-var-black-tie;
+$defaultDuration: $mediumDuration;
 
 // Speech bubbles options
 $tipWidth: 10px !default;  //the width of the speech bubble tip
 $tipHeight: 10px !default; //the height of the speech bubble tip
-$tipColor: $primaryColor !default;
+$tipColor: $s-primary !default;
 
 // Arrows options
 $spaceBetweenTextAndArrows: 2.2em !default;
@@ -39,15 +37,6 @@ $curlLastColor: white !default;		// final color of the back of the curl
   #{$property}: #{$value};
 }
 
-// prefix keyframes
-@mixin keyframes($hover-name) {
-  @-webkit-keyframes #{$hover-name} {@content;}
-  @-moz-keyframes #{$hover-name} {@content;}
-  @-ms-keyframes #{$hover-name} {@content;}
-  @-o-keyframes #{$hover-name} {@content;}
-  @keyframes #{$hover-name} {@content;}
-}
-
 // As is often the case, some devices/browsers need additional code to get CSS to work
 // in the most desired way. These mixins are used to quickly drop in hacks for each element
 // Find out more here: https://github.com/IanLunn/Hover/wiki/Hacks-Explained
@@ -57,12 +46,10 @@ $curlLastColor: white !default;		// final color of the back of the curl
 	// Perspective reduces blurryness of text in Chrome
 	@include prefixed(transform, perspective(1px) translateZ(0));
 }
-
 @mixin improveAntiAlias() {
 	// Improve aliasing on mobile/tablet devices
 	box-shadow: 0 0 1px rgba(0, 0, 0, 0);
 }
-
 @mixin forceBlockLevel() {
 	// Transforms need to be block-level to work
 	display: inline-block;

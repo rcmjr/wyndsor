@@ -1,6 +1,6 @@
 //// --- VARIABLES --- ////////////////////////////
 
-  //// 1 //////////// ROY G. BIV
+  //// 1 //////////// Swatches
   $red: #ef3e3e;
   $orange: #f47d41;
   $yellow: #fed435;
@@ -10,7 +10,14 @@
   $violet: #9d3895;
   $black: #282828;
 
-  //// 2 //////////// Font-Families
+  //// 2 //////////// Color Scheme
+  $s-primary: #e1e1e1;
+  $s-secondary: #666;
+  $s-highlight: #ccc;
+  $s-active: $blue;
+  $s-shadow: rgba(0, 0, 0, .6);
+
+  //// 3 //////////// Font-Families
   $Family-1: 'myriad-pro', 'helvetica', 'arial', sans-serif;
   $Family-2: 'kith-regular', 'helvetica', 'arial', sans-serif;
   $Family-3: 'kith-light', 'helvetica', 'arial', sans-serif;

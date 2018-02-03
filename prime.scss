@@ -7,8 +7,11 @@
 @import
   //// i //////////// Reset/Normalize
   'Admin/reset',
+  'Tools/toolbox',
+  'Tools/B-Mixins/Animations-css/animations',
+  'Tools/B-Mixins/Hover-css/keyframes',
+  'Tools/B-Mixins/FontAwesome/base',
   //// i //////////// Framework
-  'Style/variables',
   'Style/1-Dapper/globals',
   'Style/1-Dapper/layout',
   'Style/1-Dapper/palette',

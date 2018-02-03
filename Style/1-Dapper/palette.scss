@@ -24,6 +24,12 @@ $p-Palette:(
     +bounce:(auto:(animation-css, bounceInUp, dflt, 20s))
   ),
 
+  p_hover:(
+    +buzz-out:(
+      auto:(hover-css, bob, dflt),
+      font-family: 20px)
+  ),
+
   // Colors
   p_color:(
     auto:(

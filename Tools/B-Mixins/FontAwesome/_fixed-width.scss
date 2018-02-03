@@ -1,9 +1,6 @@
 // Fixed Width Icons
 // -------------------------
-
-@if $Wyndsor-mode == prod {
-  .#{$fa-css-prefix}-fw {
-    width: (18em / 14);
-    text-align: center;
-  }
+.#{$fa-css-prefix}-fw {
+  text-align: center;
+  width: (20em / 16);
 }

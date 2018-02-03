@@ -1,3 +1,47 @@
+// prefix declarations
+@mixin prefixed($property, $value) {
+  -webkit-#{$property}: #{$value};
+  -moz-#{$property}: #{$value};
+  -ms-#{$property}: #{$value};
+  -o-#{$property}: #{$value};
+  #{$property}: #{$value};
+}
+
+// Anime Mixin transform includes
+@mixin transform($property) {
+  @include prefixed(transform, $property);
+}
+@mixin transform-origin($transform-origin: center center) {
+  @include prefixed(transform-origin, $transform-origin);
+}
+@mixin transform-style($transform-style: flat) {
+    @include prefixed(transform-style, $transform-style);
+}
+
+// Keyframer
+@mixin keyframes($animation-name) {
+  @-webkit-keyframes #{$animation-name} {
+    @content;
+  }
+
+  @-moz-keyframes #{$animation-name} {
+    @content;
+  }
+
+  @-ms-keyframes #{$animation-name} {
+    @content;
+  }
+
+  @-o-keyframes #{$animation-name} {
+    @content;
+  }
+
+  @keyframes #{$animation-name} {
+    @content;
+  }
+}
+
+// Animation Settings
 @mixin anime($animation-name) {
   //// --- ATTENTION SEAKERS --- ////////////////////////////
   // Bounce
@@ -894,4 +938,11 @@
     @include transform(scale3d(.1, .1, .1) translate3d(0, -2000px, 0));
     @include transform-origin(center bottom);
   }}
+}
+
+// Creates Keyframes required for specific animations.
+@each $key in $anime-keyframes {
+  @include keyframes($key) {
+    @include anime($key);
+  }
 }

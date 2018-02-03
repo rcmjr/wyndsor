@@ -74,6 +74,7 @@
         @include gen-graph($redline, $redline-str, $greenverb-list, $greenverb-str, $greenverb-length, $splitter, $breakpoint, $EpicAct, $namebreak-feature, $important-check);
         @include instagram-css($redline, $redline-str, $greenline-list, $greenline-str, $greenline-length, $splitter, $breakpoint, $EpicAct, $namebreak-feature, $important-check);
         @include animation-css($redline, $redline-str, $greenline-list, $greenline-str, $greenline-length, $splitter, $breakpoint, $EpicAct, $namebreak-feature, $important-check);
+        @include hover-css($redline, $redline-str, $greenline-list, $greenline-str, $greenline-length, $splitter, $breakpoint, $EpicAct, $namebreak-feature, $important-check);
       }
     }
 
