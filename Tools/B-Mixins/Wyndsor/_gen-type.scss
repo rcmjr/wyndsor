@@ -1,23 +1,23 @@
 // Set fontsize and baseline at once. Mix of fontsize and baseline mixin.
-@mixin gen-type($redline, $redline-str, $greenverb-list, $greenverb-str, $greenverb-length, $splitter, $breakpoint, $EpicAct, $namebreak-feature, $important-check) {
+@mixin gen-type($redline, $redline-str, $greenverb-list, $greenverb-str, $greenverb-length, $breakpoint, $EpicAct, $namebreak-feature, $important-check) {
   $breakpoints-limit: length($media-sizes);
   $fs-check: false !default;
   $ts-check: false !default;
 
   $points: map-values($media-sizes);
   $breakpointcheck: $breakpoint;
-  $options-length: length($greenline-list);
+  $options-length: $greenverb-length;
   $options-check: if($options-length > 1, true, false);
   $breakpoint: if($breakpoint != null, index($media-sizes, $breakpoint), ($breakpoints-limit - 1));
 
-  $fontsize: unit-check(nth($greenline-list, 1));
+  $fontsize: unit-check(nth($greenverb-list, 1));
   $important: unquote(if($important-check == true, " !important", ""));
 
   $lineheight: $base-lineheight !default;
   $lineheight-new: null;
 
   @if $options-check == true {
-    $lineheight-new: to-number(nth($greenline-list, 2));
+    $lineheight-new: to-number(nth($greenverb-list, 2));
     @if type-of($lineheight-new) == 'number' and not unitless($lineheight-new) {
       $lineheight-new: $lineheight-new / ($lineheight-new * 0 + 1);
      @warn "FYI, Wyndsors Type Generator only uses the lineheight number as a multiplier and ignores all units.";
@@ -44,8 +44,8 @@
       }
       @else if $options-check == true {
         $lineheight: $lineheight-new;
-        //$cap-height: if($options-length > 2, nth($greenline-list, 3), $cap-height);
-        //$below: if($options-length > 3, nth($greenline-list, 4), $below);
+        //$cap-height: if($options-length > 2, nth($greenverb-list, 3), $cap-height);
+        //$below: if($options-length > 3, nth($greenverb-list, 4), $below);
       }
       $ts-check: true;
     }

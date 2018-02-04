@@ -4,14 +4,11 @@
 
 // Add any new colors to list for automatic population across Dapper.
 $p-Colors:(
-  red: $red,
-  orange: $orange,
-  yellow: $yellow,
-  green: $green,
-  blue: $blue,
   purple: $purple,
   violet: $violet,
-  black: $black
+  blue: $blue,
+  black: $black,
+  white: $white
   );
 
 $p-Palette:(
@@ -31,7 +28,7 @@ $p-Palette:(
   ),
 
   // Colors
-  p_color:(
+  p__color:(
     auto:(
       wy-repeat-any,
       namespace,
@@ -40,12 +37,15 @@ $p-Palette:(
       )
     ),
   // Backgrounds
-  p_bg:(
+  p__bg:(
     auto:(
       wy-repeat-any,
       namespace,
       background,
       $p-Colors
+      ),
+      +light-grey: (
+        background: linear-gradient(45deg, #EEEEEE, #FFFFFF)
       )
     )
 

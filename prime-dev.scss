@@ -1,8 +1,6 @@
 // REMEMBER: This only
 // contains dependencies
 // and css imports via URL.
-// It doesn't inline
-// any css at all.
 
 //// --- DEV IMPORTS --- ////////////////////////////
 //// Add the DEST of your sass files here with ".css" at the end (this will embed your css files as urls).
@@ -10,7 +8,7 @@
 @import
   //// i //////////// Reset/Normalize
   'Admin/reset',
-  'Tools/toolbox',  
+  'Tools/toolbox',
   'Tools/B-Mixins/Animations-css/animations',
   'Tools/B-Mixins/Hover-css/keyframes',
   'Tools/B-Mixins/FontAwesome/base',
@@ -20,9 +18,9 @@
   'Style/1-Dapper/palette.css',
   'Style/1-Dapper/typography.css',
   //// iii //////////// Elements
-  'Style/2-Components/buttons.css',
-  'Style/2-Components/lightbox.css',
-  'Style/2-Components/load.css',
-  'Style/2-Components/logos&marks.css',
-  'Style/2-Components/nav.css',
-  'Style/2-Components/states.css';
+  'Style/2-Components/buttons.css';
+  //'Style/2-Components/lightbox.css',
+  //'Style/2-Components/load.css',
+  //'Style/2-Components/logos&marks.css',
+  //'Style/2-Components/nav.css',
+  //'Style/2-Components/states.css';

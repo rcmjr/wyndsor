@@ -95,13 +95,13 @@
         @if $Enable-AVP == yes {
          @if $customprops-fetch == false {
             @each $prefix in $vprefixes {
-              #{'-' + $prefix + '-' + $redline-str}: #{$greenline-str};
+              #{'-' + $prefix + '-' + $redline-str}: #{$greenline-clean};
             }
-            #{$redline-str}: #{$greenline-str};
+            #{$redline-str}: #{$greenline-clean};
           }
           @else if $customprops-fetch == true or $custompropvar-check == true {
             @if $custompropvarfull-check == true or $customprops-feature == true-full {
-              #{$redline-custompropname}: #{$greenline-str};
+              #{$redline-custompropname}: #{$greenline-clean};
             }
             @each $prefix in $vprefixes {
               #{'-' + $prefix + '-' + $redline-str}: #{$redline-customprop};
@@ -110,7 +110,7 @@
           }
         }
         @else {
-          #{$redline-str}: #{$greenline-str};
+          #{$redline-str}: #{$greenline-clean};
         }
       }
     }
@@ -124,6 +124,7 @@
       @if $Enable-ATG == yes {
         @if $customprops-fetch == false {
           @include gen-type($redline, $redline-str, $greenline-list, $greenline-str, $greenline-length, $breakpoint, $EpicAct, $namebreak-feature, $important-check);
+
         }
         @else if $customprops-fetch == true or $custompropvar-check == true {
           @include namebrker($EpicAct, $namebreak-feature, $breakpoint, default-under) {

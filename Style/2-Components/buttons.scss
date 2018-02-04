@@ -4,18 +4,13 @@
 $s-Buttons: (
 
   //// 1 //////////// Page Buttons
-  e_bttn-homefresh: (
-    color: white,
-    text-transform: none,
-    _arrw: (
-      font-family: $Tertiary-Typeface),
-    hover: (
-      font-size: 40px,
-      transition: .25s ease,
-      color: white
-    ),
-    padding-left: 2rem,
-    padding-right: 2rem
+  b__solid: (
+    width: 235px,
+    height: 86px,
+    border-radius: 100px,
+    background: $blue,
+    box-shadow: 0px 3px 4px 0px rgba(0, 0, 0, 0.14),
+    border: none
   )
 
 );

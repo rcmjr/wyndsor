@@ -19,6 +19,15 @@ $g-Globals: (
       transition-delay: 3s,
       transition: 1.5s ease
     )),
+
+  //// b /////////// Global Layout css
+  g__flex: (
+    +center: (
+      display: flex,
+      justify-content: center,
+      align-items: center
+    )
+  )
 );
 
 $Epic-Map: $g-Globals;
