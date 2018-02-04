@@ -12,17 +12,10 @@
   'Tools/B-Mixins/Hover-css/keyframes',
   'Tools/B-Mixins/FontAwesome/base',
   //// i //////////// Framework
-  'Style/1-Dapper/globals',
-  'Style/1-Dapper/layout',
-  'Style/1-Dapper/palette',
-  'Style/1-Dapper/typography',
-  //// ii //////////// Elements
-  'Style/2-Components/buttons',
-  'Style/2-Components/lightbox',
-  'Style/2-Components/load',
-  'Style/2-Components/logos&marks',
-  'Style/2-Components/nav',
-  'Style/2-Components/states';
+  'Style/1-Macro/a-Global/assists',
+  'Style/1-Macro/a-Global/layout',
+  'Style/1-Macro/a-Global/palette',
+  'Style/1-Macro/a-Global/typography';
 
 //// --- MAP IMPORTS --- ////////////////////////////
 $Epic-Map-Prod: map-combine(
