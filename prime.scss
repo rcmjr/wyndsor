@@ -1,7 +1,6 @@
 // REMEMBER: This inlines
-// all css, and concatenates
-// all breakpoint css under
-// single media queries.
+// all css, and consolidates
+// all media query css.
 
 //// --- IMPORTS --- ////////////////////////////
 @import
@@ -10,28 +9,12 @@
   'Tools/toolbox',
   'Tools/B-Mixins/Animations-css/animations',
   'Tools/B-Mixins/Hover-css/keyframes',
-  'Tools/B-Mixins/FontAwesome/base',
-  //// i //////////// Framework
-  'Style/1-Macro/a-Global/assists',
-  'Style/1-Macro/a-Global/layout',
-  'Style/1-Macro/a-Global/palette',
-  'Style/1-Macro/a-Global/typography';
+  'Tools/B-Mixins/FontAwesome/base';
+  //// i //////////// Add your sass files starting here.
 
 //// --- MAP IMPORTS --- ////////////////////////////
 $Epic-Map-Prod: map-combine(
-  /* Framework */
-  $g-Globals,
-  $l-Layout,
-  $p-Palette,
-  $t-Typography,
-  /* Elements */
-  $c-Buttons,
-  $c-Lightbox,
-  $c-LoadScreen,
-  $c-Logos,
-  $c-Navigation,
-  $c-States,
-
+  /* Add your map imports here */
 true);
 
 //// --- ALL THE MAGIC --- ////////////////////////////
