@@ -1,0 +1,27 @@
+// This has all of the required dependencies. Don't Remove.
+@import "Admin/Dev/root";
+
+$x-MapName: (
+// Don't forget to add your map to Prime when you're ready for prod.
+
+  // Begin Mapping in Here! :)
+  classname:(
+    background: pink,
+    padding: 10px 20px 30px,
+    padding-top: (
+      base: 3rem,
+      tblt: 2rem,
+    ),
+    _sub: (
+      color: purple,
+      font-family: ("Helvetica", arial, sans-serif)
+    ),
+    auto: (hover-css, bob)
+  )
+  
+);
+
+// Change to New Map Name
+$Epic-Map: $x-MapName;
+// This produces the development css. Don't Remove (even if in Prod mode).
+@import "Admin/Dev/the-epic";

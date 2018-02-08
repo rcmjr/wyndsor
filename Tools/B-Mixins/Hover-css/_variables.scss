@@ -1,6 +1,3 @@
-// DEFAULT OPTIONS
-@import "../../../Style/variables";
-
 // Durations
 $fastDuration: .1s !default;
 $mediumDuration: .3s !default;
@@ -13,7 +10,7 @@ $defaultDuration: $mediumDuration;
 // Speech bubbles options
 $tipWidth: 10px !default;  //the width of the speech bubble tip
 $tipHeight: 10px !default; //the height of the speech bubble tip
-$tipColor: $s-primary !default;
+$tipColor: #fff !default;
 
 // Arrows options
 $spaceBetweenTextAndArrows: 2.2em !default;
