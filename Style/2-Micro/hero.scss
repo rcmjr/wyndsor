@@ -1,0 +1,132 @@
+@import "../../Admin/Dev/root"; // This has all of the required dependencies. Don't Remove.
+//// --- DESCRIPTION --- ////////////////////////////
+
+$w-Hero: (
+
+  s__hero: (
+    background: none,
+    position: relative,
+    height: 545px,
+    z-index: 1,
+    display: grid,
+    grid-template-areas: "versions logo nav" ". logo .",
+    grid-template-rows: 200px 1fr,
+    grid-template-columns: 20vw 1fr 20vw,
+
+    _-bg-div: (
+      height: 100%,
+      width: 100%,
+      position: absolute,
+      z-index: -1,
+      overflow: (
+        base: visible,
+        tblt-dn: hidden
+      ),
+    ),
+    _-bg: (
+      overflow: visible,
+      position: absolute,
+      transition: all .01s ease-in-out,
+      height: (
+        base: auto,
+        tblt-dn: 100%
+      ),
+      width: (
+        base: 100%,
+        tblt-dn: auto
+      ),
+      z-index: -1,
+      left: 50%,
+      transform: translateX(-50%)
+    )
+  ),
+
+  h__logo: (
+    grid-area: logo,
+    display: flex,
+    justify-content: center,
+    align-items: center,
+    |logo: (
+      background: url('../../../assets/h__hero--logo.svg') no-repeat,
+      background-size: auto auto,
+      width: 414px,
+      display: block,
+      min-height: 120px,
+    )
+  ),
+  h__bug--div: (
+    grid-area: versions,
+    display: flex,
+    flex-direction: row,
+    padding: 40px 0 0 40px,
+  ),
+  h__bugs: (
+    max-height: 30px,
+    padding: 2px,
+    border-radius: 25px,
+    background: white,
+    min-width: 55px,
+    text-align: center,
+    width: 20px,
+    |_name: (
+      min-width: 105px,
+      margin-right: 10px
+    ),
+    |p: (
+      font-family: $ff-prime,
+      color: $purple,
+      font-size: 18px,
+      line-height: 2rem,
+      font-weight: 600
+    )
+  ),
+  h__nav: (
+    grid-area: nav,
+    display: flex,
+    justify-content: flex-end,
+    padding: 40px 40px 0 0,
+    z-index: 2,
+    |ul: (
+      |li: (
+      list-style: none,
+      font-family: $ff-prime,
+      font-size: 18px,
+      line-height: 2.5rem,
+      \\" .fa.github": (
+        auto: (fontawesome, github)
+      ),
+      \\" .fa.downloads": (
+        auto: (fontawesome, download)
+      ),
+      \\" a:hover": (
+        color: white
+      ),
+        |a: (
+          text-decoration: none,
+          cursor: pointer,
+          color: $blue,
+          transition: color ease-in-out .08s
+        ),
+      ),
+      |active: (
+        |a: (color: white),
+        before: (
+          border-bottom: white 2px solid,
+          content: "' '",
+          height: 2px,
+          width: 10px,
+          position: relative,
+          margin-left: -10px,
+          display: inline-block,
+          bottom: 0,
+          text-align: left,
+          left: -2px,
+        )
+      )
+    )
+  )
+
+);
+
+$Epic-Map: $w-Hero; // Change to New Map Name.
+@import "../../Admin/Dev/the-epic"; // This produces the development css. Don't Remove (even if in Prod mode).

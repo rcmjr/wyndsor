@@ -22,6 +22,7 @@
   $sass-child: "|"; // Key for Children
   $sass-subclass: "_"; // Key for Sub-Classes
   $sass-alterego: "alias"; // Key for Aliases
+  $sass-rename: "\\"; // Key for Name Extensions
   $sass-overrides: "override"; // Key for Overrides
   $sass-namespace: "+"; // Key for Namespace classes
   $sass-enables: "enable"; // Key for Specific Feature Enables
@@ -37,7 +38,7 @@
   $sass-autovar: "-var"; // Creates custom property variable for CSS Property
 
   // Typography
-  $Enable-ATG: yes; // Enable Auto Typography Generator
+  $Enable-ATG: no; // Enable Auto Typography Generator
   $sass-autotype: "type-style";
   $base-fontsize: 100%; // 10px = 1 rem
   $base-lineheight: 1.6; //

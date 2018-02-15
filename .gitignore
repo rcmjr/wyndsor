@@ -3,7 +3,6 @@
 *.log
 .DS_Store
 node_modules/
-css/
 package-lock.json
 package.json
 .git

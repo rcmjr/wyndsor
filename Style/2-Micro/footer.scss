@@ -1,0 +1,114 @@
+@import "../../Admin/Dev/root";
+
+//// --- Footer --- ////////////////////////////
+$f-Footer: (
+
+  f__footer: (
+    width: 100%,
+    height: 482px,
+    display: grid,
+    overflow: hidden,
+    align-items: flex-end,
+    _-maindiv: (
+      height: 290px,
+      width: 100%,
+      display: grid,
+      grid-template-areas: ". text ." ". buttons ." ". versions .",
+      grid-template-rows: 1fr 1fr 1fr,
+      grid-template-columns: 1fr 590px 1fr,
+    ),
+    _-bg-div: (
+      height: 482px,
+      width: 100vw,
+      position: absolute,
+      z-index: -1,
+      max-width: 100%,
+      background: $black,
+      overflow: hidden
+    ),
+    _-bg: (
+      overflow: visible,
+      position: absolute,
+      transition: all .01s ease-in-out,
+      height: (
+        base: auto,
+        tblt-dn: 100%
+      ),
+      width: (
+        base: 100%,
+        tblt-dn: auto
+      ),
+      z-index: -1,
+      left: 50%,
+      transform: translateX(-50%)
+    ),
+
+    _-text-div: (
+      grid-area: text,
+      |h1: (
+        font-family: $ff-prime,
+        color: white,
+        text-align: center,
+        font-weight: 300,
+        font-size: 36px,
+        line-height: 2.75rem
+      ),
+      |span: (
+        font-weight: 500
+      )
+    ),
+
+    _-bttns-div: (
+      grid-area: buttons,
+      display: flex,
+      justify-content: center,
+      height: 68px,
+      |button: (
+        padding: 15px,
+        border: none,
+        margin-right: auto,
+        border-radius: 8px,
+        font-family: $ff-prime,
+        font-weight: 600,
+        font-size: 22px,
+        min-width: 182px,
+        line-height: 2.75rem,
+        color: $purple,
+        |a: (
+          text-decoration: none,
+        )
+      ),
+      \\" .fa": (
+        margin-right: 10px
+      ),
+      \\" .fa.github": (
+        auto: (fontawesome, github)
+      ),
+      \\" .fa.zip": (
+        auto: (fontawesome, file-archive)
+      ),
+      \\" .fa.how-to": (
+        auto: (fontawesome, info-circle)
+      ),
+    ),
+
+    _-vs-div: (
+      grid-area: versions,
+      display: flex,
+      flex-direction: row,
+      font-family: $ff-prime,
+      color: white,
+      justify-content: center,
+      align-self: self-start,
+
+      |divider: (
+        margin-left: .5rem,
+        margin-right: .5rem,
+      )
+    )
+  )
+
+);
+
+$Epic-Map: $f-Footer;
+@import "../../Admin/Dev/the-epic";

@@ -75,6 +75,7 @@
         @include instagram-css($redline, $redline-str, $greenline-list, $greenline-str, $greenline-length, $splitter, $breakpoint, $EpicAct, $namebreak-feature, $important-check);
         @include animation-css($redline, $redline-str, $greenline-list, $greenline-str, $greenline-length, $splitter, $breakpoint, $EpicAct, $namebreak-feature, $important-check);
         @include hover-css($redline, $redline-str, $greenline-list, $greenline-str, $greenline-length, $splitter, $breakpoint, $EpicAct, $namebreak-feature, $important-check);
+        @include fontawesome($redline, $redline-str, $greenline-list, $greenline-str, $greenline-length, $splitter, $breakpoint, $EpicAct, $namebreak-feature, $important-check);
       }
     }
 
@@ -330,6 +331,7 @@
     $aliasnames: ();
     $property: to-string($property);
     $propvalue: to-string($propertyvalue);
+    $namepropval: $propertyvalue;
     $off: off;
 
     // For CSS Properties
@@ -413,6 +415,9 @@
         @include brker ($subprop, $var-name, child, inner) {
           @include router($subprop, $subpropval, $propertyvalue, null, $var-name, $breakpoint, $EpicAct, $customprops-feature, $namebreak-feature, $gm-override, $gm-override-2, $breakpoint-override, $allbreakpoint-override, $important-override, $override-brkname);
         }
+        @include brker ($subprop, $var-name, rename, inner) {
+          @include router($subprop, $subpropval, $propertyvalue, null, $var-name, $breakpoint, $EpicAct, $customprops-feature, $namebreak-feature, $gm-override, $gm-override-2, $breakpoint-override, $allbreakpoint-override, $important-override, $override-brkname);
+        }
       }
     }
 
@@ -450,6 +455,9 @@
         @include brker ($subprop, $var-name, child, inner) {
           @include router($subprop, $subpropval, $propertyvalue, null, $var-name, $breakpoint, $EpicAct, $customprops-feature, $namebreak-feature, $gm-override, $gm-override-2, $breakpoint-override, $allbreakpoint-override, $important-override, $override-brkname);
         }
+        @include brker ($subprop, $var-name, rename, inner) {
+          @include router($subprop, $subpropval, $propertyvalue, null, $var-name, $breakpoint, $EpicAct, $customprops-feature, $namebreak-feature, $gm-override, $gm-override-2, $breakpoint-override, $allbreakpoint-override, $important-override, $override-brkname);
+        }
       }
     }
 
@@ -483,6 +491,37 @@
         @include brker ($subprop, $var-name, pseudo, inner) {
           @include router($subprop, $subpropval, $propertyvalue, null, $var-name, $breakpoint, $EpicAct, $customprops-feature, $namebreak-feature, $gm-override, $gm-override-2, $breakpoint-override, $allbreakpoint-override, $important-override, $override-brkname);
         }
+        @include brker ($subprop, $var-name, rename, inner) {
+          @include router($subprop, $subpropval, $propertyvalue, null, $var-name, $breakpoint, $EpicAct, $customprops-feature, $namebreak-feature, $gm-override, $gm-override-2, $breakpoint-override, $allbreakpoint-override, $important-override, $override-brkname);
+        }
+      }
+    }
+    // For Renames
+    @include brker ($property, $var-name, rename) {
+      $var-property: str-replace($property, " ", "");
+      $var-name: append($var-name, if(str-index($var-property, $sass-rename), unquote(str-replace($var-property, $sass-rename, "")), unquote($var-property)));
+
+      //// ℹ︎ //////////// Forces the router to compile to the important section or a specific breakpoint.
+      @if $Enable-Overrides == yes and $gm-override == false {
+        // Overrides
+        $important-override: if(remove-duplicates(purge(chk-override($namepropval, important))) == (), false, true);
+        $breakpoint-override: if(remove-duplicates(purge(chk-override($namepropval, breakpoint))) == (), false, true);
+        $allbreakpoint-override: if(remove-duplicates(purge(chk-override($namepropval, all-breakpoints))) == (), false, true);
+        $override-brkname: chk-override($namepropval, breakpoint-name);
+        $gm-override: if(remove-duplicates(purge(chk-override($namepropval, override-all))) == (), false, true);
+      }
+      @if $Enable-Features == yes and $gm-override-2 == false {
+        // Enables
+        $customprops-feature: if(remove-duplicates(purge(chk-override($namepropval, custom-property, enables))) == (), false, true);
+        $customprops-feature: if(remove-duplicates(purge(chk-override($namepropval, custom-property-all, enables))) == (), $customprops-feature, true-all);
+        $customprops-feature: if(remove-duplicates(purge(chk-override($namepropval, custom-property-full, enables))) == (), $customprops-feature, true-full);
+        $namebreak-feature: if(remove-duplicates(purge(chk-override($namepropval, name-break, enables))) == (), false, true);
+        $gm-override-2: if(remove-duplicates(purge(chk-override($namepropval, override-all, enables))) == (), false, true);
+      }
+
+      // Put child-name mixin back here if it doesn't work in the brker mixin
+      @each $subprop, $subpropval in $namepropval {
+        @include router($subprop, $subpropval, $namepropval, null, $var-name, $breakpoint, $EpicAct, $customprops-feature, $namebreak-feature, $gm-override, $gm-override-2, $breakpoint-override, $allbreakpoint-override, $important-override, $override-brkname);
       }
     }
 

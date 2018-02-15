@@ -1,0 +1,48 @@
+@import "../../Admin/Dev/root";
+$l-Highlights: (
+  l__highlights: (
+    display: grid, // would like this to auto populate if a grid property like grid-template-areas is used.
+    height: 612px,
+    width: 100%,
+    grid-template-areas: ". text text text ." ". first second third .",
+    grid-template-columns: 1fr 325px 325px 325px 1fr,
+    grid-template-rows: 80px 325px,
+    grid-gap: 45px,
+    align-content: center,
+
+    _-text-div: (
+      grid-area: text,
+      width: 100%,
+      height: 100%,
+      display: flex,
+      justify-content: center,
+      |h2: (
+        font-family: $ff-prime,
+        color: $black,
+        font-size: 48px,
+        font-weight: 400,
+        text-align: center
+      )
+    ),
+    _-block: (
+      display: flex,
+      justify-content: center,
+      align-items: center,
+      background: $grey,
+      border-radius: 32px,
+ // need to enable ids for children.
+      |_one: ( // need to make a command for nth children
+        grid-area: first
+      ),
+      |_two: ( // need to make a command for nth children
+        grid-area: second
+      ),
+      |_three: ( // need to make a command for nth children
+        grid-area: third
+      )
+    )
+  )
+);
+
+$Epic-Map: $l-Highlights;
+@import "../../Admin/Dev/the-epic";

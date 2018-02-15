@@ -1,19 +1,29 @@
 @mixin naming($property, $filter) {
 
   @if $filter == child-name {
-    $alias-1: null;
-    $alias-2: null;
+    $alias-prime: null;
 
-    $alias-prehand: str-replace(to-string($property), ' ', '');
-    $alias-prime: " ." + str-replace($alias-prehand, $sass-child, '');
-    $alias-prime-c: if(str-index(to-string($alias-prime), "_") == 3, true, false);
+    // Preps the css name for conversion to child
+    $alias-prehand: str-replace(str-replace(to-string($property), ' ', ''), $sass-child, '');
+    $alias-prime-c: if(str-index(to-string($alias-prehand), "_") == 1, true, false);
 
+    // If the direct child command is used
     @if $alias-prime-c == true {
-      $alias-1: str-slice($alias-prime, 4, str-length($alias-prime));
-      $alias-2: str-insert($alias-1, ".", 1);
+      $alias-prime-dpre: str-slice($alias-prehand, 2, str-length($alias-prehand));
+      // Checks for HTML Elements
+      $alias-prime-d: if(chk-list($html-elements, $alias-prime-dpre), true, false);
+      @if $alias-prime-d == true {@error "Sorry, html elements cannot be direct children.";}
+      @else {$alias-prime: "." + $alias-prime-dpre;}
+    }
+    // If the direct child command isn't used
+    @else if $alias-prime-c == false {
+      $alias-prime-d: if(chk-list($html-elements, $alias-prehand), true, false);
+      // Checks for HTML Elements
+      @if $alias-prime-d == true {$alias-prime: " " + $alias-prehand;}
+      @else {$alias-prime: " ." + $alias-prehand;}
     }
 
-    &#{if($alias-prime-c == true, #{$alias-2}, #{$alias-prime})} {@content;}
+    &#{$alias-prime} {@content;}
   }
 
   @else if $filter == pseudo-name {
@@ -22,6 +32,14 @@
 
   @else if $filter == namespace-name {
     &#{if($property != null, unquote("\\:"), '') + if(str-index($property, $sass-namespace), str-replace($property, $sass-namespace, ''), '')} {@content;}
+  }
+
+  @else if $filter == rename {
+    $quote-removal: if(str-index($property, "\""), str-replace($property, "\"", ""), $property);
+    $name-pre: str-replace($quote-removal, $sass-rename, "");
+    $name: str-slice($name-pre, 2, str-length($name-pre));
+
+    &#{unquote($name)} {@content;}
   }
 
   @else if $filter == subclass-name {
@@ -33,6 +51,7 @@
   $property: to-string($property);
   $brker-pseudos: if(map-check($pseudos, $property), true, false);
   $brker-namespace: if(str-index($property, $sass-namespace), true, false);
+  $brker-rename: if(str-index($property, $sass-rename), true, false);
   $brker-child: if(str-index($property, $sass-child), true, false);
   $brker-subclass: if(str-index(str-slice($property, 0, 1), $sass-subclass), true, false);
   $brker-regular: if(chk-list($watchlist, $property), true, false);
@@ -41,12 +60,15 @@
   }
   @if $brker-regular != true and $brker-pseudos == false and
       $brker-namespace == false and $brker-child == false and
-      $brker-subclass == false and $filter == regular {@content;}
+      $brker-subclass == false and $brker-rename == false and $filter == regular {@content;}
   @else if $brker-pseudos == true and $filter == pseudo {
     @if $state == normal {@include naming($property, pseudo-name) {@content;}}
     @else if $state == inner {@content;}}
   @else if $brker-namespace == true and $filter == namespace {
     @if $state == normal {@include naming($property, namespace-name) {@content;}}
+    @else if $state == inner {@content;}}
+  @else if $brker-rename == true and $filter == rename {
+    @if $state == normal {@include naming($property, rename) {@content;}}
     @else if $state == inner {@content;}}
   @else if $brker-child == true and $filter == child {
     @if $state == normal {@include naming($property, child-name) {@content;}}

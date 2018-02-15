@@ -28,35 +28,12 @@
 
 //// --- HOVER KEYFRAMES --- ////////////////////////////
   $hover-keyframes: (
-    bob, buzzOut, buzz,
-    hang, pop, pulseGrow,
-    pulseShrink, pulse, push,
-    wobbleBottom, wobbleHorizontal,
-    wobbleSkew, wobbleToBottomRight,
-    wobbleToTopRight, wobbleTop, wobbleVertical,
-    rippleIn, rippleOut, iconBob, iconBounceOut,
-    iconBuzzOut, iconBuzz, iconDown, iconDrop,
-    iconFloatAway, iconHang, iconPop, iconPulseGrow,
-    iconPulseShrink, iconPulse, iconPush, iconSinkAway,
-    iconUp, iconWobbleHorizontal, iconWobbleVertical
+    bob
   );
 
 //// --- HOVER KEYFRAMES --- ////////////////////////////
   $anime-keyframes: (
-    bounce, flash, jello, pulse, rubberband, shake,
-    swing, tada, wobble, bounceIn, bounceInDown,
-    bounceInLeft, bounceInRight, bounceInUp, bounceOut,
-    bounceOutDown, bounceOutLeft, bounceOutRight,
-    bounceOutUp, fadeIn, fadeInDown, fadeInDownBig,
-    fadeInLeft, fadeInLeftBig, fadeInRight, fadeInRightBig,
-    fadeInUp, fadeInUpBig, fadeOut, fadeOutDown,
-    fadeOutDownBig, fadeOutLeft, fadeOutLeftBig,
-    fadeOutRight, fadeOutRightBig, fadeOutUp, fadeOutUpBig,
-    flip, flipInX, flipInY, flipOutX, flipOutY,
-    lightSpeedIn, lightSpeedOut, rotateIn, rotateInDownLeft,
-    rotateInDownRight, rotateInUpLeft, rotateInUpRight,
-    rotateOut, rotateOutDownLeft, rotateOutDownRight,
-    rotateOutUpLeft
+    bounce
   );
 
 //// --- YOUR CUSTOM AUTOMATIONS --- ////////////////////////////
@@ -111,7 +88,7 @@
     header, hr, html,
     i, iframe, img,
     input, ins, kbd,
-    label, legend, li,
+    label, legend, li, logo,
     link, main, map,
     mark, menu, menuitem,
     meta, meter, nav,

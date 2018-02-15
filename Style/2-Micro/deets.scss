@@ -1,0 +1,62 @@
+@import "../../Admin/Dev/root";
+
+//// --- LOAD SCREEN --- ////////////////////////////
+$d-Deets: (
+
+  d__deets: (
+    width: 100%,
+    height: 700px,
+    display: grid,
+    grid-template-areas: ". text ." ". blocks .",
+    grid-template-rows: 80px 1fr,
+    grid-template-columns: 1fr 260px 1fr,
+    align-content: center,
+    padding-top: 98px,
+    _-sphere: (
+      display: inline-flex,
+      position: absolute,
+      width: 100%,
+      height: 100%,
+      margin: 0 auto,
+      margin-bottom: -50px,
+      overflow: hidden,
+      z-index: -1,
+      justify-self: center,
+      before: (
+        width: 1994px,
+        height: 1994px,
+        background: #060826,
+        display: block,
+        border-radius: 50% 50% 0 0,
+        position: absolute,
+        left: 50%,
+        transform: translate(-50%, 0),
+        content: "' '",
+      )
+    ),
+    _-text-div: (
+      grid-area: text,
+      display: flex,
+      justify-content: center,
+      |h2: (
+        font-family: $ff-prime,
+        color: $white,
+        font-size: 48px,
+        font-weight: 300,
+        line-height: 3.5rem,
+        text-align: center
+      ),
+      |span: (
+        display: block,
+        font-weight: 500
+      )
+    ),
+    _-blocks-div: (
+      grid-area: blocks
+    )
+  )
+
+);
+
+$Epic-Map: $d-Deets;
+@import "../../Admin/Dev/the-epic";
