@@ -126,3 +126,23 @@ SBM
 
 1. Multiple Pseudos in one sitting.
 2. Alt css property list and generator in the event a browser doesn't support a specific property.
+=======
+#### README Forthcoming...
+
+### Class Declarations
+- (horizontal bar) -- Declares Child
+- (underscore) -- Declares a sub-class
+- alias -- Creates a css aliases
+- (plus) -- Creates namespace class
+- enable -- Used to apply wyndsor features
+
+### Tools
+  - auto -- Creates property and property values via built-in automations
+  - custo -- Creates property and property values via your custom automations
+  - -auto -- Creates only property values via built-in automations
+  - -custo -- Creates only property values via custom automations
+
+### Augmentations
+- -vp -- Adds vendors to property values
+- -var -- Creates custom property variable for CSS Property
+>>>>>>> b4f61c320a641619817d53f27c6509d94ed5c9ee
