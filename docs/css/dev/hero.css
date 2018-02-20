@@ -33,7 +33,7 @@
   justify-content: center;
   align-items: center; }
   .h__logo logo {
-    background: url("../../../assets/h__hero--logo.svg") no-repeat;
+    background: url("/assets/h__hero--logo.svg") no-repeat;
     background-size: auto auto;
     width: 414px;
     display: block;
