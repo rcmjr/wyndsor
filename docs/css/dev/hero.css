@@ -1,0 +1,169 @@
+.s__hero {
+  background: none;
+  position: relative;
+  height: 545px;
+  z-index: 1;
+  display: grid;
+  grid-template-areas: "versions logo nav" ". logo .";
+  grid-template-rows: 200px 1fr;
+  grid-template-columns: 20vw 1fr 20vw; }
+  .s__hero--bg-div {
+    height: 100%;
+    width: 100%;
+    position: absolute;
+    z-index: -1;
+    overflow: visible; }
+  .s__hero--bg {
+    overflow: visible;
+    position: absolute;
+    -webkit-transition: all 0.01s ease-in-out;
+    -moz-transition: all 0.01s ease-in-out;
+    -ms-transition: all 0.01s ease-in-out;
+    -o-transition: all 0.01s ease-in-out;
+    transition: all 0.01s ease-in-out;
+    height: auto;
+    width: 100%;
+    z-index: -1;
+    left: 50%;
+    transform: translateX(-50%); }
+
+.h__logo {
+  grid-area: logo;
+  display: flex;
+  justify-content: center;
+  align-items: center; }
+  .h__logo logo {
+    background: url("../../../assets/h__hero--logo.svg") no-repeat;
+    background-size: auto auto;
+    width: 414px;
+    display: block;
+    min-height: 120px; }
+
+.h__bug--div {
+  grid-area: versions;
+  display: flex;
+  flex-direction: row;
+  padding: 40px 0 0 40px; }
+
+.h__bugs {
+  max-height: 30px;
+  padding: 2px;
+  border-radius: 25px;
+  background: white;
+  min-width: 55px;
+  text-align: center;
+  width: 20px;
+  -webkit-transform: perspective(1px) translateZ(0);
+  -moz-transform: perspective(1px) translateZ(0);
+  -ms-transform: perspective(1px) translateZ(0);
+  -o-transform: perspective(1px) translateZ(0);
+  transform: perspective(1px) translateZ(0);
+  box-shadow: 0 0 1px transparent;
+  -webkit-animation-delay: 5s;
+  -moz-animation-delay: 5s;
+  -ms-animation-delay: 5s;
+  -o-animation-delay: 5s;
+  animation-delay: 5s; }
+  .h__bugs:hover, .h__bugs:focus, .h__bugs:active {
+    -webkit-animation-name: buzz;
+    -moz-animation-name: buzz;
+    -ms-animation-name: buzz;
+    -o-animation-name: buzz;
+    animation-name: buzz;
+    -webkit-animation-duration: 0.15s;
+    -moz-animation-duration: 0.15s;
+    -ms-animation-duration: 0.15s;
+    -o-animation-duration: 0.15s;
+    animation-duration: 0.15s;
+    -webkit-animation-timing-function: linear;
+    -moz-animation-timing-function: linear;
+    -ms-animation-timing-function: linear;
+    -o-animation-timing-function: linear;
+    animation-timing-function: linear;
+    -webkit-animation-iteration-count: infinite;
+    -moz-animation-iteration-count: infinite;
+    -ms-animation-iteration-count: infinite;
+    -o-animation-iteration-count: infinite;
+    animation-iteration-count: infinite; }
+  .h__bugs.name {
+    min-width: 105px;
+    margin-right: 10px; }
+  .h__bugs p {
+    font-family: "myriad pro", "helvetica", "arial", sans-serif;
+    color: #7825B8;
+    font-size: 18px;
+    line-height: 2rem;
+    font-weight: 600; }
+
+.h__nav {
+  grid-area: nav;
+  display: flex;
+  justify-content: flex-end;
+  padding: 40px 40px 0 0;
+  z-index: 2; }
+  .h__nav ul li {
+    list-style: none;
+    font-family: "myriad pro", "helvetica", "arial", sans-serif;
+    font-size: 18px;
+    line-height: 2.5rem;
+    -webkit-transform: perspective(1px) translateZ(0);
+    -moz-transform: perspective(1px) translateZ(0);
+    -ms-transform: perspective(1px) translateZ(0);
+    -o-transform: perspective(1px) translateZ(0);
+    transform: perspective(1px) translateZ(0);
+    box-shadow: 0 0 1px transparent;
+    -webkit-transition-duration: 0.3s;
+    -moz-transition-duration: 0.3s;
+    -ms-transition-duration: 0.3s;
+    -o-transition-duration: 0.3s;
+    transition-duration: 0.3s;
+    -webkit-transition-property: transform;
+    -moz-transition-property: transform;
+    -ms-transition-property: transform;
+    -o-transition-property: transform;
+    transition-property: transform; }
+    .h__nav ul li:hover, .h__nav ul li:focus, .h__nav ul li:active {
+      -webkit-transform: scale(1.1) rotate(4deg);
+      -moz-transform: scale(1.1) rotate(4deg);
+      -ms-transform: scale(1.1) rotate(4deg);
+      -o-transform: scale(1.1) rotate(4deg);
+      transform: scale(1.1) rotate(4deg); }
+  .h__nav ul .fa.github {
+    font-family: "Font Awesome 5 Solid", "Font Awesome 5 Line", "Font Awesome 5 Brands"; }
+    .h__nav ul .fa.github:before {
+      content: "\f09b"; }
+  .h__nav ul .fa.downloads {
+    font-family: "Font Awesome 5 Solid", "Font Awesome 5 Line", "Font Awesome 5 Brands"; }
+    .h__nav ul .fa.downloads:before {
+      content: "\f019"; }
+  .h__nav ul a:hover {
+    color: white;
+    -webkit-transition: all ease-in-out 0.08s;
+    -moz-transition: all ease-in-out 0.08s;
+    -ms-transition: all ease-in-out 0.08s;
+    -o-transition: all ease-in-out 0.08s;
+    transition: all ease-in-out 0.08s; }
+  .h__nav ul a {
+    text-decoration: none;
+    cursor: pointer;
+    color: #008FD6; }
+  .h__nav .active a {
+    color: white; }
+  .h__nav .active:before {
+    border-bottom: white 2px solid;
+    content: ' ';
+    height: 2px;
+    width: 10px;
+    position: relative;
+    margin-left: -10px;
+    display: inline-block;
+    bottom: 0;
+    text-align: left;
+    left: -2px; }
+
+@media (max-width: 1200px) {
+  .s__hero--bg-div {
+    overflow: hidden; }
+  .s__hero--bg {
+    height: 100%;
+    width: auto; } }
