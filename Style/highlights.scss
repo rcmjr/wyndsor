@@ -1,4 +1,5 @@
-@import "../../Admin/Dev/root";
+// inject: dependenciesbase //
+// endinject: dependenciesbase //
 $l-Highlights: (
   l__highlights: (
     display: grid, // would like this to auto populate if a grid property like grid-template-areas is used.
@@ -45,4 +46,5 @@ $l-Highlights: (
 );
 
 $Epic-Map: $l-Highlights;
-@import "../../Admin/Dev/the-epic";
+// inject: dependenciesepic //
+// endinject: dependenciesepic //

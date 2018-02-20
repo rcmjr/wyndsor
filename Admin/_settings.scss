@@ -14,7 +14,7 @@
   $Global-NameBreak-Separator: default; // Options: direct-child (.), child ( .), namespace (:), default (-), default-under (_)
 
 //// --- Workflow State --- ////////////////////////////
-  $Wyndsor-mode: dev; // Dev or Prod mode
+  $Wyndsor-mode: dev !default; // Dev or Prod mode
 
 //// --- DANGER ZONE - CHANGE THESE AT YOUR OWN RISK --- ////////////////////////////
 

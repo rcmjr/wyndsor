@@ -1,4 +1,5 @@
-@import "../../Admin/Dev/root";
+// inject: dependenciesbase //
+// endinject: dependenciesbase //
 
 //// --- NAVIGATION --- ////////////////////////////
 $s-Navigation: (
@@ -8,12 +9,12 @@ $s-Navigation: (
     padding: 20px,
     padding-right: 25px,
     padding-left: 25px,
-    background: $night,
+    background: $black,
     color: white,
     height: 100%,
     width: 100%,
     hover: (
-      background: $sky,
+      background: $blue,
       font-weight: 600,
       cursor: pointer,
       font-size: 25px,
@@ -28,4 +29,5 @@ $s-Navigation: (
 );
 
 $Epic-Map: $s-Navigation;
-@import "../../Admin/Dev/the-epic";
+// inject: dependenciesepic //
+// endinject: dependenciesepic //

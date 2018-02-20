@@ -22,7 +22,7 @@
   }
 
   // Buzz-Out
-  @if $hover-name == buzzOut {
+  @else if $hover-name == buzzOut {
     @include keyframes($hover-name) {
       10% {@include prefixed(transform, translateX(3px) rotate(2deg));}
       20% {@include prefixed(transform, translateX(-3px) rotate(-2deg));}
@@ -34,16 +34,16 @@
       80% {@include prefixed(transform, translateX(-2px) rotate(-1deg));}
       90% {@include prefixed(transform, translateX(1px) rotate(0));}
       100% {@include prefixed(transform, translateX(-1px) rotate(0));}}
-
+  }
   // Buzz
-  @if $hover-name == buzz {
+  @else if $hover-name == buzz {
     @include keyframes($hover-name) {
       50% {@include prefixed(transform, translateX(3px) rotate(2deg));}
       100% {@include prefixed(transform, translateX(-3px) rotate(-2deg));}}
-  }}
+  }
 
   // Hang
-  @if $hover-name == hang {
+  @else if $hover-name == hang {
     @include keyframes($hover-name) {
       0% {@include prefixed(transform, translateY(8px));}
       50% {@include prefixed(transform, translateY(4px));}
@@ -54,39 +54,39 @@
   }
 
   // Pop
-  @if $hover-name == pop {
+  @else if $hover-name == pop {
     @include keyframes($hover-name) {
     50% {@include prefixed(transform, scale(1.2));}}
   }
 
   // Pulse-Grow
-  @if $hover-name == pulseGrow {
+  @else if $hover-name == pulseGrow {
     @include keyframes($hover-name) {
       to {@include prefixed(transform, scale(1.1));}}
   }
 
   // Pulse-Shrink
-  @if $hover-name == pulseShrink {
+  @else if $hover-name == pulseShrink {
     @include keyframes($hover-name) {
       to {@include prefixed(transform, scale(.9));}}
   }
 
   // Pulse
-  @if $hover-name == pulse {
+  @else if $hover-name == pulse {
     @include keyframes($hover-name) {
       25% {@include prefixed(transform, scale(1.1));}
       75% {@include prefixed(transform, scale(.9));}}
   }
 
   // Push
-  @if $hover-name == push {
+  @else if $hover-name == push {
     @include keyframes($hover-name) {
       50% {@include prefixed(transform, scale(.8));}
       100% {@include prefixed(transform, scale(1));}}
   }
 
   // Wobble-Bottom
-  @if $hover-name == wobbleBottom {
+  @else if $hover-name == wobbleBottom {
     @include keyframes($hover-name) {
       16.65% {@include prefixed(transform, skew(-12deg));}
       33.3% {@include prefixed(transform, skew(10deg));}
@@ -97,7 +97,7 @@
   }
 
   // Wobble-Horizontal
-  @if $hover-name == wobbleHorizontal {
+  @else if $hover-name == wobbleHorizontal {
     @include keyframes($hover-name) {
       16.65% {@include prefixed(transform, translateX(8px));}
       33.3% {@include prefixed(transform, translateX(-6px));}
@@ -108,7 +108,7 @@
   }
 
   // Wobble-Skew
-  @if $hover-name == wobbleSkew {
+  @else if $hover-name == wobbleSkew {
     @include keyframes($hover-name) {
       16.65% {@include prefixed(transform, skew(-12deg));}
       33.3% {@include prefixed(transform, skew(10deg));}
@@ -119,7 +119,7 @@
   }
 
   // Wobble-to-Bottom-Right
-  @if $hover-name == wobbleToBottomRight {
+  @else if $hover-name == wobbleToBottomRight {
     @include keyframes($hover-name) {
       16.65% {@include prefixed(transform, translate(8px, 8px));}
       33.3% {@include prefixed(transform, translate(-6px, -6px));}
@@ -130,7 +130,7 @@
   }
 
   // Wobble-to-Top-Right
-  @if $hover-name == wobbleToTopRight {
+  @else if $hover-name == wobbleToTopRight {
     @include keyframes($hover-name) {
       16.65% {@include prefixed(transform, translate(8px, -8px));}
       33.3% {@include prefixed(transform, translate(-6px, 6px));}
@@ -141,7 +141,7 @@
   }
 
   // Wobble-Top
-  @if $hover-name == wobbleTop {
+  @else if $hover-name == wobbleTop {
     @include keyframes($hover-name) {
       16.65% {@include prefixed(transform, skew(-12deg));}
       33.3% {@include prefixed(transform, skew(10deg));}
@@ -152,7 +152,7 @@
   }
 
   // Wobble-Vertical
-  @if $hover-name == wobbleVertical {
+  @else if $hover-name == wobbleVertical {
     @include keyframes($hover-name) {
       16.65% {@include prefixed(transform, translateY(8px));}
       33.3% {@include prefixed(transform, translateY(-6px));}
@@ -163,7 +163,7 @@
   }
 
   // Ripple-In
-  @if $hover-name == rippleIn {
+  @else if $hover-name == rippleIn {
     @include keyframes($hover-name) {
       100% {
         top: 0;
@@ -175,7 +175,7 @@
   }
 
   // Ripple-Out
-  @if $hover-name == rippleOut {
+  @else if $hover-name == rippleOut {
     @include keyframes($hover-name) {
       100% {
         top: -(6px + 6px);
@@ -187,7 +187,7 @@
   }
 
   // Icon-Bob
-  @if $hover-name == iconBob {
+  @else if $hover-name == iconBob {
     @include keyframes($hover-name) {
       0% {@include prefixed(transform, translateY(-6px));}
       50% {@include prefixed(transform, translateY(-2px));}
@@ -198,13 +198,13 @@
   }
 
   // Icon-Bounce-Out
-  @if $hover-name == iconBounceOut {
+  @else if $hover-name == iconBounceOut {
     @include keyframes($hover-name) {
       50% {@include prefixed(transform, scale(1.5));}}
   }
 
   // Icon-Buzz-Out
-  @if $hover-name == iconBuzzOut {
+  @else if $hover-name == iconBuzzOut {
     @include keyframes($hover-name) {
       10% {@include prefixed(transform, translateX(3px) rotate(2deg));}
       20% {@include prefixed(transform, translateX(-3px) rotate(-2deg));}
@@ -219,21 +219,21 @@
   }
 
   // Icon-Buzz
-  @if $hover-name == iconBuzz {
+  @else if $hover-name == iconBuzz {
     @include keyframes($hover-name) {
       50% {@include prefixed(transform, translateX(3px) rotate(2deg));}
       100% {@include prefixed(transform, translateX(-3px) rotate(-2deg));}}
   }
 
   // Icon-Down
-  @if $hover-name == iconDown {
+  @else if $hover-name == iconDown {
     @include keyframes($hover-name) {
       0%, 50%, 100% {@include prefixed(transform, translateY(0));}
       25%, 75% {@include prefixed(transform, translateY(6px));}}
   }
 
   // Icon-Drop
-  @if $hover-name == iconDrop {
+  @else if $hover-name == iconDrop {
     @include keyframes($hover-name) {
       0% {opacity: 0;}
       50% {
@@ -244,7 +244,7 @@
   }
 
   // Icon-Float-Away
-  @if $hover-name == iconFloatAway {
+  @else if $hover-name == iconFloatAway {
     @include keyframes($hover-name) {
       0% {opacity: 1;}
       100% {
@@ -253,7 +253,7 @@
   }
 
   // Icon-Hang
-  @if $hover-name == iconHang {
+  @else if $hover-name == iconHang {
     @include keyframes($hover-name) {
       0% {@include prefixed(transform, translateY(6px));}
       50% {@include prefixed(transform, translateY(2px));}
@@ -264,38 +264,38 @@
   }
 
   // Icon-Pop
-  @if $hover-name == iconPop {
+  @else if $hover-name == iconPop {
     @include keyframes($hover-name) {
       50% {@include prefixed(transform, scale(1.5));}}
   }
 
   // Icon-Pulse-Grow
-  @if $hover-name == iconPulseGrow {
+  @else if $hover-name == iconPulseGrow {
     @include keyframes($hover-name) {
       to {@include prefixed(transform, scale(1.3));}}
   }
 
   // Icon-Pulse-Shrink
-  @if $hover-name == iconPulseShrink {
+  @else if $hover-name == iconPulseShrink {
     @include keyframes($hover-name) {
       to {@include prefixed(transform, scale(.8));}}
   }
 
   // Icon-Pulse
-  @if $hover-name == iconPulse {
+  @else if $hover-name == iconPulse {
     @include keyframes($hover-name) {
       25% {@include prefixed(transform, scale(1.3));}
       75% {@include prefixed(transform, scale(.8));}}
   }
 
   // Icon-Push
-  @if $hover-name == iconPush {
+  @else if $hover-name == iconPush {
     @include keyframes($hover-name) {
       50% {@include prefixed(transform, scale(.5));}}
   }
 
   // Icon-Sink-Away
-  @if $hover-name == iconSinkAway {
+  @else if $hover-name == iconSinkAway {
     @include keyframes($hover-name) {
       0% {opacity: 1;}
       100% {
@@ -304,14 +304,14 @@
   }
 
   // Icon-Up
-  @if $hover-name == iconUp {
+  @else if $hover-name == iconUp {
     @include keyframes($hover-name) {
       0%, 50%, 100% {@include prefixed(transform, translateY(0));}
       25%, 75% {@include prefixed(transform, translateY(-6px));}}
   }
 
   // Icon-Wobble-Horizontal
-  @if $hover-name == iconWobbleHorizontal {
+  @else if $hover-name == iconWobbleHorizontal {
     @include keyframes($hover-name) {
       16.65% {@include prefixed(transform, translateX(6px));}
       33.3% {@include prefixed(transform, translateX(-5px));}
@@ -322,7 +322,7 @@
   }
 
   // Icon-Wobble-Vertical
-  @if $hover-name == iconWobbleVertical {
+  @else if $hover-name == iconWobbleVertical {
     @include keyframes($hover-name) {
       16.65% {@include prefixed(transform, translateY(6px));}
       33.3% {@include prefixed(transform, translateY(-5px));}
@@ -333,11 +333,7 @@
   }
 }
 
-// Creates Keyframes required for specific hovers.
-@each $key, $value in $hover-keyframes {
-  @if $value == on {
-    @include keyframes($key) {
-      @include hover-frames($key);
-    }
+  // Creates Keyframes required for specific hovers.
+  @each $key, $value in $hover-keyframes {
+    @include hover-frames($key);
   }
-}
