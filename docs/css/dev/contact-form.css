@@ -1,0 +1,18 @@
+.e_folionav {
+  padding: 20px;
+  padding-right: 25px;
+  padding-left: 25px;
+  background: #060826;
+  color: white;
+  height: 100%;
+  width: 100%; }
+  .e_folionav:hover {
+    background: #008FD6;
+    font-weight: 600;
+    cursor: pointer;
+    font-size: 25px;
+    padding-top: 15px;
+    padding-bottom: 15px;
+    padding-left: 23.5px;
+    padding-right: 23.5px;
+    line-height: 1.1; }
