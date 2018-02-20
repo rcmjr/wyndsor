@@ -1,5 +1,7 @@
-@import "../../Admin/Dev/root"; // This has all of the required dependencies. Don't Remove.
-//// --- DESCRIPTION --- ////////////////////////////
+// inject: dependenciesbase //
+// endinject: dependenciesbase //
+
+//// --- REMOVE UNDERSCORE FROM FILENAME --- ////////////////////////////
 
 $x-MapName: (
 
@@ -8,4 +10,6 @@ $x-MapName: (
 );
 
 $Epic-Map: $x-MapName; // Change to New Map Name.
-@import "../../Admin/Dev/the-epic"; // This produces the development css. Don't Remove (even if in Prod mode).
+
+// inject: dependenciesepic //
+// endinject: dependenciesepic //

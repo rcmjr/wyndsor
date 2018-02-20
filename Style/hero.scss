@@ -1,4 +1,5 @@
-@import "../../Admin/Dev/root"; // This has all of the required dependencies. Don't Remove.
+// inject: dependenciesbase //
+// endinject: dependenciesbase //
 //// --- DESCRIPTION --- ////////////////////////////
 
 $w-Hero: (
@@ -68,6 +69,8 @@ $w-Hero: (
     min-width: 55px,
     text-align: center,
     width: 20px,
+    auto: (hover-css, buzz),
+    animation-delay: 5s,
     |_name: (
       min-width: 105px,
       margin-right: 10px
@@ -92,6 +95,8 @@ $w-Hero: (
       font-family: $ff-prime,
       font-size: 18px,
       line-height: 2.5rem,
+      auto: (hover-css, growRotate),
+      ),
       \\" .fa.github": (
         auto: (fontawesome, github)
       ),
@@ -99,13 +104,13 @@ $w-Hero: (
         auto: (fontawesome, download)
       ),
       \\" a:hover": (
-        color: white
+        color: white,
+        transition: all ease-in-out .08s
       ),
         |a: (
           text-decoration: none,
           cursor: pointer,
           color: $blue,
-          transition: color ease-in-out .08s
         ),
       ),
       |active: (
@@ -124,9 +129,9 @@ $w-Hero: (
         )
       )
     )
-  )
 
 );
 
 $Epic-Map: $w-Hero; // Change to New Map Name.
-@import "../../Admin/Dev/the-epic"; // This produces the development css. Don't Remove (even if in Prod mode).
+// inject: dependenciesepic //
+// endinject: dependenciesepic //

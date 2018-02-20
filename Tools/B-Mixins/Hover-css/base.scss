@@ -33,9 +33,7 @@
                  /* Otherwise This */ $iconDefault),
                  null);
     $s-icon: _($fa-vars, $s-icon-pre);
-
     // CSS Hacks
-    @include forceBlockLevel();
     @include hardwareAccel();
     @include improveAntiAlias();
     @include hovers($filter, $s-duration, $s-icon);

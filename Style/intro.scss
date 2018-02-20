@@ -1,4 +1,5 @@
-@import "../../Admin/Dev/root";
+// inject: dependenciesbase //
+// endinject: dependenciesbase //
 
 //// --- BUTTONS --- ////////////////////////////
 $i-Intro: (
@@ -36,6 +37,9 @@ $i-Intro: (
       z-index: 1,
       justify-content: center,
       align-items: center,
+      \n: (
+        font-family: cool
+      ),
       |h1: (
         color: white,
         font-size: 36px,
@@ -54,4 +58,5 @@ $i-Intro: (
 );
 
 $Epic-Map: $i-Intro;
-@import "../../Admin/Dev/the-epic";
+// inject: dependenciesepic //
+// endinject: dependenciesepic //
