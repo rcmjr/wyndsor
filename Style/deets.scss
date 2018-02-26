@@ -5,32 +5,29 @@
 $d-Deets: (
 
   d__deets: (
-    width: 100%,
-    height: 700px,
+    grid-area: deets,
+    width: 100vw,
+    height: 100%,
     display: grid,
     grid-template-areas: ". text ." "blocks blocks blocks",
     grid-template-rows: 80px 1fr,
     grid-template-columns: 1fr 260px 1fr,
     align-content: center,
-    padding-top: 98px,
-
-    _-sphere: (
+    padding-top: 89px,
+    overflow: hidden,
+    \--sphere: (
       display: (
         base: inline-flex,
-        dsk-up: inline-block
+        desktop-up: inline-block
       ),
-
       position: absolute,
       width: 100%,
       height: 100%,
       margin: 0 auto,
       margin-bottom: -50px,
       overflow: hidden,
-      z-index: -1,
+      z-index: -3,
       justify-self: center,
-      |a: (
-
-      ),
       before: (
         width: 1994px,
         height: 1994px,
@@ -41,13 +38,18 @@ $d-Deets: (
         left: 50%,
         transform: translate(-50%, 0),
         content: "' '",
+      ),
+      \-container: (
+        width: 100vw,
+        height: 100%,
+        overflow: hidden
       )
     ),
-    _-text-div: (
+    \--text-div: (
       grid-area: text,
       display: flex,
       justify-content: center,
-      |h2: (
+      \>\>h2: (
         font-family: $ff-prime,
         color: $white,
         font-size: 48px,
@@ -55,12 +57,12 @@ $d-Deets: (
         line-height: 3.5rem,
         text-align: center
       ),
-      |span: (
+      \>\>span: (
         display: block,
         font-weight: 500
       )
     ),
-    _-blocks-div: (
+    \--blocks-div: (
       grid-area: blocks,
       color: white,
       font-family: $ff-prime,
@@ -72,23 +74,23 @@ $d-Deets: (
       margin-top: 70px,
       align-content: center,
       grid-row-gap: 62px,
-      |block-row: (
+      \>\>block-row: (
         display: inline-grid,
         text-align: center,
         justify-content: center,
         grid-gap: 76px,
-        |_row1: (
+        \>row1: (
           grid-area: row1,
           grid-template-areas: "'el1 el2'",
           grid-template-columns: 270px 270px,
-          |el1: (
+          \>\>el1: (
             grid-area: el1
           ),
-          |el2: (
+          \>\>el2: (
             grid-area: el2
           )
         ),
-        |_row2: (
+        \>row2: (
           grid-area: row2,
           grid-template-areas: "'el3 el4 el5'",
           grid-template-columns: 270px 270px 270px,
@@ -102,18 +104,18 @@ $d-Deets: (
             grid-area: el5
           )
         ),
-        |block: (
-          |h3: (
+        \>\>block: (
+          \>\>h3: (
             font-size: 30px,
             font-weight: 300,
             line-height: 5rem,
           ),
-          |p: (
+          \>\>p: (
             font-size: 18px,
             font-weight: 100,
             line-height: 1.75rem,
-            |bold: (font-weight: 600),
-            |grey: (color: $grey, opacity: .8)
+            \>\>bold: (font-weight: 600),
+            \>\>grey: (color: $grey, opacity: .8)
           ),
         )
       ),

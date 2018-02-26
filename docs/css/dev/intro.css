@@ -1,17 +1,25 @@
 .i__intro {
-  width: 100%;
-  height: 280px;
+  grid-area: intro;
+  width: 100vw;
+  height: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
-  justify-content: center;
-  margin-top: -50px; }
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  justify-content: center; }
   .i__intro--sphere {
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
     position: absolute;
     width: 100%;
-    height: 280px;
+    height: 240px;
     margin: 0 auto;
-    overflow: hidden;
+    overflow: visible;
     z-index: -1;
+    -webkit-box-align: end;
+    -ms-flex-align: end;
     align-items: flex-end; }
     .i__intro--sphere:before {
       width: 1994px;
@@ -22,15 +30,23 @@
       margin: 0 auto;
       position: relative;
       content: ' '; }
+    .i__intro--sphere-container {
+      width: 100vw;
+      height: 100%;
+      overflow: hidden; }
   .i__intro--text {
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
     width: 100%;
     height: 100%;
     z-index: 1;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
     justify-content: center;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
     align-items: center; }
-    .i__intro--text {
-      font-family: cool; }
     .i__intro--text h1 {
       color: white;
       font-size: 36px;
@@ -41,3 +57,29 @@
       .i__intro--text h1 .bold {
         font-weight: 500;
         display: block; }
+
+@media (min-width: 1801px) {
+  .i__intro--sphere:before {
+    background: purple; } }
+
+@media (min-width: 1201px) and (max-width: 1800px) {
+  .i__intro--sphere:before {
+    background: green; } }
+
+@media (min-width: 901px) and (max-width: 1200px) {
+  .i__intro--sphere {
+    height: 200px; }
+    .i__intro--sphere:before {
+      background: blue; } }
+
+@media (min-width: 601px) and (max-width: 900px) {
+  .i__intro--sphere:before {
+    background: red; } }
+
+@media (min-width: 401px) and (max-width: 600px) {
+  .i__intro--sphere:before {
+    background: orange; } }
+
+@media (max-width: 400px) {
+  .i__intro--sphere:before {
+    background: yellow; } }

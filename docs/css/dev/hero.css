@@ -1,39 +1,45 @@
+body {
+  display: grid;
+  grid-template-areas: "hero" "intro" "highlights" "deets" "footer";
+  grid-template-rows: 545px 240px 612px 700px 482px; }
+
 .s__hero {
   background: none;
   position: relative;
-  height: 545px;
+  height: 100%;
+  width: 100vw;
   z-index: 1;
+  grid-area: hero;
   display: grid;
   grid-template-areas: "versions logo nav" ". logo .";
   grid-template-rows: 200px 1fr;
   grid-template-columns: 20vw 1fr 20vw; }
   .s__hero--bg-div {
-    height: 100%;
-    width: 100%;
+    height: auto;
+    width: 100vw;
     position: absolute;
     z-index: -1;
     overflow: visible; }
-  .s__hero--bg {
-    overflow: visible;
-    position: absolute;
-    -webkit-transition: all 0.01s ease-in-out;
-    -moz-transition: all 0.01s ease-in-out;
-    -ms-transition: all 0.01s ease-in-out;
-    -o-transition: all 0.01s ease-in-out;
-    transition: all 0.01s ease-in-out;
-    height: auto;
-    width: 100%;
-    z-index: -1;
-    left: 50%;
-    transform: translateX(-50%); }
+    .s__hero--bg-div img {
+      width: 100%;
+      height: auto;
+      display: block; }
+    .s__hero--bg-div .bg-mobile {
+      display: none; }
 
 .h__logo {
   grid-area: logo;
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
   justify-content: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
   align-items: center; }
   .h__logo logo {
-    background: url("../../assets/h__hero--logo.svg") no-repeat;
+    background: url("../../../assets/h__hero--logo.svg") no-repeat;
     background-size: auto auto;
     width: 414px;
     display: block;
@@ -41,7 +47,12 @@
 
 .h__bug--div {
   grid-area: versions;
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+  -ms-flex-direction: row;
   flex-direction: row;
   padding: 40px 0 0 40px; }
 
@@ -54,39 +65,22 @@
   text-align: center;
   width: 20px;
   -webkit-transform: perspective(1px) translateZ(0);
-  -moz-transform: perspective(1px) translateZ(0);
-  -ms-transform: perspective(1px) translateZ(0);
-  -o-transform: perspective(1px) translateZ(0);
   transform: perspective(1px) translateZ(0);
+  -webkit-box-shadow: 0 0 1px transparent;
   box-shadow: 0 0 1px transparent;
   -webkit-animation-delay: 5s;
-  -moz-animation-delay: 5s;
-  -ms-animation-delay: 5s;
-  -o-animation-delay: 5s;
   animation-delay: 5s; }
   .h__bugs:hover, .h__bugs:focus, .h__bugs:active {
     -webkit-animation-name: buzz;
-    -moz-animation-name: buzz;
-    -ms-animation-name: buzz;
-    -o-animation-name: buzz;
     animation-name: buzz;
     -webkit-animation-duration: 0.15s;
-    -moz-animation-duration: 0.15s;
-    -ms-animation-duration: 0.15s;
-    -o-animation-duration: 0.15s;
     animation-duration: 0.15s;
     -webkit-animation-timing-function: linear;
-    -moz-animation-timing-function: linear;
-    -ms-animation-timing-function: linear;
-    -o-animation-timing-function: linear;
     animation-timing-function: linear;
     -webkit-animation-iteration-count: infinite;
-    -moz-animation-iteration-count: infinite;
-    -ms-animation-iteration-count: infinite;
-    -o-animation-iteration-count: infinite;
     animation-iteration-count: infinite; }
   .h__bugs.name {
-    min-width: 105px;
+    min-width: 100px;
     margin-right: 10px; }
   .h__bugs p {
     font-family: "myriad pro", "helvetica", "arial", sans-serif;
@@ -97,7 +91,11 @@
 
 .h__nav {
   grid-area: nav;
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
+  -webkit-box-pack: end;
+  -ms-flex-pack: end;
   justify-content: flex-end;
   padding: 40px 40px 0 0;
   z-index: 2; }
@@ -107,26 +105,18 @@
     font-size: 18px;
     line-height: 2.5rem;
     -webkit-transform: perspective(1px) translateZ(0);
-    -moz-transform: perspective(1px) translateZ(0);
-    -ms-transform: perspective(1px) translateZ(0);
-    -o-transform: perspective(1px) translateZ(0);
     transform: perspective(1px) translateZ(0);
+    -webkit-box-shadow: 0 0 1px transparent;
     box-shadow: 0 0 1px transparent;
     -webkit-transition-duration: 0.3s;
-    -moz-transition-duration: 0.3s;
-    -ms-transition-duration: 0.3s;
-    -o-transition-duration: 0.3s;
     transition-duration: 0.3s;
     -webkit-transition-property: transform;
-    -moz-transition-property: transform;
-    -ms-transition-property: transform;
-    -o-transition-property: transform;
-    transition-property: transform; }
+    -webkit-transition-property: -webkit-transform;
+    transition-property: -webkit-transform;
+    transition-property: transform;
+    transition-property: transform, -webkit-transform; }
     .h__nav ul li:hover, .h__nav ul li:focus, .h__nav ul li:active {
       -webkit-transform: scale(1.1) rotate(4deg);
-      -moz-transform: scale(1.1) rotate(4deg);
-      -ms-transform: scale(1.1) rotate(4deg);
-      -o-transform: scale(1.1) rotate(4deg);
       transform: scale(1.1) rotate(4deg); }
   .h__nav ul .fa.github {
     font-family: "Font Awesome 5 Solid", "Font Awesome 5 Line", "Font Awesome 5 Brands"; }
@@ -139,9 +129,6 @@
   .h__nav ul a:hover {
     color: white;
     -webkit-transition: all ease-in-out 0.08s;
-    -moz-transition: all ease-in-out 0.08s;
-    -ms-transition: all ease-in-out 0.08s;
-    -o-transition: all ease-in-out 0.08s;
     transition: all ease-in-out 0.08s; }
   .h__nav ul a {
     text-decoration: none;
@@ -161,9 +148,12 @@
     text-align: left;
     left: -2px; }
 
-@media (max-width: 1200px) {
-  .s__hero--bg-div {
-    overflow: hidden; }
-  .s__hero--bg {
-    height: 100%;
-    width: auto; } }
+@media (min-width: 901px) and (max-width: 1200px) {
+  body {
+    grid-template-rows: 360px 200px 612px 700px 482px; } }
+
+@media (max-width: 900px) {
+  .s__hero--bg-div img {
+    display: none; }
+  .s__hero--bg-div .bg-mobile {
+    display: block; } }

@@ -1,26 +1,47 @@
 @mixin naming($property, $filter) {
 
+  $property: str-replace($property, "\\", "");
+  //font-family: $property;
+  // $sass-child: "\>"; // Key for Child
   @if $filter == child-name {
+
     $alias-prime: null;
 
-    // Preps the css name for conversion to child
+    // Direct Child ".classname > .classname"
+    $alias-prime-a: if(str-index(to-string($property), ">>>"), true, false);
+    // Regular Child ".classname .classname"
+    $alias-prime-b: if(str-index(to-string($property), ">>"), true, false);
+
+    // Same Level Child ".classname.classname"
+    $alias-prime-c: if(str-index(to-string($property), ">"), true, false);
+
+    // Removes child name
     $alias-prehand: str-replace(str-replace(to-string($property), ' ', ''), $sass-child, '');
-    $alias-prime-c: if(str-index(to-string($alias-prehand), "_") == 1, true, false);
 
     // If the direct child command is used
-    @if $alias-prime-c == true {
-      $alias-prime-dpre: str-slice($alias-prehand, 2, str-length($alias-prehand));
+    @if $alias-prime-a == true {
       // Checks for HTML Elements
-      $alias-prime-d: if(chk-list($html-elements, $alias-prime-dpre), true, false);
-      @if $alias-prime-d == true {@error "Sorry, html elements cannot be direct children.";}
-      @else {$alias-prime: "." + $alias-prime-dpre;}
+      $alias-prime-h: if(chk-list($html-elements, $alias-prehand), true, false);
+      $alias-prime-i: if(str-index($alias-prehand, "#"), true, false);
+      @if $alias-prime-h == true or $alias-prime-i == true {$alias-prime: " > " + $alias-prehand;}
+      @else {$alias-prime: " > ." + $alias-prehand;}
     }
-    // If the direct child command isn't used
-    @else if $alias-prime-c == false {
-      $alias-prime-d: if(chk-list($html-elements, $alias-prehand), true, false);
+    // If the regular child command is used
+    @else if $alias-prime-b == true {
       // Checks for HTML Elements
-      @if $alias-prime-d == true {$alias-prime: " " + $alias-prehand;}
+      $alias-prime-h: if(chk-list($html-elements, $alias-prehand), true, false);
+      $alias-prime-i: if(str-index($alias-prehand, "#"), true, false);
+      @if $alias-prime-h == true or $alias-prime-i == true {$alias-prime: " " + $alias-prehand;}
       @else {$alias-prime: " ." + $alias-prehand;}
+    }
+    // If the regular child command is used
+    @else if $alias-prime-c == true {
+      // Checks for HTML Elements
+      $alias-prime-h: if(chk-list($html-elements, $alias-prehand), true, false);
+      $alias-prime-i: if(str-index($alias-prehand, "#"), true, false);
+      @if $alias-prime-h == true {@error "Sorry, html elements cannot be direct children.";}
+      @else if $alias-prime-i == true {$alias-prime: "" + $alias-prehand;}
+      @else {$alias-prime: "." + $alias-prehand;}
     }
 
     &#{$alias-prime} {@content;}
@@ -30,52 +51,121 @@
     &#{unquote(_($pseudos, $property))} {@content;}
   }
 
+  // $sass-namespace: "\:"; // Key for Namespace classes
   @else if $filter == namespace-name {
-    &#{if($property != null, unquote("\\:"), '') + if(str-index($property, $sass-namespace), str-replace($property, $sass-namespace, ''), '')} {@content;}
+
+    &#{unquote("\\:") + str-replace($property, $sass-namespace, '')} {@content;}
   }
 
+  //$sass-subclass: "\-"; // Key for Sub-Classes
+  @else if $filter == subclass-name {
+
+    $name: null;
+    // Subclass double hyphen "originalclass--classname"
+    $alias-prime-a: if(str-index(to-string($property), $sass-subclass + "\-") == 1, true, false);
+    // Subclass hyphen "originalclass-classname"
+    $alias-prime-b: if(str-index(to-string($property), $sass-subclass) == 1, true, false);
+
+    // If the subclass double hyphen is used
+    @if $alias-prime-a == true {
+      $name: "--" + str-slice($property, 3, str-length($property));
+    }
+    // If the subclass hyphen is used
+    @else if $alias-prime-b == true {
+      $name: "-" + str-slice($property, 2, str-length($property));
+    }
+
+    &#{$name} {@content;}
+  }
+
+  //$sass-underclass: "\_"; // Key for Under-Classes
+  @else if $filter == underclass-name {
+
+    $name: null;
+    // Subclass double hyphen "originalclass--classname"
+    $alias-prime-a: if(str-index(to-string($property), $sass-underclass + "\_") == 1, true, false);
+    // Subclass hyphen "originalclass-classname"
+    $alias-prime-b: if(str-index(to-string($property), $sass-underclass) == 1, true, false);
+
+    // If the underclass double hyphen is used
+    @if $alias-prime-a == true {
+      $name: "__" + str-slice($property, 3, str-length($property));
+    }
+    // If the underclass hyphen is used
+    @else if $alias-prime-b == true {
+      $name: "_" + str-slice($property, 2, str-length($property));
+    }
+
+    &#{$name} {@content;}
+  }
+
+  // $sass-preceder: "\~"; // Key for Preceding selector
+  @else if $filter == preceder-name {
+    $name: null;
+    $property-clean: str-replace($property, $sass-preceder, "");
+    $alias-prime-h: if(chk-list($html-elements, $property-clean), true, false);
+    $alias-prime-i: if(str-index($property-clean, "#"), true, false);
+    @if $alias-prime-h == true or $alias-prime-i == true {$name: $property-clean;}
+    @else {$name: str-replace($property, $sass-preceder, ".");}
+
+    &#{"~ " + $name} {@content;}
+  }
+
+  // $sass-comma: "\,"; // Key for comma separated selector
+  @else if $filter == comma-name {
+    $name: null;
+    $property-clean: str-replace($property, $sass-comma, "");
+    $alias-prime-h: if(chk-list($html-elements, $property-clean), true, false);
+    $alias-prime-i: if(str-index($property-clean, "#"), true, false);
+    @if $alias-prime-h == true or $alias-prime-i == true {$name: $property-clean;}
+    @else {$name: str-replace($property, $sass-comma, ".");}
+
+    $parent: &;
+    @at-root #{$parent + ", " + $name} {@content;}
+  }
+
+  // $sass-immediate: "\+"; // Key for immediate selector
+  @else if $filter == immediate-name {
+    $name: null;
+    $property-clean: str-replace($property, $sass-immediate, "");
+    $alias-prime-h: if(chk-list($html-elements, $property-clean), true, false);
+    $alias-prime-i: if(str-index($property-clean, "#"), true, false);
+    @if $alias-prime-h == true or $alias-prime-i == true {$name: $property-clean;}
+    @else {$name: str-replace($property, $sass-immediate, ".");}
+
+    &#{"+" + $name} {@content;}
+  }
+
+  // $sass-rename: "\\"; // Key for Name Extensions
   @else if $filter == rename {
-    $quote-removal: if(str-index($property, "\""), str-replace($property, "\"", ""), $property);
-    $name-pre: str-replace($quote-removal, $sass-rename, "");
-    $name: str-slice($name-pre, 2, str-length($name-pre));
+      $name-pre: str-slice($property, 2, str-length($property));
+      $name: str-replace($name-pre, "\"", "");
 
     &#{unquote($name)} {@content;}
   }
-
-  @else if $filter == subclass-name {
-    &#{if($property != null, unquote("-"), '') + if(str-index($property, '_'), str-replace($property, _, ''), '')} {@content;}
-  }
 }
 
-@mixin brker($property, $var-name, $filter, $state: normal) {
+@mixin brker($property, $filter) {
   $property: to-string($property);
-  $brker-pseudos: if(map-check($pseudos, $property), true, false);
-  $brker-namespace: if(str-index($property, $sass-namespace), true, false);
-  $brker-rename: if(str-index($property, $sass-rename), true, false);
-  $brker-child: if(str-index($property, $sass-child), true, false);
-  $brker-subclass: if(str-index(str-slice($property, 0, 1), $sass-subclass), true, false);
-  $brker-regular: if(chk-list($watchlist, $property), true, false);
-  @if if(str-index($property, '\\*'), true, false) {
-    @error "Heads up! You're using an '*' as a subclass under #{$var-name}, which isn't going to work.";
+  $key: str-slice($property, 1, 2);
+  $name-check: if(str-index($key, "\\"), true, false);
+
+  @if $filter == property and $name-check == false {
+    @content;
   }
-  @if $brker-regular != true and $brker-pseudos == false and
-      $brker-namespace == false and $brker-child == false and
-      $brker-subclass == false and $brker-rename == false and $filter == regular {@content;}
-  @else if $brker-pseudos == true and $filter == pseudo {
-    @if $state == normal {@include naming($property, pseudo-name) {@content;}}
-    @else if $state == inner {@content;}}
-  @else if $brker-namespace == true and $filter == namespace {
-    @if $state == normal {@include naming($property, namespace-name) {@content;}}
-    @else if $state == inner {@content;}}
-  @else if $brker-rename == true and $filter == rename {
-    @if $state == normal {@include naming($property, rename) {@content;}}
-    @else if $state == inner {@content;}}
-  @else if $brker-child == true and $filter == child {
-    @if $state == normal {@include naming($property, child-name) {@content;}}
-    @else if $state == inner {@content;}}
-  @else if $brker-subclass == true and $filter == subclass {
-    @if $state == normal {@include naming($property, subclass-name) {@content;}}
-    @else if $state == inner {@content;}}
+  @else if $filter == name and $name-check == false {
+    @if if(map-check($pseudos, $property), true, false) {@include naming($property, pseudo-name) {@content;}}
+  }
+  @else if $filter == name and $name-check == true {
+    @if if(str-index($key, $sass-namespace), true, false) {@include naming($property, namespace-name) {@content;}}
+    @else if if(str-index($key, $sass-child), true, false) {@include naming($property, child-name) {@content;}}
+    @else if if(str-index($key, $sass-subclass), true, false) {@include naming($property, subclass-name) {@content;}}
+    @else if if(str-index($key, $sass-underclass), true, false) {@include naming($property, underclass-name) {@content;}}
+    @else if if(str-index($key, $sass-immediate), true, false) {@include naming($property, immediate-name) {@content;}}
+    @else if if(str-index($key, $sass-comma), true, false) {@include naming($property, comma-name) {@content;}}
+    @else if if(str-index($key, $sass-preceder), true, false) {@include naming($property, preceder-name) {@content;}}
+    @else if if(str-index($key, $sass-rename), true, false) {@include naming($property, rename) {@content;}}
+  }
 }
 
 @mixin filterpoint($filter, $EpicAct, $redpill, $bluepill, $purplepill, $override-brkname, $allbreakpoint-override, $breakpoint) {
@@ -111,23 +201,21 @@
     /* Value Commands */
     if($verb == $sass-autoval, auto-val,
     if($verb == $sass-custoval, custo-val,
-    if($verb == $sass-autovendor, auto-ven-val,
 
     /* Property Commands */
-    if(chk-list($AVP, quote($string)), auto-ven-prop,
     if(chk-list($ATG, quote($string)), auto-type,
 
     /* Complete Autocode Commands */
     if(str-index($string, $sass-autoprop), auto-prop,
     if(str-index($string, $sass-custoprop), custo-prop,
-    regular)))))));
+    regular)))));
 
   @if $splitter == $filter {
-
     @content;
   }
 }
 
+// Adds Breakpoints Names to Class names
 @mixin namebrker($EpicAct, $namebreak-feature, $breakpoint, $type: $Global-NameBreak-Separator) {
   @if $Enable-NameBrkname == yes and $EpicAct == breakpoint and $namebreak-feature == true {
     @if $type == direct-child {

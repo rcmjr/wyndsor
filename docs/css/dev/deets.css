@@ -1,13 +1,18 @@
 .d__deets {
-  width: 100%;
-  height: 700px;
+  grid-area: deets;
+  width: 100vw;
+  height: 100%;
   display: grid;
   grid-template-areas: ". text ." "blocks blocks blocks";
   grid-template-rows: 80px 1fr;
   grid-template-columns: 1fr 260px 1fr;
+  -ms-flex-line-pack: center;
   align-content: center;
-  padding-top: 98px; }
+  padding-top: 89px;
+  overflow: hidden; }
   .d__deets--sphere {
+    display: -webkit-inline-box;
+    display: -ms-inline-flexbox;
     display: inline-flex;
     position: absolute;
     width: 100%;
@@ -15,7 +20,7 @@
     margin: 0 auto;
     margin-bottom: -50px;
     overflow: hidden;
-    z-index: -1;
+    z-index: -3;
     justify-self: center; }
     .d__deets--sphere:before {
       width: 1994px;
@@ -25,11 +30,20 @@
       border-radius: 50% 50% 0 0;
       position: absolute;
       left: 50%;
+      -webkit-transform: translate(-50%, 0);
       transform: translate(-50%, 0);
       content: ' '; }
+    .d__deets--sphere-container {
+      width: 100vw;
+      height: 100%;
+      overflow: hidden; }
   .d__deets--text-div {
     grid-area: text;
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
     justify-content: center; }
     .d__deets--text-div h2 {
       font-family: "myriad pro", "helvetica", "arial", sans-serif;
@@ -51,11 +65,14 @@
     width: 100%;
     display: grid;
     margin-top: 70px;
+    -ms-flex-line-pack: center;
     align-content: center;
     grid-row-gap: 62px; }
     .d__deets--blocks-div .block-row {
       display: inline-grid;
       text-align: center;
+      -webkit-box-pack: center;
+      -ms-flex-pack: center;
       justify-content: center;
       grid-gap: 76px; }
       .d__deets--blocks-div .block-row.row1 {
@@ -70,12 +87,6 @@
         grid-area: row2;
         grid-template-areas: 'el3 el4 el5';
         grid-template-columns: 270px 270px 270px; }
-        .d__deets--blocks-div .block-row.row2 .el3 {
-          grid-area: el3; }
-        .d__deets--blocks-div .block-row.row2 .el4 {
-          grid-area: el4; }
-        .d__deets--blocks-div .block-row.row2 .el5 {
-          grid-area: el5; }
       .d__deets--blocks-div .block-row .block h3 {
         font-size: 30px;
         font-weight: 300;

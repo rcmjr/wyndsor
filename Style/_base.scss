@@ -1,0 +1,33 @@
+//// --- VARIABLES --- ////////////////////////////
+
+  //// 1 //////////// Swatches
+  $purple: #7825B8;
+  $violet: #A825A4;
+  $blue: #008FD6;
+  $black: #060826;
+  $white: #FFF;
+  $grey: #F6F6F6;
+
+  //// 2 //////////// Color Scheme
+  $s-primary: #e1e1e1;
+  $s-secondary: #666;
+  $s-highlight: #ccc;
+  $s-active: $blue;
+  $s-shadow: rgba(0, 0, 0, .6);
+
+  //// 3 //////////// Font-Families
+  $ff-prime: 'myriad pro', 'helvetica', 'arial', sans-serif;
+  $ff-second: 'kith-regular', 'helvetica', 'arial', sans-serif;
+  $ff-three: 'kith-light', 'helvetica', 'arial', sans-serif;
+  $ff-four: 'kin-bold', 'helvetica', 'arial', sans-serif;
+
+  $site-heights: (
+    hero: (
+      base: 545px,
+      tablet: 360px
+    ),
+    intro: (
+      base: 240px,
+      tablet: 200px
+    )
+  );

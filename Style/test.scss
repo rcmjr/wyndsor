@@ -1,0 +1,66 @@
+// inject: dependenciesbase //
+// endinject: dependenciesbase //
+
+//// --- REMOVE UNDERSCORE FROM FILENAME --- ////////////////////////////
+
+$x-MapName: (
+
+  yolo: (
+    background: yellow,
+    \:hmm: (
+      color: blue,
+      display: grid,
+      writing-mode: horizontal-tb
+    ),
+    \\" .wonderful #wellthisworks > .ordoesit a:hover [target=_blank]": (
+      background: 0 auto
+    ),
+    \,wellthen: (
+      margin: 33px -var-full
+    ),
+    \+section: (
+      padding: 1rem
+    ),
+    \~#blue: (
+      auto: (hover-css, buzz)
+    ),
+    \>\>#yolo: (
+      transition: .90 ease-in-out
+    ),
+    \__totallyrad__hmm: (
+      grid-area: "what" -var,
+      \:blue: (
+        height: 10px -var-full
+      )
+    ),
+    \--wonderful--yolo: (
+      height: auto -var-full,
+      \:blue: (
+        height: 20px -var-full
+      )
+    ),
+    after: (
+      width: 800px
+    ),
+    \-sphere: (
+      display: (
+        base: inline-flex,
+        desktop-up: inline-block
+      ),
+      background: blue
+    )
+  ),
+  \\".blue > #redintheface html": (
+    background: 7 auto
+  ),
+  \\" #blue > .redintheface.headerclass": (
+    background: 7 auto
+  ),
+
+
+);
+
+$Epic-Map: $x-MapName; // Change to New Map Name.
+
+// inject: dependenciesepic //
+// endinject: dependenciesepic //

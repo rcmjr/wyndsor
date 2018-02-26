@@ -3,12 +3,13 @@
 
 $f-Footer: (
   f__footer: (
-    width: 100%, 
-    height: 482px,
+    grid-area: footer,
+    width: 100vw,
+    height: 100%,
     display: grid,
     overflow: hidden,
     align-items: flex-end,
-    _-maindiv: (
+    \--maindiv: (
       height: 290px,
       width: 100%,
       display: grid,
@@ -16,35 +17,35 @@ $f-Footer: (
       grid-template-rows: 1fr 1fr 1fr,
       grid-template-columns: 1fr 590px 1fr,
     ),
-    _-bg-div: (
-      height: 482px,
+    \--bg-div: (
+      height: auto,
       width: 100vw,
       position: absolute,
       z-index: -1,
       max-width: 100%,
       background: $black,
-      overflow: hidden
-    ),
-    _-bg: (
-      overflow: visible,
-      position: absolute,
-      transition: all .01s ease-in-out,
-      height: (
-        base: auto,
-        tblt-dn: 100%
+      overflow: hidden,
+      display: flex,
+      align-items: flex-end,
+      \>\>img: (
+        width: 100%,
+        height: 100%,
+        display: (
+          base: block,
+          phablet-dn: none
+        )
       ),
-      width: (
-        base: 100%,
-        tblt-dn: auto
-      ),
-      z-index: -1,
-      left: 50%,
-      transform: translateX(-50%)
+      \\" img:nth-child(2)": (
+        display: (
+          base: none,
+          phablet-dn: block
+        )
+      )
     ),
 
-    _-text-div: (
+    \--text-div: (
       grid-area: text,
-      |h1: (
+      \>\>h1: (
         font-family: $ff-prime,
         color: white,
         text-align: center,
@@ -52,20 +53,20 @@ $f-Footer: (
         font-size: 36px,
         line-height: 2.75rem
       ),
-      |span: (
+      \>\>span: (
         font-weight: 500
       )
     ),
 
-    _-bttns-div: (
+    \--bttns-div: (
       grid-area: buttons,
       display: flex,
       justify-content: center,
       height: 68px,
-      |a: (
+      \>\>a: (
         text-decoration: none,
         margin-right: auto,
-        |button: (
+        \>\>button: (
           padding: 15px,
           padding-bottom: 12px,
           border: none,
@@ -99,7 +100,7 @@ $f-Footer: (
       ),
     ),
 
-    _-vs-div: (
+    \--vs-div: (
       grid-area: versions,
       display: flex,
       flex-direction: row,
@@ -108,7 +109,7 @@ $f-Footer: (
       justify-content: center,
       align-self: self-start,
 
-      |divider: (
+      \>\>divider: (
         margin-left: .5rem,
         margin-right: .5rem,
       )

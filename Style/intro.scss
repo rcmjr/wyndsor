@@ -5,49 +5,61 @@
 $i-Intro: (
 
   i__intro: (
-    width: 100%,
-    height: 280px,
+    grid-area: intro,
+    width: 100vw,
+    height: 100%,
     display: flex,
     justify-content: center,
-    margin-top: -50px,
-    _-sphere: (
+    \--sphere: (
       display: flex,
       position: absolute,
       width: 100%,
-      height: 280px,
+      height: (
+        base: _($site-heights, intro, base),
+        tablet: _($site-heights, intro, tablet),
+      ),
       margin: 0 auto,
-      overflow: hidden,
+      overflow: visible,
       z-index: -1,
       align-items: flex-end,
       before: (
         width: 1994px,
         height: 1994px,
-        background: $black,
+        background: (
+          base: $black,
+          desktop-up: purple,
+          desktop: green,
+          tablet: blue,
+          phablet: red,
+          phone: orange,
+          tiny: yellow),
         display: inline-block,
         border-radius: 50%,
         margin: 0 auto,
         position: relative,
         content: "' '",
+      ),
+      \-container: (
+        width: 100vw,
+        height: 100%,
+        overflow: hidden
       )
     ),
-    _-text: (
+    \--text: (
       display: flex,
       width: 100%,
       height: 100%,
       z-index: 1,
       justify-content: center,
       align-items: center,
-      \n: (
-        font-family: cool
-      ),
-      |h1: (
+      \>\>h1: (
         color: white,
         font-size: 36px,
         font-family: $ff-prime,
         text-align: center,
         font-weight: 300,
         line-height: 2.5rem,
-        |bold: (
+        \>\>bold: (
           font-weight: 500,
           display: block
         )

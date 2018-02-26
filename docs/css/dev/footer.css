@@ -1,8 +1,11 @@
 .f__footer {
-  width: 100%;
-  height: 482px;
+  grid-area: footer;
+  width: 100vw;
+  height: 100%;
   display: grid;
   overflow: hidden;
+  -webkit-box-align: end;
+  -ms-flex-align: end;
   align-items: flex-end; }
   .f__footer--maindiv {
     height: 290px;
@@ -12,26 +15,25 @@
     grid-template-rows: 1fr 1fr 1fr;
     grid-template-columns: 1fr 590px 1fr; }
   .f__footer--bg-div {
-    height: 482px;
+    height: auto;
     width: 100vw;
     position: absolute;
     z-index: -1;
     max-width: 100%;
     background: #060826;
-    overflow: hidden; }
-  .f__footer--bg {
-    overflow: visible;
-    position: absolute;
-    -webkit-transition: all 0.01s ease-in-out;
-    -moz-transition: all 0.01s ease-in-out;
-    -ms-transition: all 0.01s ease-in-out;
-    -o-transition: all 0.01s ease-in-out;
-    transition: all 0.01s ease-in-out;
-    height: auto;
-    width: 100%;
-    z-index: -1;
-    left: 50%;
-    transform: translateX(-50%); }
+    overflow: hidden;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-align: end;
+    -ms-flex-align: end;
+    align-items: flex-end; }
+    .f__footer--bg-div img {
+      width: 100%;
+      height: 100%;
+      display: block; }
+    .f__footer--bg-div img:nth-child(2) {
+      display: none; }
   .f__footer--text-div {
     grid-area: text; }
     .f__footer--text-div h1 {
@@ -45,7 +47,11 @@
       font-weight: 500; }
   .f__footer--bttns-div {
     grid-area: buttons;
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
     justify-content: center;
     height: 68px; }
     .f__footer--bttns-div a {
@@ -63,18 +69,13 @@
         line-height: 2.75rem;
         color: #7825B8;
         -webkit-transition: all 0.2s ease-in-out;
-        -moz-transition: all 0.2s ease-in-out;
-        -ms-transition: all 0.2s ease-in-out;
-        -o-transition: all 0.2s ease-in-out;
         transition: all 0.2s ease-in-out; }
         .f__footer--bttns-div a button:hover {
           background: #008FD6;
           -webkit-box-shadow: 0 3px 7px rgba(0, 0, 0, 0.39);
-          -moz-box-shadow: 0 3px 7px rgba(0, 0, 0, 0.39);
-          -ms-box-shadow: 0 3px 7px rgba(0, 0, 0, 0.39);
-          -o-box-shadow: 0 3px 7px rgba(0, 0, 0, 0.39);
           box-shadow: 0 3px 7px rgba(0, 0, 0, 0.39);
           color: white;
+          -webkit-transform: scale(1.05, 1.05);
           transform: scale(1.05, 1.05); }
     .f__footer--bttns-div .fa {
       margin-right: 10px; }
@@ -92,17 +93,26 @@
         content: "\f05a"; }
   .f__footer--vs-div {
     grid-area: versions;
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
+    -webkit-box-orient: horizontal;
+    -webkit-box-direction: normal;
+    -ms-flex-direction: row;
     flex-direction: row;
     font-family: "myriad pro", "helvetica", "arial", sans-serif;
     color: white;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
     justify-content: center;
+    -ms-flex-item-align: self-start;
     align-self: self-start; }
     .f__footer--vs-div .divider {
       margin-left: 0.5rem;
       margin-right: 0.5rem; }
 
-@media (max-width: 1200px) {
-  .f__footer--bg {
-    height: 100%;
-    width: auto; } }
+@media (max-width: 900px) {
+  .f__footer--bg-div img {
+    display: none; }
+  .f__footer--bg-div img:nth-child(2) {
+    display: block; } }

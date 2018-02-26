@@ -3,38 +3,60 @@
 //// --- DESCRIPTION --- ////////////////////////////
 
 $w-Hero: (
-
+  body: (
+    display: grid,
+    grid-template-areas: "hero" "intro" "highlights" "deets" "footer",
+    grid-template-rows: (
+      base: _($site-heights, hero, base) _($site-heights, intro, base) 612px 700px 482px,
+      tablet: _($site-heights, hero, tablet) _($site-heights, intro, tablet) 612px 700px 482px,
+    )
+  ),
   s__hero: (
     background: none,
     position: relative,
-    height: 545px,
+    height: 100%,
+    width: 100vw,
     z-index: 1,
+    grid-area: hero,
     display: grid,
     grid-template-areas: "versions logo nav" ". logo .",
     grid-template-rows: 200px 1fr,
     grid-template-columns: 20vw 1fr 20vw,
 
-    _-bg-div: (
-      height: 100%,
-      width: 100%,
+    \--bg-div: (
+      height: auto,
+      width: 100vw,
       position: absolute,
       z-index: -1,
       overflow: (
-        base: visible,
-        tblt-dn: hidden
+        base: visible
       ),
+      \>\>img: (
+        width: 100%,
+        height: auto,
+        display: (
+          base: block,
+          phablet-dn: none
+        )
+      ),
+      \>\>bg-mobile: (
+        display: (
+          base: none,
+          phablet-dn: block
+        )
+      )
     ),
-    _-bg: (
+    --bg: (
       overflow: visible,
       position: absolute,
       transition: all .01s ease-in-out,
       height: (
         base: auto,
-        tblt-dn: 100%
+        tablet-dn: 100%
       ),
       width: (
         base: 100%,
-        tblt-dn: auto
+        tablet-dn: auto
       ),
       z-index: -1,
       left: 50%,
@@ -47,8 +69,8 @@ $w-Hero: (
     display: flex,
     justify-content: center,
     align-items: center,
-    |logo: (
-      background: url('../../assets/h__hero--logo.svg') no-repeat,
+    \>\>logo: (
+      background: url('../../../assets/h__hero--logo.svg') no-repeat,
       background-size: auto auto,
       width: 414px,
       display: block,
@@ -71,11 +93,11 @@ $w-Hero: (
     width: 20px,
     auto: (hover-css, buzz),
     animation-delay: 5s,
-    |_name: (
-      min-width: 105px,
+    \>name: (
+      min-width: 100px,
       margin-right: 10px
     ),
-    |p: (
+    \>\>p: (
       font-family: $ff-prime,
       color: $purple,
       font-size: 18px,
@@ -89,8 +111,8 @@ $w-Hero: (
     justify-content: flex-end,
     padding: 40px 40px 0 0,
     z-index: 2,
-    |ul: (
-      |li: (
+    \>\>ul: (
+      \>\>li: (
       list-style: none,
       font-family: $ff-prime,
       font-size: 18px,
@@ -107,14 +129,14 @@ $w-Hero: (
         color: white,
         transition: all ease-in-out .08s
       ),
-        |a: (
+        \>\>a: (
           text-decoration: none,
           cursor: pointer,
           color: $blue,
         ),
       ),
-      |active: (
-        |a: (color: white),
+      \>\>active: (
+        \>\>a: (color: white),
         before: (
           border-bottom: white 2px solid,
           content: "' '",

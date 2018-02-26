@@ -1,0 +1,36 @@
+<svg class="s__hero--bg" viewBox="0 0 1440 560" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+  <defs>
+      <filter x="-0.9%" y="-1.4%" width="101.7%" height="105.5%" filterUnits="objectBoundingBox" id="filter-1">
+          <feOffset dx="0" dy="10" in="SourceAlpha" result="shadowOffsetOuter1"></feOffset>
+          <feGaussianBlur stdDeviation="2.5" in="shadowOffsetOuter1" result="shadowBlurOuter1"></feGaussianBlur>
+          <feColorMatrix values="0 0 0 0 0   0 0 0 0 0   0 0 0 0 0  0 0 0 0.130406476 0" type="matrix" in="shadowBlurOuter1" result="shadowMatrixOuter1"></feColorMatrix>
+          <feMerge>
+              <feMergeNode in="shadowMatrixOuter1"></feMergeNode>
+              <feMergeNode in="SourceGraphic"></feMergeNode>
+          </feMerge>
+      </filter>
+      <radialGradient cx="50%" cy="-8%" fx="50%" fy="-8%" r="146%" gradientTransform="translate(0.5,-0.088),scale(0.38,1),rotate(90),scale(1,0.87),translate(-0.5,0.088)" id="radialGradient-2">
+          <stop stop-color="#008FD6" offset="0%"></stop>
+          <stop stop-color="#7825B8" offset="100%"></stop>
+      </radialGradient>
+      <path d="M1,0 L1441,0 L1441,545 C961,396 481,396 1,545 C0.6,545 0.6,363 1,0 Z" id="path-3"></path>
+  </defs>
+  <g id="Desktop-HD-Copy-2" filter="url(#filter-1)" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+      <g id="s__hero--bg" transform="translate(-1, 0)">
+          <use id="BG-1" fill="#7825B8" xlink:href="#path-3"></use>
+      </g>
+  </g>
+  <g id="Desktop-HD-Copy" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+      <g id="s__hero--bg" transform="translate(-1, 0)">
+          <mask id="mask-4" fill="white">
+              <use xlink:href="#path-3"></use>
+          </mask>
+          <use id="BG-1" fill="url(#radialGradient-2)" xlink:href="#path-3"></use>
+          <g id="Lines-1" opacity="0.05" style="mix-blend-mode: overlay;" mask="url(#mask-4)" fill="#7825B8">
+              <g transform="translate(-1128, -1195)" id="Bars-1">
+                  <path d="M961,1337 L2565,1337 L2565,1394 L961,1394 L961,1337 Z M781,1233 L2385,1233 L2385,1290 L781,1290 L781,1233 Z M601,1128 L2205,1128 L2205,1186 L601,1186 L601,1128 Z M420,1024 L2025,1024 L2025,1082 L420,1082 L420,1024 Z M240,920 L1844,920 L1844,978 L240,978 L240,920 Z M60,816 L1664,816 L1664,874 L60,874 L60,816 Z M1142,1441 L2746,1441 L2746,1498 L1142,1498 L1142,1441 Z M1322,1545 L2926,1545 L2926,1602 L1322,1602 L1322,1545 Z M1502,1649 L3106,1649 L3106,1706 L1502,1706 L1502,1649 Z M1682,1753 L3287,1753 L3287,1810 L1682,1810 L1682,1753 Z M1863,1857 L3467,1857 L3467,1914 L1863,1914 L1863,1857 Z M2043,1961 L3647,1961 L3647,2019 L2043,2019 L2043,1961 Z" transform="translate(1853, 1417) rotate(-30) translate(-1853, -1417) "></path>
+              </g>
+          </g>
+      </g>
+  </g>
+</svg>

@@ -15,6 +15,7 @@
   <link rel="stylesheet" href="css/dev/hero.css">
   <link rel="stylesheet" href="css/dev/highlights.css">
   <link rel="stylesheet" href="css/dev/intro.css">
+  <link rel="stylesheet" href="css/dev/test.css">
   <!-- endinject -->
 
   <!--[if lt IE 9]>
@@ -26,42 +27,8 @@
   <section class="s__hero">
     <!-- _BG -->
     <div class="s__hero--bg-div">
-      <svg class="s__hero--bg" viewBox="0 0 1440 560" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-        <defs>
-            <filter x="-0.9%" y="-1.4%" width="101.7%" height="105.5%" filterUnits="objectBoundingBox" id="filter-1">
-                <feOffset dx="0" dy="10" in="SourceAlpha" result="shadowOffsetOuter1"></feOffset>
-                <feGaussianBlur stdDeviation="2.5" in="shadowOffsetOuter1" result="shadowBlurOuter1"></feGaussianBlur>
-                <feColorMatrix values="0 0 0 0 0   0 0 0 0 0   0 0 0 0 0  0 0 0 0.130406476 0" type="matrix" in="shadowBlurOuter1" result="shadowMatrixOuter1"></feColorMatrix>
-                <feMerge>
-                    <feMergeNode in="shadowMatrixOuter1"></feMergeNode>
-                    <feMergeNode in="SourceGraphic"></feMergeNode>
-                </feMerge>
-            </filter>
-            <radialGradient cx="50%" cy="-8%" fx="50%" fy="-8%" r="146%" gradientTransform="translate(0.5,-0.088),scale(0.38,1),rotate(90),scale(1,0.87),translate(-0.5,0.088)" id="radialGradient-2">
-                <stop stop-color="#008FD6" offset="0%"></stop>
-                <stop stop-color="#7825B8" offset="100%"></stop>
-            </radialGradient>
-            <path d="M1,0 L1441,0 L1441,545 C961,396 481,396 1,545 C0.6,545 0.6,363 1,0 Z" id="path-3"></path>
-        </defs>
-        <g id="Desktop-HD-Copy-2" filter="url(#filter-1)" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-            <g id="s__hero--bg" transform="translate(-1, 0)">
-                <use id="BG-1" fill="#7825B8" xlink:href="#path-3"></use>
-            </g>
-        </g>
-        <g id="Desktop-HD-Copy" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-            <g id="s__hero--bg" transform="translate(-1, 0)">
-                <mask id="mask-4" fill="white">
-                    <use xlink:href="#path-3"></use>
-                </mask>
-                <use id="BG-1" fill="url(#radialGradient-2)" xlink:href="#path-3"></use>
-                <g id="Lines-1" opacity="0.05" style="mix-blend-mode: overlay;" mask="url(#mask-4)" fill="#7825B8">
-                    <g transform="translate(-1128, -1195)" id="Bars-1">
-                        <path d="M961,1337 L2565,1337 L2565,1394 L961,1394 L961,1337 Z M781,1233 L2385,1233 L2385,1290 L781,1290 L781,1233 Z M601,1128 L2205,1128 L2205,1186 L601,1186 L601,1128 Z M420,1024 L2025,1024 L2025,1082 L420,1082 L420,1024 Z M240,920 L1844,920 L1844,978 L240,978 L240,920 Z M60,816 L1664,816 L1664,874 L60,874 L60,816 Z M1142,1441 L2746,1441 L2746,1498 L1142,1498 L1142,1441 Z M1322,1545 L2926,1545 L2926,1602 L1322,1602 L1322,1545 Z M1502,1649 L3106,1649 L3106,1706 L1502,1706 L1502,1649 Z M1682,1753 L3287,1753 L3287,1810 L1682,1810 L1682,1753 Z M1863,1857 L3467,1857 L3467,1914 L1863,1914 L1863,1857 Z M2043,1961 L3647,1961 L3647,2019 L2043,2019 L2043,1961 Z" transform="translate(1853, 1417) rotate(-30) translate(-1853, -1417) "></path>
-                    </g>
-                </g>
-            </g>
-        </g>
-    </svg>
+      <img src="assets/header-bg.svg" />
+      <div class="bg-mobile"><img src="assets/hero-bg-mobile.svg" /></div>
     </div>
 
     <!-- _Versions -->
@@ -93,7 +60,9 @@
   <!-- Intro Section -->
   <section class="i__intro">
     <!-- _Sphere -->
-    <div class="i__intro--sphere"></div>
+    <div class="i__intro--sphere-container">
+      <div class="i__intro--sphere"></div>
+    </div>
     <!-- _Text -->
     <div class="i__intro--text">
       <h1>Build front-end <span class="bold">with style.</span></h1>
@@ -128,7 +97,9 @@
   <!-- Deets Section -->
   <section class="d__deets">
     <!-- BG -->
-    <div class="d__deets--sphere"></div>
+    <div class="d__deets--sphere-container">
+      <div class="d__deets--sphere"></div>
+    </div>
     <!-- _Text -->
     <div class="d__deets--text-div">
       <h2>Superpowers, <span>built-in.</span></h2>
@@ -167,28 +138,8 @@
   <section class="f__footer">
     <!-- Footer -->
     <div class="f__footer--bg-div">
-      <svg class="f__footer--bg" viewBox="0 0 1440 482" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-        <defs>
-            <radialGradient cx="50%" cy="0%" fx="50%" fy="0%" r="187.985941%" gradientTransform="translate(0.500000,0.000000),scale(0.334700,1.000000),rotate(90.000000),scale(1.000000,0.795595),translate(-0.500000,-0.000000)" id="radialGradient-30">
-                <stop stop-color="#008FD6" offset="0%"></stop>
-                <stop stop-color="#7825B8" offset="100%"></stop>
-            </radialGradient>
-            <path d="M0.0934612981,1.7057189e-13 L1439.81308,0 L1440.09346,482 C960.090629,332.917562 480.18409,332.917521 0.373845192,481.999876 C8.74855743e-14,482.116034 -0.0934612981,321.449409 0.0934612981,1.7057189e-13 Z" id="path-30"></path>
-        </defs>
-        <g id="Desktop-HD-Copy-30" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" transform="translate(0.000000, -2022.000000)">
-            <g id="f__footer" transform="translate(0.000000, 2022.000000)">
-                <mask id="mask-30" fill="white">
-                    <use xlink:href="#path-30"></use>
-                </mask>
-                <use id="BG-30" fill="url(#radialGradient-30)" transform="translate(720.046731, 241.000000) scale(1, -1) translate(-720.046731, -241.000000)" xlink:href="#path-30"></use>
-                <g id="Lines-30" opacity="0.0882586051" transform="translate(720.046731, 241.000000) scale(1, -1) translate(-720.046731, -241.000000)" style="mix-blend-mode: overlay;" mask="url(#mask-30)" fill="#7825B8">
-                    <g transform="translate(-764.000000, -940.000000)" id="Bars-30">
-                        <path d="M1635.56059,1568.89375 L2918.75856,1568.89375 L2918.75856,1614.80593 L1635.56059,1614.80593 L1635.56059,1568.89375 Z M770.281712,1069.32476 L2053.47968,1069.32476 L2053.47968,1115.23694 L770.281712,1115.23694 L770.281712,1069.32476 Z M626.068566,986.063263 L1909.26654,986.063263 L1909.26654,1031.97544 L626.068566,1031.97544 L626.068566,986.063263 Z M481.855421,902.801765 L1765.05339,902.801765 L1765.05339,948.713946 L481.855421,948.713946 L481.855421,902.801765 Z M337.642275,819.540266 L1620.84024,819.540266 L1620.84024,865.452448 L337.642275,865.452448 L337.642275,819.540266 Z M193.429129,736.278768 L1476.6271,736.278768 L1476.6271,782.190949 L193.429129,782.190949 L193.429129,736.278768 Z M49.2159836,653.017269 L1332.41395,653.017269 L1332.41395,698.929451 L49.2159836,698.929451 L49.2159836,653.017269 Z M914.494858,1152.58626 L2197.69283,1152.58626 L2197.69283,1198.49844 L914.494858,1198.49844 L914.494858,1152.58626 Z M1058.708,1235.84776 L2341.90597,1235.84776 L2341.90597,1281.75994 L1058.708,1281.75994 L1058.708,1235.84776 Z M1202.92115,1319.10926 L2486.11912,1319.10926 L2486.11912,1365.02144 L1202.92115,1365.02144 L1202.92115,1319.10926 Z M1347.13429,1402.37076 L2630.33226,1402.37076 L2630.33226,1448.28294 L1347.13429,1448.28294 L1347.13429,1402.37076 Z M1491.34744,1485.63225 L2774.54541,1485.63225 L2774.54541,1531.54444 L1491.34744,1531.54444 L1491.34744,1485.63225 Z" transform="translate(1483.987269, 1133.911602) rotate(-30.000000) translate(-1483.987269, -1133.911602) "></path>
-                    </g>
-                </g>
-            </g>
-        </g>
-      </svg>
+      <img src="assets/footer-bg.svg" />
+      <img src="assets/footer-bg-mobile.svg" />
     </div>
     <div class="f__footer--maindiv">
       <!-- _Text -->

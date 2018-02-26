@@ -1,21 +1,21 @@
-var $                 = require('gulp-load-plugins')({
-                        				lazy: true,
-                        				camelize: true}),
+var $                 = require('gulp-load-plugins')({lazy: true, camelize: true}),
     argv              = require('yargs').argv,
     browser           = require('browser-sync'),
+    sequence          = require('run-sequence'),
     gulp              = require('gulp'),
     sass              = require('gulp-sass'),
-    sequence          = require('run-sequence'),
     inject            = require('gulp-inject'),
-    cleanCSS          = require('gulp-clean-css'),
     gulpcached        = require('gulp-cached'),
     gulpif            = require('gulp-if'),
     concat            = require('gulp-concat'),
     imported          = require('gulp-sass-partials-imported'),
+    cssnano           = require('gulp-cssnano'),
+    autoprefixer      = require('gulp-autoprefixer');
 
     // Check for --dev or --prod flag
     isDevelopment     = !!(argv.dev),
     isProduction      = !!(argv.prod),
+    noPreview         = !!(argv.nopreview),
 
     // Gulp-Sass Options
     sassOptions       = {errLogToConsole: true, outputStyle: 'nested'};
@@ -33,22 +33,24 @@ var $                 = require('gulp-load-plugins')({
     // Prime Vars
     var STYLE               = 'style.scss',
         STYLE_CSS           = 'style.css',
-        STYLE_BASE          = 'Admin/_base.scss',
+        STYLE_BASE          = 'Admin/Partials/_base.scss',
         STYLE_DEPENDANCIES  = ['Admin/_reset.scss',
                                 'Tools/C-Fonts/_fonts.scss',
                                 'Tools/_toolbox.scss',
                                 'Tools/B-Mixins/Animations-css/_animations.scss',
                                 'Tools/B-Mixins/Hover-css/_keyframes.scss',
                                 'Tools/B-Mixins/FontAwesome/_awesomeness.scss'],
-        STYLE_MAPS          = 'Admin/_maps.scss',
+        STYLE_MAPS          = 'Admin/Partials/_maps.scss',
         STYLE_EPIC          = 'Admin/Core/_the-epic.scss';
 
     // Build Vars
     server_build_load       = (isDevelopment === true) ? ['build'] : null,
+    server_run              = (noPreview === false) ? ['server'] : null,
     scss_build_task         = $.if(isDevelopment, ['build'], ['inject_style-PROD']),
     style_build             = $.if(isDevelopment, [STYLE], [STYLE_MAPS]),
     style_build_task        = $.if(isDevelopment, ['inject_style-DEV'], ['inject_style-PROD']),
-    style_head_inject       = $.if(isDevelopment, '**/*.css', STYLE_CSS);
+    style_head_inject       = $.if(isDevelopment, '**/*.css', STYLE_CSS),
+    style_post_css          = $.if(isDevelopment, [DEST_STYLES_DEV], [DEST_STYLE]);
 
     let src_partials = 'docs/gulp-cache/';
 
@@ -85,7 +87,10 @@ var $                 = require('gulp-load-plugins')({
 
       // Sends error if something goes wrong
       .pipe(sass(sassOptions).on('error', sass.logError))
-
+      .pipe(autoprefixer({
+          browsers: ['last 2 versions'],
+          cascade: false
+      }))
       // Declares css destination as docs/css/Style
       .pipe(gulp.dest(DEST_STYLES_DEV))
       .pipe(browser.reload({stream: true}));
@@ -102,6 +107,11 @@ var $                 = require('gulp-load-plugins')({
           return '@import "' + filepath + '";';}}))
       // Sends error if something goes wrong
       .pipe(sass(sassOptions).on('error', sass.logError))
+      // Adds Prefixes
+      .pipe(autoprefixer({
+          browsers: ['last 2 versions'],
+          cascade: false
+      }))
       // Declares css destination
       .pipe(gulp.dest(DEST_STYLE))
       .pipe(browser.reload({stream: true}));
@@ -123,6 +133,12 @@ var $                 = require('gulp-load-plugins')({
           return '@import "' + filepath + '";';}}))
       // Sends error if something goes wrong
       .pipe(sass(sassOptions).on('error', sass.logError))
+      .pipe(autoprefixer({
+          browsers: ['last 2 versions'],
+          cascade: false
+      }))
+      // Minifies CSS
+      .pipe(cssnano())
       // Declares css destination
       .pipe(gulp.dest(DEST_STYLE))
       .pipe(browser.reload({stream: true}));
@@ -145,7 +161,7 @@ var $                 = require('gulp-load-plugins')({
   });
 
   // Watches for changes
-  gulp.task('default', ['server'], function() {
+  gulp.task('default', server_run, function() {
     gulp.watch([SRC_ALL], scss_build_task); // Watches individual scss
     gulp.watch(style_build, style_build_task); // Watches style SCSS
     gulp.watch([DEST_HTML_ALL], ['inject_header', browser.reload]); // Reloads if html files updates
