@@ -1,17 +1,39 @@
-# Windsor </br> A Snazzy SASS Composer + Styleset
-## <i>Made for designers, by a designer.</i>
-</br>
-
-### The Dapper Framework
-https://www.gloomaps.com/zErY4lFYxi
-> A really debonair description, coming soon.
+# Windsor
+## A Snazzy SASS Composer
+> Wyndsor provides a simpler way to sass. Compose css via sass maps, easily write responsive code by simply using a breakpoints name under a specific css property and integrate your own sass mixins.
 
 <hr>
 
-#### Levels:
-1. Base Styles
-2. Element Blocks
-3. Style Modifiers
+### Mapping with Wyndsor
+Wyndsor will always treat any parent name as a class selector unless you use:
+- "#" for ids
+- "\\\" for custom selector names (i.e., .class .class-2 + div)
+
+#### Map Keys:
+Map keys can be used within any parent to build out styles. They cascade and will be composed in the order they are written.
+
+Universally, when writing any name within a parent, you must use a backward (escape) slash "\\".
+- Child
+  - \\> == .parent.child
+  - \\>\\> == .parent .child
+  - \\>\\>\\> == .parent > .child
+- Hyphen-class
+  - \\- == .parent-child
+  - \\-- == .parent--child
+- Under-class
+  - \\_ == .parent_child
+  - \\____ == .parent_\_child
+- Namespace
+  - \: == .parent\:child
+- Preceder
+  - \\~ == .parent ~ .child
+- Secondary Class
+  - \, == .parent, .child
+- Immediate
+  - \+ == .parent + .child
+- Custom
+  - \\\".everything #anything div" == .everything #anything div
+
 
 #### Layout
   ##### Methods
