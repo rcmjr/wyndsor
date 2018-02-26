@@ -24,13 +24,13 @@ Universally, when writing any name within a parent, you must use a backward (esc
   - \\_ == .parent_child
   - \\____ == .parent_\_child
 - Namespace
-  - \: == .parent\:child
+  - \\: == .parent\:child
 - Preceder
   - \\~ == .parent ~ .child
 - Secondary Class
-  - \, == .parent, .child
+  - \\, == .parent, .child
 - Immediate
-  - \+ == .parent + .child
+  - \\+ == .parent + .child
 - Custom
   - \\\".everything #anything div" == .everything #anything div
 
