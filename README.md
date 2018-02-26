@@ -32,7 +32,7 @@ Universally, when writing any name within a parent, you must use a backward (esc
 - Immediate
   - \\+ == .parent + .child
 - Custom
-  - \\\".everything #anything div" == .everything #anything div
+  - \\\\".everything #anything div" == .everything #anything div
 
 
 #### Layout
