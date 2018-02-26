@@ -1,15 +1,6 @@
 //// --- AUTO VENDOR PREFIXES --- ////////////////////////////
   $AVP:
-    "column-count",
-    "column-gap",
-    "box-sizing",
-    "filter",
-    "linear-gradient",
-    "box-shadow",
-    "animation",
-    "animation-delay",
-    "transition",
-    "transition-delay";
+    "column-count";
 
 //// --- PSEUDOS --- ////////////////////////////
   $pseudos: (
@@ -24,6 +15,20 @@
     invalid: ':invalid',
     optional: ':optional',
     required: ':required'
+  );
+
+//// --- Breakpoint Variables --- ////////////////////////////
+  $breakpoints: (
+    desktop-up: '>desktop',
+    desktop: ('>tablet', '<=desktop'),
+    tablet: ('>phablet', '<=tablet'),
+    tablet-dn: ('<=tablet'),
+    phablet-up: ('>=phablet'),
+    phablet: ('>phone', '<=phablet'),
+    phablet-dn: ('<=phablet'),
+    phone: ('>tiny', '<=phone'),
+    phone-dn: ('<=phone'),
+    tiny: ('<=tiny')
   );
 
 //// --- HOVER KEYFRAMES --- ////////////////////////////
@@ -121,13 +126,3 @@
     in, cm, mm,
     pt, ex, vw,
     vh, vmin, vmax;
-
-//// --- WYNDSOR EXTENSIONS WATCHLIST --- ////////////////////////////
-  $watchlist: (
-    // Wyndsor uses the watchlist to remove keys or references to these extensions.
-    #{$sass-alterego}, // This is used to create a class or id alter ego
-    #{$sass-overrides}, // This is used to enable flobal application of important or a breakpoint
-    #{$sass-namespace}, // This is used to create a namespace class
-    #{$sass-child}, // This is used to create child classes or to target a specific family of selectors
-    #{$sass-subclass}, // This is used to create a direct sub-class/id
-    #{$sass-enables});

@@ -699,3 +699,23 @@
 
       @return null;
     }
+    //// 31 //////////// Cleans up var names
+    @function var-cleanup($var-name) {
+      $var-name: to-string($var-name);
+      $sass-classes: (
+        $sass-child,
+        $sass-subclass,
+        $sass-underclass,
+        $sass-rename,
+        $sass-namespace,
+        $sass-preceder,
+        $sass-comma,
+        $sass-immediate
+      );
+
+      @each $class in $sass-classes {
+        $var-classcheck: if(str-index($var-name, $class), true, false);
+        $var-name: if($var-classcheck == true, str-replace($var-name, $class), $var-name);
+      }
+      @return $var-name;
+    }

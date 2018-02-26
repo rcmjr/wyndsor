@@ -5,7 +5,7 @@ $media-sizes: (
   phablet: 900px,
   tablet: 1200px,
   desktop: 1800px
-) !default;
+);
 
 
 //// --- Screen/Media Expression Variables --- ////////////////////////////
@@ -17,21 +17,7 @@ $media-expressions: (
   portrait: '(orientation: portrait)',
   retina2x: '(-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi), (min-resolution: 2dppx)',
   retina3x: '(-webkit-min-device-pixel-ratio: 3), (min-resolution: 350dpi), (min-resolution: 3dppx)'
-) !default;
-
-//// --- Breakpoint Variables --- ////////////////////////////
-$breakpoints: (
-  dsk-up: '>desktop',
-  dsk: ('>tablet', '<=desktop'),
-  tblt: ('>phablet', '<=tablet'),
-  tblt-dn: ('<=tablet'),
-  pblt-up: ('>=phablet'),
-  pblt: ('>phone', '<=phablet'),
-  pblt-dn: ('<=phablet'),
-  phn: ('>tiny', '<=phone'),
-  phn-dn: ('<=phone'),
-  tny: ('<=tiny')
-) !default;
+);
 
 //// ▾▾▾ NETHERMOST FUNDAMENTAL IMPORTS ▾▾▾ ////
 @import "plugins/include-media";
