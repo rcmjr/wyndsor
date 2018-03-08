@@ -34,20 +34,20 @@ var $                 = require('gulp-load-plugins')({lazy: true, camelize: true
     var STYLE               = 'style.scss',
         STYLE_CSS           = 'style.css',
         STYLE_BASE          = 'Admin/Partials/_base.scss',
-        STYLE_DEPENDANCIES  = ['Admin/_reset.scss',
+        STYLE_DEPENDANCIES  = ['Admin/Partials/_reset.scss',
                                 'Tools/C-Fonts/_fonts.scss',
                                 'Tools/_toolbox.scss',
                                 'Tools/B-Mixins/Animations-css/_animations.scss',
                                 'Tools/B-Mixins/Hover-css/_keyframes.scss',
                                 'Tools/B-Mixins/FontAwesome/_awesomeness.scss'],
-        STYLE_MAPS          = 'Admin/Partials/_maps.scss',
+        STYLE_MAPS          = 'Admin/_maps.scss',
         STYLE_EPIC          = 'Admin/Core/_the-epic.scss';
 
     // Build Vars
     server_build_load       = (isDevelopment === true) ? ['build'] : null,
     server_run              = (noPreview === false) ? ['server'] : null,
     scss_build_task         = $.if(isDevelopment, ['build'], ['inject_style-PROD']),
-    style_build             = $.if(isDevelopment, [STYLE], [STYLE_MAPS]),
+    style_build             = $.if(isProduction, [STYLE], [STYLE_MAPS]),
     style_build_task        = $.if(isDevelopment, ['inject_style-DEV'], ['inject_style-PROD']),
     style_head_inject       = $.if(isDevelopment, '**/*.css', STYLE_CSS),
     style_post_css          = $.if(isDevelopment, [DEST_STYLES_DEV], [DEST_STYLE]);
