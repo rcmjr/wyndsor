@@ -28,14 +28,7 @@ $i-Intro: (
       bottom: -150px,
       justify-content: center,
       before: (
-        background: (
-          base: $black,
-          desktop-up: purple,
-          desktop: green,
-          tablet: blue,
-          phablet: red,
-          phone: orange,
-          tiny: $black),
+        background: $black,
       width: (
         base: 1994px,
         tablet-dn: 1100px,
