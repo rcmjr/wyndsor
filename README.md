@@ -4,6 +4,10 @@
 
 <hr>
 
+Wyndsor uses maps to compose dry css via the sass language. With aliases, media query consolidation, in-line automated mixins and more, wyndsor can rapidly get you from prototype to prod.
+
+We’re still percolating on what wyndsor should and can do, and your ideas and feedback can help. Please submit feature requests as issues on Github.
+
 ### Mapping with Wyndsor
 Wyndsor will always treat any parent name as a class selector unless you use:
 - "#" for ids
@@ -32,7 +36,7 @@ Universally, when writing any name within a parent, you must use a backward (esc
 - Immediate
   - \\+ == .parent + .child
 - Custom
-  - \\\\".everything #anything div" == .everything #anything div
+  - \\\".everything #anything div" == .everything #anything div
 
 
 #### Layout

@@ -19,11 +19,15 @@
 
 //// --- Breakpoint Variables --- ////////////////////////////
   $breakpoints: (
+    2k: '>=twok-desktop',
+    high-desktop: '>=high-desktop',
     desktop-up: '>desktop',
     desktop: ('>tablet', '<=desktop'),
+    desktop-dn: ('<=desktop'),
+    tablet-up: ('>tablet'),
     tablet: ('>phablet', '<=tablet'),
     tablet-dn: ('<=tablet'),
-    phablet-up: ('>=phablet'),
+    phablet-up: ('>phablet'),
     phablet: ('>phone', '<=phablet'),
     phablet-dn: ('<=phablet'),
     phone: ('>tiny', '<=phone'),

@@ -8,13 +8,10 @@ $d-Deets: (
     grid-area: deets,
     width: 100vw,
     height: 100%,
-    display: grid,
-    grid-template-areas: ". text ." "blocks blocks blocks",
-    grid-template-rows: 80px 1fr,
-    grid-template-columns: 1fr 260px 1fr,
+    display: block,
     align-content: center,
-    padding-top: 89px,
     overflow: hidden,
+    margin-bottom: (phone-dn: 30px),
     \--sphere: (
       display: (
         base: inline-flex,
@@ -22,7 +19,12 @@ $d-Deets: (
       ),
       position: absolute,
       width: 100%,
-      height: 100%,
+      height: (
+        base: 100vh,
+        tablet-dn: 130vh,
+        phablet-dn: 180vh,
+        high-desktop: 90vh
+      ),
       margin: 0 auto,
       margin-bottom: -50px,
       overflow: hidden,
@@ -40,8 +42,8 @@ $d-Deets: (
         content: "' '",
       ),
       \-container: (
-        width: 100vw,
-        height: 100%,
+        width: 0,
+        height: 0,
         overflow: hidden
       )
     ),
@@ -49,12 +51,22 @@ $d-Deets: (
       grid-area: text,
       display: flex,
       justify-content: center,
+      margin-top: 100px,
+      height: 100px,
+      width: 100%,
+      margin-bottom: 40px,
       \>\>h2: (
         font-family: $ff-prime,
         color: $white,
-        font-size: 48px,
+        font-size: (
+          base: 48px,
+          tiny: 11vw
+        ),
         font-weight: 300,
-        line-height: 3.5rem,
+        line-height: (
+          base: 3.5rem,
+          tiny: 3rem
+        ),
         text-align: center
       ),
       \>\>span: (
@@ -66,59 +78,74 @@ $d-Deets: (
       grid-area: blocks,
       color: white,
       font-family: $ff-prime,
-      grid-template-areas: ". row1 ." ". row2 .",
-      grid-template-columns: 1fr 932px 1fr,
-      grid-template-rows: 200px 200px,
+      grid-template-areas: (
+        base: ". el1 el1 el1 ." ". el3 el4 el5 .",
+        tablet: ". el1 el1 ." ". el3 el4 ." ". el5 el5 .",
+        phablet-dn: ". el1 ." ". el3 ." ". el4 ." ". el5 ."
+      ),
+      grid-template-columns: (
+        base: 1fr 270px 270px 270px 1fr,
+        tablet: 1fr 270px 270px 1fr,
+        phablet-dn: 1fr 270px 1fr,
+        tiny: 1fr 80vw 1fr
+      ),
+      grid-template-rows: (
+        base: 200px 200px,
+        tablet-dn: 1fr 1fr,
+        phablet-dn: 1fr auto
+      ),
       width: 100%,
       display: grid,
       margin-top: 70px,
-      align-content: center,
-      grid-row-gap: 62px,
-      \>\>block-row: (
-        display: inline-grid,
-        text-align: center,
+      align-content: flex-start,
+      height: auto,
+      grid-gap: 60px,
+      text-align: center,
+      justify-content: center,
+      \>\>el1: (
+        grid-area: el1,
+        display: inline-flex,
+        flex-direction: (
+          base: row,
+          phablet-dn: column
+        ),
+        align-items: center,
         justify-content: center,
-        grid-gap: 76px,
-        \>row1: (
-          grid-area: row1,
-          grid-template-areas: "'el1 el2'",
-          grid-template-columns: 270px 270px,
-          \>\>el1: (
-            grid-area: el1
-          ),
-          \>\>el2: (
-            grid-area: el2
-          )
-        ),
-        \>row2: (
-          grid-area: row2,
-          grid-template-areas: "'el3 el4 el5'",
-          grid-template-columns: 270px 270px 270px,
-          |el3: (
-            grid-area: el3
-          ),
-          |el4: (
-            grid-area: el4
-          ),
-          |el5: (
-            grid-area: el5
-          )
-        ),
         \>\>block: (
-          \>\>h3: (
-            font-size: 30px,
-            font-weight: 300,
-            line-height: 5rem,
-          ),
-          \>\>p: (
-            font-size: 18px,
-            font-weight: 100,
-            line-height: 1.75rem,
-            \>\>bold: (font-weight: 600),
-            \>\>grey: (color: $grey, opacity: .8)
-          ),
+          width: 270px,
+          margin-right: (phablet-up: 30px),
+          margin-left: (phablet-up: 30px),
+          margin-bottom: (phablet-dn: 60px)
+        ),
+        \\" div:nth-child(2)": (
+          margin-bottom: (phablet-dn: auto)
         )
       ),
+      \>\>el3: (
+        grid-area: el3
+      ),
+      \>\>el4: (
+        grid-area: el4
+      ),
+      \>\>el5: (
+        grid-area: el5,
+        width: (tablet: 270px),
+        margin: (tablet: 0 auto)
+      ),
+      \>\>block: (
+        \>\>h3: (
+          font-size: 30px,
+          font-weight: 300,
+          line-height: 5rem,
+        ),
+        \>\>p: (
+          font-size: 18px,
+          font-weight: 100,
+          line-height: 1.75rem,
+          \>\>bold: (font-weight: 600),
+          \>\>grey: (color: $grey, opacity: .8)
+        ),
+      )
     )
   )
 

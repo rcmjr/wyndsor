@@ -7,6 +7,8 @@
   $black: #060826;
   $white: #FFF;
   $grey: #F6F6F6;
+  $shadow: rgba(0, 0, 0, 0.56);
+  $shadow-2: rgba(0, 0, 0, 0.18);
 
   //// 2 //////////// Color Scheme
   $s-primary: #e1e1e1;
@@ -23,11 +25,10 @@
 
   $site-heights: (
     hero: (
-      base: 545px,
-      tablet: 360px
+      base: 750px,
+      desktop-up: 950px
     ),
     intro: (
-      base: 240px,
-      tablet: 200px
+      base: 240px
     )
   );

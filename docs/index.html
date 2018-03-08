@@ -25,10 +25,19 @@
 <body>
   <!-- Hero -->
   <section class="s__hero">
+    <!-- _Sphere -->
+    <svg viewBox="0 0 1 1" width=0 height=0>
+      <clipPath id="clip" clipPathUnits="objectBoundingBox" >
+          <path d="M0 0 Q 0 0, 1 0 L 1 1 Q 0.5 0.8,0 1 L 0 0" />
+      </clipPath>
+    </svg>
+    <div class="i__intro--sphere"></div>
+    <div class="i__intro--text">
+      <h1>Build front-end <span class="bold">with style.</span></h1>
+    </div>
     <!-- _BG -->
     <div class="s__hero--bg-div">
-      <img src="assets/header-bg.svg" />
-      <div class="bg-mobile"><img src="assets/hero-bg-mobile.svg" /></div>
+      <div class="background"></div>
     </div>
 
     <!-- _Versions -->
@@ -50,23 +59,11 @@
     <nav class="h__nav">
       <ul>
         <li class="active"><a href="/">home</a></li>
-        <li><a href="/faq">faq</a></li>
-        <li><a class="fa github" href="www.github.com"></a></li>
+        <!-- <li><a href="/faq">faq</a></li> -->
+        <li><a class="fa github" href="https://github.com/rcmjr/wyndsor"></a></li>
         <li><a class="fa downloads" href="#downloads"></a></li>
       </ul>
     </nav>
-  </section>
-
-  <!-- Intro Section -->
-  <section class="i__intro">
-    <!-- _Sphere -->
-    <div class="i__intro--sphere-container">
-      <div class="i__intro--sphere"></div>
-    </div>
-    <!-- _Text -->
-    <div class="i__intro--text">
-      <h1>Build front-end <span class="bold">with style.</span></h1>
-    </div>
   </section>
 
   <!-- Highlights Section -->
@@ -78,18 +75,28 @@
 
     <!-- _Highlights -->
     <div class="l__highlights--block one">
+      <img src="assets/h_Responsive-icon.svg" />
+      <h3>A super slick way to code responsively.</h3>
       <p>
-        Yolo
+        Your responsive css is just a snazzy breakpoint name away:<span>background: (<span>base: #FFFFFF,</span><span>tablet: #2B2B2b,</span><span>phone: #7825B8)</span></span>
       </p>
     </div>
     <div class="l__highlights--block two">
+      <img src="assets/h_Experiment-icon.svg" />
+      <h3>Pretty much an ongoing experiment.</h3>
       <p>
-        Yolo
+        We’re still percolating on what wyndsor should and can do, and your ideas and feedback can help. Join us on github and help shape wyndsor's future.
       </p>
+      <div class="l_buttons">
+        <a href="https://github.com/rcmjr/wyndsor"><i class="fa github"></i></a>
+        <!-- <button><i class="fa paper-plane" href="www.github.com"></i></button> -->
+      </div>
     </div>
     <div class="l__highlights--block three">
+      <img src="assets/h_SassStyle-icon.svg" />
+      <h3>A saucier way to sass.</h3>
       <p>
-        Yolo
+        Wyndsor uses maps to compose dry css via the sass language. With aliases, media query consolidation, in-line automated mixins and more, wyndsor can rapidly get you from prototype to prod.
       </p>
     </div>
   </section>
@@ -107,17 +114,16 @@
 
     <!-- _Deets -->
     <div class="d__deets--blocks-div">
-      <div class="block-row row1">
-        <div class="block el1">
-          <h3>Humanspeak</h3>
-          <p>With wyndsor’s simple vernacular and penchant for pure media queries, writing css has never been more human.</p>
+        <div class="el1">
+          <div class="block">
+            <h3>Humanspeak</h3>
+            <p>With wyndsor’s simple vernacular and penchant for pure media queries, writing css has never been more human.</p>
+          </div>
+          <div class="block">
+            <h3>Integrations</h3>
+            <p>Power up your front-end experience with integrated popular mixins, such as <span class="bold">Animate CSS, Hover CSS, Instagram CSS</span> and more to come.</p>
+          </div>
         </div>
-        <div class="block el2">
-          <h3>Integrations</h3>
-          <p>Power up your front-end experience with integrated popular mixins, such as <span class="bold">Animate CSS, Hover CSS, Instagram CSS</span> and more to come.</p>
-        </div>
-      </div>
-      <div class="block-row row2">
         <div class="block el3">
           <h3>Augmentations</h3>
           <p>Augment your development process through media query consolidation and inline autocode, or by integrating your own mixins with wyndsor’s easy addon protocol.</p>
@@ -130,37 +136,41 @@
           <h3>A Live Experiment</h3>
           <p>It all started as an experimental idea <span class="grey">(when a designer figured frameworks weren’t working for him)</span> and will continue to be actively developed and improved.</p>
         </div>
-      </div>
     </div>
   </section>
 
-  <!-- Footer -->
-  <section class="f__footer">
     <!-- Footer -->
-    <div class="f__footer--bg-div">
-      <img src="assets/footer-bg.svg" />
-      <img src="assets/footer-bg-mobile.svg" />
-    </div>
-    <div class="f__footer--maindiv">
-      <!-- _Text -->
-      <div class="f__footer--text-div">
-        <h1>Pshhh coding. <span>Start composing.</span></h1>
+    <footer class="f__footer">
+      <!-- _Sphere -->
+      <svg viewBox="0 0 1 1" width=0 height=0>
+        <clipPath id="clip-2" clipPathUnits="objectBoundingBox" >
+            <path d="M0 0 Q 0 0, 1 0 L 1 1 Q 0.5 0.8,0 1 L 0 0" />
+        </clipPath>
+      </svg>
+      <!-- Footer -->
+      <div class="f__footer--bg-div">
       </div>
-      <!-- _Buttons -->
-      <div class="f__footer--bttns-div">
-        <a href="#"><button><i class="fa github"></i>Github</button></a>
-        <a href="#"><button><i class="fa zip"></i>Zip</button></a>
-        <a href="#"><button><i class="fa how-to"></i>How-To</button></a>
+      <div class="f__footer--maindiv">
+        <!-- _Text -->
+        <div class="f__footer--text-div">
+          <h1>Start composing, <span>with wyndsor.</span></h1>
+        </div>
+        <!-- _Buttons -->
+        <div class="f__footer--bttns-div">
+          <a href="https://github.com/rcmjr/wyndsor"><button><i class="fa github"></i>Github</button></a>
+          <a href="#"><button><i class="fa zip"></i>Zip</button></a>
+          <!-- <a href="#"><button><i class="fa how-to"></i>How-To</button></a> -->
+        </div>
+        <!-- _Version -->
+        <div class="f__footer--vs-div">
+          <p>beta</p>
+          <p class="divider">·</p>
+          <p>stripes 1.1</p>
+          <p class="divider">·</p>
+          <p>credits</p>
+        </div>
       </div>
-      <!-- _Version -->
-      <div class="f__footer--vs-div">
-        <p>beta</p>
-        <p class="divider">·</p>
-        <p>stripes 1.1</p>
-        <p class="divider">·</p>
-        <p>credits</p>
-      </div>
-    </div>
-  </section>
+    </footer>
+
 </body>
 </html>
