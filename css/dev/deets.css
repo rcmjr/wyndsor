@@ -5,18 +5,19 @@
   display: block;
   -ms-flex-line-pack: center;
   align-content: center;
-  overflow: hidden; }
+  overflow: hidden;
+  background: #060826; }
   .d__deets--sphere {
     display: -webkit-inline-box;
     display: -ms-inline-flexbox;
     display: inline-flex;
+    background: white;
     position: absolute;
     width: 100%;
     height: 100vh;
     margin: 0 auto;
     margin-bottom: -50px;
     overflow: hidden;
-    z-index: -3;
     justify-self: center; }
     .d__deets--sphere:before {
       width: 1994px;
@@ -49,6 +50,7 @@
       font-family: "myriad pro", "helvetica", "arial", sans-serif;
       color: #FFF;
       font-size: 48px;
+      z-index: 2;
       font-weight: 300;
       line-height: 3.5rem;
       text-align: center; }
@@ -74,6 +76,7 @@
     -ms-flex-pack: center;
     justify-content: center; }
     .d__deets--blocks-div .el1 {
+      z-index: 2;
       grid-area: el1;
       display: -webkit-inline-box;
       display: -ms-inline-flexbox;
@@ -91,11 +94,14 @@
       .d__deets--blocks-div .el1 .block {
         width: 270px; }
     .d__deets--blocks-div .el3 {
-      grid-area: el3; }
+      grid-area: el3;
+      z-index: 2; }
     .d__deets--blocks-div .el4 {
-      grid-area: el4; }
+      grid-area: el4;
+      z-index: 2; }
     .d__deets--blocks-div .el5 {
-      grid-area: el5; }
+      grid-area: el5;
+      z-index: 2; }
     .d__deets--blocks-div .block h3 {
       font-size: 30px;
       font-weight: 300;
