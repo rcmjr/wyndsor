@@ -47,7 +47,7 @@ var $                 = require('gulp-load-plugins')({lazy: true, camelize: true
     server_build_load       = (isDevelopment === true) ? ['build'] : null,
     server_run              = (noPreview === false) ? ['server'] : null,
     scss_build_task         = $.if(isDevelopment, ['build'], ['inject_style-PROD']),
-    style_build             = $.if(isProduction, [STYLE], [STYLE_MAPS]),
+    style_build             = [STYLE],
     style_build_task        = $.if(isDevelopment, ['inject_style-DEV'], ['inject_style-PROD']),
     style_head_inject       = $.if(isDevelopment, '**/*.css', STYLE_CSS),
     style_post_css          = $.if(isDevelopment, [DEST_STYLES_DEV], [DEST_STYLE]);
