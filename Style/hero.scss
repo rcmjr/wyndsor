@@ -171,19 +171,7 @@ $w-Hero: (
         ),
       ),
       \>\>active: (
-        \>\>a: (color: white),
-        before: (
-          border-bottom: white 2px solid,
-          content: "' '",
-          height: 2px,
-          width: 10px,
-          position: relative,
-          margin-left: -10px,
-          display: inline-block,
-          bottom: 0,
-          text-align: left,
-          left: -2px,
-        )
+        \>\>a: (color: white)
       )
     )
 
