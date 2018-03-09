@@ -29,7 +29,7 @@ $d-Deets: (
       ),
       margin: 0 auto,
       margin-bottom: -50px,
-      overflow: hidden, 
+      overflow: hidden,
       justify-self: center,
       before: (
         width: 1994px,
@@ -153,6 +153,14 @@ $d-Deets: (
         ),
       )
     )
+  ),
+
+  deets-link: (
+    text-decoration: none,
+    color: white,
+    transition: color .02s linear,
+    font-weight: 600,
+    hover: (color: $blue, transition: color .02s linear)
   )
 
 );

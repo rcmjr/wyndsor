@@ -24,10 +24,19 @@
         async: true
       },
       h=d.documentElement,t=setTimeout(function(){h.className=h.className.replace(/\bwf-loading\b/g,"")+" wf-inactive";},config.scriptTimeout),tk=d.createElement("script"),f=false,s=d.getElementsByTagName("script")[0],a;h.className+=" wf-loading";tk.src='https://use.typekit.net/'+config.kitId+'.js';tk.async=true;tk.onload=tk.onreadystatechange=function(){a=this.readyState;if(f||a&&a!="complete"&&a!="loaded")return;f=true;clearTimeout(t);try{Typekit.load(config)}catch(e){}};s.parentNode.insertBefore(tk,s)
-    })(document);
+    });
   </script>
 </head>
 <body>
+  <div class="modal">
+      <div class="modal-content">
+          <span class="close-button">&times;</span>
+          <div>
+            <h2>Developed by <a href="https://github.com/rcmjr">rcmjr</a></h2>
+            <p>Icons were made by <a href="https://www.flaticon.com/authors/becris" title="Becris">Becris</a> and <a href="http://www.freepik.com" title="Freepik">Freepik</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a> and is licensed by <a href="http://creativecommons.org/licenses/by/3.0/" title="Creative Commons BY 3.0" target="_blank">CC 3.0 BY</a>.</p>
+          </div>
+      </div>
+  </div>
   <!-- Hero -->
   <section class="s__hero">
     <!-- _Sphere -->
@@ -122,11 +131,11 @@
         <div class="el1">
           <div class="block">
             <h3>Humanspeak</h3>
-            <p>With wyndsor’s simple vernacular and penchant for pure media queries, writing css has never been more human.</p>
+            <p>With wyndsor’s simple vernacular and penchant for pure media queries, writing css has never been more human or easier (thank you <a class="deets-link" href="https://include-media.com/">include-media</a>!).</p>
           </div>
           <div class="block">
             <h3>Integrations</h3>
-            <p>Power up your front-end experience with integrated popular mixins, such as <span class="bold">Animate CSS, Hover CSS, Instagram CSS</span> and more to come.</p>
+            <p>Power up your front-end experience with integrated popular mixins, such as <span class="bold"><a class="deets-link" href="https://daneden.github.io/animate.css/">Animate CSS</a>, <a class="deets-link" href="http://ianlunn.github.io/Hover/">Hover CSS</a>, <a class="deets-link" href="https://picturepan2.github.io/instagram.css/">Instagram CSS</a></span> and more to come.</p>
           </div>
         </div>
         <div class="block el3">
@@ -139,7 +148,7 @@
         </div>
         <div class="block el5">
           <h3>A Live Experiment</h3>
-          <p>It all started as an experimental idea <span class="grey">(when a designer figured frameworks weren’t working for him)</span> and will continue to be actively developed and improved.</p>
+          <p>It all started as an experimental idea <span class="grey">(when a designer figured frameworks weren’t working for him)</span> and is being actively developed and improved.</p>
         </div>
     </div>
   </section>
@@ -172,10 +181,29 @@
           <p class="divider">·</p>
           <p>stripes 1.1</p>
           <p class="divider">·</p>
-          <p>credits</p>
+          <button class="trigger">credits</button>
         </div>
       </div>
     </footer>
+    <script>
 
+      var modal = document.querySelector(".modal");
+      var trigger = document.querySelector(".trigger");
+      var closeButton = document.querySelector(".close-button");
+
+      function toggleModal() {
+        modal.classList.toggle("show-modal");
+      }
+
+      function windowOnClick(event) {
+        if (event.target === modal) {
+          toggleModal();
+        }
+      }
+
+      trigger.addEventListener("click", toggleModal);
+      closeButton.addEventListener("click", toggleModal);
+      window.addEventListener("click", windowOnClick);
+    </script>
 </body>
 </html>
