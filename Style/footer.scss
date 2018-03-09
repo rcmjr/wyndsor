@@ -82,6 +82,7 @@ $f-Footer: (
           color: $purple,
           transition: all .2s ease-in-out,
           hover: (
+            transition: all .2s ease-in-out,
             background: $blue,
             box-shadow: 0 3px 7px rgba(0, 0, 0, 0.39),
             color: white,
@@ -191,7 +192,7 @@ $f-Footer: (
     align-self: flex-end,
     justify-self: flex-start,
   ),
-  show-modal: ( 
+  show-modal: (
     opacity: 1,
     visibility: visible,
     transform: scale(1.0),
