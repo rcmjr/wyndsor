@@ -21,18 +21,18 @@ var $                 = require('gulp-load-plugins')({lazy: true, camelize: true
     sassOptions       = {errLogToConsole: true, outputStyle: 'nested'};
 
     // Source, Destination and Port Vars
-    var ROOT                = 'docs/',
-        SRC_ROOT            = 'Style/',
-        SRC_ALL             = SRC_ROOT + '**/*.scss',
-        DEST_STYLE          = ROOT + 'css/',
-        DEST_STYLES_DEV     = DEST_STYLE + 'dev/',
+    var ROOT                = 'css/',
+        SRC_ROOT            = 'wysass/',
+        STYLE               = 'style.scss',
+        STYLE_CSS           = 'style.css';
+
+    // WARNING: THESE REFERENCE CORE LOCATIONS - CHANGE AT YOUR OWN RISK //
+    var SRC_ALL             = SRC_ROOT + '**/*.scss',
+        DEST_STYLE          = ROOT,
+        DEST_STYLES_DEV     = ROOT + 'dev/',
         HTML_ROOT           = ROOT,
         DEST_HTML_ALL       = HTML_ROOT + '**/*.html',
-        PORT                = 8000;
-
-    // Prime Vars
-    var STYLE               = 'style.scss',
-        STYLE_CSS           = 'style.css',
+        PORT                = 8000,
         STYLE_BASE          = 'Admin/Partials/_base.scss',
         STYLE_DEPENDANCIES  = ['Admin/Partials/_reset.scss',
                                 'Tools/C-Fonts/_fonts.scss',

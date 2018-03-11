@@ -1,154 +1,467 @@
 # Windsor
 ## A Snazzy SASS Composer
-> Wyndsor provides a simpler way to sass. Compose css via sass maps, easily write responsive code by simply using a breakpoints name under a specific css property and integrate your own sass mixins.
+### And the easiest way to write responsive front-end css.
+<hr>
+Wyndsor was made by a ux/ui designer unhappy with the bloat and/or obscurity of most css frameworks. Wyndsor aims to provide a scalable approach to front-end development and enable front-end developers to easily write through a bare minimum vernacular.
+
+Through the power of sass maps, media query consolidation, and the easiest declarations - ever - to code breakpoints, selector aliases, inline mixins, (and more) can rapidly get you from prototype to prod.
+
+> NOTE: *Wyndsor is in beta.* There are a few kinks being worked out, and being very much a young collection of code, please submit any additional bugs you find or ideas for what features/mixins should be integrated into wyndsor.
+
+### TOC
+1.
+
+
+### Installation
+1. Clone wyndsor using a git client or download and extract a zip file to your local build.
+2. Start terminal and navigate to wyndsor's root.
+3. Install npm: `npm install`
+3. Install gulp: `npm install gulp`.
+4. Install all dependencies: `npm ci`.
+5. Run gulp.
+
+#### Using Gulp
+##### Commands
+Wyndsor has two gulp modes:
+
+- Dev `gulp --dev`
+  - Each .scss file is composed to it's own .css file.
+  - Each stylesheet link is added to the head of your page files.
+  - CSS is not minified.
+- Prod `gulp --prod`
+  - Each .scss file is combined in style.scss and then composed to a single .scss file.
+  - Only style.css is added as stylesheet link to the head of your pages.
+  - CSS is minified.
+
+##### Browsersync
+In either instance, gulp will automatically start <a href="https://browsersync.io/">browsersync</a> (for realtime browser preview and testing) and open your build in the default browser. You can disable this when starting gulp by including `--nopreview` in the command:
+```
+gulp --prod --nopreview
+```
+<hr>
+### Sources and Destinations
+#### Compatible Filetype
+Wyndsor only works with .scss files. It will only compose non-partials.
+
+#### Default Locations
+Wyndsor uses the following locations when running wyndsor:
+```
+/css --- Destination Directory
+/wysass --- Source Directory
+```
+
+##### Dev Composition
+In dev mode, wyndsor composes each wysass file to its own .css file in a subfolder called "dev". This keeps things speedy, nested and easy to debug. Your destination structure will end up looking like this:
+```
+css/
+  dev/
+    {wysass-1}.css
+    {wysass-2}.css
+  style.css
+    which includes
+    - normalize.css
+    - enabled keyframes
+    - fonts
+    - all toolbox variables
+```
+
+##### Prod Composition
+In prod mode, wyndsor consolidates all .scss files (in wysass) into style.scss and then composes. This can take a few seconds to complete, is minified and not for debugging. Your final destination structure will look like this:
+```
+css/
+  style.css
+    which includes
+    - normalize.css
+    - enabled keyframes
+    - fonts
+    - all toolbox variables
+    - additional wyndsor partials
+    - all your wysass files
+```
+
+#### Gulp settings
+You can change all of the above locations and parent stylesheet name in Gulpfile.js:
+```
+ROOT                = 'css/',
+SRC_ROOT            = 'wysass/',
+STYLE               = 'style.scss',
+STYLE_CSS           = 'style.css'
+```
 
 <hr>
+### Getting Started
+#### Your Style Base
+It's recommended that you keep all style variables and settings in `_base.scss` Wyndsor considers it a dependency and will automatically look for the partial in your wysass folder. It's' injected into every working .scss file before composing takes place.
 
-Wyndsor uses maps to compose dry css via the sass language. With aliases, media query consolidation, in-line automated mixins and more, wyndsor can rapidly get you from prototype to prod.
+*To change the name of this partial or add more to wyndsor's dependencies list see the wyndsor core section*
 
-We’re still percolating on what wyndsor should and can do, and your ideas and feedback can help. Please submit feature requests as issues on Github.
+#### Your Stylesheets
+To create your first .scss file, use or duplicate the `_template.scss` file or use the following code:
+```
+// inject: dependenciesbase //
+// endinject: dependenciesbase //
 
-### Mapping with Wyndsor
-Wyndsor will always treat any parent name as a class selector unless you use:
-- "#" for ids
-- "\\\" for custom selector names (i.e., .class .class-2 + div)
+$x-MapName: (
 
-#### Map Keys:
-Map keys can be used within any parent to build out styles. They cascade and will be composed in the order they are written.
+  Begin coding here! :)
 
-Universally, when writing any name within a parent, you must use a backward (escape) slash "\\".
-- Child
-  - \\> == .parent.child
-  - \\>\\> == .parent .child
-  - \\>\\>\\> == .parent > .child
-- Hyphen-class
-  - \\- == .parent-child
-  - \\-- == .parent--child
-- Under-class
-  - \\_ == .parent_child
-  - \\____ == .parent_\_child
-- Namespace
-  - \\: == .parent\:child
-- Preceder
-  - \\~ == .parent ~ .child
-- Secondary Class
-  - \\, == .parent, .child
-- Immediate
-  - \\+ == .parent + .child
-- Custom
-  - \\\".everything #anything div" == .everything #anything div
+);
 
+$Epic-Map: $x-MapName;
 
-#### Layout
-  ##### Methods
-    - Display
-    - Flexbox
-    - Floats
-    - Overflow
-    - Vertical Alignment
-    - Visibility
-    - Z-Index
-    - Positioning
-    - Appearance (remove browser default styling)
-  ##### Spacing & Size
-    - Margins
-    - Padding
-    - Widths
-    - Heights
-    - Size
-  #### Grids & Blocks
-    - Grid Template Areas
-    - Default Widths
-    - Blocks (Grid Areas)
-#### Palette
-  ##### Colors & BGs
-    - Backgrounds
-    - Colors
-    - Patterns
-    - Opacity
-    - SVG
-  ##### Strokes
-    - Borders
-    - Border Radius
-    - Shadows
-    - Outline
-  ##### Typography
-    - Columns
-    - Styles
-    - Text Transform
-    - Kerning/Leading
-    - Text-Transform
+// inject: dependenciesepic //
+// endinject: dependenciesepic //
+```
+*Do not change or remove any of the inject or endinject lines, or delete the $Epic-Map variable.*
 
-#### Elements
-  - Alerts
-  - Buttons
-  - Cards
-  - Forms
-  - Navigation
-  - SVG
-  - Logos & Marks
-  - IE Nope
-<hr>
+#### How to Code (wyndsor style)
+A typical block of code will look like the following:
+```
+parentclass: (
+  width: 100%,
+  height: 100%,
 
-#### Tools:
-  1. CSS Custom Properties (--custom-name)
-  2. CSS Namespaces (Class/:namespace = Class:namespace)
-  3. CSS Classes/IDs (.Class-Name-ELement or #ID-Name-Element)
-  4. CSS Direct Children (.Class.child)
+  hover: (
+      width: 80%
+  ),
 
-#### Style Naming Syntax:
-##### Class Suffixes
-  - **x** -- Experience _(Margins, grid, flexbox, etc.)_
-  - **p** -- Palette _(Color, Background, Border, Typography, etc.)_
-  - **e** -- Element _(Forms, buttons, logos, modals, etc.)_
+  \--sub: (
+    background: blue,
+    display: (
+      base: inline-flex,
+      desktop-up: inline-block
+    )
+  )
+)
+```
+##### Rules for the Road
+1. Wyndsor uses *keys* to interpret what kind of selector (parent or child) you're declaring.
+2. You can't use a selector name or property twice in a row or more.
 
-##### Syntax
+##### Parent Selectors
+Declaring a parent selector is easy, simply type in a name. Wyndsor will consider it a class, unless you use one of the following keys:
+- \# -- ids
+- \\\ -- custom selector
 
-Dapper uses the SBM approach. SBM is based on BEM, but changes up the syntax to accommodate Dapper's structural framework.
+##### Classes
+###### wysass
+```
+class-name: (
+  width: 100%,
+  height: 100%
+)
+```
+###### css
+```
+class-name: (
+  width: 100%,
+  height: 100%
+)
+```
 
-SBM
-  > suite__block---modifier</br>
-  > suite__block---modifier-clarifiers
+##### Ids
+###### wysass
+```
+#id-name: (
+  width: 100%,
+  height: 100%
+)
+```
+###### css
+```
+#id-name {
+  width: 100%;
+  height: 100%;
+}
+```
 
-  Subclass:
-  > x__styler---modifier
+##### Custom Selectors
+(*you must use quotation marks following the key*)
+###### wysass
+```
+\\".custom .selector-name > div": (
+  width: 100%,
+  height: 100%
+)
+```
+###### css
+```
+.custom .selector-name > div {
+  width: 100%;
+  height: 100%;
+}
+```
+<br>
+<br>
+##### Child Selectors
+These map keys can be used within any parent to build out your styling.
 
-  Namespace:
-  > x__styler:modifier
+###### Custom Selector
+**wysass**
+```
+#parent: (
 
-  Direct Child:
-  > x__styler.modifier
+  \\".child-1 > #blue: (
+    background: blue
+  ),
+  \\" .child-2 > #violet: (
+    background: violet
+  )
 
+)
+```
+**css**
+```
+#parent.child-1 > #blue {
+  background: blue;
+}
+#parent .child-2 > #violet {
+  background: violet;
+}
+```
 
-  p-chara-black
-  t-h1:60
-  e-button-large p_bg-black:hvr-blue
+###### Children
+**wysass**
+```
+#parent: (
 
-  Block: blok
-  Buttons: bttn
-	Modals: modl
-	Footer: fttr
-	Hover: hovr
-	Brkpnt/IE Messages: nope
-  Grids: grid
-  Create: cr8
-  Start: strt
-  Name: name
-  Number: nmbr
+  \>child__1: (
+    background: blue
+  ),
+  \>\>child__2: (
+    background: violet
+  ),
+  \>\>\>child__3: (
+    background: black
+  )
 
-------- Comment Markup -------
+)
+```
+**css**
+```
+#parent.child__1 {
+  background: blue;
+}
+#parent .child__2 {
+  background: violet;
+}
+#parent > .child__3 {
+  background: black;
+}
+```
+###### Hyphenate
+**wysass**
+```
+#parent: (
 
-//// •••••• FUNDAMENTAL IMPORTS •••••• ////
-//// ▸▸▸ UPPERMOST FUNDAMENTAL IMPORTS ▸▸▸ ////
-//// ▾▾▾ NETHERMOST FUNDAMENTAL IMPORTS ▾▾▾ ////
+  \-child__1: (
+    background: blue
+  ),
+  \--child__2: (
+    background: violet
+  ),
 
-//// --- SECTION --- ////////////////////////////
-  //// 1 //////////// Code/Sass Snippet Name
-    //// a //////////// Snippet Sub
-//// --- END SECTION --- ////////////////////////
+)
+```
 
+**css**
+```
+#parent-child__1 {
+  background: blue;
+}
+#parent--child__2 {
+  background: violet;
+}
+```
 
-####------- New Feature Dev List -------
+###### Underscore
+**wysass**
+```
+#parent: (
 
-1. Multiple Pseudos in one sitting.
-2. Alt css property list and generator in the event a browser doesn't support a specific property.
+  \-child--1: (
+    background: blue
+  ),
+  \__child--2: (
+    background: violet
+  ),
+
+)
+```
+**css**
+```
+#parent-child--1 {
+  background: blue;
+}
+#parent--child--2 {
+  background: violet;
+}
+```
+
+###### Namespace
+**wysass**
+```
+#parent: (
+
+  \:child__1: (
+    background: blue
+  )
+
+)
+```
+**css**
+```
+#parent\:child__1 {
+  background: blue;
+}
+```
+
+###### Preceder
+**wysass**
+```
+#parent: (
+
+  \~child__1: (
+    background: blue
+  )
+
+)
+```
+**css**
+```
+#parent ~ .child__1 {
+  background: blue;
+}
+```
+
+###### List
+**wysass**
+```
+#parent: (
+
+  \,child__1: (
+    background: blue
+  )
+
+)
+```
+**css**
+```
+#parent ~ .child__1 {
+  background: blue;
+}
+```
+*If you use the list key twice at the same level, they will be composed into separate css entries. Use the custom selector key if you need to list more than one.*
+
+###### Immediate
+**wysass**
+```
+#parent: (
+
+  \+child: (
+    background: blue
+  )
+
+)
+```
+**css**
+```
+#parent + .child {
+  background: blue;
+}
+```
+<br>
+<br>
+##### Breakpoints/Media Queries
+Declaring a breakpoint to create a media query simply involves using a desired breakpoint name within the property you wish to make responsive.
+
+**wysass**
+```
+class: (
+
+  background: (
+    base: blue,
+    desktop-dn: violet
+  )
+
+)
+```
+**css**
+```
+.class {
+  background: blue;
+}
+@media (min-width:1200px) {
+  .class {background: violet;}
+}
+
+```
+*NOTE: To maintain a non-media query value, you must use "base".*
+
+###### Changing Your Breakpoint Settings
+Wyndsor's breakpoint system is built on <a href="https://include-media.com/">@include-media</a>. Breakpoint settings are broken into three main parts:
+1. Media Sizes
+2. Media Expressions
+3. Breakpoints
+
+The system is scalable in that you can modify, remove or add to all of the above to accommodate your project scope.
+
+**Media Sizes & Expressions**
+<br>By default, wyndsor's media sizes are based on the method outlined in this article by <a href="https://medium.freecodecamp.org/the-100-correct-way-to-do-css-breakpoints-88d6a5ba1862">Medium's FreeCodeCamp</a>.
+
+*They can be found in Tools > A-Auto-Code > _brkpoints.scss*
+
+Sizes:
+```
+tiny: 400px,
+phone: 600px,
+phablet: 900px,
+tablet: 1200px,
+desktop: 1400px,
+high-desktop: 1800px
+```
+*NOTE: You can't use numbers in media size names*<br><br>
+Expressions:
+```
+screen: 'screen',
+print: 'print',
+handheld: 'handheld',
+landscape: '(orientation: landscape)',
+portrait: '(orientation: portrait)',
+retina2x: '(-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi), (min-resolution: 2dppx)',
+retina3x: '(-webkit-min-device-pixel-ratio: 3), (min-resolution: 350dpi), (min-resolution: 3dppx)'
+```
+
+**Breakpoints**
+<br>Creating or editing breakpoints is fairly easy. You can include media expressions, and/or use the following symbols with your media size names to establish your own breakpoints.
+
+- \> --- Greater Than
+- \>= --- Greater Than or Equal To
+- < --- Less Than
+- <= --- Less Than or Equal To
+
+You must surround each breakpoint value with quotation marks:
+```
+desktop-up: '>desktop',
+desktop-special: 'retina2x', '<desktop'
+
+------
+
+@media (min-width: 1401px) {}
+@media (-webkit-min-device-pixel-ratio: 2) and (max-width: 1400px), (min-resolution: 192dpi) and (max-width: 1400px), (min-resolution: 2dppx) and (max-width: 1400px) {}
+
+```
+
+For height based breakpoints, simply include "height" before the media size and symbol:
+```
+2k: 'height>=high-desktop',
+Standard: 'height<desktop'
+
+------
+
+@media (min-height: 1800px) {}
+@media (max-height: 1399px) {}
+
+```
+
+*NOTE: Some <a href="https://include-media.com/">@include-media</a> features may not yet be available in wyndsor. **To learn more about the vernacular when creating breakpoints, read their documentation <a href="https://include-media.com/documentation/#mixin-media">here</a>.***

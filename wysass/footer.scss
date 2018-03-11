@@ -9,7 +9,7 @@ $f-Footer: (
     display: grid,
     overflow: hidden,
     align-items: (base: flex-end, phone-dn: center),
-    background: (phablet-dn: $black, desktop: $black),
+    background: (base: $black, high-desktop: transparent),
     \--maindiv: (
       height: (base: 330px, phone-dn: 90%),
       width: 100%,

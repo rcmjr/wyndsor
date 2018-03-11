@@ -19,7 +19,6 @@
 
 //// --- Breakpoint Variables --- ////////////////////////////
   $breakpoints: (
-    2k: '>=twok-desktop',
     high-desktop: '>=high-desktop',
     desktop-up: '>desktop',
     desktop: ('>tablet', '<=desktop'),
