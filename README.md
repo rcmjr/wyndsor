@@ -39,7 +39,9 @@ In either instance, gulp will automatically start <a href="https://browsersync.i
 gulp --prod --nopreview
 ```
 <hr>
+
 ### Sources and Destinations
+
 #### Compatible Filetype
 Wyndsor only works with .scss files. It will only compose non-partials.
 
@@ -89,7 +91,9 @@ STYLE_CSS           = 'style.css'
 ```
 
 <hr>
+
 ### Getting Started
+
 #### Your Style Base
 It's recommended that you keep all style variables and settings in `_base.scss` Wyndsor considers it a dependency and will automatically look for the partial in your wysass folder. It's' injected into every working .scss file before composing takes place.
 
@@ -371,7 +375,7 @@ These map keys can be used within any parent to build out your styling.
 }
 ```
 <br>
-<br>
+
 ##### Breakpoints/Media Queries
 Declaring a breakpoint to create a media query simply involves using a desired breakpoint name within the property you wish to make responsive.
 
