@@ -28,6 +28,7 @@ Through the power of sass maps, media query consolidation, and the easiest decla
   <br>4.5 Fonts
   <br>4.6 Gulp
 5. API and Bugs
+<hr><br>
 
 ## 1. Installation
 You will need npm to run wyndsor and gulp. If you do already, skip \#3.
@@ -39,7 +40,7 @@ You will need npm to run wyndsor and gulp. If you do already, skip \#3.
 5. Run gulp.
 
 ### 1.1 Using Gulp
-#### Commands
+### Commands
 Wyndsor has two gulp modes:
 
 - Dev `gulp --dev`
@@ -51,7 +52,7 @@ Wyndsor has two gulp modes:
   - Only style.css is added as stylesheet link to the head of your pages.
   - CSS is minified.
 
-#### Browsersync
+### Browsersync
 In either instance, gulp will automatically start <a href="https://browsersync.io/">browsersync</a> (for realtime browser preview and testing) and open your build in the default browser. You can disable this when starting gulp by including `--nopreview` in the command:
 ```
 gulp --prod --nopreview
@@ -77,7 +78,7 @@ Wyndsor uses the following locations when running wyndsor:
 /wysass --- Source Directory
 ```
 
-#### Dev Composition
+### Dev Composition
 In dev mode, wyndsor composes each wysass file to its own .css file in a subfolder called "dev". This keeps things speedy, nested and easy to debug. Your destination structure will end up looking like this:
 ```
 css/
@@ -92,7 +93,7 @@ css/
     - all toolbox variables
 ```
 
-#### Prod Composition
+### Prod Composition
 In prod mode, wyndsor consolidates all .scss files (in wysass) into style.scss and then composes. This can take a few seconds to complete, is minified and not for debugging. Your final destination structure will look like this:
 ```
 css/
@@ -163,24 +164,24 @@ parentclass: (
   )
 )
 ```
-#### Rules for the Road
+### Rules for the Road
 1. Wyndsor uses *keys* to interpret what kind of selector (parent or child) you're declaring.
 2. You can't use a selector name or property twice in a row or more.
 
-#### Parent Selectors
+### Parent Selectors
 Declaring a parent selector is easy, simply type in a name. Wyndsor will consider it a class, unless you use one of the following keys:
 - \# -- ids
 - \\\ -- custom selector
 
-#### Classes
-##### wysass
+### Classes
+**wysass**
 ```
 class-name: (
   width: 100%,
   height: 100%
 )
 ```
-##### css
+**css**
 ```
 class-name: (
   width: 100%,
@@ -188,15 +189,15 @@ class-name: (
 )
 ```
 
-#### Ids
-##### wysass
+### Ids
+**wysass**
 ```
 #id-name: (
   width: 100%,
   height: 100%
 )
 ```
-##### css
+**css**
 ```
 #id-name {
   width: 100%;
@@ -204,16 +205,16 @@ class-name: (
 }
 ```
 
-#### Custom Selectors
+### Custom Selectors
 (*you must use quotation marks following the key*)
-##### wysass
+**wysass**
 ```
 \\".custom .selector-name > div": (
   width: 100%,
   height: 100%
 )
 ```
-##### css
+**css**
 ```
 .custom .selector-name > div {
   width: 100%;
@@ -222,10 +223,10 @@ class-name: (
 ```
 <br>
 
-#### Child Selectors
+### Child Selectors
 These map keys can be used within any parent to build out your styling.
 
-##### Custom Selector
+#### Custom Selector
 **wysass**
 ```
 #parent: (
@@ -249,7 +250,7 @@ These map keys can be used within any parent to build out your styling.
 }
 ```
 
-##### Children
+#### Children
 **wysass**
 ```
 #parent: (
@@ -278,7 +279,7 @@ These map keys can be used within any parent to build out your styling.
   background: black;
 }
 ```
-##### Hyphenate
+#### Hyphenate
 **wysass**
 ```
 #parent: (
@@ -303,7 +304,7 @@ These map keys can be used within any parent to build out your styling.
 }
 ```
 
-##### Underscore
+#### Underscore
 **wysass**
 ```
 #parent: (
@@ -327,7 +328,7 @@ These map keys can be used within any parent to build out your styling.
 }
 ```
 
-##### Namespace
+#### Namespace
 **wysass**
 ```
 #parent: (
@@ -345,7 +346,7 @@ These map keys can be used within any parent to build out your styling.
 }
 ```
 
-##### Preceder
+#### Preceder
 **wysass**
 ```
 #parent: (
@@ -363,7 +364,7 @@ These map keys can be used within any parent to build out your styling.
 }
 ```
 
-##### List
+#### List
 **wysass**
 ```
 #parent: (
@@ -382,7 +383,7 @@ These map keys can be used within any parent to build out your styling.
 ```
 *If you use the list key twice at the same level, they will be composed into separate css entries. Use the custom selector key if you need to list more than one.*
 
-##### Immediate
+#### Immediate
 **wysass**
 ```
 #parent: (
@@ -401,7 +402,7 @@ These map keys can be used within any parent to build out your styling.
 ```
 <br>
 
-#### Breakpoints/Media Queries
+### Breakpoints/Media Queries
 Declaring a breakpoint to create a media query simply involves using a desired breakpoint name within the property you wish to make responsive.
 
 **wysass**
@@ -427,7 +428,7 @@ class: (
 ```
 *NOTE: To maintain a non-media query value, you must use "base".*
 
-##### Changing Your Breakpoint Settings
+#### Changing Your Breakpoint Settings
 Wyndsor's breakpoint system is built on <a href="https://include-media.com/">@include-media</a>. Breakpoint settings are broken into three main parts:
 1. Media Sizes
 2. Media Expressions
@@ -498,7 +499,7 @@ The breakpoint list can be found in Tools > \_toolbox.scss. To learn more about 
 <br>
 <br>
 
-#### Pseudos
+### Pseudos
 Pseudo states are automatically detected by wyndsor and can be used at any level below the parent level in your .scss DOM.
 
 **wysass**
@@ -518,7 +519,7 @@ Pseudo states are automatically detected by wyndsor and can be used at any level
   background: blue;
 }
 ```
-##### Toolbox List
+#### Toolbox List
 Wyndsor references the `$pseudos` list in Tools > \_toolbox.scss to determine pseudo states. The list, by default, contains a limited number of the most commonly used pseudo states and can be modified to suit your project scope.
 
 ```
@@ -541,7 +542,7 @@ The value in each state is pulled by wyndsor and injected while composing. An ex
 <br>
 <br>
 
-#### HTML Elements
+### HTML Elements
 HTML Elements are automatically detected by wyndsor and can be used at any level in your .scss DOM.
 
 **wysass**
@@ -561,7 +562,7 @@ section div {
   background: blue;
 }
 ```
-##### Toolbox List
+#### Toolbox List
 Wyndsor references the `$html-elements` list in Tools > \_toolbox.scss to determine what is and what isn't an html element. The list, by default, contains all html elements.
 ```
 //// --- HTML ELEMENTS LIST --- ////////////////////////////
@@ -612,7 +613,7 @@ Wyndsor references the `$html-elements` list in Tools > \_toolbox.scss to determ
 <br>
 <br>
 
-#### Aliases
+### Aliases
 Aliases can be used to include additional selectors on a parent level class, id or custom selector. An alias is applied to all subsidiary child selectors in addition to its parent.
 
 **wysass**
@@ -640,7 +641,7 @@ classname: (
 There is a setting that changes what wyndsor applies aliases to, to learn more see the Customizing Wyndsor section.
 <br>
 
-#### Important
+### Important
 Wyndsor's approach to `!important` is to mitigate the usage of this flag by moving a selector and property to the bottom of the css stack, only if `important` (without an `!`) is used as the flag in a property value.
 
 Wyndsor prioritizes breakpoint/media queries over the `important` flag, and will not move a property to the end if it is also within a breakpoint. The `!important` can be used, however, wyndsor will not move a property with this flag to the end of the stack.
@@ -674,7 +675,7 @@ There is a setting that modifies how wyndsor interprets the `important` and `!im
 <br>
 <br>
 
-#### Vars
+### Vars
 Vars are wyndsor's approach to css custom properties. If you ever need to implement custom properties, wyndsor automates the process by generating a custom property name based on the selector stack (this includes all selector names and by default any breakpoint name in which the key is used).
 
 To enable a var for a specific property, merely include `-var` after a value or as the value itself. Additionally, you can set the value of the variable by using `-var-full`.
@@ -700,7 +701,7 @@ classname: (
 <br>
 <br>
 
-#### Autocode
+### Autocode
 Autocode are mixins currently included in wyndsor by default. They can be called and run automatically from any level (below the parent level) of your .scss DOM.
 
 - Hover-CSS
@@ -739,7 +740,7 @@ classname: (
     animation-iteration-count: infinite; }
 ```
 
-##### Keyframes
+#### Keyframes
 Certain autocode results require css keyframes. By default these are mostly disabled in wyndsor to prevent css bloat. You can enable them for Hover-css and Animations-css by adding the hover or animation name in their respective lists:
 
 ```
@@ -755,12 +756,12 @@ Certain autocode results require css keyframes. By default these are mostly disa
 ```
 You can find these in Tools > \_toolbox.scss
 
-##### Individual Autocode Instructions
+#### Individual Autocode Instructions
 Detailed overviews and instructions for each integrated mixin is coming soon.
 <br>
 <br>
 
-#### Custocode
+### Custocode
 Custocode differs from autocode, in that the process to integrate into wyndsor is more plug-and-play and requires a different call. To integrate your own mixin see the Customizing Wyndsor Section.
 
 To use custocode, simply use the `custo` declaration followed by your mixin name, and any required variables.
@@ -778,19 +779,19 @@ classname: (
 ```
 <br>
 
-#### Overrides and Enables
+### Overrides and Enables
 Wyndsor sports two additional declarations that can be handy during the dev or debugging process. They are used within the context of applying an attribute globally to a selector's immediate properties, or it and its subsidiary child selectors/properties.
 1. `override` -- A way to apply a breakpoint, all breakpoints or an important flag.
 2. `enable` -- A way to enable custom properties (and future attributes).
 
-##### Attributes
+#### Attributes
 The following attributes are used as the values of the override and enable declarations. Multiple attributes can be used, though only in `override` at this time.
 - `all-breakpoints` -- All of a selector's immediate properties will be composed to every breakpoint.
 - `{breakpoint}` -- All of a selector's immediate properties will be moved into the specific breakpoint used.
 - `important` -- All of a selector's immediate properties will be moved to the bottom of the css stack.
 - `custom-props` -- Can only be used with the enable declaration and will force all of a selector's immediate properties to convert to custom properties.
 
-##### Optional
+#### Optional
 The following keys can be used to expand an attributes reach or change its result.
 - `applesauce` -- This will force wyndsor to apply an override or enable attribute(s) to the entire parent selector's stack.
 - `-full` -- Can only be used with `custom-props`, and will generate the custom properties' values.
