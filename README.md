@@ -39,7 +39,7 @@ You will need npm to run wyndsor and gulp. If you do already, skip \#3.
 4. Install all dependencies: `npm ci`.
 5. Run gulp.
 
-### 1.1 Using Gulp
+## 1.1 Using Gulp
 ### Commands
 Wyndsor has two gulp modes:
 
@@ -61,17 +61,17 @@ gulp --prod --nopreview
 
 ## 2. Sources and Destinations
 
-### 2.1 Compatible Filetype
+## 2.1 Compatible Filetype
 Wyndsor only works with .scss files and will only compose non-partials.
 
-### 2.2 Adding a New .scss File
+## 2.2 Adding a New .scss File
 To fold a new .scss file into the gulp stream and be watched, you must do the following:
 1. Create and save your new .scss file in the Source Directory.
 2. If gulp is running, stop it from the terminal (<kbd>ctrl</kbd> + <kbd>c</kbd>).
 3. Start gulp.
 4. Modify your .scss file's code and then save.
 
-### 2.3 Default Locations
+## 2.3 Default Locations
 Wyndsor uses the following locations when running wyndsor:
 ```
 /css --- Destination Directory
@@ -107,7 +107,7 @@ css/
     - all your wysass files
 ```
 
-### 2.4 Gulp settings
+## 2.4 Gulp settings
 You can change all of the above locations and parent stylesheet name in Gulpfile.js:
 ```
 ROOT                = 'css/',
@@ -120,12 +120,12 @@ STYLE_CSS           = 'style.css'
 
 ## 3. Getting Started
 
-### 3.1 Your Style Base
+## 3.1 Your Style Base
 It's recommended that you keep all style variables and settings in `_base.scss` Wyndsor considers it a dependency and will automatically look for the partial in your wysass folder. It's' injected into every working .scss file before composing takes place.
 
 *To change the name of this partial or add more to wyndsor's dependencies list see the Customizing Wyndsor Section*
 
-### 3.2 Your Stylesheets
+## 3.2 Your Stylesheets
 To create your first .scss file, use or duplicate the `_template.scss` file or use the following code:
 ```
 // inject: dependenciesbase //
@@ -144,7 +144,7 @@ $Epic-Map: $x-MapName;
 ```
 *Do not change or remove any of the inject or endinject lines, or delete the $Epic-Map variable.*
 
-### 3.3 How to Code (wyndsor style)
+## 3.3 How to Code (wyndsor style)
 A typical block of code will look like the following:
 ```
 parentclass: (
@@ -837,7 +837,7 @@ There are a few settings that modify how wyndsor interprets overrides and enable
 <br>
 <br>
 
-### 3.4 Composing
+## 3.4 Composing
 Composing is a fairly straightforward and automated process. Make sure you started wyndsor by running `gulp --dev` or `gulp --prod`. This will automatically have gulp watch your .scss files and any (by default) html files for changes.
 
 Simply save the file you're working in and gulp will initiate wyndsor to compose it.
@@ -847,11 +847,11 @@ Simply save the file you're working in and gulp will initiate wyndsor to compose
 ## 4. Customizing Wyndsor
 Wyndsor was built to be as flexible and scalable as possible, and provide a coding environment as minimal and human as possible. To facilitate this, wyndsor has a robust amount of settings and customizability.
 
-### 4.1 Settings
+## 4.1 Settings
 Settings are located in `/Admin`. Switches, global parameters, and keys can be modified here.
 
-### 4.2 Base
-### 4.3 Toolbox
-### 4.4 Custocode
-### 4.5 Fonts
-### 4.6 Gulp
+## 4.2 Base
+## 4.3 Toolbox
+## 4.4 Custocode
+## 4.5 Fonts
+## 4.6 Gulp
