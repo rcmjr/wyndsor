@@ -1,6 +1,6 @@
 # Windsor
 ### A snazzy SASS composer, and the easiest way to write responsive front-end css.
-<hr>
+<hr><br>
 Wyndsor was made by a ux/ui designer unhappy with the bloat and/or obscurity of most css frameworks. Wyndsor aims to provide a scalable approach to front-end development and enable front-end developers to easily write through a bare minimum vernacular.
 
 Through the power of sass maps, media query consolidation, and the easiest declarations - ever - to code breakpoints, selector aliases, inline mixins, (and more) can rapidly get you from prototype to prod.
@@ -56,7 +56,7 @@ In either instance, gulp will automatically start <a href="https://browsersync.i
 ```
 gulp --prod --nopreview
 ```
-<hr>
+<hr><br>
 
 ## 2. Sources and Destinations
 
@@ -115,7 +115,7 @@ STYLE               = 'style.scss',
 STYLE_CSS           = 'style.css'
 ```
 
-<hr>
+<hr><br>
 
 ## 3. Getting Started
 
@@ -841,7 +841,7 @@ Composing is a fairly straightforward and automated process. Make sure you start
 
 Simply save the file you're working in and gulp will initiate wyndsor to compose it.
 
-<hr>
+<hr><br>
 
 ## 4. Customizing Wyndsor
 Wyndsor was built to be as flexible and scalable as possible, and provide a coding environment as minimal and human as possible. To facilitate this, wyndsor has a robust amount of settings and customizability.
