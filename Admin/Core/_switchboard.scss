@@ -400,10 +400,10 @@
             $prename: if($exist-rename == true, str-replace(str-replace($prename-asterisk, $sass-rename, ""), "\"", ""), $prename-asterisk);
             $mainname: $type + $prename;
             $brkname: if($EpicAct == breakpoint, unquote('-' + $breakpoint), '');
-            $aliasbrk: if($EpicAct == breakpoint and $Include-AliasBrkname == yes and $Enable-NameBrkname != yes, unquote('-' + $breakpoint), '');
-            $aliasbrk-switch: if($Include-AliasBrkname == yes and $EpicAct == breakpoint, true,
-                              if($Include-AliasBrkname == yes and $EpicAct != breakpoint, false,
-                              if($Include-AliasBrkname != yes, true, $aliasbrk-switch)));
+            $aliasbrk: if($EpicAct == breakpoint and $Alias-BreakpointOnly == yes and $Enable-NameBrkname != yes, unquote('-' + $breakpoint), '');
+            $aliasbrk-switch: if($Alias-BreakpointOnly == yes and $EpicAct == breakpoint, true,
+                              if($Alias-BreakpointOnly == yes and $EpicAct != breakpoint, false,
+                              if($Alias-BreakpointOnly != yes, true, $aliasbrk-switch)));
 
             @if $aliasbrk-switch == true {
               @each $property, $propertyvalue in $value {
@@ -440,7 +440,6 @@
 
         //// 2 //////////// Creates the classes, ids, subclasses and pseudos
         #{if($exist-html == true, $mainname, $mainname)}#{if($aliasname != null, unquote(', '), '')}#{if($aliasname != '', $aliasname, '')} {
-
           //// ℹ︎ //////////// Forces the switchboard to compile to the important section or a specific breakpoint.
           $important-override: false !default;
           $breakpoint-override: false !default;
@@ -467,10 +466,13 @@
             $namebreak-feature: if(remove-duplicates(purge(chk-override($value, name-break, enables))) == (), false, true);
             $gm-override-2: if(remove-duplicates(purge(chk-override($value, override-all, enables))) == (), false, true);
           }
-
           //// a //////////// Pushes specified class/id to the important section or breakpoint.
           @each $property, $propertyvalue in $value {
-            @include router($property, $propertyvalue, $value, $mainname, $var-name, $breakpoint, $EpicAct, $customprops-feature, $namebreak-feature, $gm-override, $gm-override-2, $breakpoint-override, $allbreakpoint-override, $important-override, $override-brkname);
+            $exist-alias: if(str-index($property, $sass-alterego), true, false);
+            @if $exist-alias == true {}
+            @else {
+              @include router($property, $propertyvalue, $value, $mainname, $var-name, $breakpoint, $EpicAct, $customprops-feature, $namebreak-feature, $gm-override, $gm-override-2, $breakpoint-override, $allbreakpoint-override, $important-override, $override-brkname);
+            }
           }
         }
       }

@@ -719,3 +719,28 @@
       }
       @return $var-name;
     }
+
+  //// 32 //////////// Checks for any residule keys
+  @function key-cleanup($key-name) {
+    $key-name: to-string($key-name);
+    $key-result: null;
+
+    $alias-check: if(str-index($key-name, $sass-alterego), true, false);
+    $override-check: if(str-index($key-name, $sass-overrides), true, false);
+    $enables-check: if(str-index($key-name, $sass-enables), true, false);
+
+    @if $alias-check {
+      $key-result: true;
+    }
+    @else if $override-check {
+      $key-result: true;
+    }
+    @else if $enables-check {
+      $key-result: true;
+    }
+    @else {
+      $key-result: false;
+    }
+
+    @return $key-result;
+  }

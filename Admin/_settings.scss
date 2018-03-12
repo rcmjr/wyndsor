@@ -6,7 +6,7 @@
   $Enable-ImportantEpic: yes; // Enables important CSS in The Epic.
   $Disable-ImportantRule: no; // Disables important CSS rule.
   $Enable-NameBrkname: yes; // Enables breakpoints to be added to CSS names, helpful if you want to target specific breakpoint styles on your css.
-  $Include-AliasBrkname: no; // Adds breakpoint name to Aliases, helpful if you want to add breakpoint names to aliases. If on, Aliases won't be added to base css.
+  $Alias-BreakpointOnly: no; // Adds breakpoint name to Aliases, helpful if you want to add breakpoint names to aliases. If on, Aliases won't be added to base css.
 
 //// --- Global Parameters --- ////////////////////////////
   $Global-Default-Unit: px;

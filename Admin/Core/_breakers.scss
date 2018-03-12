@@ -151,7 +151,8 @@
   $name-check: if(str-index($key, "\\"), true, false);
 
   @if $filter == property and $name-check == false {
-    @content;
+    $keyclean: key-cleanup($property);
+    @if $keyclean != true {@content;}
   }
   @else if $filter == name and $name-check == false {
     @if if(map-check($pseudos, $property), true, false) {@include naming($property, pseudo-name) {@content;}}
