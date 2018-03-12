@@ -123,7 +123,7 @@ STYLE_CSS           = 'style.css'
 ## 3.1 Your Style Base
 It's recommended that you keep all style variables and settings in `_base.scss` Wyndsor considers it a dependency and will automatically look for the partial in your wysass folder. It's' injected into every working .scss file before composing takes place.
 
-*To change the name of this partial or add more to wyndsor's dependencies list see the Customizing Wyndsor Section*
+*To change the name of this partial or add more to wyndsor's dependencies list see the <a href="#4-customizing-wyndsor">Customizing Wyndsor</a> section*
 
 ## 3.2 Your Stylesheets
 To create your first .scss file, use or duplicate the `_template.scss` file or use the following code:
@@ -638,7 +638,7 @@ classname: (
   width: 80%;
 }
 ```
-There is a setting that changes what wyndsor applies aliases to, to learn more see the Customizing Wyndsor section.
+There is a setting that changes what wyndsor applies aliases to, to learn more see the <a href="#4-customizing-wyndsor">Customizing Wyndsor</a> section.
 <br>
 
 ### Important
@@ -671,7 +671,7 @@ classname: (
   background: blue;
 }
 ```
-There is a setting that modifies how wyndsor interprets the `important` and `!important` flags, to learn more see the Customizing Wyndsor section.
+There is a setting that modifies how wyndsor interprets the `important` and `!important` flags, to learn more see the <a href="#4-customizing-wyndsor">Customizing Wyndsor</a> section.
 <br>
 <br>
 
@@ -762,7 +762,7 @@ Detailed overviews and instructions for each integrated mixin is coming soon.
 <br>
 
 ### Custocode
-Custocode differs from autocode, in that the process to integrate into wyndsor is more plug-and-play and requires a different call. To integrate your own mixin see the Customizing Wyndsor Section.
+Custocode differs from autocode, in that the process to integrate into wyndsor is more plug-and-play and requires a different call. To integrate your own mixin see the <a href="#4-customizing-wyndsor">Customizing Wyndsor</a> section.
 
 To use custocode, simply use the `custo` declaration followed by your mixin name, and any required variables.
 **Example:**
@@ -831,7 +831,7 @@ classname: (
   height: 100%;
 }
 ```
-There are a few settings that modify how wyndsor interprets overrides and enables, to learn more see the Customizing Wyndsor section.
+There are a few settings that modify how wyndsor interprets overrides and enables, to learn more see the <a href="#4-customizing-wyndsor">Customizing Wyndsor</a> section.
 
 *NOTE: These are highly experimental features, and are buggy.*
 <br>
