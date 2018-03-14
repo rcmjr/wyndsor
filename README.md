@@ -1,5 +1,7 @@
-# Windsor
-### A snazzy SASS composer, and the easiest way to write responsive front-end css.
+<p align="center">
+    <a href="https://wyndsor.io/" target="_blank"><img width="250" src="https://wyndsor.io/assets/Asset%207.png"></a><br><br>
+    A snazzy SASS composer, and the easiest way to write responsive dry CSS.
+</p>
 <hr><br>
 Wyndsor was made by a ux/ui designer unhappy with the bloat and/or obscurity of most css frameworks. Wyndsor aims to provide a scalable approach to front-end development and enable front-end developers to easily write through a bare minimum vernacular.
 
