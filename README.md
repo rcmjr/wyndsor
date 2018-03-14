@@ -7,7 +7,7 @@
 </p>
 <hr>
 
-> NOTE: *Wyndsor is in beta.* There are a kinks being worked out, and being very much a young collection of code, please submit any additional bugs you find or ideas for what features/mixins should be integrated into wyndsor.
+> NOTE: *Wyndsor is in beta* and kinks are being worked out.
 
 ## TOC
 1. Installation
