@@ -20,7 +20,7 @@
         @if $important-check == true and $importance-check == true {
           @error "Sorry, in '#{$redline-str}', you shouldn`t use both types of importance, try using only one.";
         }
-        @if $Disable-ImportantRule == yes or $important-removal == true {
+        @if $Disable-TrueImportantTag == yes or $important-removal == true {
           $importance-check: false;
           $important-check: false;
           $importance-check-wcomma: false;
@@ -55,13 +55,6 @@
     $greenverb-length: length($greenverb-list);
     $greenverb-str: map-tostring($greenverb-list, ' ');
 
-    // Line Options:
-    // - auto-val // Wyndsor's Value Automations
-    // - custo-val // Your Custom Value Automations
-    // - auto-type // Automatically converts font-size and generates line-height
-    // - auto-prop // Wyndsor's Property Automations
-    // - custo-prop // Your Property Automations
-
     //// 1 //////////// Wyndsor's Property Automations
     @include splitter($redline-str, $greenline-list, auto-prop) {
       $splitter: auto-prop;
@@ -85,7 +78,7 @@
         @include namebrker($EpicAct, $namebreak-feature, $breakpoint, default-under) {#{$redline-str}: #{$redline-customprop};}
       }
       @else {
-        @include crtrfone($redline, $redline-str, $greenverb-list, $greenverb-str, $greenverb-length, $splitter, $breakpoint, $EpicAct, $namebreak-feature, $important-check);
+        @include crtrfone($redline, $redline-str, $greenline-list, $greenline-str, $greenline-length, $splitter, $breakpoint, $EpicAct, $important-check);
       }
     }
 
@@ -169,7 +162,7 @@
           @error "Sorry, you can`t use -var here.";
         }
         @else {
-          @include crtrfone($redline, $redline-str, $greenverb-list, $greenverb-str, $greenverb-length, $splitter, $breakpoint, $EpicAct, $namebreak-feature, $important-check);
+          @include crtrfone($redline, $redline-str, $greenverb-list, $greenverb-str, $greenline-length, $splitter, $breakpoint, $EpicAct, $important-check);
         }
       }
     }
@@ -400,7 +393,7 @@
             $prename: if($exist-rename == true, str-replace(str-replace($prename-asterisk, $sass-rename, ""), "\"", ""), $prename-asterisk);
             $mainname: $type + $prename;
             $brkname: if($EpicAct == breakpoint, unquote('-' + $breakpoint), '');
-            $aliasbrk: if($EpicAct == breakpoint and $Alias-BreakpointOnly == yes and $Enable-NameBrkname != yes, unquote('-' + $breakpoint), '');
+            $aliasbrk: if($EpicAct == breakpoint and $Alias-BreakpointOnly == yes and $Enable-NameBreak != yes, unquote('-' + $breakpoint), '');
             $aliasbrk-switch: if($Alias-BreakpointOnly == yes and $EpicAct == breakpoint, true,
                               if($Alias-BreakpointOnly == yes and $EpicAct != breakpoint, false,
                               if($Alias-BreakpointOnly != yes, true, $aliasbrk-switch)));

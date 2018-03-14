@@ -941,7 +941,7 @@
 }
 
 // Creates Keyframes required for specific animations.
-@each $key in $anime-keyframes {
+@each $key in $animate-keyframes {
   @include keyframes($key) {
     @include anime($key);
   }

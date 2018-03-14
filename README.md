@@ -24,9 +24,6 @@ Through the power of sass maps, media query consolidation, and the easiest decla
   <br>4.1 Settings
   <br>4.2 Base
   <br>4.3 Toolbox
-  <br>4.4 Custocode
-  <br>4.5 Fonts
-  <br>4.6 Gulp
 5. API and Bugs
 <hr><br>
 
@@ -112,6 +109,7 @@ You can change all of the above locations and parent stylesheet name in Gulpfile
 ```
 ROOT                = 'css/',
 SRC_ROOT            = 'wysass/',
+HTML_ROOT           = '../' + ROOT,
 STYLE               = 'style.scss',
 STYLE_CSS           = 'style.css'
 ```
@@ -230,14 +228,12 @@ These map keys can be used within any parent to build out your styling.
 **wysass**
 ```
 #parent: (
-
   \\".child-1 > #blue: (
     background: blue
   ),
   \\" .child-2 > #violet: (
     background: violet
   )
-
 )
 ```
 **css**
@@ -254,7 +250,6 @@ These map keys can be used within any parent to build out your styling.
 **wysass**
 ```
 #parent: (
-
   \>child__1: (
     background: blue
   ),
@@ -264,7 +259,6 @@ These map keys can be used within any parent to build out your styling.
   \>\>\>child__3: (
     background: black
   )
-
 )
 ```
 **css**
@@ -283,17 +277,14 @@ These map keys can be used within any parent to build out your styling.
 **wysass**
 ```
 #parent: (
-
   \-child__1: (
     background: blue
   ),
   \--child__2: (
     background: violet
   ),
-
 )
 ```
-
 **css**
 ```
 #parent-child__1 {
@@ -308,14 +299,12 @@ These map keys can be used within any parent to build out your styling.
 **wysass**
 ```
 #parent: (
-
   \-child--1: (
     background: blue
   ),
   \__child--2: (
     background: violet
   ),
-
 )
 ```
 **css**
@@ -332,11 +321,9 @@ These map keys can be used within any parent to build out your styling.
 **wysass**
 ```
 #parent: (
-
   \:child__1: (
     background: blue
   )
-
 )
 ```
 **css**
@@ -350,11 +337,9 @@ These map keys can be used within any parent to build out your styling.
 **wysass**
 ```
 #parent: (
-
   \~child__1: (
     background: blue
   )
-
 )
 ```
 **css**
@@ -368,11 +353,9 @@ These map keys can be used within any parent to build out your styling.
 **wysass**
 ```
 #parent: (
-
   \,child__1: (
     background: blue
   )
-
 )
 ```
 **css**
@@ -387,11 +370,9 @@ These map keys can be used within any parent to build out your styling.
 **wysass**
 ```
 #parent: (
-
   \+child: (
     background: blue
   )
-
 )
 ```
 **css**
@@ -408,12 +389,10 @@ Declaring a breakpoint to create a media query simply involves using a desired b
 **wysass**
 ```
 class: (
-
   background: (
     base: blue,
     desktop-dn: violet
   )
-
 )
 ```
 **css**
@@ -424,7 +403,6 @@ class: (
 @media (min-width:1200px) {
   .class {background: violet;}
 }
-
 ```
 *NOTE: To maintain a non-media query value, you must use "base".*
 
@@ -437,9 +415,7 @@ Wyndsor's breakpoint system is built on <a href="https://include-media.com/">@in
 The system is scalable in that you can modify, remove or add to all of the above to accommodate your project scope.
 
 **Media Sizes & Expressions**
-<br>By default, wyndsor's media sizes are based on the method outlined in this article by <a href="https://medium.freecodecamp.org/the-100-correct-way-to-do-css-breakpoints-88d6a5ba1862">Medium's FreeCodeCamp</a>.
-
-*They can be found in Tools > A-Auto-Code > _brkpoints.scss*
+<br>By default, wyndsor's media sizes are based on the method outlined in this article by <a href="https://medium.freecodecamp.org/the-100-correct-way-to-do-css-breakpoints-88d6a5ba1862">Medium's FreeCodeCamp</a>. They can be found in `/Tools/_toolbox`.
 
 Sizes:
 ```
@@ -493,7 +469,7 @@ Standard: 'height<desktop'
 @media (max-height: 1399px) {}
 
 ```
-The breakpoint list can be found in Tools > \_toolbox.scss. To learn more about the @include-media vernacular when creating breakpoints, read their documentation <a href="https://include-media.com/documentation/#mixin-media">here</a>.
+The breakpoint list can be found in `/Tools/_toolbox`. To learn more about the @include-media vernacular when creating breakpoints, read their documentation <a href="https://include-media.com/documentation/#mixin-media">here</a>.
 
 *NOTE: Some @include-media <a href="https://include-media.com/#features">features</a> may not yet be available in wyndsor.*
 <br>
@@ -505,11 +481,9 @@ Pseudo states are automatically detected by wyndsor and can be used at any level
 **wysass**
 ```
 #id-name: (
-
   hover: (
     background: blue
   )
-
 )
 ```
 
@@ -523,20 +497,11 @@ Pseudo states are automatically detected by wyndsor and can be used at any level
 Wyndsor references the `$pseudos` list in Tools > \_toolbox.scss to determine pseudo states. The list, by default, contains a limited number of the most commonly used pseudo states and can be modified to suit your project scope.
 
 ```
-//// --- PSEUDOS --- ////////////////////////////
-  $pseudos: (
-    hover: ':hover',
-    active: ':active',
-    after: '::after',
-    before: ':before',
-    selection: '::selection',
-    focus: ':focus',
-    visited: ':visited',
-    checked: ':checked',
-    invalid: ':invalid',
-    optional: ':optional',
-    required: ':required'
-  );
+$pseudos: (
+  hover: ':hover',
+  active: ':active',
+  after: '::after',
+  ...);
 ```
 The value in each state is pulled by wyndsor and injected while composing. An example of this can be seen by comparing the `hover` and `after` states.
 <br>
@@ -548,11 +513,9 @@ HTML Elements are automatically detected by wyndsor and can be used at any level
 **wysass**
 ```
 section: (
-
   \>\>div: (
     background: blue
   )
-
 )
 ```
 
@@ -565,49 +528,10 @@ section div {
 #### Toolbox List
 Wyndsor references the `$html-elements` list in Tools > \_toolbox.scss to determine what is and what isn't an html element. The list, by default, contains all html elements.
 ```
-//// --- HTML ELEMENTS LIST --- ////////////////////////////
-  $html-elements:
-    \*, a, abbr, acronym,
-    address, applet, area,
-    article, aside, audio,
-    b, base, basefont,
-    bdi, bdo, big,
-    blockquote, body, br,
-    button, canvas, caption,
-    center, cite, code,
-    col, colgroup, datalist,
-    dd, del, details,
-    dfn, dialog, dir,
-    div, dl, dt,
-    em, embed, fieldset,
-    figcaption, figure, font,
-    footer, form, frame,
-    frameset, h1, h2,
-    h3, h4, h5,
-    h6, h6, head,
-    header, hr, html,
-    i, iframe, img,
-    input, ins, kbd,
-    label, legend, li, logo,
-    link, main, map,
-    mark, menu, menuitem,
-    meta, meter, nav,
-    noframes, noscript, object,
-    ol, optgroup, option,
-    output, p, param,
-    picture, pre, progress,
-    q, rp, rt,
-    ruby, s, samp,
-    script, section, select,
-    small, source, span,
-    strike, strong, style,
-    sub, summary, sup,
-    svg, table, tbody, td,
-    textarea, tfoot, th,
-    thead, time, title,
-    tr, track, tt,
-    u, ul, var,
-    video, wbr;
+$html-elements:
+  \*, a, abbr, acronym,
+  address, applet, area,
+  article, ...;
 ```
 *NOTE: Modifying this list is not recommended.*
 <br>
@@ -619,13 +543,11 @@ Aliases can be used to include additional selectors on a parent level class, id 
 **wysass**
 ```
 classname: (
-
   alias: ".alterego",
   width: 100%,
   hover: (
     width: 80%
   )
-
 )
 ```
 **css**
@@ -702,7 +624,7 @@ classname: (
 <br>
 
 ### Autocode
-Autocode are mixins currently included in wyndsor by default. They can be called and run automatically from any level (below the parent level) of your .scss DOM.
+Autocode are mixins currently included in wyndsor by default. They can be called and run automatically from any level (below the parent level) of your .scss DOM. Some are called as properties, while others can be called within a css property.
 
 - Hover-CSS
 - Animations-CSS
@@ -714,7 +636,8 @@ Autocode are mixins currently included in wyndsor by default. They can be called
 - Type Generator
 - Repeater
 
-To use autocode, simply use the `auto` declaration followed by the mixin name, and any required variables.
+#### Whole Property Autocode
+Whole property autocode can write new properties and values, and generate additional selectors. To initiate, simply use the `auto` declaration followed by the mixin name, and any required variables.
 
 **Example:**
 ```
@@ -740,8 +663,33 @@ classname: (
     animation-iteration-count: infinite; }
 ```
 
+#### Property Value Autocode
+Property Value autocode differs from it's whole sibling, in that it activates only when used in specific properties, manipulating only the value. To initiate, simply use `-auto` prior to any required variables.
+```
+classname: (
+  color: (-auto, rgba, $black, .5, darken)
+)
+
+-----
+
+.classname {
+  color: rgba(6, 8, 38, 0.5); }
+```
+#### Custom Autocode
+Custom autocode differs from autocode, in that the process to integrate into wyndsor is more plug-and-play and requires different declarations. To integrate your own mixin as custom autocode see the <a href="#4-customizing-wyndsor">Customizing Wyndsor</a> section.
+
+To use custom autocode, simply use `custo` followed by your mixin name or `-custo`, and any required variables.
+```
+classname: (
+  custo: (your-mixin, {any}, {#ofvariables}, {yourequire})
+),
+
+#id-name: (
+  width: (-custo, {your}, {variables}, {here})
+)
+```
 #### Keyframes
-Certain autocode results require css keyframes. By default these are mostly disabled in wyndsor to prevent css bloat. You can enable them for Hover-css and Animations-css by adding the hover or animation name in their respective lists:
+Certain mixins require css keyframes. By default these are mostly disabled in wyndsor to prevent css bloat. You can enable them for Hover-css and Animations-css by adding the hover or animation name in their respective lists:
 
 ```
 //// --- HOVER KEYFRAMES --- ////////////////////////////
@@ -750,7 +698,7 @@ Certain autocode results require css keyframes. By default these are mostly disa
   );
 
 //// --- ANIMATIONS KEYFRAMES --- ////////////////////////////
-  $anime-keyframes: (
+  $animate-keyframes: (
     bounce
   );
 ```
@@ -759,24 +707,6 @@ You can find these in Tools > \_toolbox.scss
 #### Individual Autocode Instructions
 Detailed overviews and instructions for each integrated mixin is coming soon.
 <br>
-<br>
-
-### Custocode
-Custocode differs from autocode, in that the process to integrate into wyndsor is more plug-and-play and requires a different call. To integrate your own mixin see the <a href="#4-customizing-wyndsor">Customizing Wyndsor</a> section.
-
-To use custocode, simply use the `custo` declaration followed by your mixin name, and any required variables.
-**Example:**
-```
-classname: (
-  custo: (your-mixin, {any}, {#ofvariables}, {yourequire})
-)
-
------
-
-.classname {
-  // Your mixin's results here.
-}
-```
 <br>
 
 ### Overrides and Enables
@@ -790,6 +720,7 @@ The following attributes are used as the values of the override and enable decla
 - `{breakpoint}` -- All of a selector's immediate properties will be moved into the specific breakpoint used.
 - `important` -- All of a selector's immediate properties will be moved to the bottom of the css stack.
 - `custom-props` -- Can only be used with the enable declaration and will force all of a selector's immediate properties to convert to custom properties.
+- `breakname` -- Adds breakpoint names that have been declared within a selector to the end of its name.
 
 #### Optional
 The following keys can be used to expand an attributes reach or change its result.
@@ -799,19 +730,15 @@ The following keys can be used to expand an attributes reach or change its resul
 **wysass**
 ```
 classname: (
-
   override: important,
   width: 100%,
   height: 100%
-
 ),
 
 #id-name: (
-
   enable: custom-props-full applesauce,
   background: blue,
   hover: (color: violet)
-
 )
 ```
 **css**
@@ -840,18 +767,211 @@ There are a few settings that modify how wyndsor interprets overrides and enable
 ## 3.4 Composing
 Composing is a fairly straightforward and automated process. Make sure you started wyndsor by running `gulp --dev` or `gulp --prod`. This will automatically have gulp watch your .scss files and any (by default) html files for changes.
 
-Simply save the file you're working in and gulp will initiate wyndsor to compose it.
+Simply save the file you're working in and gulp will initiate wyndsor to compose it. Note that gulp will only process .scss files that have had a change made to them.
 
 <hr><br>
 
 ## 4. Customizing Wyndsor
-Wyndsor was built to be as flexible and scalable as possible, and provide a coding environment as minimal and human as possible. To facilitate this, wyndsor has a robust amount of settings and customizability.
+Wyndsor was built to be flexible and scalable and provide a coding environment as minimal and human as possible. To facilitate this, wyndsor has a robust amount of settings and customizability.
 
 ## 4.1 Settings
-Settings are located in `/Admin`. Switches, global parameters, and keys can be modified here.
+Settings are located in `/Admin`. Switches, global parameters, and keys can be modified here. Whenever a setting is adjusted, you must re-save your .scss files in order for the updated setting to apply.
+
+### Switches
+Switches can modify wyndsor's behavior and how it interprets different keys.
+
+`$Enable-Overrides: yes|no` --- Enables or disables overrides.
+
+`$Scope-BreakpointOverride: norm|all` --- Switch between overriding everything but existing breakpoints (norm) or everything regardless of existing breakpoints (all).
+
+`$Enable-Features: yes|no` --- Turns on or off enables.
+
+`$Enable-ImportantEpic: yes|no` --- Enables or disables important. If disabled, all css with the `important` tag will be disregarded during composing.
+
+`$Disable-TrueImportantTag: no|yes` --- Enables or disables allowing !important tags while composing.
+
+`$Enable-NameBreak: yes|no` --- Enables or disables the addition of breakpoints names to the ends of selectors.
+
+`$Alias-BreakpointOnly: no|yes` --- Adds breakpoint name to aliases and only allows them within breakpoints/media queries.
+
+### Global Parameters
+`$Global-Default-Unit: px|rem|%|etc` --- This is used in the repeater mixin as the default unit when one isn't included with an individual number.
+
+`$Global-NameBreak-Separator: default|default-under|direct-child|child|namespace` --- This is used when adding breakpoint names onto selectors is enabled. Options: direct-child `'.'`, child `' .'`, namespace `'\:'`, default `'-'`, default-under `'_'`.
+
+### Keys
+Keys are wyndsor's method of identifying if you're declaring a selector, creating an alias, or using overrides/enables. When using special characters, you must use an escape slash `\`.
+```
+--- Default Key for Child
+$sass-child: "\>";
+
+--- Custom Key for Child
+$sass-child: "\%";
+```
+
+### Override & Enable Keys
+You can change the default keys used for override and enable attributes and optional settings.
+```
+--- Default Key for Custom Property Attribute
+$wy-customprops: custom-props;
+
+--- Custom Key for Custom Property Attribute
+$wy-customprops: vars;
+```
+
+### Typography
+These settings control the behavior of the typography generator.
+
+`$Enable-ATG: no|yes` --- Enables or disables the typography generator.
+
+`$sass-autotype: "type-style"` --- You can change the primary key to initiate the typography generator.
+
+`$base-fontsize: 100%` --- Change this to alter the ratio of px to rem.
+`$base-lineheight: 1.6` --- Sets the base line-height.
+
+<br>
+*NOTE: 1) All keys must be unique or wyndsor's core will break. 2) Changing any of the sass variable names in wyndsor's settings will result in an error, you must change all instances or not at all.*
 
 ## 4.2 Base
+The base file contains all the necessary dependencies of a vanilla wyndsor install. You should add any dependencies required on a global project scale here (such as, additional partials with project variables), rather than in the gulpfile.
+
+The base file is located in `/Admin/Partials`.
+
 ## 4.3 Toolbox
-## 4.4 Custocode
-## 4.5 Fonts
-## 4.6 Gulp
+The toolbox contains lists for different aspects of wyndsor including, breakpoints, pseudos, html element recognition, and the typography generator.
+
+### Breakpoints, Media Sizes and Expressions
+Add, remove or modify your project's media query breakpoints here. You will need to reference your media sizes and expressions as you build out your breakpoints.
+```
+--- Breakpoint
+desktop: ('>tablet', '<=desktop')
+
+--- Media Size
+desktop: 1400px,
+
+--- Media Expression
+screen: 'screen'
+```
+All of these can be found in `Tools/toolbox`.
+
+### Keyframes
+By default, most keyframes are disabled to prevent bloat. In order for some Hover.css or Animation.css results to work correctly, the hover or animation name must be added to its respective list in the toolbox.
+```
+// Hover-css
+$hover-keyframes: (
+  bob, buzz
+);
+
+// Animations-css
+$animate-keyframes: (
+  bounce
+);
+```
+For a full breakdown of hover or animation names please see the <a href="http://ianlunn.github.io/Hover/#effects">Hover.css list</a> and <a href="https://github.com/daneden/animate.css#basic-usage">Animate.css list</a>.
+
+### Custom Autocode
+The custom autocode section of the toolbox is where you add calls to your custom mixins. Wyndsor will look here while composing and initiate listed mixins.
+
+The `$splitter` variable is generated by the wyndsor switchboard and determines whether a custom whole property or property value autocode is being requested.
+```
+  --- Whole Property Autocode
+  @if $splitter == custo-prop {}
+  --- Property Value Autocode
+  @else if $splitter == custo-val {}
+```
+See the <a href="#5API;ampBugs">API</a> section for what variables need to be included in your toolbox mixin call.
+
+### Pseudos List
+You can modify the list of pseudos that wyndsor will look for when composing.
+```
+$pseudos: (
+  hover: ':hover',
+  active: ':active',
+  after: '::after',
+  ...
+);
+```
+
+### HTML Elements List
+You can modify the list of html elements that wyndsor will look for when composing. However, modifying this list is not recommended.
+```
+$html-elements:
+  \*, a, abbr, acronym,
+  address, applet, area,
+  article, aside, audio,
+  ...
+);
+```
+
+### Typography Generator
+You can adjust which keys wyndsor will look for before running the typography generator and what units the generator will convert.
+```
+$ATG:
+  "font-size",
+  "type-style";
+
+$Units:
+  px, rem, em,
+  %, ch, pc,
+  in, cm, mm,
+  pt, ex, vw,
+  vh, vmin, vmax;
+```
+
+*NOTE: The typography generator is an experimental feature, and may not work as intended.*
+
+## 5. API & Bugs
+### API
+Wyndsor's api is used to integrate custom mixins, which are called by the custom whole property `custo` or property value `-custo` declarations.
+
+#### Redline & Redline String
+Redline is a variable that carries a list version of a property. It should be for validation and/or to alter a mixin's behavior.
+```
+$redline
+$redline-str
+```
+#### Greenline & Greenline String
+Greenline is a variable that carries a list of a property's values.
+```
+$greenline
+$greenline-str
+```
+#### Greenline Length
+Greenline Length is a count of the Greenline List. It can be used to validate the presence of a specific amount of values in a property.
+```
+$greenline-length
+```
+*NOTE: Both Redline and Greenline String versions are converted by the switchboard from lists before they are used in a mixin.*
+
+#### Splitter
+Splitter carries the type of autocode being called by a declaration in a wysass map. For Custom autocode there are two types:
+
+`custo-prop` = `custo` --- Whole Property Autocode
+
+`custo-val` = `-custo` --- Property Value Autocode
+
+Splitter is used in the toolbox to initiate types of mixins relative to the declaration used. Please see the <a href="#43Toolbox">Toolbox</a> section for how this area works.
+```
+$splitter
+```
+#### Breakpoint
+Breakpoint carries breakpoint names used in a property. It should be used for validation and/or media queries.
+```
+$breakpoint
+```
+#### Epic Act
+Epic Act carries the act the switchboard is in. Wyndsor's core will use this to determine which part of the-epic the switchboard will make a connection to, for each property. There are three main acts: `breakpoint`, `important`, `normal`. This should be used in conjunction with Breakpoint and/or for validation.
+```
+$EpicAct
+```
+#### Important Check
+Important Check carries true|false depending on whether an `!important` flag has been used.
+```
+$important-check
+```
+#### Functions
+A wide variety of functions are at use in wyndsor's core and can be used in your custom mixins. These can be found in `/Admin/Core/_automations`.
+
+### Known Bugs
+- Single values that require quotation marks, such as font-family names (e.g. `"myriad-pro"`), must be double-quoted (e.g. `"'myriad-pro'"`).
+- Custom properties are missing hyphens between different segments.

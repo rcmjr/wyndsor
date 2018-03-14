@@ -218,7 +218,7 @@
 
 // Adds Breakpoints Names to Class names
 @mixin namebrker($EpicAct, $namebreak-feature, $breakpoint, $type: $Global-NameBreak-Separator) {
-  @if $Enable-NameBrkname == yes and $EpicAct == breakpoint and $namebreak-feature == true {
+  @if $Enable-NameBreak == yes and $EpicAct == breakpoint and $namebreak-feature == true {
     @if $type == direct-child {
       &#{"." + $breakpoint} {@content;}}
     @else if $type == child {

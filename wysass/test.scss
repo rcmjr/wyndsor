@@ -4,16 +4,16 @@
 $x-MapName: (
 
   classname: (
-    enable: custom-props-full applesauce,
     alias: "#htmlfuzzball > .yolo",
     background: (
       base: -var,
-      desktop: green
+      desktop: blue
     ),
-    color: blue -var-full,
+    color: blue,
+    --test-property: green,
     auto: (hover-css, buzz),
     \>yolo: (
-      width: 60%,
+      width: 60% !important,
       height: (
         base: 30%,
         tablet: 40%

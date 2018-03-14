@@ -23,6 +23,7 @@ var $                 = require('gulp-load-plugins')({lazy: true, camelize: true
     // Source, Destination and Port Vars
     var ROOT                = 'css/',
         SRC_ROOT            = 'wysass/',
+        HTML_ROOT           = '../' + ROOT,
         STYLE               = 'style.scss',
         STYLE_CSS           = 'style.css';
 
@@ -30,16 +31,15 @@ var $                 = require('gulp-load-plugins')({lazy: true, camelize: true
     var SRC_ALL             = SRC_ROOT + '**/*.scss',
         DEST_STYLE          = ROOT,
         DEST_STYLES_DEV     = ROOT + 'dev/',
-        HTML_ROOT           = ROOT,
         DEST_HTML_ALL       = HTML_ROOT + '**/*.html',
         PORT                = 8000,
         STYLE_BASE          = 'Admin/Partials/_base.scss',
         STYLE_DEPENDANCIES  = ['Admin/Partials/_reset.scss',
-                                'Tools/C-Fonts/_fonts.scss',
+                                'wysass/_fonts.scss',
                                 'Tools/_toolbox.scss',
-                                'Tools/B-Mixins/Animations-css/_animations.scss',
-                                'Tools/B-Mixins/Hover-css/_keyframes.scss',
-                                'Tools/B-Mixins/FontAwesome/_awesomeness.scss'],
+                                'Tools/Mixins/Animations-css/_animations.scss',
+                                'Tools/Mixins/Hover-css/_keyframes.scss',
+                                'Tools/Mixins/FontAwesome/_awesomeness.scss'],
         STYLE_MAPS          = 'Admin/_maps.scss',
         STYLE_EPIC          = 'Admin/Core/_the-epic.scss';
 
@@ -51,8 +51,6 @@ var $                 = require('gulp-load-plugins')({lazy: true, camelize: true
     style_build_task        = $.if(isDevelopment, ['inject_style-DEV'], ['inject_style-PROD']),
     style_head_inject       = $.if(isDevelopment, '**/*.css', STYLE_CSS),
     style_post_css          = $.if(isDevelopment, [DEST_STYLES_DEV], [DEST_STYLE]);
-
-    let src_partials = 'docs/gulp-cache/';
 
     // Messages
     if (isDevelopment) {
@@ -159,6 +157,7 @@ var $                 = require('gulp-load-plugins')({lazy: true, camelize: true
       server: 'docs', port: PORT
     });
   });
+
 
   // Watches for changes
   gulp.task('default', server_run, function() {

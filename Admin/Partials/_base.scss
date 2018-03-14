@@ -1,11 +1,11 @@
         // CORE  --- ////////////////////////////
 @import '../settings',
-        // VARIABLES --- /////////////////////////
+        // STYLE VARIABLES --- /////////////////////////
         '../../wysass/base',
         // TOOLS --- ////////////////////////////
         '../../Tools/toolbox',
-        '../../Tools/A-Auto-Code/brkpoints',
-        '../../Tools/A-Auto-Code/automations',
-        '../../Tools/B-Mixins/mixins',
+        '../Core/automations',
+        '../Core/include-media',
+        '../../Tools/Mixins/mixins',
         // CORE  --- ////////////////////////////
         '../Core/switchboard';

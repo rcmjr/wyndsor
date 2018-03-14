@@ -1,23 +1,4 @@
-//// --- AUTO VENDOR PREFIXES --- ////////////////////////////
-  $AVP:
-    "column-count";
-
-//// --- PSEUDOS --- ////////////////////////////
-  $pseudos: (
-    hover: ':hover',
-    active: ':active',
-    after: '::after',
-    before: ':before',
-    selection: '::selection',
-    focus: ':focus',
-    visited: ':visited',
-    checked: ':checked',
-    invalid: ':invalid',
-    optional: ':optional',
-    required: ':required'
-  );
-
-//// --- Breakpoint Variables --- ////////////////////////////
+//// --- BREAKPOINTS --- ////////////////////////////
   $breakpoints: (
     high-desktop: '>=high-desktop',
     desktop-up: '>desktop',
@@ -34,19 +15,43 @@
     tiny: ('<=tiny')
   );
 
-//// --- HOVER KEYFRAMES --- ////////////////////////////
+  // Screen/Media Sizes
+  $media-sizes: (
+    tiny: 400px,
+    phone: 600px,
+    phablet: 900px,
+    tablet: 1200px,
+    desktop: 1400px,
+    high-desktop: 1860px,
+    twok-desktop: 2100px
+  );
+
+
+  // Screen/Media Expressions
+  $media-expressions: (
+    screen: 'screen',
+    print: 'print',
+    handheld: 'handheld',
+    landscape: '(orientation: landscape)',
+    portrait: '(orientation: portrait)',
+    retina2x: '(-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi), (min-resolution: 2dppx)',
+    retina3x: '(-webkit-min-device-pixel-ratio: 3), (min-resolution: 350dpi), (min-resolution: 3dppx)'
+  );
+
+//// --- KEYFRAMES --- ////////////////////////////
+
+  // Hover-css
   $hover-keyframes: (
     bob, buzz
   );
 
-//// --- HOVER KEYFRAMES --- ////////////////////////////
-  $anime-keyframes: (
+  // Animations-css
+  $animate-keyframes: (
     bounce
   );
 
 //// --- YOUR CUSTOM AUTOMATIONS --- ////////////////////////////
-  @mixin crtrfone($redline, $redline-str, $greenline-list, $greenline-str, $greenline-length, $splitter, $breakpoint, $EpicAct, $important-check) {
-
+  @mixin crtrfone($redline, $redline-str, $greenline, $greenline-str, $greenline-length, $splitter, $breakpoint, $EpicAct, $important-check) {
     //// 1 //////////// Custom Property Automations
     @if $splitter == custo-prop {
 
@@ -66,12 +71,20 @@
 ////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////
 
-//// --- ACTIVE VENDOR PREFIXES --- ////////////////////////////
-  $vprefixes:
-    webkit,
-    moz,
-    ms,
-    o;
+//// --- PSEUDOS --- ////////////////////////////
+  $pseudos: (
+    hover: ':hover',
+    active: ':active',
+    after: '::after',
+    before: ':before',
+    selection: '::selection',
+    focus: ':focus',
+    visited: ':visited',
+    checked: ':checked',
+    invalid: ':invalid',
+    optional: ':optional',
+    required: ':required'
+  );
 
 //// --- HTML ELEMENTS LIST --- ////////////////////////////
   $html-elements:

@@ -17,12 +17,6 @@
     $greenverb-list: if($modifier == mod-true, remove($greenverb-list, "modifier", true),
                      $greenverb-list);
 
-    // Checks for Vendor Prefix Command
-    $vendor-prefixes: if(str-index($greenverb-str, $sass-autovendor), vendor-true,
-               false);
-    $greenverb-list: if($vendor-prefixes == vendor-true, remove($greenverb-list, $sass-autovendor, true),
-                    $greenverb-list);
-
     // Checks for Disable Command
     $disable: if(str-index($greenverb-str, disable), dis-true,
                false);
@@ -60,11 +54,6 @@
             @if $namespace == name-true {
               &#{"\\:" + $number} {
                 @include namebrker($EpicAct, $namebreak-feature, $breakpoint) {
-                  @if $vendor-prefixes == vendor-true {
-                    @each $prefix in $vprefixes {
-                      #{'-' + $prefix + '-' + $propertyname}: #{$number + $unit};
-                    }
-                  }
                   #{$propertyname}: #{$number + $unit};
                 }
               }
@@ -72,11 +61,6 @@
             @else {
               &#{if($modifier == mod-true, "--", "-") + $number} {
                 @include namebrker($EpicAct, $namebreak-feature, $breakpoint) {
-                  @if $vendor-prefixes == vendor-true {
-                    @each $prefix in $vprefixes {
-                      #{'-' + $prefix + '-' + $propertyname}: #{$number + $unit};
-                    }
-                  }
                   #{$propertyname}: #{$number + $unit};
                 }
               }
@@ -97,11 +81,6 @@
               @if $namespace == name-true {
                 &#{"\\:" + $number-stripped} {
                   @include namebrker($EpicAct, $namebreak-feature, $breakpoint) {
-                    @if $vendor-prefixes == vendor-true {
-                      @each $prefix in $vprefixes {
-                        #{'-' + $prefix + '-' + $propertyname}: #{$number-stripped + $unit};
-                      }
-                    }
                     #{$propertyname}: #{$number-stripped + $unit};
                   }
                 }
@@ -109,11 +88,6 @@
               @else {
                 &#{if($modifier == mod-true, "--", "-") + $number-stripped} {
                   @include namebrker($EpicAct, $namebreak-feature, $breakpoint) {
-                    @if $vendor-prefixes == vendor-true {
-                      @each $prefix in $vprefixes {
-                        #{'-' + $prefix + '-' + $propertyname}: #{$number-stripped + $unit};
-                      }
-                    }
                     #{$propertyname}: #{$number-stripped + $unit};
                   }
                 }
@@ -123,11 +97,6 @@
               @if $namespace == name-true {
                 &#{"\\:" + $number-stripped} {
                   @include namebrker($EpicAct, $namebreak-feature, $breakpoint) {
-                    @if $vendor-prefixes == vendor-true {
-                      @each $prefix in $vprefixes {
-                        #{'-' + $prefix + '-' + $propertyname}: #{$number};
-                      }
-                    }
                     #{$propertyname}: #{$number};
                   }
                 }
@@ -135,11 +104,6 @@
               @else {
                 &#{if($modifier == mod-true, "--", "-") + $number-stripped} {
                   @include namebrker($EpicAct, $namebreak-feature, $breakpoint) {
-                    @if $vendor-prefixes == vendor-true {
-                      @each $prefix in $vprefixes {
-                        #{'-' + $prefix + '-' + $propertyname}: #{$number};
-                      }
-                    }
                     #{$propertyname}: #{$number};
                   }
                 }
@@ -224,11 +188,6 @@
               @if $namespace == false {
                 &#{if($modifier == mod-true, "--", "-") + $label-name)} {
                   @include namebrker($EpicAct, $namebreak-feature, $breakpoint) {
-                    @if $vendor-prefixes == vendor-true {
-                      @each $prefix in $vprefixes {
-                        #{'-' + $prefix + '-' + $propertyname}: #{$value};
-                      }
-                    }
                     #{$propertyname}: #{$value};
                   }
                 }
@@ -236,11 +195,6 @@
               @else if $namespace == name-true {
                 &#{"\\:" + $label-name)} {
                   @include namebrker($EpicAct, $namebreak-feature, $breakpoint) {
-                    @if $vendor-prefixes == vendor-true {
-                      @each $prefix in $vprefixes {
-                        #{'-' + $prefix + '-' + $propertyname}: #{$value};
-                      }
-                    }
                     #{$propertyname}: #{$value};
                   }
                 }
