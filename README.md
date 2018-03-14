@@ -9,6 +9,8 @@
 
 > NOTE: *Wyndsor is in beta* and kinks are being worked out.
 
+<br>
+
 ## 1. Installation
 You will need npm to run wyndsor and gulp. If you do already, skip \#3.
 1. Clone wyndsor using a git client or download and extract a zip file to your local build.
