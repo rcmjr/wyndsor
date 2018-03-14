@@ -9,26 +9,6 @@
 
 > NOTE: *Wyndsor is in beta* and kinks are being worked out.
 
-## TOC
-1. Installation
-  <br>1.1 Using Gulp
-2. Sources and Destinations
-  <br>2.1 Compatible Filetype
-  <br>2.2 Adding a New .scss File
-  <br>2.3 Default Locations
-  <br>2.4 Gulp Settings
-3. Getting Started
-  <br>3.1 Your Style Base
-  <br>3.2 Your Stylesheets
-  <br>3.3 How to Code
-  <br>3.4 Composing
-4. Customizing Wyndsor
-  <br>4.1 Settings
-  <br>4.2 Base
-  <br>4.3 Toolbox
-5. API and Bugs
-<hr><br>
-
 ## 1. Installation
 You will need npm to run wyndsor and gulp. If you do already, skip \#3.
 1. Clone wyndsor using a git client or download and extract a zip file to your local build.
