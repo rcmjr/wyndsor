@@ -926,8 +926,9 @@ $Units:
 ```
 
 *NOTE: The typography generator is an experimental feature, and may not work as intended.*
-<br>
-<br>
+
+<hr><br>
+
 ## 5. API & Bugs
 ## API
 Wyndsor's api is used to integrate custom mixins, which are called by the custom whole property `custo` or property value `-custo` declarations.
