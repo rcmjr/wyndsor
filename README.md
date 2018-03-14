@@ -760,7 +760,7 @@ Composing is a fairly straightforward and automated process. Make sure you start
 Simply save the file you're working in and gulp will initiate wyndsor to compose it. Note that gulp will only process .scss files that have had a change made to them.
 
 ### Before Prod
-Before saving in prod mode. All your .scss map names must be up-to-date in wyndsor's `_maps` file. It is located in `/Admin`.
+Before saving in prod mode. All your .scss map names must be up-to-date in wyndsor's `_maps` file (located in `/Admin`). In order for wyndsor to combine all your maps, each map must have a unique name, which must be used in their respective .scss files and here.
 ```
 $Epic-Map: map-combine(
   --- Only Change These
