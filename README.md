@@ -979,7 +979,10 @@ $important-check
 ```
 ### Functions
 A wide variety of functions are at use in wyndsor's core and can be used in your custom mixins. These can be found in `/Admin/Core/_automations`.
+
 <hr>
+
 ## Known Bugs
 - Single values that require quotation marks, such as font-family names (e.g. `"myriad-pro"`), must be double-quoted (e.g. `"'myriad-pro'"`).
 - Custom properties are missing hyphens between different segments.
+- And all future ones!
