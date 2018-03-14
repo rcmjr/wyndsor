@@ -1,7 +1,7 @@
-<p align="center">
-    <a href="https://wyndsor.io/" target="_blank"><img width="250" src="https://wyndsor.io/assets/Asset%207.png"></a><br><br>
+<p style="text-align:center; margin-left:30px; margin-right:30px;">
+    <a href="https://wyndsor.io/" target="\_blank"><img width="250" src="https://wyndsor.io/assets/Asset%207.png"></a><br><br>
     <h3>A snazzy SASS composer, and the easiest way to write responsive dry CSS.</h3>
-    <h5>Wyndsor was made by a ux/ui designer unhappy with the bloat and/or obscurity of most css frameworks. Wyndsor aims to provide a scalable approach to front-end development and enable front-end developers to easily write through a bare minimum vernacular.<br><br>Through the power of sass maps, media query consolidation, and the easiest declarations - ever - to code breakpoints, selector aliases, inline mixins, (and more) can rapidly get you from prototype to prod.</h5>
+    <h4>Wyndsor was made by a ux/ui designer unhappy with the bloat and/or obscurity of most css frameworks. Wyndsor aims to provide a scalable approach to front-end development and enable front-end developers to easily write through a bare minimum vernacular.<br><br>Through the power of sass maps, media query consolidation, and the easiest declarations - ever - to code breakpoints, selector aliases, inline mixins, (and more) can rapidly get you from prototype to prod.</h4>
 </p>
 <hr>
 
