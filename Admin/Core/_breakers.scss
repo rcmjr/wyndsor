@@ -96,7 +96,16 @@
       $name: "_" + str-slice($property, 2, str-length($property));
     }
 
-    &#{$name} {@content;}
+    $parent: &;
+    $parent-key: to-string($parent);
+    $parent-check: if(str-index($parent-key, "."), true, if(str-index($parent-key, "#"), true, false));
+    @if $parent-check == false {
+      @at-root #{"." + $parent + $name} {@content;}
+    }
+    @else {
+      &#{$name} {@content;}
+    }
+
   }
 
   // $sass-preceder: "\~"; // Key for Preceding selector
