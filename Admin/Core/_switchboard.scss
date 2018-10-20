@@ -59,7 +59,7 @@
     @include splitter($redline-str, $greenline-list, auto-prop) {
       $splitter: auto-prop;
       @if $customprops-feature == true-all {
-        #{$redline-str}: #{$redline-customprop};
+        #{$redline-str}: $redline-customprop;
       }
       @else {
         @include repeater($redline, $redline-str, $greenline-list, $greenline-str, $greenline-length, $splitter, $breakpoint, $EpicAct, $namebreak-feature, $important-check);
@@ -97,9 +97,9 @@
           @include namebrker($EpicAct, $namebreak-feature, $breakpoint, default-under) {
             @if $redline-str == "font-size" {
               @if $custompropvarfull-check == true or $customprops-feature == true-full {
-                #{$redline-custompropname}: #{$greenline-clean};
+                #{$redline-custompropname}: $greenline-clean;
               }
-              #{$redline-str}: #{$redline-customprop};
+              #{$redline-str}: $redline-customprop;
             }
             @else if $redline-str == unquote($sass-autotype) {
               font-size: #{unquote('var(--' + $var-name + '-font-size)')};
@@ -121,9 +121,9 @@
           @include namebrker($EpicAct, $namebreak-feature, $breakpoint, default-under) {
             @if $redline-str == "font-size" {
               @if $custompropvarfull-check == true or $customprops-feature == true-full {
-                #{$redline-custompropname}: #{$greenline-clean};
+                #{$redline-custompropname}: $greenline-clean;
               }
-              #{$redline-str}: #{$redline-customprop};
+              #{$redline-str}: $redline-customprop;
             }
             @else if $redline-str == unquote($sass-autotype) {
               font-size: #{unquote('var(--' + $var-name + '-font-size)')};
@@ -172,12 +172,12 @@
       @include namebrker($EpicAct, $namebreak-feature, $breakpoint, default-under) {
         @if $customprops-fetch == true or $custompropvar-check == true {
           @if $custompropvarfull-check == true or $customprops-feature == true-full {
-            #{$redline-custompropname}: #{$greenline-clean};
+            #{$redline-custompropname}: $greenline-clean;
           }
-          #{$redline-str}: #{$redline-customprop};
+          #{$redline-str}: $redline-customprop;
         }
         @else {
-          #{$redline-str}: #{$greenline-clean};
+          #{$redline-str}: $greenline-clean;
         }
       }
     }
@@ -461,7 +461,7 @@
           }
           //// a //////////// Pushes specified class/id to the important section or breakpoint.
           @each $property, $propertyvalue in $value {
-            $exist-alias: if(str-index($property, $sass-alterego), true, false);
+            $exist-alias: if(str-index(to-string($property), $sass-alterego), true, false);
             @if $exist-alias == true {}
             @else {
               @include router($property, $propertyvalue, $value, $mainname, $var-name, $breakpoint, $EpicAct, $customprops-feature, $namebreak-feature, $gm-override, $gm-override-2, $breakpoint-override, $allbreakpoint-override, $important-override, $override-brkname);
