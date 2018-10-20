@@ -6,8 +6,31 @@
 
   <title>Wyndsor | Sass Composer</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Wyndsor Sass">
+  <meta name="description" content="Wyndsor is a SASS composer that works ontop of Gulp-Sass to make pre-processing and front-end coding easier.">
   <meta name="author" content="Rob Murphy">
+  <meta charset="utf-8">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  <meta name="description" content="">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta http-equiv="Expires" content="1">
+  <meta name="robots" content="index, follow">
+
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="Upgrade SASS and Enhance your Front-end Workflow">
+  <meta property="og:site_name" content="Wyndsor | The Sass Composer">
+  <meta property="og:url" content="https://wyndsor.io">
+  <meta property="og:image" content="https://wyndsor.io/social-image.jpg">
+  <meta property="article:published_time" content="2018-03-13">
+  <meta property="article:author" content="https://github.com/rcmjr">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+  <link rel="manifest" href="/site.webmanifest">
+  <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#603cba">
+  <meta name="msapplication-TileColor" content="#603cba">
+  <meta name="theme-color" content="#603cba">
+
   <!-- inject:css -->
   <link rel="stylesheet" href="css/style.css">
   <!-- endinject -->
@@ -186,21 +209,17 @@
       </div>
     </footer>
     <script>
-
       var modal = document.querySelector(".modal");
       var trigger = document.querySelector(".trigger");
       var closeButton = document.querySelector(".close-button");
-
       function toggleModal() {
         modal.classList.toggle("show-modal");
       }
-
       function windowOnClick(event) {
         if (event.target === modal) {
           toggleModal();
         }
       }
-
       trigger.addEventListener("click", toggleModal);
       closeButton.addEventListener("click", toggleModal);
       window.addEventListener("click", windowOnClick);
