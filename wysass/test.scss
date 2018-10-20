@@ -1,0 +1,15 @@
+// inject: dependenciesbase //
+// endinject: dependenciesbase //
+
+$x-MapName: (
+
+  classname: (
+    background: ("myriad-pro", helvetica, sans-serif)
+  )
+
+);
+
+$Epic-Map: $x-MapName; // Change to New Map Name.
+
+// inject: dependenciesepic //
+// endinject: dependenciesepic //

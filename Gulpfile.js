@@ -21,9 +21,9 @@ var $                 = require('gulp-load-plugins')({lazy: true, camelize: true
     sassOptions       = {errLogToConsole: true, outputStyle: 'nested'};
 
     // Source, Destination and Port Vars
-    var ROOT                = 'css/',
+    var ROOT                = '../css/',
         SRC_ROOT            = 'wysass/',
-        HTML_ROOT           = '../' + ROOT,
+        HTML_ROOT           = '../',
         STYLE               = 'style.scss',
         STYLE_CSS           = 'style.css';
 
@@ -31,7 +31,7 @@ var $                 = require('gulp-load-plugins')({lazy: true, camelize: true
     var SRC_ALL             = SRC_ROOT + '**/*.scss',
         DEST_STYLE          = ROOT,
         DEST_STYLES_DEV     = ROOT + 'dev/',
-        DEST_HTML_ALL       = HTML_ROOT + '**/*.html',
+        DEST_HTML_ALL       = HTML_ROOT + '*.html',
         PORT                = 8000,
         STYLE_BASE          = 'Admin/Partials/_base.scss',
         STYLE_DEPENDANCIES  = ['Admin/Partials/_reset.scss',
@@ -148,13 +148,14 @@ var $                 = require('gulp-load-plugins')({lazy: true, camelize: true
     var sources = gulp.src([DEST_STYLE + style_head_inject], {read: false});
     return target.pipe(inject(sources, {relative: true}))
       .pipe(gulp.dest(HTML_ROOT))
+      .pipe(browser.reload({stream: true}));
   });
 
   ////////////////////////////////////////
   // Start a server with LiveReload to preview the site in  /// WORKING
   gulp.task('server', server_build_load, function() {
     browser.init({
-      server: 'docs', port: PORT
+      server: [HTML_ROOT], port: PORT
     });
   });
 
@@ -163,5 +164,5 @@ var $                 = require('gulp-load-plugins')({lazy: true, camelize: true
   gulp.task('default', server_run, function() {
     gulp.watch([SRC_ALL], scss_build_task); // Watches individual scss
     gulp.watch(style_build, style_build_task); // Watches style SCSS
-    gulp.watch([DEST_HTML_ALL], ['inject_header', browser.reload]); // Reloads if html files updates
+    gulp.watch([DEST_HTML_ALL], ['inject_header']); // Reloads if html files updates
   });
