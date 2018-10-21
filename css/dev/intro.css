@@ -36,7 +36,7 @@
       display: inline-block;
       border-radius: 50%;
       position: absolute;
-      content: ' '; }
+      content: "' '"; }
   .i__intro--text {
     display: -webkit-box;
     display: -ms-flexbox;
@@ -63,10 +63,6 @@
       .i__intro--text h1 .bold {
         font-weight: 500;
         display: block; }
-
-@media (min-width: 2100px) {
-  .i__intro--sphere {
-    overflow: visible; } }
 
 @media (max-width: 1200px) {
   .i__intro--sphere:before {

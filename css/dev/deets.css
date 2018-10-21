@@ -29,7 +29,7 @@
       left: 50%;
       -webkit-transform: translate(-50%, 0);
       transform: translate(-50%, 0);
-      content: ' '; }
+      content: " "; }
     .d__deets--sphere-container {
       width: 0;
       height: 0;
@@ -115,6 +115,17 @@
       .d__deets--blocks-div .block p .grey {
         color: #F6F6F6;
         opacity: 0.8; }
+
+.deets-link {
+  text-decoration: none;
+  color: white;
+  -webkit-transition: color 0.02s linear;
+  transition: color 0.02s linear;
+  font-weight: 600; }
+  .deets-link:hover {
+    color: #008FD6;
+    -webkit-transition: color 0.02s linear;
+    transition: color 0.02s linear; }
 
 @media (min-width: 1860px) {
   .d__deets--sphere {
