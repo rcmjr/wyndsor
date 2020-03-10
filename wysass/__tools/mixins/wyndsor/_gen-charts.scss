@@ -52,7 +52,7 @@
       $number: $i * $bar-steps-change;
       $namenumber: (100 - ($i * $bar-steps-change));
       &#{"." + "bar" + $namenumber} {
-        #{$bar-direction}: #{$number}#{%};
+        #{$bar-direction}: #{$number}#{'%'};
         height: $bar-height;
       }
     }

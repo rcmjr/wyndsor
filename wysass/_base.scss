@@ -19,10 +19,19 @@
 
   //// 3 //////////// Font-Families
   $ff-prime: "myriad pro", 'helvetica', 'arial', sans-serif;
+  $ff-second: 'kith-regular', 'helvetica', 'arial', sans-serif;
+  $ff-three: 'kith-light', 'helvetica', 'arial', sans-serif;
+  $ff-four: 'kin-bold', 'helvetica', 'arial', sans-serif;
 
-  //// 4 //////////// Transitions
-  $tc-img: (filter .2s ease-in-out, transform .2s ease-in-out);
-  $tc-transform: transform .2s ease-in-out;
-  $tc-all: all .2s ease-in-out;
-  $tc-feature: (visibility .2s linear 0s, opacity .2s linear 0s, width 0s linear 2s, height 0s linear 2s);
-  $tc-feature-base: (visibility 0s linear 0s, opacity .2s linear 0s, width 0s linear 0s, height 0s linear 0s);
+  //// 4 //////////// Standard Row Heights
+  $site-heights: (
+    hero: (
+      base: 750px,
+      desktop-up: 950px
+    ),
+    intro: (
+      base: 240px
+    )
+  );
+
+//// --- VARIABLES --- ////////////////////////////

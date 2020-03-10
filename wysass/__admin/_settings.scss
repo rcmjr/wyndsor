@@ -1,0 +1,53 @@
+
+  //// --- Global Switches --- ////////////////////////////
+  $Enable-Overrides: yes;               // yes|no -- Enables/Disables key overrides (importance and breakpoints)
+  $Scope-BreakpointOverride: norm;      // norm|all -- Switch between overriding everything except existing breakpoints (norm) or everything regardless of existing breakpoints (all)
+  $Enable-Features: yes;                // yes|no -- Enables/Disables Custom-property variables and future features
+  $Enable-ImportantEpic: yes;           // yes|no -- Enables/Disables css tagged as "important"
+  $Disable-TrueImportantTag: no;        // no|yes -- Disables/Enables "!important" tag
+  $Enable-NameBreak: yes;               // yes|no -- Enables/Disables breakpoint names being added to selectors (helpful if you want to call specific breakpoint styles in your css)
+  $Alias-BreakpointOnly: no;            // no|yes -- Limits aliases to within css contained in breakpoints and appends the breakpoint name to the alias
+
+  //// --- Global Parameters --- ////////////////////////////
+  $Global-Default-Unit: px;             // px|rem|"%"|etc -- Default Unit for Wyndsor and Mixins
+  $Global-NameBreak-Separator: default; // default|default-under|direct-child|child|namespace
+                                        // direct-child (.), child ( .), namespace (:), default (-), default-under (_)
+
+  ////////////////////////////////////////////////////////////////////////////////////
+  ////////////////////////////////////////////////////////////////////////////////////
+  ////////////////////////////////////////////////////////////////////////////////////
+  //// --- DANGER ZONE - CHANGE ANY OF THIS AT YOUR OWN RISK --- /////////////////////
+  ////////////////////////////////////////////////////////////////////////////////////
+  ////////////////////////////////////////////////////////////////////////////////////
+  ////////////////////////////////////////////////////////////////////////////////////
+
+  //// --- Selector Keys --- ////////////////////////////
+  $sass-child: "\>";                    // Key for Child ()
+  $sass-subclass: "\-";                 // Key for Sub-Classes
+  $sass-underclass: "\_";               // Key for Under-Classes
+  $sass-rename: "\\";                   // Key for Name Extensions
+  $sass-namespace: "\:";                // Key for Namespace classes
+  $sass-preceder: "\~";                 // Key for Preceding selector
+  $sass-comma: "\,";                    // Key for Comma Separated Selector
+  $sass-immediate: "\+";                // Key for Immediate Selector
+  $sass-alterego: "alias";              // Key for Aliases
+  $sass-overrides: "override";          // Key for Overrides
+  $sass-enables: "enable";              // Key for Specific Feature Enables
+  $sass-autoprop: "auto";               // Creates property and property values via built-in automations
+  $sass-custoprop: "custo";             // Creates property and property values via your custom automations
+  $sass-autoval: "-auto";               // Creates property values via built-in automations
+  $sass-custoval: "-custo";             // Creates property values via custom automations
+  $sass-autovar: "-var";                // Creates custom property variable for CSS Property
+
+  //// --- Override and Enable Keys --- ////////////////////////////
+  $wy-customprops: custom-props;        // Default Key for Custom Property Attribute
+  $wy-important: important;             // Default Key for Wyndsor Important tag
+  $wy-namebreak: breakname;             // Default Key for adding breakpoint names to ends of selectors
+  $wy-overrideall: applesauce;          // Default key for applying overrides to the entire selector stack (from parent to all it's children)
+  $wy-allbreakpoints: all-breakpoints;  // Default key for generating every parent selector's properties within each breakpoint defined in the toolbox
+
+  //// --- Integrated Typography Generator Settings --- ////////////
+  $Enable-ATG: no;                      // Enable Typography Generator
+  $sass-autotype: "type-style";         // Attribute Wyndsor looks for to run the typography generator
+  $base-fontsize: 100%;                 // 10px = 1 rem
+  $base-lineheight: 1.6;                // Default line-height Wyndsor will use

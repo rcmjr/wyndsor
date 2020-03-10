@@ -138,7 +138,8 @@
   $Units:
     // I don`t recommend changing the order, it could gum up the ATG.
     px, rem, em,
-    %, ch, pc,
+    '%', ch, pc,
     in, cm, mm,
     pt, ex, vw,
     vh, vmin, vmax;
+    
